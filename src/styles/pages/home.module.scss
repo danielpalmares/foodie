@@ -1,0 +1,39 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+@include respond(phone) {
+  .home {
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 1rem;
+
+      button {
+        height: 4rem;
+        width: 4rem;
+        background: $color-white--200;
+        border: none;
+        outline: none;
+        border-radius: 1rem;
+
+        box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+
+        &:active {
+          transform: translateY(0.5rem) scale(0.9);
+        }
+      }
+    }
+
+    .user {
+      width: 5.6rem;
+      height: 5.6rem;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}

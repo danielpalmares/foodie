@@ -1,7 +1,11 @@
+import Home from './pages/Home.jsx';
+
+import './styles/global.scss';
+
 export default function App() {
   return (
     <div className="App">
-      <h1>Cooking Time</h1>
+      <Home />
     </div>
   );
 }
