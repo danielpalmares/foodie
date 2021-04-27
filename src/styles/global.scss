@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 @font-face {
   font-family: 'Lexend';
   src: url('../fonts/Lexend-Light.ttf'), url('../fonts/Lexend-Regular.ttf'),
@@ -17,5 +19,5 @@ html {
 body {
   box-sizing: border-box;
   font-family: 'Lexend', sans-serif;
-  font-size: 1.6rem;
+  font-size: $font-regular;
 }
