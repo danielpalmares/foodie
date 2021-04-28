@@ -1,5 +1,6 @@
 import React from 'react';
 import { IoGridOutline, IoArrowForward } from 'react-icons/io5';
+import NavBottom from '../components/NavBottom.jsx';
 
 import Avatars from '../assets/avatars/index';
 import StarsIcon from '../assets/svg/brilhante.svg';
@@ -34,6 +35,8 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      <NavBottom />
     </div>
   );
 }

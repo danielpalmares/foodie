@@ -1,0 +1,36 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+@include respond(phone) {
+  .navBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background: #ffffff95;
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+
+    button {
+      background: none;
+      outline: none;
+      border: none;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: $color-grey;
+      padding: 1rem;
+      border-radius: 1rem;
+      cursor: pointer;
+    }
+
+    .buttonActive {
+      background: $color-black--200;
+    }
+  }
+}
