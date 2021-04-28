@@ -5,8 +5,11 @@
   .navBottom {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    background: #ffffff95;
+    justify-content: space-between;
+    background: $color-white--200;
+    // backdrop-filter: blur(3px);
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
 
     position: fixed;
     left: 0;

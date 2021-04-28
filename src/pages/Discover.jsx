@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { IoGridOutline, IoArrowForward } from 'react-icons/io5';
 import NavBottom from '../components/NavBottom.jsx';
 
 import Avatars from '../assets/avatars/index';
 import StarsIcon from '../assets/svg/brilhante.svg';
 
-import styles from '../styles/pages/home.module.scss';
+import styles from '../styles/pages/discover.module.scss';
+import { GlobalContext } from '../contexts/GlobalContextProvider.jsx';
 
-export default function Home() {
+export default function Discover() {
+  const { addActivePage } = useContext(GlobalContext);
+
+  useEffect(() => {
+    return addActivePage('Discover');
+  });
+
   return (
     <div className={styles.home}>
       <header>
