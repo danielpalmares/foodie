@@ -3,6 +3,8 @@
 
 @include respond(phone) {
   .search {
+    @include appWrapper;
+
     .buttonContainer {
       padding: 2rem;
 
@@ -35,6 +37,8 @@
       flex-direction: column;
       gap: 2rem;
 
+      position: relative;
+
       h1 {
         font-size: $font-heading--200;
         font-weight: 700;
@@ -42,12 +46,20 @@
       }
 
       span {
+        display: block;
         font-size: $font-small;
         font-weight: 600;
         color: $color-grey;
       }
 
+      .inputWrapper {
+        min-width: 28rem;
+        // max-width: 42.5rem;
+        position: relative;
+      }
+
       input {
+        width: 100%;
         font-family: 'Lexend', sans-serif;
         font-size: $font-regular;
         font-weight: 600;
@@ -58,13 +70,35 @@
         outline: none;
         @include shadow;
 
-        padding: 2rem;
+        padding: 2rem 5rem 2rem 1rem;
         border-radius: 1rem;
 
         &::placeholder {
           font-size: $font-tiny;
           font-weight: 600;
           color: $color-grey;
+        }
+      }
+
+      button {
+        @include flexCenter;
+
+        outline: none;
+        border: none;
+        background: $color-blue--200;
+        color: $color-white;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        cursor: pointer;
+
+        position: absolute;
+        bottom: 22%;
+        right: 2%;
+        transition: all 0.2s;
+        @include shadow;
+
+        &:active {
+          @include clickAnimation;
         }
       }
     }
