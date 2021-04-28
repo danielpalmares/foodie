@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { IoGridOutline, IoArrowForward } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 import NavBottom from '../components/NavBottom.jsx';
 
 import Avatars from '../assets/avatars/index';
@@ -19,7 +20,7 @@ export default function Discover() {
     <div className={styles.home}>
       <header>
         <button>
-          <IoGridOutline size={26} color="#050908" />
+          <IoGridOutline size={26} />
         </button>
 
         <div className={styles.user}>
@@ -35,10 +36,12 @@ export default function Discover() {
 
           <div className={styles.textContainer}>
             <p>Find recipes based on what you already have at home</p>
-            <button>
-              Let's try!
-              <IoArrowForward size={16} />
-            </button>
+            <Link to="/search">
+              <button>
+                Let's try!
+                <IoArrowForward size={16} />
+              </button>
+            </Link>
           </div>
         </div>
       </main>

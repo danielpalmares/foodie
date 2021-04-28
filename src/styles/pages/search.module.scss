@@ -1,0 +1,72 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+@include respond(phone) {
+  .search {
+    .buttonContainer {
+      padding: 2rem;
+
+      button {
+        background: $color-white;
+        outline: none;
+        border: none;
+
+        @include flexCenter;
+
+        padding: 1rem;
+        border-radius: 1rem;
+        color: $color-black--200;
+        @include shadow;
+
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:active {
+          @include clickAnimation;
+        }
+      }
+    }
+
+    header {
+      padding: 0 2rem;
+      margin: 2rem 0;
+
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      h1 {
+        font-size: $font-heading--200;
+        font-weight: 700;
+        color: $color-black--200;
+      }
+
+      span {
+        font-size: $font-small;
+        font-weight: 600;
+        color: $color-grey;
+      }
+
+      input {
+        font-family: 'Lexend', sans-serif;
+        font-size: $font-regular;
+        font-weight: 600;
+        color: $color-black--200;
+
+        background: $color-white;
+        border: none;
+        outline: none;
+        @include shadow;
+
+        padding: 2rem;
+        border-radius: 1rem;
+
+        &::placeholder {
+          font-size: $font-tiny;
+          font-weight: 600;
+          color: $color-grey;
+        }
+      }
+    }
+  }
+}

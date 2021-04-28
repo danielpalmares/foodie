@@ -3,19 +3,21 @@
 
 @include respond(phone) {
   .navBottom {
+    @include appWrapper;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: $color-white--200;
-    // backdrop-filter: blur(3px);
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
 
-    position: fixed;
-    left: 0;
-    bottom: 0;
+    background: $color-white--200;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     width: 100%;
     padding: 1rem 2rem;
+
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 0%);
 
     button {
       background: none;

@@ -5,3 +5,22 @@
     }
   }
 }
+
+@mixin clickAnimation {
+  transform: translateY(0.5rem) scale(0.9);
+}
+
+@mixin shadow {
+  box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.1);
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin appWrapper {
+  max-width: 700px;
+  margin: 0 auto;
+}
