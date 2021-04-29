@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../contexts/GlobalContextProvider';
-import { IoArrowBackOutline, IoAddOutline } from 'react-icons/io5';
+import { IoArrowBackOutline, IoSearchOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
 import NavBottom from '../components/NavBottom.jsx';
@@ -31,7 +31,7 @@ export default function Search() {
         <div className={styles.inputWrapper}>
           <input type="text" placeholder="Type and add your ingredients..." />
           <button>
-            <IoAddOutline size={26} />
+            <IoSearchOutline size={26} />
           </button>
         </div>
       </header>

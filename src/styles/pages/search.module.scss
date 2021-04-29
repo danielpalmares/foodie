@@ -4,6 +4,7 @@
 @include respond(phone) {
   .search {
     @include appWrapper;
+    min-height: 100vh;
 
     .buttonContainer {
       padding: 2rem;

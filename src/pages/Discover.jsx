@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { IoGridOutline, IoArrowForward } from 'react-icons/io5';
+import { IoGridOutline, IoArrowForward, IoHeartOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import NavBottom from '../components/NavBottom.jsx';
 
@@ -11,7 +11,8 @@ import { GlobalContext } from '../contexts/GlobalContextProvider.jsx';
 
 export default function Discover() {
   const { addActivePage } = useContext(GlobalContext);
-
+  const img =
+    'https://images.absolutdrinks.com/ingredient-images/Raw/Absolut/0f1cdf6d-950a-42d5-8843-c00a6248b87b.jpg?imwidth=500';
   useEffect(() => {
     return addActivePage('Discover');
   });
@@ -44,6 +45,27 @@ export default function Discover() {
             </Link>
           </div>
         </div>
+
+        <section>
+          <div
+            className={styles.recipeContainer}
+            style={{
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${img})`,
+            }}
+          >
+            <div className={styles.top}>
+              <span>Orange based</span>
+
+              <button>
+                <IoHeartOutline size={26} />
+              </button>
+            </div>
+
+            <div className={styles.bottom}>
+              <span>Recipe name</span>
+            </div>
+          </div>
+        </section>
       </main>
 
       <NavBottom />
