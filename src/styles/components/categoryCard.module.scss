@@ -1,0 +1,79 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+@include respond(phone) {
+  .recipeContainer {
+    background-repeat: none;
+    background-size: cover;
+    background-position: center;
+
+    width: 33.5rem;
+    height: 43.5rem;
+    border-radius: 2rem;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+
+    margin: 2rem 0;
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 2rem 1rem;
+
+      span {
+        background: $color-black--200-op;
+        backdrop-filter: blur(5px);
+        font-size: $font-small;
+        font-weight: 600;
+        color: $color-white;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+      }
+
+      button {
+        outline: none;
+        border: none;
+        background: $color-black--200-op;
+        backdrop-filter: blur(5px);
+        @include flexCenter;
+        color: $color-white;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+
+        z-index: 20;
+        transition: all 0.2s;
+        cursor: pointer;
+
+        &:active {
+          @include clickAnimation;
+        }
+      }
+    }
+
+    .bottom {
+      margin: 3rem 0rem;
+      font-weight: 700;
+
+      h3 {
+        margin: 0 1rem;
+        font-size: $font-heading--300;
+        color: $color-white;
+        margin-bottom: 1rem;
+      }
+
+      span {
+        background: $color-black--200-op;
+        padding: 0 1rem;
+        font-size: $font-small;
+        color: $color-grey;
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+}

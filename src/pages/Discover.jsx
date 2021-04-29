@@ -1,5 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { IoGridOutline, IoArrowForward, IoHeartOutline } from 'react-icons/io5';
+import {
+  IoGridOutline,
+  IoArrowForward,
+  IoHeartOutline,
+  IoReturnUpForwardSharp,
+} from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import NavBottom from '../components/NavBottom.jsx';
 
@@ -8,6 +13,9 @@ import StarsIcon from '../assets/svg/brilhante.svg';
 
 import styles from '../styles/pages/discover.module.scss';
 import { GlobalContext } from '../contexts/GlobalContextProvider.jsx';
+import CategoryCard from '../components/CategoryCard.jsx';
+
+import Food from '../assets/category/index.js';
 
 export default function Discover() {
   const { addActivePage } = useContext(GlobalContext);
@@ -16,6 +24,18 @@ export default function Discover() {
   useEffect(() => {
     return addActivePage('Discover');
   });
+
+  function evente(e) {
+    const tagNameTarget = e.target.tagName.toLowerCase();
+
+    if (
+      tagNameTarget === 'button' ||
+      tagNameTarget === 'svg' ||
+      tagNameTarget === 'path'
+    )
+      return;
+    console.log(tagNameTarget);
+  }
 
   return (
     <div className={styles.home}>
@@ -47,24 +67,101 @@ export default function Discover() {
         </div>
 
         <section>
-          <div
-            className={styles.recipeContainer}
-            style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${img})`,
-            }}
-          >
-            <div className={styles.top}>
-              <span>Orange based</span>
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Breads, Cereals, and Tubers"
+            recipeQuantity="carbohydrate"
+            handleCategory={evente}
+          />
 
-              <button>
-                <IoHeartOutline size={26} />
-              </button>
-            </div>
+          <CategoryCard
+            image={Food.vegetables}
+            basedIngredient="🥦 Vegetable" 
+            title="Vitamins, Minerals and Fibers"
+            recipeQuantity="vegetable"
+            handleCategory={evente}
+          />
 
-            <div className={styles.bottom}>
-              <span>Recipe name</span>
-            </div>
-          </div>
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
+
+          <CategoryCard
+            image={Food.bread}
+            basedIngredient="🍞 Bread"
+            title="Hey"
+            recipeQuantity={40}
+            handleCategory={evente}
+          />
         </section>
       </main>
 
