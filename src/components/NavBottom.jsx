@@ -8,7 +8,7 @@ import {
   IoHeartOutline,
   IoPersonOutline,
 } from 'react-icons/io5';
-import styles from '../styles/components/navBottom.module.scss';
+import styles from '../styles/components/NavBottom.module.scss';
 
 export default function NavBottom() {
   const { activePage } = useContext(GlobalContext);

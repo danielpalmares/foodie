@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoHeartOutline } from 'react-icons/io5';
 
-import styles from '../styles/components/categoryCard.module.scss';
+import styles from '../styles/components/CategoryCard.module.scss';
 
 export default function CategoryCard({
   image,

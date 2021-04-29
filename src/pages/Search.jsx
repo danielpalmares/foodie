@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import NavBottom from '../components/NavBottom.jsx';
 
-import styles from '../styles/pages/search.module.scss';
+import styles from '../styles/pages/Search.module.scss';
 
 export default function Search() {
   const { addActivePage } = useContext(GlobalContext);
