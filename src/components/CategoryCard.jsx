@@ -7,7 +7,7 @@ export default function CategoryCard({
   image,
   basedIngredient,
   title,
-  recipeQuantity,
+  series,
   handleCategory,
 }) {
   console.log(image);
@@ -31,7 +31,7 @@ export default function CategoryCard({
       <div className={styles.bottom}>
         <h3>{title}</h3>
         <span>
-          <strong>{recipeQuantity}</strong> series
+          <strong>{series}</strong> series
         </span>
       </div>
     </div>

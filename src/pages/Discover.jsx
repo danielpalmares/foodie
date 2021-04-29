@@ -15,7 +15,7 @@ import styles from '../styles/pages/discover.module.scss';
 import { GlobalContext } from '../contexts/GlobalContextProvider.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
 
-import Food from '../assets/category/index.js';
+import Food from '../assets/category/_index.js';
 
 export default function Discover() {
   const { addActivePage } = useContext(GlobalContext);
@@ -67,101 +67,107 @@ export default function Discover() {
         </div>
 
         <section>
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Breads, Cereals, and Tubers"
-            recipeQuantity="carbohydrate"
-            handleCategory={evente}
-          />
+          <ul>
+            <li>
+              <CategoryCard
+                image={Food.bread}
+                basedIngredient="🍞 Bread"
+                title="Breads, Cereals, Tubers"
+                series="carbohydrate"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.vegetables}
-            basedIngredient="🥦 Vegetable" 
-            title="Vitamins, Minerals and Fibers"
-            recipeQuantity="vegetable"
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.vegetables}
+                basedIngredient="🥦 Vegetable"
+                title="Lettuce, Spinach, Cauliflower"
+                series="vitamin, mineral, fiber"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.fruits}
+                basedIngredient="🍎 Fruits"
+                title="Apple, Banana, Peach"
+                series="fiber, vitamin, mineral"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.grains}
+                basedIngredient="🌾 Grain"
+                title="Bean, Rice, Lentil"
+                series="fiber, proteín"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.meat}
+                basedIngredient="🍖 Meat"
+                title="Chicken, Beef, Fish"
+                series="proteín"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.pizza}
+                basedIngredient="🍕 Pizza"
+                title="Pepperoni, Mozzarella, Marguerita"
+                series="proteín"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.pasta}
+                basedIngredient="🍝 Pasta"
+                title="Spaghetti, Lasagna, Gnocchi"
+                series="carbohydrate"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.eggs}
+                basedIngredient="🥚 Egg"
+                title="Chicken egg, Duck egg"
+                series="proteín"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.milk}
+                basedIngredient="🥛 Milk"
+                title="Milk and Dairy products"
+                series="calcium"
+                handleCategory={evente}
+              />
+            </li>
 
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
-
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
-
-          <CategoryCard
-            image={Food.bread}
-            basedIngredient="🍞 Bread"
-            title="Hey"
-            recipeQuantity={40}
-            handleCategory={evente}
-          />
+            <li>
+              <CategoryCard
+                image={Food.junkFood}
+                basedIngredient="🍟 Junk Food"
+                title="Fast Food, Candies, Fries"
+                series="calorie"
+                handleCategory={evente}
+              />
+            </li>
+          </ul>
         </section>
       </main>
 
