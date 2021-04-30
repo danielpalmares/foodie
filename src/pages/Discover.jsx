@@ -13,13 +13,6 @@ import CategoryCard from '../components/CategoryCard.jsx';
 import Food from '../assets/category/_index.js';
 
 export default function Discover() {
-  const { addActivePage } = useContext(GlobalContext);
-  const img =
-    'https://images.absolutdrinks.com/ingredient-images/Raw/Absolut/0f1cdf6d-950a-42d5-8843-c00a6248b87b.jpg?imwidth=500';
-  useEffect(() => {
-    return addActivePage('Discover');
-  });
-
   function evente(e) {
     const tagNameTarget = e.target.tagName.toLowerCase();
 
