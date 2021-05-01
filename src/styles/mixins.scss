@@ -4,7 +4,34 @@
       @content;
     }
   }
+
+  @if $breakpoint == tablet {
+    @media screen and (min-width: 700px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == desktop {
+    @media screen and (min-width: 960px) {
+      @content;
+    }
+  }
 }
+
+@mixin appWrapperPhone {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@mixin appWrapperTablet {
+  max-width: 960px;
+  margin: 0 auto;
+}
+@mixin appWrapperDesktop {
+  // max-width: 1280px;
+  margin: 0 auto;
+}
+
 
 @mixin clickAnimation {
   transform: translateY(0.5rem) scale(0.9);
@@ -20,7 +47,4 @@
   align-items: center;
 }
 
-@mixin appWrapper {
-  max-width: 700px;
-  margin: 0 auto;
-}
+

@@ -3,7 +3,7 @@
 
 @include respond(phone) {
   .navBottom {
-    @include appWrapper;
+    @include appWrapperPhone;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,5 +39,19 @@
     .buttonActive {
       background: $color-black--200;
     }
+  }
+}
+
+
+@include respond(tablet){
+  .navBottom {
+    @include appWrapperTablet
+  }
+}
+
+
+@include respond(desktop){
+  .navBottom {
+    @include appWrapperDesktop
   }
 }

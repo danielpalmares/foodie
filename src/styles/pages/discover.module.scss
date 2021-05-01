@@ -1,9 +1,10 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import "../mixins.scss";
+@import "../variables.scss";
 
 @include respond(phone) {
   .home {
-    @include appWrapper;
+    @include appWrapperPhone;
+
     margin-bottom: 6.6rem;
 
     header {
@@ -35,6 +36,10 @@
       width: 4.6rem;
       height: 4.6rem;
 
+      &:active {
+        @include clickAnimation;
+      }
+
       img {
         height: 100%;
         width: 100%;
@@ -56,6 +61,7 @@
       .findRecipesCard {
         min-width: 28rem;
         max-width: 42.5rem;
+        
         height: 14rem;
         background: $color-white--200;
 
@@ -93,7 +99,7 @@
             border: none;
             background: none;
 
-            font-family: 'Lexend', sans-serif;
+            font-family: "Lexend", sans-serif;
             font-size: $font-regular;
             font-weight: 700;
             color: $color-orange;
@@ -103,7 +109,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all 0.2s;
+            transition: all 0.3s;
 
             &:active {
               transform: translateX(2rem);
@@ -111,6 +117,25 @@
           }
         }
       }
+    }
+  }
+}
+
+@include respond(tablet) {
+  .home {
+    @include appWrapperTablet;
+    .user {
+      width: 8rem;
+      height: 8rem;
+    }
+    .findRecipesCard {
+      width: 50.5rem;
+    }
+  }
+
+  @include respond(desktop) {
+    .home {
+      @include appWrapperDesktop;
     }
   }
 }
