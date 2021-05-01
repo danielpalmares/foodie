@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../contexts/GlobalContextProvider';
-import { IoArrowBackOutline, IoSearchOutline } from 'react-icons/io5';
+import { IoArrowBackOutline, IoSearchOutline, IoArrowForward } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
 import NavBottom from '../components/NavBottom.jsx';
@@ -30,12 +30,31 @@ export default function Search() {
 
         <div className={styles.inputWrapper}>
           <input type="text" placeholder="Type and add your ingredients..." />
+
           <button>
             <IoSearchOutline size={26} />
           </button>
         </div>
       </header>
 
+      <main>
+        <section>
+
+
+        </section>
+
+
+
+      </main>
+      <div className={styles.btnFindRecipes}>
+
+        <Link to="#">
+          <button>
+            Find recipes
+  <IoArrowForward size={16} />
+          </button>
+        </Link>
+      </div>
       <NavBottom />
     </div>
   );

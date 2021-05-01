@@ -1,5 +1,5 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import "../mixins.scss";
+@import "../variables.scss";
 
 @include respond(phone) {
   .search {
@@ -42,7 +42,7 @@
 
       h1 {
         font-size: $font-heading--200;
-        font-weight: 700;
+        font-weight: 900;
         color: $color-black--200;
       }
 
@@ -61,7 +61,7 @@
 
       input {
         width: 100%;
-        font-family: 'Lexend', sans-serif;
+        font-family: "Lexend", sans-serif;
         font-size: $font-regular;
         font-weight: 600;
         color: $color-black--200;
@@ -83,7 +83,7 @@
 
       button {
         @include flexCenter;
-
+        
         outline: none;
         border: none;
         background: $color-blue--200;
@@ -104,4 +104,44 @@
       }
     }
   }
+
+  .btnFindRecipes {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    
+    
+    
+    button {
+      @include flexCenter;
+      
+      
+      font-family: "Lexend", sans-serif;
+      font-size: $font-small;
+      font-weight: 600;
+      
+  
+      background-color: $color-black;
+      color: $color-white;
+      outline: none;
+      border: none;
+      @include shadow;
+      &:active {
+        transform: translateX(2rem);
+      }
+      transition: all 0.3s;
+  
+      border-radius: 1.5rem;
+      padding: 1.7rem 3rem;
+      cursor: pointer;
+      gap: 2.5rem;
+   
+    }
+    
+    
+  }
+ 
+
+  
+  
 }

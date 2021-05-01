@@ -1,5 +1,5 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import "../mixins.scss";
+@import "../variables.scss";
 
 @include respond(phone) {
   .home {
@@ -34,6 +34,10 @@
     .user {
       width: 4.6rem;
       height: 4.6rem;
+      
+      &:active {
+        @include clickAnimation;
+      }
 
       img {
         height: 100%;
@@ -93,7 +97,7 @@
             border: none;
             background: none;
 
-            font-family: 'Lexend', sans-serif;
+            font-family: "Lexend", sans-serif;
             font-size: $font-regular;
             font-weight: 700;
             color: $color-orange;
@@ -103,7 +107,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all 0.2s;
+            transition: all 0.3s;
 
             &:active {
               transform: translateX(2rem);
