@@ -3,7 +3,7 @@
 
 @include respond(phone) {
     .favorites {
-        @include appWrapper;
+        @include appWrapperPhone;
         
         
     
@@ -51,4 +51,16 @@
     }
 
     
+}
+
+@include respond(tablet){
+  .favorites {
+    @include appWrapperTablet
+  }
+}
+
+@include respond(desktop){
+  .favorites {
+    @include appWrapperDesktop
+  }
 }

@@ -3,7 +3,7 @@
 
 @include respond(phone) {
     .profile {
-        @include appWrapper;
+        @include appWrapperPhone;
 
         header {
             padding: 0 2rem;
@@ -44,5 +44,17 @@
                 }
             }
         }
+    }
+}
+
+@include respond(tablet) {
+    .profile {
+        @include appWrapperTablet;
+    }
+}
+
+@include respond(desktop) {
+    .profile {
+        @include appWrapperDesktop;
     }
 }

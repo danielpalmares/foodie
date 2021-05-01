@@ -3,7 +3,7 @@
 
 @include respond(phone) {
   .search {
-    @include appWrapper;
+    @include appWrapperPhone;
     min-height: 100vh;
 
     .buttonContainer {
@@ -128,6 +128,7 @@
       @include shadow;
       &:active {
         transform: translateX(2rem);
+        
       }
       transition: all 0.3s;
   
@@ -144,4 +145,17 @@
 
   
   
+}
+
+@include respond(tablet){
+  .search {
+    @include appWrapperTablet;
+  }
+}
+
+@include respond(desktop){
+  .search {
+    @include appWrapperDesktop;
+    
+  }
 }
