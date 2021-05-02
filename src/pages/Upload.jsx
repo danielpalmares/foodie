@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import styles from '../styles/pages/Upload.module.scss';
 
-import NavBottom from '../components/NavBottom.jsx';
+import NavBottom from '../components/Navigation.jsx';
 
 export default function Upload() {
   const { addActivePage } = useContext(GlobalContext);

@@ -6,6 +6,8 @@ import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Upload from './pages/Upload';
 
+import CookingTime from './main/CookingTime';
+
 import './styles/global.scss';
 
 export default function App() {
@@ -14,7 +16,7 @@ export default function App() {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path="/" exact component={Discover} />
+            <Route path="/" exact component={CookingTime} />
             <Route path="/favorites" exact component={Favorites} />
             <Route path="/profile" exact component={Profile} />
             <Route path="/search" exact component={Search} />

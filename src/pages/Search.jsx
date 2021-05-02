@@ -3,7 +3,7 @@ import { GlobalContext } from '../contexts/GlobalContextProvider';
 import { IoArrowBackOutline, IoSearchOutline, IoArrowForward } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
-import NavBottom from '../components/NavBottom.jsx';
+import NavBottom from '../components/Navigation.jsx';
 
 import styles from '../styles/pages/Search.module.scss';
 

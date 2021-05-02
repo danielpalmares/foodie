@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { IoGridOutline, IoArrowForward } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import NavBottom from '../components/NavBottom.jsx';
+import NavBottom from '../components/Navigation.jsx';
 
 import Avatars from '../assets/avatars/index';
 import StarsIcon from '../assets/svg/brilhante.svg';
