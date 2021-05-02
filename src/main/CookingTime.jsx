@@ -30,10 +30,19 @@ export default class CookingTime extends Component {
     };
   }
 
+  async fetchRecipesByIngredients(ingredients) {
+    try {
+      const response = axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=87300bc297fe426eaa7da0257a74584f&ingredients=${ingredients}`);
+      console.log(response)
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
   componentDidMount() {
     const {addActivePage} = this.context;
     addActivePage('Discover')
-    
+    this.fetchRecipesByIngredients('bread');
   }
 
   render() {
