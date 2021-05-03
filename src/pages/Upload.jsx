@@ -25,17 +25,11 @@ export default function Upload() {
       </div>
 
       <header>
-
         <h1>Upload</h1>
-
-
       </header>
 
-      <main>
-
-      </main>
+      <main></main>
       <NavBottom />
     </div>
-
   );
 }

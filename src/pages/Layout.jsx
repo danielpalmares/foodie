@@ -1,12 +1,14 @@
 import React from 'react';
 
-// components
+import BackPage from '../components/BackPage';
 import Navigation from '../components/Navigation';
 
-export default function Layout() {
+export default function Layout({ children, backPage }) {
   return (
     <>
+      {backPage && <BackPage />}
+      {children}
       <Navigation />
     </>
-  )
-}  
+  );
+}

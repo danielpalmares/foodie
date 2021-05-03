@@ -1,0 +1,28 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+@include respond(phone) {
+  .buttonContainer {
+    padding: 2rem;
+
+    button {
+      background: $color-white--200;
+      outline: none;
+      border: none;
+
+      @include flexCenter;
+
+      padding: 1rem;
+      border-radius: 1rem;
+      color: $color-black--200;
+      @include shadow;
+
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:active {
+        @include clickAnimation;
+      }
+    }
+  }
+}
