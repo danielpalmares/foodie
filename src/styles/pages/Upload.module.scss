@@ -1,9 +1,9 @@
 @import "../mixins.scss";
 @import "../variables.scss";
 
-@include respond(phone) {
+@include respond(mobileS) {
     .upload {
-        @include appWrapperPhone;
+        @include appWrapper(mobileS);
 
         header {
             padding: 0 2rem;
@@ -50,13 +50,13 @@
 
 @include respond(tablet) {
     .upload {
-        @include appWrapperTablet;
+        @include appWrapper(tablet);
     }
 }
 
-@include respond(desktop) {
+@include respond(laptopL) {
     .upload {
-        @include appWrapperDesktop;
+        @include appWrapper(laptopL);
     
     }
 }

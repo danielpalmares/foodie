@@ -19,7 +19,7 @@ export default function CategoryCard({
       onClick={handleClick}
     >
       <div className={styles.top}>
-        <span>{basedIngredient}?</span>
+        <span>{basedIngredient} Based Recipes</span>
 
         <button>
           <IoHeartOutline size={26} />

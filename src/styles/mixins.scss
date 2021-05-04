@@ -1,36 +1,71 @@
 @mixin respond($breakpoint) {
-  @if $breakpoint == phone {
+  @if $breakpoint == mobileS {
     @media screen and (min-width: 320px) {
       @content;
     }
   }
 
+  @if $breakpoint == mobileM {
+    @media screen and (min-width: 375px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == mobileL {
+    @media screen and (min-width: 425px) {
+      @content;
+    }
+  }
+
   @if $breakpoint == tablet {
-    @media screen and (min-width: 700px) {
+    @media screen and (min-width: 768px) {
       @content;
     }
   }
 
-  @if $breakpoint == desktop {
-    @media screen and (min-width: 960px) {
+  @if $breakpoint == laptop {
+    @media screen and (min-width: 1024px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == laptopL {
+    @media screen and (min-width: 1440px) {
       @content;
     }
   }
 }
 
-@mixin appWrapperPhone {
-  max-width: 700px;
-  margin: 0 auto;
-}
+@mixin appWrapper($breakpoint) {
+  @if $breakpoint == mobileS {
+    max-width: 300px;
+    margin: 0 auto;
+  }
 
-@mixin appWrapperTablet {
-  max-width: 960px;
-  margin: 0 auto;
-}
+  @if $breakpoint == mobileM {
+    max-width: 335px;
+    margin: 0 auto;
+  }
 
-@mixin appWrapperDesktop {
-  max-width: 1280px;
-  margin: 0 auto;
+  @if $breakpoint == mobileL {
+    max-width: 385px;
+    margin: 0 auto;
+  }
+
+  @if $breakpoint == tablet {
+    max-width: 568px;
+    margin: 0 auto;
+  }
+
+  @if $breakpoint == laptop {
+    max-width: 624px;
+    margin: 0 auto;
+  }
+
+  @if $breakpoint == laptopL {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
 }
 
 @mixin clickAnimation {
@@ -43,28 +78,30 @@
   align-items: center;
 }
 
-@mixin headingPrimary {
-  font-size: $font-heading--100;
-  font-weight: 700;
-  color: $color-grey;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
+@mixin heading($size) {
+  @if $size == primary {
+    font-size: $font-heading--100;
+    font-weight: 700;
+    color: $color-grey;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
 
-@mixin headingSecondary {
-  font-size: $font-heading--200;
-  font-weight: 700;
-  color: $color-grey;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
+  @if $size == secondary {
+    font-size: $font-heading--200;
+    font-weight: 700;
+    color: $color-grey;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
 
-@mixin headingTertiary {
-  font-size: $font-heading--300;
-  font-weight: 700;
-  color: $color-grey;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  @if $size == tertiary {
+    font-size: $font-heading--300;
+    font-weight: 700;
+    color: $color-grey;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
 }
 
 @mixin buttonStyles {

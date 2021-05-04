@@ -1,9 +1,9 @@
 @import '../mixins.scss';
 @import '../variables.scss';
 
-@include respond(phone) {
+@include respond(mobileS) {
   .search {
-    @include appWrapperPhone;
+    @include appWrapper(mobileS);
     min-height: 100vh;
 
     .buttonContainer {
@@ -134,12 +134,12 @@
 
 @include respond(tablet) {
   .search {
-    @include appWrapperTablet;
+    @include appWrapper(tablet);
   }
 }
 
-@include respond(desktop) {
+@include respond(laptopL) {
   .search {
-    @include appWrapperDesktop;
+    @include appWrapper(laptopL);
   }
 }

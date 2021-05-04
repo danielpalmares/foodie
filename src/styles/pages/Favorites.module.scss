@@ -1,9 +1,9 @@
 @import '../mixins.scss';
 @import '../variables.scss';
 
-@include respond(phone) {
+@include respond(mobileS) {
     .favorites {
-        @include appWrapperPhone;
+        @include appWrapper(mobileS);
         
         
     
@@ -55,12 +55,12 @@
 
 @include respond(tablet){
   .favorites {
-    @include appWrapperTablet
+    @include appWrapper(tablet);
   }
 }
 
-@include respond(desktop){
+@include respond(laptopL){
   .favorites {
-    @include appWrapperDesktop
+    @include appWrapper(laptopL);
   }
 }

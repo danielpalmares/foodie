@@ -95,9 +95,9 @@ export default class CookingTime extends Component {
               </div>
             </div>
 
-            <section>
-              <h3>Are you looking for...</h3>
+            <h3>Are you looking for...</h3>
 
+            <section>
               <CategoryCard
                 image="bread.jpg"
                 basedIngredient="Bread"

@@ -1,14 +1,14 @@
 @import '../mixins.scss';
 @import '../variables.scss';
 
-@include respond(phone) {
+@include respond(mobileS) {
   .home {
-    @include appWrapperPhone;
+    @include appWrapper(mobileS);
     margin-bottom: 6.6rem;
 
     main {
-      padding: 0 2rem;
-      margin-top: 2rem;
+      padding: 2rem 0;
+      
 
       display: flex;
       flex-direction: column;
@@ -26,20 +26,25 @@
       }
 
       section {
-        padding: 0 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
 
         h3 {
           color: $color-grey;
           font-size: $font-heading--300;
           font-weight: 700;
+          
         }
       }
 
       .findRecipesCard {
-        min-width: 28rem;
-        max-width: 42.5rem;
+        width: 30rem;
+        @include respond(tablet) {
+          width: 49rem;
+        }
 
-        height: 14rem;
+        height: 15rem;
         background: $color-white--100;
 
         display: flex;
@@ -47,6 +52,7 @@
         gap: 2rem;
         padding: 2rem;
         border-radius: 2rem;
+        
 
         .iconContainer {
           background: #111;
@@ -100,7 +106,7 @@
 
 @include respond(tablet) {
   .home {
-    @include appWrapperTablet;
+    @include appWrapper(tablet);
     .user {
       width: 8rem;
       height: 8rem;
@@ -110,9 +116,9 @@
     }
   }
 
-  @include respond(desktop) {
+  @include respond(laptopL) {
     .home {
-      @include appWrapperDesktop;
+      @include appWrapper(laptopL);
     }
   }
 }

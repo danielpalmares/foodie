@@ -1,13 +1,14 @@
 @import '../mixins.scss';
 @import '../variables.scss';
 
-@include respond(phone) {
+@include respond(mobileS) {
   .header {
+    @include appWrapper(mobileS);
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: $padding-both--2;
-
+    padding: $padding-vertical--2;
+    
     h1 {
       @include logo;
       align-self: center;
@@ -19,7 +20,7 @@
       border: none;
       outline: none;
       border-radius: 1rem;
-      padding: $padding-both--1;
+      padding: $padding-both--1; 
       transition: all 0.2s;
       cursor: pointer;
 
