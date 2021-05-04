@@ -3,43 +3,40 @@
 @import '../keyframes.scss';
 
 @include respond(phone) {
-  .navBottom {
+  .navigation {
     @include appWrapperPhone;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    background: #000;
-    border-top: 2px solid #111;
-    
     width: 100%;
-    height: 6.6rem;
-    padding: 1rem 2rem;
+    height: 6.5rem;
+
+    background: $color-black--100;
+    border-top: $border--2;
+    padding: $padding-regular;
 
     position: fixed;
     left: 50%;
     bottom: 0;
     transform: translate(-50%, 0%);
-    z-index: 90;
+    z-index: 50;
 
     button {
       background: none;
       outline: none;
       border: none;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-radius: 1rem;
+      @include flexCenter;
 
       color: $color-grey;
-      padding: 1rem;
-      border-radius: 1rem;
+      padding: $padding-both--1;
       cursor: pointer;
     }
 
     .buttonActive {
-      color: #111;
-      background: $color-white--200;
+      color: $color-black;
+      background: $color-white--100;
 
       animation: up 0.2s ease-in-out;
       animation-fill-mode: forwards;
@@ -48,13 +45,13 @@
 }
 
 @include respond(tablet) {
-  .navBottom {
+  .navigation {
     @include appWrapperTablet;
   }
 }
 
 @include respond(desktop) {
-  .navBottom {
+  .navigation {
     @include appWrapperDesktop;
   }
 }

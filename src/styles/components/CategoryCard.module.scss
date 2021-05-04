@@ -2,32 +2,29 @@
 @import '../variables.scss';
 
 @include respond(phone) {
-  .recipeContainer {
+  .categoryCard {
     background-repeat: none;
     background-size: cover;
     background-position: center;
 
-    width: 33.5rem;
-    height: 43.5rem;
-    border-radius: 2rem;
-    overflow: hidden;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    cursor: pointer;
 
-    margin: 2rem 0;
+    width: 33.5rem;
+    height: 14rem;
+    border-radius: 2rem;
+    overflow: hidden;
+    cursor: pointer;
 
     .top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 2rem 1rem;
+      margin: $margin-irregular;
 
       span {
         background: $color-black--200-op;
-        backdrop-filter: blur(5px);
         font-size: $font-small;
         font-weight: 600;
         color: $color-white;
@@ -39,13 +36,10 @@
         outline: none;
         border: none;
         background: $color-black--200-op;
-        backdrop-filter: blur(5px);
         @include flexCenter;
         color: $color-white;
         border-radius: 0.5rem;
         padding: 0.5rem;
-
-        z-index: 20;
         transition: all 0.2s;
         cursor: pointer;
 
@@ -56,11 +50,11 @@
     }
 
     .bottom {
-      margin: 3rem 0rem;
+      margin: $margin-horizontal--2;
       font-weight: 700;
 
       h3 {
-        margin: 0 1rem;
+        margin: $margin-horizontal--1;
         font-size: $font-heading--300;
         color: $color-white;
         margin-bottom: 1rem;
@@ -68,7 +62,7 @@
 
       span {
         background: $color-black--200-op;
-        padding: 0 1rem;
+        padding: $padding-horizontal--1;
         font-size: $font-small;
         color: $color-grey;
         display: block;
@@ -82,7 +76,4 @@
   .recipeContainer {
     width: 55.5rem;
   }
-
-    
-  
 }

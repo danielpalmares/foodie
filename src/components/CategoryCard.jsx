@@ -1,27 +1,25 @@
 import React from 'react';
-import { IoHeartOutline } from 'react-icons/io5';
 
+import { IoHeartOutline } from 'react-icons/io5';
 import styles from '../styles/components/CategoryCard.module.scss';
 
 export default function CategoryCard({
   image,
   basedIngredient,
   title,
-  series,
-  handleCategory,
+  nutrients,
+  handleClick,
 }) {
-  console.log(image);
-
   return (
     <div
-      className={styles.recipeContainer}
+      className={styles.categoryCard}
       style={{
-        backgroundImage: `url(${image})`,
+        backgroundImage: `url(${process.env.PUBLIC_URL + 'images/' + image})`,
       }}
-      onClick={handleCategory}
+      onClick={handleClick}
     >
       <div className={styles.top}>
-        <span>{basedIngredient} Based</span>
+        <span>{basedIngredient}?</span>
 
         <button>
           <IoHeartOutline size={26} />
@@ -29,10 +27,8 @@ export default function CategoryCard({
       </div>
 
       <div className={styles.bottom}>
-        <h3>{title}</h3>
-        <span>
-          <strong>{series}</strong> series
-        </span>
+        {title && <h3>{title}</h3>}
+        {nutrients && <span>{nutrients}</span>}
       </div>
     </div>
   );

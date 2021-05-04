@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import Layout from '../pages/Layout';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-import Avatars from '../assets/avatars/index';
-import StarsIcon from '../assets/svg/brilhante.svg';
+import Layout from '../pages/Layout';
 
-import styles from '../styles/pages/Discover.module.scss';
+import starIcon from '../assets/brilhante.svg';
 
-import CategoryCard from '../components/CategoryCard.jsx';
-import Food from '../assets/category/_index.js';
+import styles from '../styles/pages/CookingTime.module.scss';
+
+import CategoryCard from '../components/CategoryCard';
 
 import { IoGridOutline, IoArrowForward } from 'react-icons/io5';
 
@@ -20,29 +19,30 @@ const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
 export default class CookingTime extends Component {
   static contextType = GlobalContext;
 
+  state = {
+    randomRecipe: {},
+    recipesByCategory: {
+      breadBased: [],
+      vegetableBased: [],
+      fruitsBased: [],
+      grainBased: [],
+      meatBased: [],
+      pizzaBased: [],
+      pastaBased: [],
+      eggBased: [],
+      milkBased: [],
+      junkFoodBased: [],
+    },
+  };
+
   constructor(props) {
     super(props);
 
-    this.evente = this.evente.bind(this)
-
-    this.state = {
-      randomRecipe: {},
-      recipesByCategory: {
-        breadBased: [],
-        vegetableBased: [],
-        fruitsBased: [],
-        grainBased: [],
-        meatBased: [],
-        pizzaBased: [],
-        pastaBased: [],
-        eggBased: [],
-        milkBased: [],
-        junkFoodBased: [],
-      },
-    };
+    this.getRecipesByIngredients = this.getRecipesByIngredients.bind(this);
+    this.fetchRecipesByIngredients = this.fetchRecipesByIngredients.bind(this);
   }
-  
-  evente(e) {
+
+  async getRecipesByIngredients(e, ingredients) {
     const tagNameTarget = e.target.tagName.toLowerCase();
 
     if (
@@ -51,6 +51,8 @@ export default class CookingTime extends Component {
       tagNameTarget === 'path'
     )
       return;
+
+    await this.fetchRecipesByIngredients(ingredients);
     console.log(tagNameTarget);
   }
 
@@ -73,22 +75,13 @@ export default class CookingTime extends Component {
 
   render() {
     return (
-      <Layout backPage={false}>
+      <Layout hasBackPageBtn={false}>
         <div className={styles.home}>
-          <header>
-            <button>
-              <IoGridOutline size={26} />
-            </button>
-
-            <div className={styles.user}>
-              <img src={Avatars.ladyAvatar1} alt="User Profile" />
-            </div>
-          </header>
-
           <main>
+            <h3>Good morning user!</h3>
             <div className={styles.findRecipesCard}>
               <div className={styles.iconContainer}>
-                <img src={StarsIcon} alt="Stars Icon" />
+                <img src={starIcon} alt="Stars Icon" />
               </div>
 
               <div className={styles.textContainer}>
@@ -103,84 +96,55 @@ export default class CookingTime extends Component {
             </div>
 
             <section>
+              <h3>Are you looking for...</h3>
+
               <CategoryCard
-                image={Food.bread}
-                basedIngredient="🍞 Bread"
-                title="Breads, Cereals, Tubers"
-                series="carbohydrate"
-                handleCategory={this.evente}
+                image="bread.jpg"
+                basedIngredient="Bread"
+                nutrients="carbohydrate"
+                handleClick={e => this.getRecipesByIngredients(e, 'bread')}
               />
 
               <CategoryCard
-                image={Food.vegetables}
-                basedIngredient="🥦 Vegetable"
-                title="Lettuce, Spinach, Cauliflower"
-                series="vitamin, mineral, fiber"
-                handleCategory={this.evente}
+                image="milk.jpg"
+                basedIngredient="Milk"
+                nutrients="calcium"
+                handleClick={e => this.getRecipesByIngredients(e, 'milk')}
               />
 
               <CategoryCard
-                image={Food.fruits}
-                basedIngredient="🍎 Fruits"
-                title="Apple, Banana, Peach"
-                series="fiber, vitamin, mineral"
-                handleCategory={this.evente}
+                image="fruit.jpg"
+                basedIngredient="Orange"
+                nutrients="fiber, vitamin, mineral"
+                handleClick={e => this.getRecipesByIngredients(e, 'orange')}
               />
 
               <CategoryCard
-                image={Food.grains}
-                basedIngredient="🌾 Grain"
-                title="Bean, Rice, Lentil"
-                series="fiber, proteín"
-                handleCategory={this.evente}
+                image="meat.jpg"
+                basedIngredient="Meat"
+                nutrients="proteín"
+                handleClick={e => this.getRecipesByIngredients(e, 'meat')}
               />
 
               <CategoryCard
-                image={Food.meat}
-                basedIngredient="🍖 Meat"
-                title="Chicken, Beef, Fish"
-                series="proteín"
-                handleCategory={this.evente}
+                image="pizza.jpg"
+                basedIngredient="Pizza"
+                nutrients="carbohydrate, proteín"
+                handleClick={e => this.getRecipesByIngredients(e, 'pizza')}
               />
 
               <CategoryCard
-                image={Food.pizza}
-                basedIngredient="🍕 Pizza"
-                title="Pepperoni, Mozzarella, Marguerita"
-                series="proteín"
-                handleCategory={this.evente}
+                image="pasta.jpg"
+                basedIngredient="Pasta"
+                nutrients="carbohydrate"
+                handleClick={e => this.getRecipesByIngredients(e, 'pasta')}
               />
 
               <CategoryCard
-                image={Food.pasta}
-                basedIngredient="🍝 Pasta"
-                title="Spaghetti, Lasagna, Gnocchi"
-                series="carbohydrate"
-                handleCategory={this.evente}
-              />
-
-              <CategoryCard
-                image={Food.eggs}
-                basedIngredient="🥚 Egg"
-                title="Chicken egg, Duck egg"
-                series="proteín"
-                handleCategory={this.evente}
-              />
-
-              <CategoryCard
-                image={Food.milk}
-                basedIngredient="🥛 Milk"
-                title="Milk and Dairy products"
-                series="calcium"
-                handleCategory={this.evente}
-              />
-
-              <CategoryCard
-                image={Food.junkFood}
-                basedIngredient="🍟 Junk Food"
-                title="Fast Food, Candies, Fries"
-                series="calorie"
-                handleCategory={this.evente}
+                image="egg.jpg"
+                basedIngredient="Egg"
+                nutrients="proteín"
+                handleClick={e => this.getRecipesByIngredients(e, 'egg')}
               />
             </section>
           </main>

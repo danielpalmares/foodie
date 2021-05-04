@@ -1,5 +1,5 @@
-@import "../mixins.scss";
-@import "../variables.scss";
+@import '../mixins.scss';
+@import '../variables.scss';
 
 @include respond(phone) {
   .search {
@@ -19,7 +19,6 @@
         padding: 1rem;
         border-radius: 1rem;
         color: $color-black--200;
-        @include shadow;
 
         cursor: pointer;
         transition: all 0.2s;
@@ -61,7 +60,7 @@
 
       input {
         width: 100%;
-        font-family: "Lexend", sans-serif;
+        font-family: 'Lexend', sans-serif;
         font-size: $font-regular;
         font-weight: 600;
         color: $color-black--200;
@@ -69,7 +68,6 @@
         background: $color-white;
         border: none;
         outline: none;
-        @include shadow;
 
         padding: 2rem 5rem 2rem 1rem;
         border-radius: 1rem;
@@ -83,10 +81,10 @@
 
       button {
         @include flexCenter;
-        
+
         outline: none;
         border: none;
-        background: $color-blue--200;
+        background: $color-blue;
         color: $color-white;
         border-radius: 1rem;
         padding: 0.5rem;
@@ -96,7 +94,6 @@
         bottom: 22%;
         right: 2%;
         transition: all 0.2s;
-        @include shadow;
 
         &:active {
           @include clickAnimation;
@@ -109,53 +106,40 @@
     display: flex;
     justify-content: center;
     position: relative;
-    
-    
-    
+
     button {
       @include flexCenter;
-      
-      
-      font-family: "Lexend", sans-serif;
+
+      font-family: 'Lexend', sans-serif;
       font-size: $font-small;
       font-weight: 600;
-      
-  
+
       background-color: $color-black;
       color: $color-white;
       outline: none;
       border: none;
-      @include shadow;
+
       &:active {
         transform: translateX(2rem);
-        
       }
       transition: all 0.3s;
-  
+
       border-radius: 1.5rem;
       padding: 1.7rem 3rem;
       cursor: pointer;
       gap: 2.5rem;
-   
     }
-    
-    
   }
- 
-
-  
-  
 }
 
-@include respond(tablet){
+@include respond(tablet) {
   .search {
     @include appWrapperTablet;
   }
 }
 
-@include respond(desktop){
+@include respond(desktop) {
   .search {
     @include appWrapperDesktop;
-    
   }
 }

@@ -1,12 +1,13 @@
 import React from 'react';
 
-import BackPage from '../components/BackPage';
+import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 
-export default function Layout({ children, backPage }) {
+export default function Layout({ children, hasBackPageBtn }) {
+  const hasBackPage = hasBackPageBtn;
   return (
     <>
-      {backPage && <BackPage />}
+      <Header hasBackPageBtn={hasBackPage}/>
       {children}
       <Navigation />
     </>

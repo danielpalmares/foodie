@@ -1,0 +1,47 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+@include respond(phone) {
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: $padding-both--2;
+
+    h1 {
+      @include logo;
+      align-self: center;
+    }
+
+    button {
+      @include flexCenter;
+      background: $color-white--100;
+      border: none;
+      outline: none;
+      border-radius: 1rem;
+      padding: $padding-both--1;
+      transition: all 0.2s;
+      cursor: pointer;
+
+      &:active {
+        @include clickAnimation;
+      }
+    }
+  }
+
+  .user {
+    width: 4.6rem;
+    height: 4.6rem;
+    transition: all 0.2s;
+
+    &:active {
+      @include clickAnimation;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}

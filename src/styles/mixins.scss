@@ -27,18 +27,14 @@
   max-width: 960px;
   margin: 0 auto;
 }
+
 @mixin appWrapperDesktop {
-  // max-width: 1280px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
-
 @mixin clickAnimation {
   transform: translateY(0.5rem) scale(0.9);
-}
-
-@mixin shadow {
-  box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.1);
 }
 
 @mixin flexCenter {
@@ -47,4 +43,44 @@
   align-items: center;
 }
 
+@mixin headingPrimary {
+  font-size: $font-heading--100;
+  font-weight: 700;
+  color: $color-grey;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 
+@mixin headingSecondary {
+  font-size: $font-heading--200;
+  font-weight: 700;
+  color: $color-grey;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@mixin headingTertiary {
+  font-size: $font-heading--300;
+  font-weight: 700;
+  color: $color-grey;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@mixin buttonStyles {
+  background: $color-white--100;
+  border: none;
+  outline: none;
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+@mixin logo {
+  font-size: $font-heading--200;
+  font-weight: 700;
+  color: $color-orange;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+}

@@ -20,7 +20,7 @@
     }
 
     h1 {
-        font-size: $font-heading--200;
+        font-size: $font-heading--100;
         font-weight: 700;
         color: $color-black--200;
       }
@@ -29,7 +29,7 @@
         padding: 2rem;
   
         button {
-          background: $color-white;
+          background: $color-white--100;
           outline: none;
           border: none;
   
@@ -38,7 +38,7 @@
           padding: 1rem;
           border-radius: 1rem;
           color: $color-black--200;
-          @include shadow;
+          
   
           cursor: pointer;
           transition: all 0.2s;

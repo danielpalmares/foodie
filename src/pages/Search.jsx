@@ -1,11 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../contexts/GlobalContextProvider';
-import { IoArrowBackOutline, IoSearchOutline, IoArrowForward } from 'react-icons/io5';
+import {
+  IoArrowBackOutline,
+  IoSearchOutline,
+  IoArrowForward,
+} from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
 import NavBottom from '../components/Navigation.jsx';
 
 import styles from '../styles/pages/Search.module.scss';
+import Layout from './Layout';
 
 export default function Search() {
   const { addActivePage } = useContext(GlobalContext);
@@ -15,47 +20,36 @@ export default function Search() {
   });
 
   return (
-    <div className={styles.search}>
-      <div className={styles.buttonContainer}>
-        <Link to="/">
-          <button>
-            <IoArrowBackOutline size={26} />
-          </button>
-        </Link>
-      </div>
+    <Layout hasBackPageBtn>
+      <div className={styles.search}>
+        
 
-      <header>
-        <h1>What's in your kitchen?</h1>
-        <span>Enter up to 2 ingredients or more</span>
+        <header>
+          <h1>What's in your kitchen?</h1>
+          <span>Enter up to 2 ingredients or more</span>
 
-        <div className={styles.inputWrapper}>
-          <input type="text" placeholder="Type and add your ingredients..." />
+          <div className={styles.inputWrapper}>
+            <input type="text" placeholder="Type and add your ingredients..." />
 
-          <button>
-            <IoSearchOutline size={26} />
-          </button>
+            <button>
+              <IoSearchOutline size={26} />
+            </button>
+          </div>
+        </header>
+
+        <main>
+          <section></section>
+        </main>
+        <div className={styles.btnFindRecipes}>
+          <Link to="#">
+            <button>
+              Find recipes
+              <IoArrowForward size={16} />
+            </button>
+          </Link>
         </div>
-      </header>
-
-      <main>
-        <section>
-
-
-        </section>
-
-
-
-      </main>
-      <div className={styles.btnFindRecipes}>
-
-        <Link to="#">
-          <button>
-            Find recipes
-  <IoArrowForward size={16} />
-          </button>
-        </Link>
+        <NavBottom />
       </div>
-      <NavBottom />
-    </div>
+    </Layout>
   );
 }
