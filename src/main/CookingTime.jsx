@@ -113,7 +113,7 @@ export default class CookingTime extends Component {
               />
 
               <CategoryCard
-                image="fruit.jpg"
+                image="orange.jpg"
                 basedIngredient="Orange"
                 nutrients="fiber, vitamin, mineral"
                 handleClick={e => this.getRecipesByIngredients(e, 'orange')}

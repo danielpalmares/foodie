@@ -16,9 +16,10 @@
 
     button {
       @include flexCenter;
-      background: $color-white--100;
-      border: none;
+      background: $color-black--100;
+      border: $border--2;
       outline: none;
+
       border-radius: 1rem;
       padding: $padding-both--1; 
       transition: all 0.2s;
@@ -26,7 +27,17 @@
 
       &:active {
         @include clickAnimation;
+        
       }
+    }
+
+    .backPageBtn {
+      
+      color: $color-white--100;
+    }
+
+    .changeThemeBtn {
+
     }
   }
 

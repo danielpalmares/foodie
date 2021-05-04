@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { IoGridOutline, IoArrowBackOutline } from 'react-icons/io5';
+import { IoArrowBackOutline, IoMoonSharp } from 'react-icons/io5';
 import styles from '../styles/components/Header.module.scss';
 
 export default function Header({ hasBackPageBtn }) {
   const history = useHistory();
   const goBack = () => history.goBack();
 
+  const darkTheme = true;
+
   return (
     <header className={styles.header}>
       {hasBackPageBtn ? (
-        <button onClick={goBack}>
+        <button className={styles.backPageBtn} onClick={goBack}>
           <IoArrowBackOutline size={26} />
         </button>
       ) : (
-        <Link to="/">
-          <button>
-            <IoGridOutline size={26} />
-          </button>
-        </Link>
+        <button className={styles.changeThemeBtn}>
+          <IoMoonSharp size={26} color="blue"/>
+        </button>
       )}
 
       <h1>CookingTime</h1>
