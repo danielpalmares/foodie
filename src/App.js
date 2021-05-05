@@ -8,7 +8,10 @@ import Upload from './pages/Upload';
 
 import CookingTime from './main/CookingTime';
 
+import Login from './pages/Login';
+
 import './styles/global.scss';
+import SignUp from './pages/SignUp';
 
 export default function App() {
   return (
@@ -16,7 +19,7 @@ export default function App() {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path="/" exact component={CookingTime} />
+            <Route path="/" exact component={SignUp} />
             <Route path="/favorites" exact component={Favorites} />
             <Route path="/profile" exact component={Profile} />
             <Route path="/search" exact component={Search} />

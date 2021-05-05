@@ -1,0 +1,125 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+@import '../keyframes.scss';
+
+@include respond(mobileS) {
+  .login {
+    @include appWrapper(mobileS);
+
+    .logo {
+      display: flex;
+      align-items: center;
+      padding: $padding-vertical--2;
+      margin-bottom: 4rem;
+
+      h1 {
+        @include logo;
+        font-size: 6rem;
+      }
+    }
+
+    .directions {
+      margin: $margin-vertical--2;
+
+      h1 {
+        @include heading(primary);
+        padding: $padding-vertical--2;
+      }
+
+      span {
+        display: block;
+        font-size: $font-small;
+        color: $color-grey;
+        line-height: 1.5;
+
+        a {
+          font-size: $font-small;
+          color: $color-orange;
+          font-weight: 600;
+        }
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      position: relative;
+      margin: $margin-vertical--2;
+
+      .lbnEmail {
+        position: absolute;
+        top: 7%;
+        left: 5%;
+        color: $color-black--500;
+      }
+
+      .lbnPassword {
+        position: absolute;
+        top: 38%;
+        left: 5%;
+        color: $color-black--500;
+      }
+
+      input {
+        font-family: 'Lexend', sans-serif;
+        font-size: $font-regular;
+        font-weight: 400;
+        color: $color-grey;
+        padding: 2rem 2rem 2rem 5rem;
+
+        outline: none;
+        border: $border--2;
+        border-radius: 1rem;
+        background: $color-black;
+
+        &:focus {
+          border-color: $color-orange;
+        }
+
+        &::placeholder {
+          font-family: 'Lexend', sans-serif;
+          font-size: $font-regular;
+          font-weight: 400;
+          color: $color-black--500;
+        }
+      }
+
+      span {
+        display: block;
+        font-size: $font-small;
+
+        a:link,
+        a:visited {
+          color: $color-grey;
+        }
+
+        a:active {
+          transform: translateX(1rem);
+        }
+      }
+
+      button {
+        @include flexCenter;
+        gap: 1rem;
+
+        font-family: 'Lexend', sans-serif;
+        font-size: $font-larger;
+        font-weight: 600;
+        color: $color-grey;
+        padding: 2rem;
+
+        outline: none;
+        border: $border--2;
+        border-radius: 1rem;
+        background: $color-orange;
+        transition: all 0.2s;
+
+        &:active {
+          transform: translateX(1rem);
+        }
+      }
+    }
+  }
+}
