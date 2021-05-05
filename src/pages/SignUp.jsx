@@ -9,6 +9,7 @@ import {
   IoFemaleOutline,
   IoCalendarOutline,
   IoPersonOutline,
+  IoArrowBackOutline,
 } from 'react-icons/io5';
 import styles from '../styles/pages/SignUp.module.scss';
 
@@ -27,52 +28,64 @@ export default function SignUp() {
 
         <span>
           Already have an account? <br />
-          <Link to="/">Go to login page.</Link>
+          <Link to="/">
+            <IoArrowBackOutline size={14} />
+            Go to login page.
+          </Link>
         </span>
       </div>
 
       <form action="">
-        <label htmlFor="firstName" className={styles.lbnName}>
-          <IoPersonOutline size={26} />
-        </label>
-        <input type="text" id="firstName" placeholder="First Name" />
-
-        <label htmlFor="email" className={styles.lbnEmail}>
-          <IoMailOutline size={26} />
-        </label>
-        <input type="email" id="email" placeholder="Email" />
-
-        <label htmlFor="password" className={styles.lbnPassword}>
-          <IoKeyOutline size={26} />
-        </label>
-        <input type="password" id="password" placeholder="Password" />
-
-        <label htmlFor="birthday" className={styles.lbnBirthday}>
-          <IoCalendarOutline size={26} />
-        </label>
-        <input type="date" id="birthday" />
-
-        <div className={styles.genderContainer}>
-          <div>
-            <label htmlFor="male" className={styles.lbnMale}>
-              <IoMaleOutline size={26} />
-              <span>Male</span> 
-            </label>
-            <input type="checkbox" name="gender" id="male" value="male" />
-          </div>
-
-          <div>
-            <label htmlFor="female" className={styles.lbnFemale}>
-              <IoFemaleOutline size={26} />
-              <span>Female</span> 
-            </label>
-            <input type="checkbox" name="gender" id="female" value="female" />
-          </div>
+        <div className={styles.nameContainer}>
+          <label htmlFor="firstName">
+            <IoPersonOutline size={26} />
+          </label>
+          <input type="text" id="firstName" placeholder="First Name" />
         </div>
 
-        <span>Data are stored in the local storage.</span>
+        <div className={styles.emailContainer}>
+          <label htmlFor="email">
+            <IoMailOutline size={26} />
+          </label>
+          <input type="email" id="email" placeholder="Email" />
+        </div>
 
-        <button type="submit">
+        <div className={styles.passwordContainer}>
+          <label htmlFor="password">
+            <IoKeyOutline size={26} />
+          </label>
+          <input type="password" id="password" placeholder="Password" />
+        </div>
+
+        <div className={styles.genderContainer}>
+          <input
+            type="radio"
+            name="gender"
+            id="male"
+            value="male"
+            className={styles.inpMale}
+          />
+          <label htmlFor="male" className={styles.lbnMale}>
+            <IoMaleOutline size={26} />
+            <span>Male</span>
+          </label>
+
+          <input
+            type="radio"
+            name="gender"
+            id="female"
+            value="female"
+            className={styles.inpFemale}
+          />
+          <label htmlFor="female" className={styles.lbnFemale}>
+            <IoFemaleOutline size={26} />
+            <span>Female</span>
+          </label>
+        </div>
+
+        <span className={styles.terms}>Data are stored in the local storage.</span>
+
+        <button type="submit"> 
           Sign Up <IoArrowForwardOutline size={26} />
         </button>
       </form>

@@ -36,6 +36,11 @@
           font-size: $font-small;
           color: $color-orange;
           font-weight: 600;
+
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          width: fit-content;
         }
       }
     }
@@ -44,54 +49,74 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
-
-      position: relative;
       margin: $margin-vertical--2;
 
       label {
         color: $color-black--500;
       }
 
-      .lbnName {
-        position: absolute;
-        top: 2.5%;
-        left: 5%;
+      .nameContainer {
+        position: relative;
+
+        label {
+          position: absolute;
+          top: 28%;
+          left: 5%;
+        }
       }
 
-      .lbnEmail {
-        position: absolute;
-        top: 16.5%;
-        left: 5%;
+      .emailContainer {
+        position: relative;
+
+        label {
+          position: absolute;
+          top: 28%;
+          left: 5%;
+        }
       }
 
-      .lbnPassword {
-        position: absolute;
-        top: 30%;
-        left: 5%;
-      }
+      .passwordContainer {
+        position: relative;
 
-      .lbnBirthday {
-        position: absolute;
-        top: 44%;
-        left: 5%;
+        label {
+          position: absolute;
+          top: 28%;
+          left: 5%;
+        }
       }
 
       .genderContainer {
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-evenly;
+        // gap: 8rem;
 
-        div {
+        label {
+          font-size: 2.6rem;
           display: flex;
-          align-items: baseline;
+          align-items: center;
 
-          label {
-            font-size: 2.6rem;
-          }
+          gap: 1rem;
+          
 
-          input[type=checkbox]:checked ~ label {
-            color: blue;
+          span {
+            font-size: $font-larger;
+            color: $color-black--500;
           }
+        }
+
+        input {
+          display: none;
+        }
+
+        .inpMale:checked + label {
+color: #0040ff;
+        }
+
+        .inpFemale:checked + label {
+          
+            color: #f8b9d4;
+          
         }
       }
 
@@ -107,6 +132,8 @@
         border-radius: 1rem;
         background: $color-black;
 
+        width: 100%;
+
         &:focus {
           border-color: $color-orange;
         }
@@ -117,14 +144,16 @@
           font-weight: 400;
           color: $color-black--500;
         }
-      }
-
-      span {
+      } 
+  
+      .terms {
         display: block;
-        font-size: $font-small;
+        font-size: $font-tiny;
         color: $color-grey;
+        text-align: center;
+        text-transform: uppercase
       }
-
+ 
       button {
         @include flexCenter;
         gap: 1rem;
