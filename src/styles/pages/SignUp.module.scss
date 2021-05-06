@@ -42,6 +42,13 @@
           width: fit-content;
         }
       }
+
+      .emailError {
+        font-size: $font-tiny;
+        color: $color-red;
+        margin: $margin-vertical--1;
+        text-align: center;
+      }
     }
   }
 }
