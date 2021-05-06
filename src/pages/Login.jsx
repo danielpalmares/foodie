@@ -7,6 +7,8 @@ import { IoArrowForwardOutline } from 'react-icons/io5';
 import styles from '../styles/pages/Login.module.scss';
 
 export default function Login() {
+  
+
   return (
     <div className={styles.login}>
       <div className={styles.logo}>
