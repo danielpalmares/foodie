@@ -13,7 +13,7 @@
 
       header {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         padding: $padding-vertical--2;
         margin-bottom: 6rem;
@@ -49,6 +49,7 @@
             color: $color-white--100;
             transition: all 0.2s;
             cursor: pointer;
+            margin-top: 1rem;
 
             &:active {
               border-color: $color-orange;
