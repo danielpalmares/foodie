@@ -42,6 +42,11 @@ export default class CookingTime extends Component {
     this.fetchRecipesByIngredients = this.fetchRecipesByIngredients.bind(this);
   }
 
+  getCurrentTime() {
+    const date = new Date().getHours();
+    console.log(date);
+  }
+
   async getRecipesByIngredients(e, ingredients) {
     const tagNameTarget = e.target.tagName.toLowerCase();
 
@@ -71,6 +76,7 @@ export default class CookingTime extends Component {
     const { addActivePage } = this.context;
     addActivePage('Discover');
     //this.fetchRecipesByIngredients('bread');
+    this.getCurrentTime();
   }
 
   render() {

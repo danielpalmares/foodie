@@ -14,7 +14,7 @@
     background: $color-black--100;
     border-top: $border--2;
     padding: $padding-regular;
- 
+
     position: fixed;
     left: 50%;
     bottom: 0;
@@ -28,14 +28,14 @@
       border-radius: 1rem;
       @include flexCenter;
 
-      color: $color-grey;
+      color: $color-black--500;
       padding: $padding-both--1;
       cursor: pointer;
     }
 
     .buttonActive {
-      color: $color-black;
-      background: $color-white--100;
+      color: $color-black--100;
+      background: $color-orange;
 
       animation: up 0.2s ease-in-out;
       animation-fill-mode: forwards;

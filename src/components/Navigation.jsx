@@ -17,7 +17,7 @@ export default function Navigation() {
 
   return (
     <nav className={styles.navigation}>
-      <Link to="/">
+      <Link to="/discover">
         <button
           className={activePage === 'Discover' ? buttonActive : undefined}
         >
