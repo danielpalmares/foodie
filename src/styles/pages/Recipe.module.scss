@@ -32,9 +32,30 @@
         border-radius: 2rem;
         border: $border--2;
 
+        position: relative;
+
         background-position: center;
         background-size: cover;
-        background-repeat: none;
+        background-repeat: no-repeat;
+
+        button {
+          @include flexCenter;
+          background: $color-black;
+          color: $color-grey;
+          padding: 0.5rem;
+          border-radius: 1rem;
+          border: $border--2;
+          position: absolute;
+          bottom: -10%;
+          right: 10%;
+
+          transition: all 0.2s;
+          cursor: pointer;
+
+          &:active {
+            @include clickAnimation;
+          }
+        }
       }
 
       span {
@@ -49,7 +70,7 @@
 
     section {
       color: $color-grey;
-      margin-bottom: 9rem;
+      margin-bottom: 7rem;
 
       header {
         display: flex;

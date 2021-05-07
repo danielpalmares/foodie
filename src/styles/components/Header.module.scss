@@ -8,7 +8,7 @@
     align-items: flex-start;
     justify-content: space-between;
     padding: $padding-vertical--2;
-    
+
     h1 {
       @include logo;
       align-self: center;
@@ -21,24 +21,21 @@
       outline: none;
 
       border-radius: 1rem;
-      padding: $padding-both--1; 
+      padding: $padding-both--1;
       transition: all 0.2s;
       cursor: pointer;
 
       &:active {
         @include clickAnimation;
         border-color: $color-orange;
-        
       }
     }
 
     .backPageBtn {
-      
-      color: $color-white--100;
+      color: $color-black--500;
     }
 
     .changeThemeBtn {
-
     }
   }
 

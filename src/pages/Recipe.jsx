@@ -7,6 +7,7 @@ import {
   IoAddOutline,
   IoRemoveOutline,
   IoArrowForwardOutline,
+  IoHeartOutline,
 } from 'react-icons/io5';
 import styles from '../styles/pages/Recipe.module.scss';
 
@@ -21,7 +22,11 @@ export default function Recipe() {
             style={{
               backgroundImage: `url('https://img.itdg.com.br/tdg/images/recipes/000/121/412/177581/177581_original.jpg?mode=crop&width=710&height=400')`,
             }}
-          />
+          >
+            <button>
+              <IoHeartOutline size={26} />
+            </button>
+          </div>
           <span>
             Recipe by <strong>Daniel Palmares</strong>
           </span>
