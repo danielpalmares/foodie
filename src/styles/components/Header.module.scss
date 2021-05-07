@@ -27,6 +27,7 @@
 
       &:active {
         @include clickAnimation;
+        border-color: $color-orange;
         
       }
     }

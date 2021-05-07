@@ -36,6 +36,7 @@
     .buttonActive {
       color: $color-black--100;
       background: $color-orange;
+      // border: $border--2;
 
       animation: up 0.2s ease-in-out;
       animation-fill-mode: forwards;

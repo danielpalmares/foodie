@@ -7,13 +7,13 @@
     margin-bottom: 6.6rem;
 
     main {
-      padding: 2rem 0;
+      // padding: 2rem 0;
       
 
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4rem;
+      gap: 2rem;
 
       overflow: hidden;
 
@@ -77,17 +77,26 @@
             color: $color-black;
           }
 
-          button {
+
+
+
+
+
+          span {
             outline: none;
             border: none;
             background: none;
+            width: fit-content;
+            display: inline-block;
+            width: 3rem;
+
 
             font-family: 'Lexend', sans-serif;
             font-size: $font-regular;
             font-weight: 700;
             color: $color-orange;
             cursor: pointer;
-            margin-top: 1rem;
+            // margin-top: 1rem;
 
             display: flex;
             align-items: center;
@@ -98,6 +107,9 @@
               transform: translateX(2rem);
             }
           }
+          
+
+          
         }
       }
     }
