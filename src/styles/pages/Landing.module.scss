@@ -96,7 +96,8 @@
             border: $border--2;
             border-radius: 1rem;
             font-size: $font-larger;
-            transition: all .2s;
+            transition: all 0.2s;
+            cursor: pointer;
 
             &:active {
               transform: translateX(1rem);

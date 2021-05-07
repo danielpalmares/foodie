@@ -8,6 +8,7 @@ import Search from './pages/Search';
 import Upload from './pages/Upload';
 import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
+import Recipe from './pages/Recipe';
 
 export default function Routes() {
   return (
@@ -16,11 +17,12 @@ export default function Routes() {
         <Route path="/" exact component={Landing} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/discover" component={CookingTime} />
         <Route path="/search" component={Search} />
         <Route path="/upload" component={Upload} />
         <Route path="/favorites" component={Favorites} />
         <Route path="/profile" component={Profile} />
+        <Route path="/discover" exact component={CookingTime} />
+        <Route path="/discover/recipes" component={Recipe} />
       </Switch>
     </BrowserRouter>
   );

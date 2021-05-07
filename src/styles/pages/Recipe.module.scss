@@ -1,0 +1,160 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+@include respond(mobileS) {
+  .recipe {
+    @include appWrapper(mobileS);
+
+    main {
+      margin: $margin-vertical--2;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .tagMsg {
+        background: $color-orange;
+        border: $border--2;
+        font-size: $font-tiny;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        width: fit-content;
+      }
+
+      h2 {
+        @include heading(secondary);
+        text-transform: capitalize;
+      }
+
+      div {
+        width: 100%;
+        height: 18rem;
+        border-radius: 2rem;
+        border: $border--2;
+
+        background-position: center;
+        background-size: cover;
+        background-repeat: none;
+      }
+
+      span {
+        color: $color-grey;
+        font-size: $font-small;
+
+        strong {
+          color: $color-orange;
+        }
+      }
+    }
+
+    section {
+      color: $color-grey;
+      margin-bottom: 9rem;
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: $padding-vertical--2;
+
+        h3 {
+          @include heading(tertiary);
+          text-transform: capitalize;
+        }
+
+        div {
+          background: $color-blue;
+          color: $color-white;
+          padding: 0.5rem 1rem;
+          border-radius: 1rem;
+          @include flexCenter;
+          gap: 1rem;
+
+          span {
+            font-size: $font-tiny;
+            font-weight: 600;
+          }
+
+          button {
+            @include flexCenter;
+            outline: none;
+            border: 1px solid transparent;
+            background: $color-blue--100;
+            color: $color-white;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            @include noSelect;
+
+            &:active {
+              border-color: $color-white;
+            }
+          }
+        }
+      }
+
+      .ingredients {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          margin: $margin-vertical--2;
+
+          li {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+
+            span {
+              width: 70%;
+              padding-right: 1rem;
+            }
+
+            strong {
+              width: 30%;
+              text-align: end;
+            }
+          }
+        }
+
+        button {
+          outline: none;
+          @include flexCenter;
+          gap: 1rem;
+          padding: $padding-regular;
+          color: $color-grey;
+          border-radius: 1rem;
+          border: $border--2;
+          background: $color-black;
+          font-size: $font-regular;
+          font-weight: 600;
+          text-transform: capitalize;
+          cursor: pointer;
+          transition: all 0.2s;
+          margin: 0 auto;
+
+          @include noSelect;
+
+          &:active {
+            border-color: $color-orange;
+            transform: translateX(2rem);
+          }
+
+          div {
+            @include flexCenter;
+            background: $color-black--200;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}

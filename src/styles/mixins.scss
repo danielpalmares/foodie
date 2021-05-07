@@ -38,17 +38,17 @@
 
 @mixin appWrapper($breakpoint) {
   @if $breakpoint == mobileS {
-    max-width: 300px;
+    max-width: 310px;
     margin: 0 auto;
   }
 
   @if $breakpoint == mobileM {
-    max-width: 335px;
+    max-width: 345px;
     margin: 0 auto;
   }
 
   @if $breakpoint == mobileL {
-    max-width: 385px;
+    max-width: 395px;
     margin: 0 auto;
   }
 
@@ -120,4 +120,14 @@
   color: $color-orange;
   letter-spacing: 1px;
   text-transform: capitalize;
+}
+
+@mixin noSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }

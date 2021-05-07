@@ -44,7 +44,7 @@ export default class CookingTime extends Component {
 
   greetingByTime() {
     const currentHour = new Date().getHours();
-    
+
     if (currentHour >= 5 && currentHour < 12) {
       return 'Good Morning!';
     } else if (currentHour >= 12 && currentHour < 19) {
@@ -61,7 +61,7 @@ export default class CookingTime extends Component {
       tagNameTarget === 'button' ||
       tagNameTarget === 'svg' ||
       tagNameTarget === 'path'
-      )
+    )
       return;
 
     await this.fetchRecipesByIngredients(ingredients);
@@ -72,7 +72,7 @@ export default class CookingTime extends Component {
     try {
       const response = axios.get(
         `https://api.spoonacular.com/recipes/findByIngredients?apiKey=87300bc297fe426eaa7da0257a74584f&ingredients=${ingredients}`
-        );
+      );
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -83,86 +83,85 @@ export default class CookingTime extends Component {
     const { addActivePage } = this.context;
     addActivePage('Discover');
     //this.fetchRecipesByIngredients('bread');
-    
   }
 
   render() {
     return (
       <Layout hasBackPageBtn={false}>
-      <div className={styles.home}>
-      <main>
-      <h3>{this.greetingByTime()} Adalberto</h3>
-      <div className={styles.findRecipesCard}>
-      <div className={styles.iconContainer}>
-      <img src={starIcon} alt="Stars Icon" />
-      </div>
+        <div className={styles.home}>
+          <main>
+            <h3>{this.greetingByTime()} Adalberto</h3>
+            <div className={styles.findRecipesCard}>
+              <div className={styles.iconContainer}>
+                <img src={starIcon} alt="Stars Icon" />
+              </div>
 
-      <div className={styles.textContainer}>
-      <p>Find recipes based on what you already have at home</p>
-      <Link to="/search">
-      <span>
-      Let's try!
-      <IoArrowForward size={16} />
-      </span>
-      </Link>
-      </div>
-      </div>
+              <div className={styles.textContainer}>
+                <p>Find recipes based on what you already have at home</p>
+                <Link to="/search">
+                  <span>
+                    Let's try!
+                    <IoArrowForward size={16} />
+                  </span>
+                </Link>
+              </div>
+            </div>
 
-      <h3>Are you looking for...</h3>
+            <h3>Are you looking for...</h3>
 
-      <section>
-      <CategoryCard
-      image="bread.jpg"
-      basedIngredient="Bread"
-      nutrients="carbohydrate"
-      handleClick={e => this.getRecipesByIngredients(e, 'bread')}
-      />
+            <section>
+              <CategoryCard
+                image="bread.jpg"
+                basedIngredient="Bread"
+                nutrients="carbohydrate"
+                handleClick={e => this.getRecipesByIngredients(e, 'bread')}
+              />
 
-      <CategoryCard
-      image="milk.jpg"
-      basedIngredient="Milk"
-      nutrients="calcium"
-      handleClick={e => this.getRecipesByIngredients(e, 'milk')}
-      />
+              <CategoryCard
+                image="milk.jpg"
+                basedIngredient="Milk"
+                nutrients="calcium"
+                handleClick={e => this.getRecipesByIngredients(e, 'milk')}
+              />
 
-      <CategoryCard
-      image="orange.jpg"
-      basedIngredient="Orange"
-      nutrients="fiber, vitamin, mineral"
-      handleClick={e => this.getRecipesByIngredients(e, 'orange')}
-      />
+              <CategoryCard
+                image="orange.jpg"
+                basedIngredient="Orange"
+                nutrients="fiber, vitamin, mineral"
+                handleClick={e => this.getRecipesByIngredients(e, 'orange')}
+              />
 
-      <CategoryCard
-      image="meat.jpg"
-      basedIngredient="Meat"
-      nutrients="proteín"
-      handleClick={e => this.getRecipesByIngredients(e, 'meat')}
-      />
+              <CategoryCard
+                image="meat.jpg"
+                basedIngredient="Meat"
+                nutrients="proteín"
+                handleClick={e => this.getRecipesByIngredients(e, 'meat')}
+              />
 
-      <CategoryCard
-      image="pizza.jpg"
-      basedIngredient="Pizza"
-      nutrients="carbohydrate, proteín"
-      handleClick={e => this.getRecipesByIngredients(e, 'pizza')}
-      />
+              <CategoryCard
+                image="pizza.jpg"
+                basedIngredient="Pizza"
+                nutrients="carbohydrate, proteín"
+                handleClick={e => this.getRecipesByIngredients(e, 'pizza')}
+              />
 
-      <CategoryCard
-      image="pasta.jpg"
-      basedIngredient="Pasta"
-      nutrients="carbohydrate"
-      handleClick={e => this.getRecipesByIngredients(e, 'pasta')}
-      />
+              <CategoryCard
+                image="pasta.jpg"
+                basedIngredient="Pasta"
+                nutrients="carbohydrate"
+                handleClick={e => this.getRecipesByIngredients(e, 'pasta')}
+              />
 
-      <CategoryCard
-      image="egg.jpg"
-      basedIngredient="Egg"
-      nutrients="proteín"
-      handleClick={e => this.getRecipesByIngredients(e, 'egg')}
-      />
-      </section>
-      </main>
-      </div>
+              <CategoryCard
+                image="egg.jpg"
+                basedIngredient="Egg"
+                nutrients="proteín"
+                handleClick={e => this.getRecipesByIngredients(e, 'egg')}
+              />
+            </section>
+          </main>
+        </div>
       </Layout>
-      );
+    );
   }
 }
