@@ -1,0 +1,30 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+@include respond(mobileS) {
+  .Results {
+    @include appWrapper(mobileS);
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: $margin-vertical--2;
+
+      h3 {
+        @include heading(tertiary);
+        text-transform: capitalize;
+
+        strong {
+          color: $color-orange;
+        }
+      }
+
+      span {
+        font-size: $font-small;
+        color: $color-black--500;
+        text-transform: capitalize;
+      }
+    }
+  }
+}

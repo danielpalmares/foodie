@@ -13,7 +13,7 @@ import styles from '../styles/pages/Recipe.module.scss';
 
 export default function Recipe() {
   return (
-    <Layout hasBackPageBtn>
+    <Layout hasBackPageBtn onlyBackBtn>
       <div className={styles.recipe}>
         <main>
           <span className={styles.tagMsg}>#ByCategories</span>

@@ -41,7 +41,7 @@
         button {
           @include flexCenter;
           background: $color-black;
-          color: $color-grey;
+          color: $color-black--500;
           padding: 0.5rem;
           border-radius: 1rem;
           border: $border--2;
@@ -51,6 +51,7 @@
 
           transition: all 0.2s;
           cursor: pointer;
+          @include noSelect;
 
           &:active {
             @include clickAnimation;

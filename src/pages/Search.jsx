@@ -11,6 +11,7 @@ import NavBottom from '../components/Navigation.jsx';
 
 import styles from '../styles/pages/Search.module.scss';
 import Layout from './Layout';
+import RecipeCard from '../components/RecipeCard';
 
 export default function Search() {
   const { addActivePage } = useContext(GlobalContext);
@@ -46,6 +47,8 @@ export default function Search() {
             </button>
           </Link>
         </div>
+
+        <RecipeCard />
         <NavBottom />
       </div>
     </Layout>
