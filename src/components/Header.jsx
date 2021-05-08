@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { IoArrowBackOutline, IoMoonSharp, IoSunnySharp } from 'react-icons/io5';
 import styles from '../styles/components/Header.module.scss';
 
-export default function Header({ hasBackPageBtn }) {
+export default function Header({ hasBackPageBtn, onlyBackBtn }) {
   const history = useHistory();
   const goBack = () => history.goBack();
 
@@ -18,16 +18,20 @@ export default function Header({ hasBackPageBtn }) {
         </button>
       ) : (
         <button className={styles.changeThemeBtn}>
-          <IoMoonSharp size={26} color="#F4F1C9"/>
+          <IoMoonSharp size={26} color="#F4F1C9" />
           {/* <IoSunnySharp size={26} color="#FDB813"/> */}
         </button>
       )}
 
-      <h1>CookingTime</h1>
+      {!onlyBackBtn && (
+        <>
+          <h1>CT</h1>
 
-      <div className={styles.user}>
-        <img src="/images/woman-1.png" alt="User Profile" />
-      </div>
+          <div className={styles.user}>
+            <img src="/images/woman-1.png" alt="User Profile" />
+          </div>
+        </>
+      )}
     </header>
   );
 }

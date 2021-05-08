@@ -20,10 +20,8 @@ export default function Search() {
   });
 
   return (
-    <Layout hasBackPageBtn>
+    <Layout hasBackPageBtn onlyBackBtn={true}>
       <div className={styles.search}>
-        
-
         <header>
           <h1>What's in your kitchen?</h1>
           <span>Enter up to 2 ingredients or more</span>

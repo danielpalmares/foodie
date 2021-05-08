@@ -18,7 +18,7 @@ export default function Upload() {
   });
 
   return (
-    <Layout hasBackPageBtn>
+    <Layout hasBackPageBtn onlyBackBtn={true}>
       <div className={styles.upload}>
         <h1>Show us your amazing recipe!</h1>
 
