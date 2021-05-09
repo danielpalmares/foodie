@@ -4,16 +4,19 @@ export const GlobalContext = createContext();
 
 export function GlobalContextProvider({ children }) {
   const [activePage, setActivePage] = useState('');
+  const [recipesByCategory, setRecipesByCategory] = useState([]);
 
-  function addActivePage(page) {
-    return setActivePage(page);
-  }
+  const addActivePage = (page) => setActivePage(page);
+
+  const addRecipesByCategory = (recArr) => setRecipesByCategory(recArr);
 
   return (
     <GlobalContext.Provider
       value={{
         activePage,
         addActivePage,
+        recipesByCategory,
+        addRecipesByCategory,
       }}
     >
       {children}

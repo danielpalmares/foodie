@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+
+import { GlobalContext } from '../contexts/GlobalContextProvider';
 
 import Layout from './Layout';
 import RecipeCard from '../components/RecipeCard';
@@ -6,6 +8,12 @@ import RecipeCard from '../components/RecipeCard';
 import styles from '../styles/pages/Results.module.scss';
 
 export default function Results() {
+  const { recipesByCategory } = useContext(GlobalContext);
+
+  useEffect(() => {
+    console.log(recipesByCategory)
+  })
+
   return (
     <Layout hasBackPageBtn onlyBackBtn>
       <div className={styles.Results}>
