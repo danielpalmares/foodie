@@ -43,12 +43,12 @@
   }
 
   @if $breakpoint == mobileM {
-    max-width: 345px;
+    max-width: 355px;
     margin: 0 auto;
   }
 
   @if $breakpoint == mobileL {
-    max-width: 395px;
+    max-width: 405px;
     margin: 0 auto;
   }
 

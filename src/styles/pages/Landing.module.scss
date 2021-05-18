@@ -8,29 +8,35 @@
     background-repeat: none;
     background-size: cover;
 
+    overflow: hidden;
+
     .landingContent {
       @include appWrapper(mobileS);
+      position: relative;
+
+      .blob {
+        height: 40rem;
+        z-index: -1;
+
+        position: absolute;
+        top: 15%;
+        left: 20%;
+      }
 
       header {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-between;
         padding: $padding-vertical--2;
         margin-bottom: 6rem;
 
         div {
           display: flex;
-          flex-direction: column;
+
           align-items: center;
 
-          h1 {
-            @include logo;
-            font-size: 6rem;
-          }
-
-          span {
-            @include logo;
-            font-size: $font-regular;
+          img {
+            height: calc(86px / 2);
           }
         }
 
@@ -38,10 +44,10 @@
           button {
             @include flexCenter;
             gap: 0.5rem;
-            background: $color-black;
+            background: $color-green;
             outline: none;
-            border: $border--2;
-            border-radius: 1rem;
+            border: none;
+            border-radius: 2rem;
             padding: $padding-regular;
 
             font-size: $font-regular;
@@ -62,13 +68,15 @@
       main {
         display: flex;
         flex-direction: column;
-        gap: 4rem;
+        // gap: 4rem;
         padding-bottom: 8rem;
 
         h2 {
           @include heading(secondary);
           font-size: 4rem;
           font-weight: 700;
+          // text-transform: capitalize;
+          margin-bottom: 4rem;
         }
 
         h3 {
@@ -76,15 +84,20 @@
           font-size: 3rem;
           font-weight: 700;
           color: $color-orange;
+          text-transform: capitalize;
+          margin-bottom: 4rem;
         }
 
         h4 {
           @include heading(tertiary);
           font-size: $font-regular;
           font-weight: 400;
+          margin-bottom: 4rem;
         }
 
         a {
+          margin-top: 4rem;
+
           button {
             width: 100%;
             outline: none;
@@ -94,7 +107,7 @@
             @include flexCenter;
             gap: 0.5rem;
             border: $border--2;
-            border-radius: 1rem;
+            border-radius: 2rem;
             font-size: $font-larger;
             transition: all 0.2s;
             cursor: pointer;

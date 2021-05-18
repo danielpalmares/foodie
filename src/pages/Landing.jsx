@@ -1,26 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import logo from '../assets/foodie-logo.svg';
+import blob from '../assets/blob-black.svg';
+
 import { IoEnterOutline, IoArrowForwardOutline } from 'react-icons/io5';
 import styles from '../styles/pages/Landing.module.scss';
 
 export default function Landing() {
-  const gradient = 'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))';
-
   return (
-    <div
-      className={styles.landing}
-      style={{
-        backgroundImage: `${gradient}, url(${
-          process.env.PUBLIC_URL + '/images/ct-background.jpg'
-        })`,
-      }}
-    >
+    <div className={styles.landing}>
       <div className={styles.landingContent}>
+        <img src={blob} alt="Blob" className={styles.blob} />
+
         <header>
           <div>
-            <h1>CT</h1>
-            <span>CookingTime</span>
+            <img src={logo} alt="Foodie logo" />
           </div>
 
           <Link to="/login">
@@ -32,7 +27,7 @@ export default function Landing() {
 
         <main>
           <h2>Search over 1,000,000 recipes.</h2>
-          <h3>Make your own recipe.</h3>
+          <h3>Make your own recipe, and more...</h3>
           <h4>What are you waiting for?</h4>
 
           <Link to="/signup">
