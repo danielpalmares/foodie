@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import logo from '../assets/foodie-logo.svg';
 import blob from '../assets/blob-black.svg';
 
-import { IoEnterOutline, IoArrowForwardOutline } from 'react-icons/io5';
+import SignInButton from '../components/SignInButton/index';
+import SignUpButton from '../components/SignUpButton/index';
+
 import styles from '../styles/pages/Landing.module.scss';
 
 export default function Landing() {
@@ -18,11 +19,7 @@ export default function Landing() {
             <img src={logo} alt="Foodie logo" />
           </div>
 
-          <Link to="/login">
-            <button>
-              Login <IoEnterOutline size={22} />
-            </button>
-          </Link>
+          <SignInButton />
         </header>
 
         <main>
@@ -30,11 +27,7 @@ export default function Landing() {
           <h3>Make your own recipe, and more...</h3>
           <h4>What are you waiting for?</h4>
 
-          <Link to="/signup">
-            <button>
-              Sign Up Now <IoArrowForwardOutline size={26} />
-            </button>
-          </Link>
+          <SignUpButton />
         </main>
       </div>
     </div>

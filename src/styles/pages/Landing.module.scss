@@ -4,10 +4,6 @@
 @include respond(mobileS) {
   .landing {
     min-height: 100vh;
-    background-position: center;
-    background-repeat: none;
-    background-size: cover;
-
     overflow: hidden;
 
     .landingContent {
@@ -41,27 +37,6 @@
         }
 
         a {
-          button {
-            @include flexCenter;
-            gap: 0.5rem;
-            background: $color-green;
-            outline: none;
-            border: none;
-            border-radius: 2rem;
-            padding: $padding-regular;
-
-            font-size: $font-regular;
-            font-weight: 400;
-            color: $color-white--100;
-            transition: all 0.2s;
-            cursor: pointer;
-            margin-top: 1rem;
-
-            &:active {
-              border-color: $color-orange;
-              transform: translateX(1rem);
-            }
-          }
         }
       }
 
@@ -97,25 +72,6 @@
 
         a {
           margin-top: 4rem;
-
-          button {
-            width: 100%;
-            outline: none;
-            background: $color-orange;
-            color: $color-white--100;
-            padding: $padding-both--2;
-            @include flexCenter;
-            gap: 0.5rem;
-            border: $border--2;
-            border-radius: 2rem;
-            font-size: $font-larger;
-            transition: all 0.2s;
-            cursor: pointer;
-
-            &:active {
-              transform: translateX(1rem);
-            }
-          }
         }
       }
     }
