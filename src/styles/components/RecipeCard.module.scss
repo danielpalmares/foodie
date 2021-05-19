@@ -3,7 +3,6 @@
 
 @include respond(mobileS) {
   .RecipeCard {
-    @include basicBg;
     @include noSelect;
 
     display: flex;

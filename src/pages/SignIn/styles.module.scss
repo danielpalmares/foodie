@@ -1,0 +1,50 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+@include respond(mobileS) {
+  .login {
+    @include appWrapper(mobileS);
+
+    @include respond(mobileM) {
+      @include appWrapper(mobileM);
+    }
+
+    @include respond(mobileL) {
+      @include appWrapper(mobileL);
+    }
+
+    @include respond(tablet) {
+      @include appWrapper(tablet);
+    }
+
+    .directions {
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      h1 {
+        @include heading(primary);
+        padding: 2rem 0;
+      }
+
+      div {
+        line-height: 1.5;
+        font-size: $font-small;
+
+        span {
+          color: $color-grey;
+        }
+
+        a {
+          color: $color-orange;
+          font-weight: 600;
+
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+      }
+    }
+  }
+}

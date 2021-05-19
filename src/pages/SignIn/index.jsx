@@ -1,32 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../../components/LoginForm';
+import LandingHeader from '../../components/LandingHeader';
 
 import { IoArrowForwardOutline } from 'react-icons/io5';
-import styles from '../styles/pages/Login.module.scss';
+import styles from './styles.module.scss';
 
-export default function Login() {
-  
-
+export default function SignIn() {
   return (
     <div className={styles.login}>
-      <div className={styles.logo}>
-        <h1>CT</h1>
-      </div>
+      <LandingHeader />
 
       <div className={styles.directions}>
         <h1>
           Hey, <br />
-          Login Now.
+          Sign in now.
         </h1>
 
-        <span>
-          Are you new? <br />
+        <div>
+          <span>Are you new?</span> <br />
           <Link to="/signup">
             Let's create a new account <IoArrowForwardOutline size={14} />
           </Link>
-        </span>
+        </div>
       </div>
 
       <LoginForm />

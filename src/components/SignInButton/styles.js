@@ -17,7 +17,6 @@ export const Button = styled.button`
   padding: 1rem 2rem;
 
   font-size: 1.6rem;
-  text-transform: capitalize;
   color: ${colorWhite100};
   cursor: pointer;
   transition: all 0.2s;

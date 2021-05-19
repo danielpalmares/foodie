@@ -1,0 +1,15 @@
+@import '../../styles/mixins.scss';
+
+@include respond(mobileS) {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0;
+    margin-bottom: 6rem;
+
+    img {
+      height: calc(86px / 2);
+    }
+  }
+}

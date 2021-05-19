@@ -10,7 +10,7 @@ export const Button = styled.button`
   justify-content: center;
   gap: 0.5rem;
 
-  width: 30rem;
+  width: 100%;
   margin: 0 auto;
 
   background: ${colorOrange};
@@ -20,7 +20,6 @@ export const Button = styled.button`
   padding: 2rem;
 
   font-size: 1.8rem;
-  text-transform: capitalize;
   color: ${colorWhite100};
   cursor: pointer;
   transition: all 0.2s;

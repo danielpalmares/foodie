@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Landing from './pages/Landing';
-import Login from './pages/Login';
+import Landing from './pages/Landing/index';
+import SignIn from './pages/SignIn/index';
 import SignUp from './pages/SignUp';
 import CookingTime from './main/CookingTime';
 import Search from './pages/Search';
@@ -16,7 +16,7 @@ export default function Routes() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Landing} />
-        <Route path="/signin" component={Login} />
+        <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route path="/search" exact component={Search} />
         <Route path="/search/results" component={Results} />
