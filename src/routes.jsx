@@ -2,7 +2,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Landing from './pages/Landing/index';
 import SignIn from './pages/SignIn/index';
-import SignUp from './pages/SignUp';
+import SignUp from './pages/SignUp/index';
 import CookingTime from './main/CookingTime';
 import Search from './pages/Search';
 import Upload from './pages/Upload';

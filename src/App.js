@@ -4,10 +4,15 @@ import Routes from './routes';
 
 import './styles/global.scss';
 
+import { Provider } from 'react-redux';
+import storeConfig from './store/storeConfig';
+
 export default function App() {
   return (
-    <GlobalContextProvider>
-      <Routes />
-    </GlobalContextProvider>
+    <Provider store={storeConfig()}>
+      <GlobalContextProvider>
+        <Routes />
+      </GlobalContextProvider>
+    </Provider>
   );
 }

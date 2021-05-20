@@ -1,5 +1,5 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
 
 @include respond(mobileS) {
   .signUp {
