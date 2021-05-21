@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+export const Missions = styled.div``;
+
 export const Stats = styled.div`
   /* display: flex;
   justify-content: center; */
