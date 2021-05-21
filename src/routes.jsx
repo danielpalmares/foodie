@@ -7,7 +7,7 @@ import CookingTime from './main/CookingTime';
 import Search from './pages/Search';
 import Upload from './pages/Upload';
 import Favorites from './pages/Favorites';
-import Profile from './pages/Profile';
+import Profile from './pages/Profile/_index';
 import Recipe from './pages/Recipe';
 import Results from './pages/Results';
 
