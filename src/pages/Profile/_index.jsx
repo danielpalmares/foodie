@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Stats } from './styles';
+import { Container, Stats, Missions } from './styles';
 
 import Layout from '../Layout';
 
@@ -40,6 +40,14 @@ export default function Profile() {
               </li>
             </ul>
           </Stats>
+
+          <Missions>
+            <h1>Tasks</h1>
+            <div>
+              send us more than 20 recipes to receive a status
+              <span>20 pt</span>
+            </div>
+          </Missions>
         </Container>
       </Layout>
     </>

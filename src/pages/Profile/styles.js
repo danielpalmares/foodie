@@ -1,11 +1,50 @@
 import styled from 'styled-components';
 
-export const Missions = styled.div``;
+export const Missions = styled.div`
+  padding: 0 1rem;
+  margin: 10rem 0;
+
+  h1 {
+    font-size: 2rem;
+    color: #8338ec;
+    font-weight: 700;
+    margin: 1rem 0;
+  }
+
+  div {
+    color: #c7c7c7;
+    padding: 1rem;
+    font-weight: 700;
+    width: 100%;
+    height: auto;
+    background: #111;
+    border-radius: 1rem;
+    border: 2px solid #8338ec;
+    border-style: dashed;
+
+    position: relative;
+
+    span {
+      background: #111;
+      padding: 0.5rem 1rem;
+      color: #8338ec;
+      font-weight: 700;
+      border: 2px solid #8338ec;
+      border-style: dashed;
+
+      position: absolute;
+      border-radius: 1rem;
+
+      top: 75%;
+      right: 5%;
+    }
+  }
+`;
 
 export const Stats = styled.div`
   /* display: flex;
   justify-content: center; */
-  margin: 2rem 0;
+  padding: 2rem 0;
 
   ul {
     display: flex;
