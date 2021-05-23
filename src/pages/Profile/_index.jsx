@@ -46,26 +46,29 @@ export default function Profile() {
           </Stats>
 
           <Missions>
-            <h1>Tasks</h1>
+            <h1>Daily Tasks</h1>
             <ul>
               <div>
                 <li>
-                  send us more than 20 recipes to receive a status
-                  <span> - 20 points</span>
+                  <p>
+                    send us more than 20 recipes to receive a status and buy a
+                    recipe for a saturday lunch yeah yeah
+                  </p>
+                  <span>20 points</span>
                 </li>
               </div>
 
               <div>
                 <li>
                   send us more than 20 recipes to receive a status
-                  <span> - 20 points</span>
+                  <span>20 points</span>
                 </li>
               </div>
 
               <div>
                 <li>
                   send us more than 20 recipes to receive a status
-                  <span> - 20 points</span>
+                  <span>20 points</span>
                 </li>
               </div>
             </ul>

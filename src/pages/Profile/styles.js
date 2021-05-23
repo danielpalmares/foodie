@@ -1,14 +1,39 @@
 import styled from 'styled-components';
 
 export const Missions = styled.div`
-  padding: 0 1rem;
-  margin-bottom: 10rem;
+  width: 100%;
+  padding-bottom: 15rem;
+
+  // media queries start area
+  @media screen and (min-width: 320px) {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 375px) {
+    max-width: 355px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 425px) {
+    max-width: 405px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    max-width: 568px;
+    margin: 0 auto;
+  }
+  // media queries final area
 
   h1 {
     font-size: 2rem;
     color: #8338ec;
     font-weight: 700;
-    margin: 1rem 0;
+    margin: 2rem 0;
+    padding: 1rem 0;
+    border-top: 2px solid #222;
+    border-bottom: 2px solid #222;
   }
 
   ul {
@@ -26,14 +51,22 @@ export const Missions = styled.div`
         font-weight: 700;
         width: 100%;
         height: auto;
-        background: #111;
+        background: #000;
+        opacity: 0.2;
         border-radius: 1rem;
         border: 2px solid #8338ec;
         //border-style: dashed;
+        line-height: 1.5;
+
+        display: flex;
+        justify-content: space-between;
 
         span {
           color: #8338ec;
           font-weight: 700;
+          align-self: flex-start;
+          text-align: center;
+          margin-left: 1rem;
         }
       }
     }
@@ -41,16 +74,34 @@ export const Missions = styled.div`
 `;
 
 export const Stats = styled.div`
-  /* display: flex;
-  justify-content: center; */
-  padding: 2rem 0;
-  margin: 2rem 0;
-  border-bottom: 2px solid #222;
+  width: 100%;
+  padding: 3rem 0;
+
+  // media queries start area
+  @media screen and (min-width: 320px) {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 375px) {
+    max-width: 355px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 425px) {
+    max-width: 405px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    max-width: 568px;
+    margin: 0 auto;
+  }
+  // media queries final area
 
   ul {
     display: flex;
     justify-content: space-between;
-    padding: 0 1rem;
 
     li {
       display: flex;
