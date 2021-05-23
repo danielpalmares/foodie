@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Missions = styled.div`
   padding: 0 1rem;
-  margin: 10rem 0;
+  margin-bottom: 10rem;
 
   h1 {
     font-size: 2rem;
@@ -11,32 +11,31 @@ export const Missions = styled.div`
     margin: 1rem 0;
   }
 
-  div {
-    color: #c7c7c7;
-    padding: 1rem;
-    font-weight: 700;
-    width: 100%;
-    height: auto;
-    background: #111;
-    border-radius: 1rem;
-    border: 2px solid #8338ec;
-    border-style: dashed;
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
-    position: relative;
+    div {
+      width: 100%;
+      position: relative;
 
-    span {
-      background: #111;
-      padding: 0.5rem 1rem;
-      color: #8338ec;
-      font-weight: 700;
-      border: 2px solid #8338ec;
-      border-style: dashed;
+      li {
+        color: #c7c7c7;
+        padding: 1rem;
+        font-weight: 700;
+        width: 100%;
+        height: auto;
+        background: #111;
+        border-radius: 1rem;
+        border: 2px solid #8338ec;
+        //border-style: dashed;
 
-      position: absolute;
-      border-radius: 1rem;
-
-      top: 75%;
-      right: 5%;
+        span {
+          color: #8338ec;
+          font-weight: 700;
+        }
+      }
     }
   }
 `;
@@ -45,10 +44,13 @@ export const Stats = styled.div`
   /* display: flex;
   justify-content: center; */
   padding: 2rem 0;
+  margin: 2rem 0;
+  border-bottom: 2px solid #222;
 
   ul {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 0 1rem;
 
     li {
       display: flex;
@@ -85,10 +87,22 @@ export const Stats = styled.div`
 
 export const Container = styled.div`
   header {
-    height: 20rem;
+    height: 15rem;
     position: relative;
-    clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%);
-    background: #8338ec;
+    z-index: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%);
+      background-color: #8338ec;
+    }
 
     div {
       height: 10rem;
@@ -104,7 +118,7 @@ export const Container = styled.div`
       justify-content: center;
 
       position: absolute;
-      top: 50%;
+      top: 75%;
       left: 50%;
       transform: translate(-50%, -50%);
 

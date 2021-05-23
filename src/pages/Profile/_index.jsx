@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Container, Stats, Missions } from './styles';
 
 import Layout from '../Layout';
@@ -35,6 +35,10 @@ export default function Profile() {
                 <span>20</span>
               </li>
               <li>
+                <p>Points</p>
+                <span>200</span>
+              </li>
+              <li>
                 <p>Status</p>
                 <span>Chief</span>
               </li>
@@ -43,10 +47,28 @@ export default function Profile() {
 
           <Missions>
             <h1>Tasks</h1>
-            <div>
-              send us more than 20 recipes to receive a status
-              <span>20 pt</span>
-            </div>
+            <ul>
+              <div>
+                <li>
+                  send us more than 20 recipes to receive a status
+                  <span> - 20 points</span>
+                </li>
+              </div>
+
+              <div>
+                <li>
+                  send us more than 20 recipes to receive a status
+                  <span> - 20 points</span>
+                </li>
+              </div>
+
+              <div>
+                <li>
+                  send us more than 20 recipes to receive a status
+                  <span> - 20 points</span>
+                </li>
+              </div>
+            </ul>
           </Missions>
         </Container>
       </Layout>
