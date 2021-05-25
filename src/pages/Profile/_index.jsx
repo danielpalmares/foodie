@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { Container, Stats, Missions } from './styles';
 
 import Layout from '../Layout';
