@@ -3,25 +3,27 @@ import React from 'react';
 import SignUpButton from '../../components/SignUpButton/index';
 import LandingHeader from '../../components/LandingHeader/index';
 
-import blob from '../../assets/blob-black.svg';
+import blob from '../../assets/blob.svg';
 
-import styles from './styles.module.scss';
+import { LandingContainer, LandingContent, BlobContainer } from './styles';
 
 export default function Landing() {
   return (
-    <div className={styles.landing}>
-      <img src={blob} alt="Blob" className={styles.blob} />
+    <LandingContainer>
+      <BlobContainer>
+        <img src={blob} alt="Blob" />
+      </BlobContainer>
 
-      <div className={styles.landingContent}>
+      <LandingContent>
         <LandingHeader hasSignInButton />
 
         <main>
-          <h1>Search over 1,000,000 recipes.</h1>
+          <h1>Search over 1,000,000 recipes</h1>
           <h2>Make your own recipe, and more...</h2>
           <h3>What are you waiting for?</h3>
           <SignUpButton />
         </main>
-      </div>
-    </div>
+      </LandingContent>
+    </LandingContainer>
   );
 }

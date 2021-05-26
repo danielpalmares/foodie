@@ -1,9 +1,9 @@
 export default {
-  background: '#FEFAE0',
+  background: '#ECEDF1',
 
   colors: {
     yellow: '#FFBE0B',
-    orange: '#FB5607',
+    orange: '#FF8C00',
     purple: '#8338EC',
     blue: '#3A86FF',
   },
