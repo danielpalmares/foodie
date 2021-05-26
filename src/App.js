@@ -9,7 +9,7 @@ import { storeConfig } from './store/storeConfig';
 
 export default function App() {
   return (
-    <Provider store={storeConfig}>
+    <Provider store={storeConfig()}>
       <GlobalContextProvider>
         <Routes />
       </GlobalContextProvider>
