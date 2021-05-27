@@ -6,12 +6,12 @@ import {
   IoKeyOutline,
   IoArrowForwardOutline,
 } from 'react-icons/io5';
-import styles from '../styles/components/LoginForm.module.scss';
+import { Form, InputContainer } from './styles';
 
-export default function LoginForm() {
+export default function SignInForm() {
   return (
-    <form action="">
-      <div className={styles.emailContainer}>
+    <Form>
+      <InputContainer>
         <label htmlFor="email">
           <IoMailOutline size={26} />
         </label>
@@ -21,10 +21,10 @@ export default function LoginForm() {
           id="email"
           placeholder="Email"
           required
-        /> 
-      </div>
+        />
+      </InputContainer>
 
-      <div className={styles.passwordContainer}>
+      <InputContainer>
         <label htmlFor="password">
           <IoKeyOutline size={26} />
         </label>
@@ -35,15 +35,15 @@ export default function LoginForm() {
           placeholder="Password"
           required
         />
-      </div>
+      </InputContainer>
 
       <span>
         <Link to="/">Forgot password?</Link>
       </span>
 
       <button type="submit">
-        Login <IoArrowForwardOutline size={26} />
+        Sign in <IoArrowForwardOutline size={26} />
       </button>
-    </form>
+    </Form>
   );
 }

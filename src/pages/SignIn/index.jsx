@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LoginForm from '../../components/LoginForm';
+import SignInForm from '../../components/SignInForm';
 import LandingHeader from '../../components/LandingHeader';
 
 import { IoArrowForwardOutline } from 'react-icons/io5';
@@ -26,7 +26,7 @@ export default function SignIn() {
         </div>
       </Directions>
 
-      <LoginForm />
+      <SignInForm />
     </SignInContainer>
   );
 }
