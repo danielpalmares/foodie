@@ -5,14 +5,14 @@ import LoginForm from '../../components/LoginForm';
 import LandingHeader from '../../components/LandingHeader';
 
 import { IoArrowForwardOutline } from 'react-icons/io5';
-import styles from './styles.module.scss';
+import { SignInContainer, Directions } from './styles';
 
 export default function SignIn() {
   return (
-    <div className={styles.login}>
+    <SignInContainer>
       <LandingHeader />
 
-      <div className={styles.directions}>
+      <Directions>
         <h1>
           Hey, <br />
           Sign in now.
@@ -24,9 +24,9 @@ export default function SignIn() {
             Let's create a new account <IoArrowForwardOutline size={14} />
           </Link>
         </div>
-      </div>
+      </Directions>
 
       <LoginForm />
-    </div>
+    </SignInContainer>
   );
 }

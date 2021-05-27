@@ -1,16 +1,18 @@
 export default {
+  mode: 'light',
   background: '#ECEDF1',
 
   colors: {
-    yellow: '#FFBE0B',
-    orange: '#FF8C00',
-    purple: '#8338EC',
-    blue: '#3A86FF',
+    primary: '#FF8C00', // orange
+    secondary: '#49BF6A', // green
+    tertiary: '#111', // black
+    quartenary: '#3A86FF', // blue
+    border: '#CDCDCD',
   },
 
   fontColors: {
-    black: '#111',
-    grey: '#777',
-    greySecondary: '#333',
+    primary: '#333', // black
+    bg: '#ECEDF1', // white / background as font
+    secondary: '#777', // grey
   },
 };

@@ -1,4 +1,4 @@
-import { light } from '../../styles/themes/_index';
+import { light, dark } from '../../styles/themes/_index';
 
 const SWITCH_THEME = 'SWITCH_THEME';
 

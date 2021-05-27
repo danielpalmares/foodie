@@ -1,17 +1,15 @@
 import React from 'react';
 
 import SignInButton from '../SignInButton/index';
-
-import logo from '../../assets/foodie-logo.svg';
-
-import styles from './styles.module.scss';
+import Logo from '../../assets/foodie-logo.svg';
+import { Header } from './styles';
 
 export default function LandingHeader({ hasSignInButton }) {
   return (
-    <header className={styles.header}>
-      <img src={logo} alt="Foodie logo" />
+    <Header>
+      <img src={Logo} alt="Foodie logo" />
 
       {hasSignInButton && <SignInButton />}
-    </header>
+    </Header>
   );
 }
