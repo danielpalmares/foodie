@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const SignInContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+export const SignUpContainer = styled.div`
   padding: 0 1rem;
 
   @media screen and (min-width: 320px) {
@@ -30,26 +28,23 @@ export const SignInContainer = styled.div`
 
 export const Directions = styled.div`
   padding: 2rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 
   h1 {
     font-size: 4rem;
     font-weight: 700;
     color: ${props => props.theme.fontColors.primary};
     line-height: 1.5;
+
     padding: 2rem 0;
   }
 
   div {
-    line-height: 1.5;
+    display: block;
     font-size: 1.4rem;
-    padding-bottom: 1rem;
+    color: ${props => props.theme.fontColors.primary};
+    line-height: 1.5;
 
-    span {
-      color: ${props => props.theme.fontColors.primary};
-    }
+    padding-bottom: 1rem;
 
     a {
       color: ${props => props.theme.colors.primary};
@@ -58,6 +53,17 @@ export const Directions = styled.div`
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      width: fit-content;
     }
   }
+`;
+
+export const ErrorMessage = styled.span`
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ff0033; // red
+  text-align: center;
+
+  padding: 1rem 0;
 `;

@@ -4,19 +4,7 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
-  position: relative;
   padding-bottom: 4rem;
-
-  span {
-    display: block;
-    font-size: 1.4rem;
-
-    a:link,
-    a:visited {
-      color: ${props => props.theme.fontColors.secondary};
-    }
-  }
 
   button {
     display: flex;
@@ -27,17 +15,18 @@ export const Form = styled.form`
     font-family: 'Lexend', sans-serif;
     font-size: 1.8rem;
     font-weight: 600;
+    padding: 2rem;
     color: ${props =>
       props.theme.mode === 'light'
         ? props.theme.fontColors.bg
         : props.theme.fontColors.primary};
-    padding: 2rem;
 
     outline: none;
     border: none;
     border-radius: 1rem;
     background: ${props => props.theme.colors.primary};
     transition: all 0.2s;
+    cursor: pointer;
 
     &:active {
       transform: translateX(1rem);
@@ -84,4 +73,42 @@ export const InputContainer = styled.div`
       color: ${props => props.theme.fontColors.secondary};
     }
   }
+`;
+
+export const GenderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: ${props => props.theme.fontColors.secondary};
+
+    span {
+      font-size: 1.8rem;
+      color: ${props => props.theme.fontColors.primary};
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  input#male:checked + label {
+    color: #32949b; // blue
+  }
+
+  input#female:checked + label {
+    color: #f8b9d4; // pink
+  }
+`;
+
+export const Warning = styled.span`
+  display: block;
+  font-size: 1.2rem;
+  color: ${props => props.theme.fontColors.secondary};
+  text-align: center;
+  text-transform: uppercase;
 `;

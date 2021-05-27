@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-// variables
-const colorOrange = '#FF8C00';
-const colorWhite100 = '#ECEDF1';
-
 export const Button = styled.button`
   display: flex;
   align-items: center;

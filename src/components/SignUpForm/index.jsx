@@ -8,7 +8,7 @@ import {
   IoFemaleOutline,
   IoArrowForwardOutline,
 } from 'react-icons/io5';
-import styles from '../styles/components/SignUpForm.module.scss';
+import { Form, InputContainer, GenderContainer, Warning } from './styles';
 
 export default function SignUpForm({ handleGetData }) {
   const [userName, setUserName] = useState('');
@@ -16,18 +16,22 @@ export default function SignUpForm({ handleGetData }) {
   const [userPassword, setUserPassword] = useState('');
   const [userGender, setUserGender] = useState('male');
 
+  // handle input name, email and password
   const handleNameChange = e => setUserName(e.target.value);
   const handleEmailChange = e => setUserEmail(e.target.value);
   const handlePasswordChange = e => setUserPassword(e.target.value);
+
+  // handle both gender
   const handleMaleChange = e => {
-    let isChecked = e.target.checked;
+    const isChecked = e.target.checked;
     isChecked && setUserGender('male');
   };
   const handleFemaleChange = e => {
-    let isChecked = e.target.checked;
+    const isChecked = e.target.checked;
     isChecked && setUserGender('female');
   };
 
+  // handle user data
   const sendUserData = e => {
     e.preventDefault();
 
@@ -36,18 +40,18 @@ export default function SignUpForm({ handleGetData }) {
       userName: userName,
       userEmail: userEmail,
       userPassword: userPassword,
-      userGender: userGender
-    }
-    
+      userGender: userGender,
+    };
     handleGetData(user);
   };
 
   return (
-    <form action="">
-      <div className={styles.nameContainer}>
+    <Form>
+      <InputContainer>
         <label htmlFor="firstName">
           <IoPersonOutline size={26} />
         </label>
+
         <input
           type="text"
           id="firstName"
@@ -55,12 +59,13 @@ export default function SignUpForm({ handleGetData }) {
           onChange={e => handleNameChange(e)}
           required
         />
-      </div>
+      </InputContainer>
 
-      <div className={styles.emailContainer}>
+      <InputContainer>
         <label htmlFor="email">
           <IoMailOutline size={26} />
         </label>
+
         <input
           type="email"
           id="email"
@@ -68,12 +73,13 @@ export default function SignUpForm({ handleGetData }) {
           onChange={e => handleEmailChange(e)}
           required
         />
-      </div>
+      </InputContainer>
 
-      <div className={styles.passwordContainer}>
+      <InputContainer>
         <label htmlFor="password">
           <IoKeyOutline size={26} />
         </label>
+
         <input
           type="password"
           id="password"
@@ -81,15 +87,14 @@ export default function SignUpForm({ handleGetData }) {
           onChange={e => handlePasswordChange(e)}
           required
         />
-      </div>
+      </InputContainer>
 
-      <div className={styles.genderContainer}>
+      <GenderContainer>
         <input
           type="radio"
           name="gender"
           id="male"
           value="male"
-          className={styles.inpMale}
           onChange={e => handleMaleChange(e)}
           defaultChecked
         />
@@ -103,22 +108,19 @@ export default function SignUpForm({ handleGetData }) {
           name="gender"
           id="female"
           value="female"
-          className={styles.inpFemale}
           onChange={e => handleFemaleChange(e)}
         />
         <label htmlFor="female">
           <IoFemaleOutline size={26} />
           <span>Female</span>
         </label>
-      </div>
+      </GenderContainer>
 
-      <span className={styles.terms}>
-        Data are stored in the local storage.
-      </span>
+      <Warning>Data are stored in the local storage</Warning>
 
       <button type="submit" onClick={e => sendUserData(e)}>
-        Sign Up <IoArrowForwardOutline size={26} />
+        Sign up <IoArrowForwardOutline size={26} />
       </button>
-    </form>
+    </Form>
   );
 }

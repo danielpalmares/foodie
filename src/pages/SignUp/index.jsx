@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import SignUpForm from '../../components/SignUpForm';
+import SignUpForm from '../../components/SignUpForm/index';
+import LandingHeader from '../../components/LandingHeader';
 
 import { IoArrowBackOutline } from 'react-icons/io5';
-import styles from './styles.module.scss';
 
 import { useDispatch } from 'react-redux';
 import { createUserAction } from '../../store/createUser';
+
+import { SignUpContainer, Directions, ErrorMessage } from './styles';
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -16,34 +18,35 @@ export default function SignUp() {
     dispatch(createUserAction(user));
   };
 
-  return (
-    <div className={styles.signUp}>
-      <div className={styles.logo}>
-        <h1>CT</h1>
-      </div>
+  const status = 'error';
 
-      <div className={styles.directions}>
+  return (
+    <SignUpContainer>
+      <LandingHeader />
+
+      <Directions>
         <h1>
           Hey, <br />
-          Sign Up Now.
+          Sign up now.
         </h1>
 
-        <span>
-          Already have an account? <br />
-          <Link to="/login">
+        <div>
+          <span>Already have an account?</span>
+          <br />
+          <Link to="/signin">
             <IoArrowBackOutline size={14} />
             Go to login page.
           </Link>
-        </span>
+        </div>
 
-        {/* {status === 'error' && (
-          <span className={styles.emailError}>
+        {status === 'error' && (
+          <ErrorMessage>
             An account with this email already exists.
-          </span>
-        )} */}
-      </div>
+          </ErrorMessage>
+        )}
+      </Directions>
 
       <SignUpForm handleGetData={createNewUser} />
-    </div>
+    </SignUpContainer>
   );
 }
