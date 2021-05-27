@@ -46,81 +46,83 @@ export default function SignUpForm({ handleGetData }) {
   };
 
   return (
-    <Form>
-      <InputContainer>
-        <label htmlFor="firstName">
-          <IoPersonOutline size={26} />
-        </label>
+    <>
+      <Form>
+        <InputContainer>
+          <label htmlFor="firstName">
+            <IoPersonOutline size={26} />
+          </label>
 
-        <input
-          type="text"
-          id="firstName"
-          placeholder="First Name"
-          onChange={e => handleNameChange(e)}
-          required
-        />
-      </InputContainer>
+          <input
+            type="text"
+            id="firstName"
+            placeholder="First Name"
+            onChange={e => handleNameChange(e)}
+            required
+          />
+        </InputContainer>
 
-      <InputContainer>
-        <label htmlFor="email">
-          <IoMailOutline size={26} />
-        </label>
+        <InputContainer>
+          <label htmlFor="email">
+            <IoMailOutline size={26} />
+          </label>
 
-        <input
-          type="email"
-          id="email"
-          placeholder="Email"
-          onChange={e => handleEmailChange(e)}
-          required
-        />
-      </InputContainer>
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            onChange={e => handleEmailChange(e)}
+            required
+          />
+        </InputContainer>
 
-      <InputContainer>
-        <label htmlFor="password">
-          <IoKeyOutline size={26} />
-        </label>
+        <InputContainer>
+          <label htmlFor="password">
+            <IoKeyOutline size={26} />
+          </label>
 
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          onChange={e => handlePasswordChange(e)}
-          required
-        />
-      </InputContainer>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            onChange={e => handlePasswordChange(e)}
+            required
+          />
+        </InputContainer>
 
-      <GenderContainer>
-        <input
-          type="radio"
-          name="gender"
-          id="male"
-          value="male"
-          onChange={e => handleMaleChange(e)}
-          defaultChecked
-        />
-        <label htmlFor="male">
-          <IoMaleOutline size={26} />
-          <span>Male</span>
-        </label>
+        <GenderContainer>
+          <input
+            type="radio"
+            name="gender"
+            id="male"
+            value="male"
+            onChange={e => handleMaleChange(e)}
+            defaultChecked
+          />
+          <label htmlFor="male">
+            <IoMaleOutline size={26} />
+            <span>Male</span>
+          </label>
 
-        <input
-          type="radio"
-          name="gender"
-          id="female"
-          value="female"
-          onChange={e => handleFemaleChange(e)}
-        />
-        <label htmlFor="female">
-          <IoFemaleOutline size={26} />
-          <span>Female</span>
-        </label>
-      </GenderContainer>
+          <input
+            type="radio"
+            name="gender"
+            id="female"
+            value="female"
+            onChange={e => handleFemaleChange(e)}
+          />
+          <label htmlFor="female">
+            <IoFemaleOutline size={26} />
+            <span>Female</span>
+          </label>
+        </GenderContainer>
 
-      <Warning>Data are stored in the local storage</Warning>
+        <Warning>Data are stored in the local storage</Warning>
 
-      <button type="submit" onClick={e => sendUserData(e)}>
-        Sign up <IoArrowForwardOutline size={26} />
-      </button>
-    </Form>
+        <button type="submit" onClick={e => sendUserData(e)}>
+          Sign up <IoArrowForwardOutline size={26} />
+        </button>
+      </Form>
+    </>
   );
 }

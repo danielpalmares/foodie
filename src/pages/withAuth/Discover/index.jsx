@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import Layout from '../../../pages/Layout';
 
-import CategoryCard from '../../../components/CategoryCard';
+import CategoryCard from '../../../components/BasedRecipeCard';
 
 import { DiscoverContainer } from './styles';
 import FindRecipesCard from '../../../components/FindRecipesCard';
@@ -91,7 +91,7 @@ export default class CookingTime extends Component {
 
   render() {
     return (
-      <Layout hasBackPageBtn={false}>
+      <Layout>
         <DiscoverContainer>
           <main>
             <h3>{this.greetingByTime()} Adalberto</h3>
@@ -103,49 +103,42 @@ export default class CookingTime extends Component {
               <CategoryCard
                 image="bread.jpg"
                 basedIngredient="Bread"
-                nutrients="carbohydrate"
                 handleClick={e => this.fetchRecipesByIngredients('bread')}
               />
 
               <CategoryCard
                 image="milk.jpg"
                 basedIngredient="Milk"
-                nutrients="calcium"
                 handleClick={e => this.getRecipesByIngredients(e, 'milk')}
               />
 
               <CategoryCard
                 image="orange.jpg"
                 basedIngredient="Orange"
-                nutrients="fiber, vitamin, mineral"
                 handleClick={e => this.getRecipesByIngredients(e, 'orange')}
               />
 
               <CategoryCard
                 image="meat.jpg"
                 basedIngredient="Meat"
-                nutrients="proteín"
                 handleClick={e => this.getRecipesByIngredients(e, 'meat')}
               />
 
               <CategoryCard
                 image="pizza.jpg"
                 basedIngredient="Pizza"
-                nutrients="carbohydrate, proteín"
                 handleClick={e => this.getRecipesByIngredients(e, 'pizza')}
               />
 
               <CategoryCard
                 image="pasta.jpg"
                 basedIngredient="Pasta"
-                nutrients="carbohydrate"
                 handleClick={e => this.getRecipesByIngredients(e, 'pasta')}
               />
 
               <CategoryCard
                 image="egg.jpg"
                 basedIngredient="Egg"
-                nutrients="proteín"
                 handleClick={e => this.getRecipesByIngredients(e, 'egg')}
               />
             </section>

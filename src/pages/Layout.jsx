@@ -1,14 +1,19 @@
 import React from 'react';
 
-import Header from '../components/Header';
+import Header from '../components/AppHeader';
 import Navigation from '../components/Navigation/index';
 
-export default function Layout({ children, hasBackPageBtn, onlyBackBtn }) {
-  const hasBackPage = hasBackPageBtn;
-  const onlyBackPageBtn = onlyBackBtn;
+export default function Layout({
+  children,
+  onlyBackButton,
+  switchThemeButton,
+}) {
   return (
     <>
-      <Header hasBackPageBtn={hasBackPage} onlyBackBtn={onlyBackPageBtn} />
+      <Header
+        onlyBackButton={onlyBackButton}
+        switchThemeButton={switchThemeButton}
+      />
       {children}
       <Navigation />
     </>

@@ -7,14 +7,27 @@ export const NavContainer = styled.nav`
 
   width: 100%;
   height: auto;
-
-  background: #111;
   padding: 1rem;
+
+  background: ${props => props.theme.background};
+  border: 2px solid ${props => props.theme.colors.border};
+  border-bottom: none;
 
   position: fixed;
   left: 0;
   bottom: 0;
   z-index: 100;
+
+  @media screen and (min-width: 768px) {
+    max-width: 568px;
+    margin: 0 auto;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 1rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
   a {
     button {
@@ -26,11 +39,11 @@ export const NavContainer = styled.nav`
       align-items: center;
       justify-content: center;
 
-      color: #555;
+      color: ${props => props.theme.fontColors.secondary};
       cursor: pointer;
 
       &:active {
-        color: #8338ec;
+        color: ${props => props.theme.colors.primary};
       }
 
       span {

@@ -6,11 +6,13 @@ import { Button } from './styles';
 
 export default function SingUpButton() {
   return (
-    <Link to="/signup">
-      <Button>
-        <span>Sign up now</span>
-        <IoArrowForwardOutline size={22} />
-      </Button>
-    </Link>
+    <>
+      <Link to="/signup">
+        <Button>
+          <span>Sign up now</span>
+          <IoArrowForwardOutline size={22} />
+        </Button>
+      </Link>
+    </>
   );
 }

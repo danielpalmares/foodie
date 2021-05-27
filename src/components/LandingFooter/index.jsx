@@ -7,21 +7,23 @@ import { Footer } from './styles';
 
 export default function LandingFooter() {
   return (
-    <Footer>
-      <div>
-        <Link to="/">
-          <button>
-            <IoLogoGithub size={26} />
-          </button>
-        </Link>
-      </div>
+    <>
+      <Footer>
+        <div>
+          <Link to="/">
+            <button>
+              <IoLogoGithub size={26} />
+            </button>
+          </Link>
+        </div>
 
-      <img src={Logo} alt="Foodie logo" />
+        <img src={Logo} alt="Foodie logo" />
 
-      <p>
-        &copy; Copyright by Foodie. You can use it for learning but
-        <strong> don't</strong> claim as your own.
-      </p>
-    </Footer>
+        <p>
+          &copy; Copyright by Foodie. You can use it for learning but
+          <strong> don't</strong> claim as your own.
+        </p>
+      </Footer>
+    </>
   );
 }

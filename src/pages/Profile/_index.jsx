@@ -8,7 +8,7 @@ import { IoPencilOutline } from 'react-icons/io5';
 export default function Profile() {
   return (
     <>
-      <Layout hasBackPageBtn onlyBackBtn>
+      <Layout>
         <Container>
           <header>
             <div

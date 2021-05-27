@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Layout from './Layout';
 
@@ -13,7 +12,7 @@ import styles from '../styles/pages/Recipe.module.scss';
 
 export default function Recipe() {
   return (
-    <Layout hasBackPageBtn onlyBackBtn>
+    <Layout>
       <div className={styles.recipe}>
         <main>
           <span className={styles.tagMsg}>#ByCategories</span>

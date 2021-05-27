@@ -11,11 +11,11 @@ export default function Results() {
   const { recipesByCategory } = useContext(GlobalContext);
 
   useEffect(() => {
-    console.log(recipesByCategory)
-  })
+    console.log(recipesByCategory);
+  });
 
   return (
-    <Layout hasBackPageBtn onlyBackBtn>
+    <Layout>
       <div className={styles.Results}>
         <div>
           <h3>

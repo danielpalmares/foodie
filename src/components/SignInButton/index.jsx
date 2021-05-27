@@ -6,11 +6,13 @@ import { Button } from './styles';
 
 export default function SingInButton() {
   return (
-    <Link to="/signin">
-      <Button>
-        <span>Sign in</span>
-        <IoEnterOutline size={22} />
-      </Button>
-    </Link>
+    <>
+      <Link to="/signin">
+        <Button>
+          <span>Sign in</span>
+          <IoEnterOutline size={22} />
+        </Button>
+      </Link>
+    </>
   );
 }

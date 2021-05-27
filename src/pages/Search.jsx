@@ -1,13 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../contexts/GlobalContextProvider';
-import {
-  IoArrowBackOutline,
-  IoSearchOutline,
-  IoArrowForward,
-} from 'react-icons/io5';
+import { IoSearchOutline, IoArrowForward } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-
-import NavBottom from '../components/Navigation.jsx';
 
 import styles from '../styles/pages/Search.module.scss';
 import Layout from './Layout';
@@ -21,7 +15,7 @@ export default function Search() {
   });
 
   return (
-    <Layout hasBackPageBtn onlyBackBtn={true}>
+    <Layout>
       <div className={styles.search}>
         <header>
           <h1>What's in your kitchen?</h1>
@@ -49,7 +43,6 @@ export default function Search() {
         </div>
 
         <RecipeCard />
-        <NavBottom />
       </div>
     </Layout>
   );

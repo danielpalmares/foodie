@@ -39,6 +39,7 @@ export const DiscoverContainer = styled.div`
   }
 
   section {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2rem;

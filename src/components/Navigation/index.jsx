@@ -12,41 +12,43 @@ import { NavContainer } from './styles';
 
 export default function Navigation() {
   return (
-    <NavContainer>
-      <Link to="/discover">
-        <button>
-          <IoCompassOutline size={26} />
-          <span>Discover</span>
-        </button>
-      </Link>
+    <>
+      <NavContainer>
+        <Link to="/discover">
+          <button>
+            <IoCompassOutline size={26} />
+            <span>Discover</span>
+          </button>
+        </Link>
 
-      <Link to="/search">
-        <button>
-          <IoSearchOutline size={26} />
-          <span>Search</span>
-        </button>
-      </Link>
+        <Link to="/search">
+          <button>
+            <IoSearchOutline size={26} />
+            <span>Search</span>
+          </button>
+        </Link>
 
-      <Link to="/upload">
-        <button>
-          <IoAddCircleOutline size={26} />
-          <span>Upload</span>
-        </button>
-      </Link>
+        <Link to="/upload">
+          <button>
+            <IoAddCircleOutline size={26} />
+            <span>Upload</span>
+          </button>
+        </Link>
 
-      <Link to="/favorites">
-        <button>
-          <IoHeartOutline size={26} />
-          <span>Favorites</span>
-        </button>
-      </Link>
+        <Link to="/favorites">
+          <button>
+            <IoHeartOutline size={26} />
+            <span>Favorites</span>
+          </button>
+        </Link>
 
-      <Link to="/profile">
-        <button>
-          <IoPersonOutline size={26} />
-          <span>Profile</span>
-        </button>
-      </Link>
-    </NavContainer>
+        <Link to="/profile">
+          <button>
+            <IoPersonOutline size={26} />
+            <span>Profile</span>
+          </button>
+        </Link>
+      </NavContainer>
+    </>
   );
 }
