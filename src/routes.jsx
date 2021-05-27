@@ -1,9 +1,9 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Landing from './pages/Landing/index';
-import SignIn from './pages/SignIn/index';
-import SignUp from './pages/SignUp/index';
-import CookingTime from './main/CookingTime';
+import Landing from './pages/withoutAuth/Landing';
+import SignIn from './pages/withoutAuth/SignIn/index';
+import SignUp from './pages/withoutAuth/SignUp/index';
+import CookingTime from './pages/withAuth/Discover';
 import Search from './pages/Search';
 import Upload from './pages/Upload';
 import Favorites from './pages/Favorites';

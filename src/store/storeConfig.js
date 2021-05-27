@@ -1,11 +1,9 @@
-import { createStore, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 
-import { createUserReducer } from './createUser/index';
-import { switchThemeReducer } from './switchTheme/index';
+import { createUserReducer } from './createUser';
+import { switchThemeReducer } from './switchTheme';
 
-const reducers = combineReducers({
+export const rootReducer = combineReducers({
   createUserReducer,
   switchThemeReducer,
 });
-
-export const storeConfig = () => createStore(reducers);

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import SignUpForm from '../../components/SignUpForm/index';
-import LandingHeader from '../../components/LandingHeader';
+import SignUpForm from '../../../components/SignUpForm/index';
+import LandingHeader from '../../../components/LandingHeader';
 
 import { IoArrowBackOutline } from 'react-icons/io5';
 
 import { useDispatch } from 'react-redux';
-import { createUserAction } from '../../store/createUser';
+import { createUserAction } from '../../../store/createUser';
 
 import { SignUpContainer, Directions, ErrorMessage } from './styles';
 
