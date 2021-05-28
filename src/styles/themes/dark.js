@@ -12,8 +12,8 @@ export default {
 
   fontColors: {
     primary: '#ECEDF1', // white
-    bg: '#111', // black / background as font
     secondary: '#777', //  grey
-    tertiary: '#000', // black light
+    tertiary: '#000', // black
+    bg: '#111', // background as font
   },
 };

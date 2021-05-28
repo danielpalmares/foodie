@@ -4,10 +4,10 @@ import Landing from './pages/withoutAuth/Landing';
 import SignIn from './pages/withoutAuth/SignIn/index';
 import SignUp from './pages/withoutAuth/SignUp/index';
 import CookingTime from './pages/withAuth/Discover';
-import Search from './pages/Search';
+import Search from './pages/withAuth/Search';
 import Upload from './pages/Upload';
 import Favorites from './pages/Favorites';
-import Profile from './pages/Profile/_index';
+import Profile from './pages/withAuth/Profile';
 import Recipe from './pages/Recipe';
 import Results from './pages/Results';
 

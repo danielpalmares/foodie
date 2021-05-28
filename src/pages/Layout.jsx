@@ -7,12 +7,14 @@ export default function Layout({
   children,
   onlyBackButton,
   switchThemeButton,
+  defaultHeader,
 }) {
   return (
     <>
       <Header
         onlyBackButton={onlyBackButton}
         switchThemeButton={switchThemeButton}
+        defaultHeader={defaultHeader}
       />
       {children}
       <Navigation />

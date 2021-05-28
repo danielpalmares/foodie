@@ -10,7 +10,7 @@ import FindRecipesCard from '../../../components/FindRecipesCard';
 
 import AppTitle from '../../../components/AppTitle';
 
-export default class CookingTime extends Component {
+export default class Discover extends Component {
   constructor(props) {
     super(props);
 
@@ -90,7 +90,7 @@ export default class CookingTime extends Component {
 
   render() {
     return (
-      <Layout switchThemeButton>
+      <Layout defaultHeader>
         <DiscoverContainer>
           <main>
             <AppTitle>{this.greetingByTime()} Adalberto</AppTitle>

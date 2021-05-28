@@ -12,7 +12,7 @@ export default function Favorites() {
   });
 
   return (
-    <Layout>
+    <Layout onlyBackButton>
       <div className={styles.favorites}>
         <h1>Favorites</h1>
       </div>

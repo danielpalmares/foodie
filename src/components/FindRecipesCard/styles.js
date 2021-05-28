@@ -2,10 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  background: ${props =>
-    props.theme.mode === 'light'
-      ? props.theme.colors.tertiary
-      : props.theme.fontColors.tertiary};
+  background: ${props => props.theme.fontColors.tertiary};
 
   display: flex;
   align-items: center;
@@ -37,10 +34,7 @@ export const TextContainer = styled.div`
   line-height: 1.4;
 
   p {
-    color: ${props =>
-      props.theme.mode === 'light'
-        ? props.theme.fontColors.bg
-        : props.theme.fontColors.primary};
+    color: ${props => props.theme.fontColors.primary};
   }
 
   a {

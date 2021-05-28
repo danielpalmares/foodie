@@ -15,7 +15,7 @@ export default function Upload() {
   });
 
   return (
-    <Layout>
+    <Layout onlyBackButton>
       <div className={styles.upload}>
         <h1>Show us your amazing recipe!</h1>
 

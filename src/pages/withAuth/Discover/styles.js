@@ -65,7 +65,7 @@ export const DrinkList = styled.ul`
       border: 2px solid ${props => props.theme.colors.border};
       outline: none;
       border-radius: 1rem;
-      background: ${props => props.theme.background};
+      background: ${props => props.theme.fontColors.tertiary};
       transition: all 0.2s;
       text-align: center;
       white-space: nowrap;

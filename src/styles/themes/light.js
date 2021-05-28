@@ -5,15 +5,15 @@ export default {
   colors: {
     primary: '#FF8C00', // orange
     secondary: '#49BF6A', // green
-    tertiary: '#111', // black
+    tertiary: '#333', // black
     quartenary: '#3A86FF', // blue
     border: '#CDCDCD',
   },
 
   fontColors: {
     primary: '#333', // black
-    bg: '#ECEDF1', // white / background as font
     secondary: '#777', // grey
-    tertiary: '#fff',
+    tertiary: '#fff', // white
+    bg: '#ECEDF1', // background as font
   },
 };

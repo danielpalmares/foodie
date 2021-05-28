@@ -12,7 +12,7 @@ export default function Profile() {
   });
 
   return (
-    <Layout>
+    <Layout switchThemeButton>
       <div className={styles.profile}>
         <h1>Profile</h1>
       </div>

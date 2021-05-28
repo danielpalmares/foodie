@@ -31,10 +31,7 @@ export const HeaderContainer = styled.header`
     justify-content: center;
     align-items: center;
 
-    background: ${props =>
-      props.theme.mode === 'light'
-        ? props.theme.colors.tertiary
-        : props.theme.background};
+    background: ${props => props.theme.fontColors.tertiary};
     color: ${props => props.theme.fontColors.secondary};
     border: 2px solid ${props => props.theme.colors.border};
     outline: none;

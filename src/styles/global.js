@@ -28,6 +28,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Lexend', sans-serif;
     font-size: 1.6rem;
     font-weight: 400;
+    color: ${props => props.theme.fontColors.primary};
     scroll-behavior: smooth;
   }
 
