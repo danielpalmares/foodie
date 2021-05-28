@@ -14,6 +14,6 @@ export default {
     primary: '#ECEDF1', // white
     bg: '#111', // black / background as font
     secondary: '#777', //  grey
-    tertiary: '#333', // black light
+    tertiary: '#000', // black light
   },
 };

@@ -2,15 +2,16 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  background: ${props => props.theme.colors.tertiary};
+  background: ${props =>
+    props.theme.mode === 'light'
+      ? props.theme.colors.tertiary
+      : props.theme.fontColors.tertiary};
 
   display: flex;
   align-items: center;
   gap: 2rem;
   padding: 1rem;
   border-radius: 1rem;
-
-  margin: 2rem 0;
 `;
 
 export const IconContainer = styled.div`
@@ -36,7 +37,10 @@ export const TextContainer = styled.div`
   line-height: 1.4;
 
   p {
-    color: ${props => props.theme.fontColors.bg};
+    color: ${props =>
+      props.theme.mode === 'light'
+        ? props.theme.fontColors.bg
+        : props.theme.fontColors.primary};
   }
 
   a {

@@ -14,5 +14,6 @@ export default {
     primary: '#333', // black
     bg: '#ECEDF1', // white / background as font
     secondary: '#777', // grey
+    tertiary: '#fff',
   },
 };

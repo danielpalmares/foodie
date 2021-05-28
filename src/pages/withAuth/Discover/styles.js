@@ -27,27 +27,53 @@ export const DiscoverContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
     overflow: hidden;
-
-    h3 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: ${props => props.theme.fontColors.primary};
-      align-self: flex-start;
-    }
   }
 
   section {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
+    margin-top: 4rem;
 
     h3 {
       color: ${props => props.theme.fontColors.primary};
       font-size: 2rem;
       font-weight: 700;
+    }
+  }
+`;
+
+export const DrinkList = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  li {
+    button {
+      font-family: 'Lexend', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: ${props => props.theme.fontColors.primary};
+      padding: 1rem;
+      border: 2px solid ${props => props.theme.colors.border};
+      outline: none;
+      border-radius: 1rem;
+      background: ${props => props.theme.background};
+      transition: all 0.2s;
+      text-align: center;
+      white-space: nowrap;
+      cursor: pointer;
+
+      &:active {
+        border-color: ${props => props.theme.colors.primary};
+      }
     }
   }
 `;

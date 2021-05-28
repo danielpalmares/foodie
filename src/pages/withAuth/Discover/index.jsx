@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-
 import axios from 'axios';
 
 import Layout from '../../../pages/Layout';
 
-import CategoryCard from '../../../components/BasedRecipeCard';
+import BasedRecipeCard from '../../../components/BasedRecipeCard';
 
-import { DiscoverContainer } from './styles';
+import { DiscoverContainer, DrinkList } from './styles';
 import FindRecipesCard from '../../../components/FindRecipesCard';
 
-const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
+import AppTitle from '../../../components/AppTitle';
 
 export default class CookingTime extends Component {
   constructor(props) {
@@ -94,49 +93,76 @@ export default class CookingTime extends Component {
       <Layout>
         <DiscoverContainer>
           <main>
-            <h3>{this.greetingByTime()} Adalberto</h3>
-
+            <AppTitle>{this.greetingByTime()} Adalberto</AppTitle>
             <FindRecipesCard />
 
-            <h3>Are you looking for...</h3>
             <section>
-              <CategoryCard
+              <AppTitle>Up to drink something?</AppTitle>
+              <DrinkList>
+                <li>
+                  <button>Wine</button>
+                </li>
+                <li>
+                  <button>Vodka</button>
+                </li>
+                <li>
+                  <button>Whiskey</button>
+                </li>
+                <li>
+                  <button>Rum</button>
+                </li>
+                <li>
+                  <button>Tea</button>
+                </li>
+                <li>
+                  <button>Coffee</button>
+                </li>
+                <li>
+                  <button>Apple juice</button>
+                </li>
+              </DrinkList>
+            </section>
+
+            <section>
+              <AppTitle>Usual ingredients based recipes</AppTitle>
+
+              <BasedRecipeCard
                 image="bread.jpg"
                 basedIngredient="Bread"
-                handleClick={e => this.fetchRecipesByIngredients('bread')}
+                handleClick={e => this.fetchRecipesByIngredients(e, 'bread')}
               />
 
-              <CategoryCard
+              <BasedRecipeCard
                 image="milk.jpg"
                 basedIngredient="Milk"
                 handleClick={e => this.getRecipesByIngredients(e, 'milk')}
               />
 
-              <CategoryCard
+              <BasedRecipeCard
                 image="orange.jpg"
                 basedIngredient="Orange"
                 handleClick={e => this.getRecipesByIngredients(e, 'orange')}
               />
 
-              <CategoryCard
+              <BasedRecipeCard
                 image="meat.jpg"
                 basedIngredient="Meat"
                 handleClick={e => this.getRecipesByIngredients(e, 'meat')}
               />
 
-              <CategoryCard
+              <BasedRecipeCard
                 image="pizza.jpg"
                 basedIngredient="Pizza"
                 handleClick={e => this.getRecipesByIngredients(e, 'pizza')}
               />
 
-              <CategoryCard
+              <BasedRecipeCard
                 image="pasta.jpg"
                 basedIngredient="Pasta"
                 handleClick={e => this.getRecipesByIngredients(e, 'pasta')}
               />
 
-              <CategoryCard
+              <BasedRecipeCard
                 image="egg.jpg"
                 basedIngredient="Egg"
                 handleClick={e => this.getRecipesByIngredients(e, 'egg')}

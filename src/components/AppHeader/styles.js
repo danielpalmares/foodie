@@ -4,30 +4,26 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1rem 0 2rem 0;
 
   @media screen and (min-width: 320px) {
     max-width: 300px;
     margin: 0 auto;
-    padding: 1rem 0;
   }
 
   @media screen and (min-width: 375px) {
     max-width: 355px;
     margin: 0 auto;
-    padding: 1rem 0;
   }
 
   @media screen and (min-width: 425px) {
     max-width: 405px;
     margin: 0 auto;
-    padding: 1rem 0;
   }
 
   @media screen and (min-width: 768px) {
     max-width: 568px;
     margin: 0 auto;
-    padding: 1rem 0;
   }
 
   button {
