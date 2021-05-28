@@ -5,7 +5,7 @@ import styles from '../styles/pages/Upload.module.scss';
 
 import Layout from './Layout';
 
-import UploadForm from '../components/UploadForm';
+import UploadForm from '../components/UploadForm/index';
 
 export default function Upload() {
   const { addActivePage } = useContext(GlobalContext);

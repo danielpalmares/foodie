@@ -5,7 +5,7 @@ import SignIn from './pages/withoutAuth/SignIn/index';
 import SignUp from './pages/withoutAuth/SignUp/index';
 import CookingTime from './pages/withAuth/Discover';
 import Search from './pages/withAuth/Search';
-import Upload from './pages/Upload';
+import Upload from './pages/withAuth/Upload';
 import Favorites from './pages/Favorites';
 import Profile from './pages/withAuth/Profile';
 import Recipe from './pages/Recipe';
