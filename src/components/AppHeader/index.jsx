@@ -1,5 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { dark, light } from '../../styles/themes';
+import { switchThemeAction } from '../../store/switchTheme';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Logo from '../../assets/foodie-logo.svg';
 import {
@@ -13,10 +16,21 @@ import { HeaderContainer, UserContainer } from './styles';
 export default function AppHeader({
   onlyBackButton = false,
   switchThemeButton = false,
+  defaultHeader = false,
 }) {
+  // setting up back page button
   const history = useHistory();
   const goBack = () => history.goBack();
-  const theme = 'light'; // change later, get theme mode from store state
+
+  // setting up switch theme button
+  const dispatch = useDispatch();
+  const currentTheme = useSelector(
+    state => state.switchThemeReducer.theme.mode
+  );
+  const switchTheme = () =>
+    currentTheme === 'light'
+      ? dispatch(switchThemeAction(dark))
+      : dispatch(switchThemeAction(light));
 
   return (
     <>
@@ -33,8 +47,8 @@ export default function AppHeader({
               <IoArrowBackOutline size={26} />
             </button>
 
-            <button>
-              {theme === 'light' ? (
+            <button onClick={switchTheme}>
+              {currentTheme === 'light' ? (
                 <IoMoonSharp size={26} color="#F4F1C9" />
               ) : (
                 <IoSunnySharp size={26} color="#FDB813" />
@@ -43,15 +57,19 @@ export default function AppHeader({
           </>
         )}
 
-        <button>
-          <IoCartOutline size={26} />
-        </button>
+        {defaultHeader && (
+          <>
+            <button>
+              <IoCartOutline size={26} />
+            </button>
 
-        <img src={Logo} alt="Foodie logo" />
+            <img src={Logo} alt="Foodie logo" />
 
-        <UserContainer>
-          <img src="/images/woman-1.png" alt="User Profile" />
-        </UserContainer>
+            <UserContainer>
+              <img src="/images/woman-1.png" alt="User Profile" />
+            </UserContainer>
+          </>
+        )}
       </HeaderContainer>
     </>
   );

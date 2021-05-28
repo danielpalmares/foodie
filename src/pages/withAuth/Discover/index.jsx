@@ -90,7 +90,7 @@ export default class CookingTime extends Component {
 
   render() {
     return (
-      <Layout>
+      <Layout switchThemeButton>
         <DiscoverContainer>
           <main>
             <AppTitle>{this.greetingByTime()} Adalberto</AppTitle>
