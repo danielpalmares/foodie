@@ -5,7 +5,7 @@ export default {
   colors: {
     primary: '#FF8C00', // orange
     secondary: '#49BF6A', // green
-    tertiary: '#333', // black
+    tertiary: '#111', // black
     quartenary: '#3A86FF', // blue
     border: '#CDCDCD',
   },

@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../contexts/GlobalContextProvider';
 
 import Layout from './Layout';
-import RecipeCard from '../components/RecipeCard';
+import RecipeCard from '../components/AppRecipeCard';
 
 import styles from '../styles/pages/Results.module.scss';
 

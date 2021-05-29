@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Layout from '../../Layout';
-import RecipeCard from '../../../components/RecipeCard';
+import RecipeCard from '../../../components/AppRecipeCard';
 import AppTitle from '../../../components/AppTitle';
 
 import { IoSearchOutline } from 'react-icons/io5';
