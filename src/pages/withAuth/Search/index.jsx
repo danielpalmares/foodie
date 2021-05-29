@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { api } from '../../../services/spoonacular/api';
 
 import Layout from '../../Layout';
@@ -15,7 +16,11 @@ export default function Search() {
   const [inputIngredients, setInputIngredients] = useState(null);
 
   useEffect(() => {
-    inputIngredients !== null && fetchRecipesByIngredients(inputIngredients);
+    async function getData() {
+      inputIngredients !== null &&
+        (await fetchRecipesByIngredients(inputIngredients));
+    }
+    getData();
   }, [inputIngredients]);
 
   function getInputChange(e) {
@@ -33,11 +38,12 @@ export default function Search() {
     return setInputIngredients(ingredientsArrFormatted);
   }
 
-  async function fetchRecipesByIngredients(ingredients) {
+  async function fetchRecipesByIngredients() {
     try {
-      const ing = ingredients.join(',');
+      const ing = inputIngredients.join(',');
+      console.log(ing);
       const res = await api.get(
-        `findByIngredients?apiKey=${API_KEY}&ingredients=banana,apple&number=2`
+        `findByIngredients?ingredients=${ing}&number=10`
       );
       console.log(res);
     } catch (err) {
