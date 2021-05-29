@@ -10,8 +10,7 @@ export const NavContainer = styled.nav`
   padding: 1rem;
 
   background: ${props => props.theme.background};
-  border: 2px solid ${props => props.theme.colors.border};
-  border-bottom: none;
+  border-top: 2px solid ${props => props.theme.colors.border};
 
   position: fixed;
   left: 0;
@@ -24,6 +23,9 @@ export const NavContainer = styled.nav`
 
     left: 50%;
     transform: translate(-50%, 0);
+
+    border-left: 2px solid ${props => props.theme.colors.border};
+    border-right: 2px solid ${props => props.theme.colors.border};
     border-radius: 1rem;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;

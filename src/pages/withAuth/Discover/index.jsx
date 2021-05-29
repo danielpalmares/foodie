@@ -10,6 +10,8 @@ import FindRecipesCard from '../../../components/FindRecipesCard';
 
 import AppTitle from '../../../components/AppTitle';
 
+const APIKEY = 'ce9ca7ccb5154bcfa3dfda280afcdd30';
+
 export default class Discover extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +20,6 @@ export default class Discover extends Component {
       randomRecipe: {},
       recipesByCategory: [],
     };
-
-    this.getRecipesByIngredients = this.getRecipesByIngredients.bind(this);
-    this.fetchRecipesByIngredients = this.fetchRecipesByIngredients.bind(this);
-    this._formatDataToState = this._formatDataToState.bind(this);
   }
 
   greetingByTime() {
@@ -34,58 +32,6 @@ export default class Discover extends Component {
     } else {
       return 'Good Night!';
     }
-  }
-
-  sendRecipesToContext(recipesArr) {
-    const { addRecipesByCategory } = this.context;
-
-    addRecipesByCategory(recipesArr);
-  }
-
-  async getRecipesByIngredients(e, ingredients) {
-    const tagNameTarget = e.target.tagName.toLowerCase();
-
-    if (
-      tagNameTarget === 'button' ||
-      tagNameTarget === 'svg' ||
-      tagNameTarget === 'path'
-    )
-      return;
-
-    await this.fetchRecipesByIngredients(ingredients);
-    console.log(tagNameTarget);
-  }
-
-  async fetchRecipesByIngredients(ingredient) {
-    try {
-      const response = await axios.get(
-        `https://forkify-api.herokuapp.com/api/v2/recipes?search=${ingredient}`
-      );
-      const { data } = response.data;
-      const { recipes } = data;
-
-      this._formatDataToState(recipes);
-
-      this.sendRecipesToContext(this.state.recipesByCategory);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  _formatDataToState(recArr) {
-    const formattedData = [];
-
-    recArr.map(rec => {
-      formattedData.push({
-        id: rec.id,
-        imageUrl: rec.image_url,
-        title: rec.title,
-      });
-    });
-
-    this.setState({
-      recipesByCategory: formattedData,
-    });
   }
 
   render() {

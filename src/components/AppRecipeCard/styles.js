@@ -25,6 +25,22 @@ export const RecipeCardInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+export const RecipeCardTitle = styled.h3`
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: ${props =>
+    props.theme.mode === 'light'
+      ? props.theme.fontColors.bg
+      : props.theme.fontColors.primary};
+`;
+
+export const RecipeCardInfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   span {
     display: flex;
@@ -33,13 +49,9 @@ export const RecipeCardInfo = styled.div`
 
     font-size: 1.4rem;
     font-weight: 600;
-    color: ${props => props.theme.fontColors.secondary};
+    color: ${props =>
+      props.theme.mode === 'light'
+        ? props.theme.fontColors.bg
+        : props.theme.fontColors.primary};
   }
-`;
-
-export const RecipeCardTitle = styled.h3`
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.5;
-  color: ${props => props.theme.fontColors.primary};
 `;
