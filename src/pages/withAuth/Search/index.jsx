@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { api } from '../../../services/spoonacular/api';
 
 import Layout from '../../Layout';
 import RecipeCard from '../../../components/AppRecipeCard';
@@ -8,10 +8,15 @@ import AppTitle from '../../../components/AppTitle';
 import { IoSearchOutline } from 'react-icons/io5';
 import { SearchContainer, InputWrapper } from './styles';
 
+const API_KEY = 'ce9ca7ccb5154bcfa3dfda280afcdd30';
+
 export default function Search() {
   const [inputSearch, setInputSearch] = useState('');
-  const [inputIngredients, setInputIngredients] = useState([]);
-  console.log(inputIngredients);
+  const [inputIngredients, setInputIngredients] = useState(null);
+
+  useEffect(() => {
+    inputIngredients !== null && fetchRecipesByIngredients(inputIngredients);
+  }, [inputIngredients]);
 
   function getInputChange(e) {
     e.preventDefault();
@@ -28,7 +33,17 @@ export default function Search() {
     return setInputIngredients(ingredientsArrFormatted);
   }
 
-  async function fetchRecipesByIngredients() {}
+  async function fetchRecipesByIngredients(ingredients) {
+    try {
+      const ing = ingredients.join(',');
+      const res = await api.get(
+        `findByIngredients?apiKey=${API_KEY}&ingredients=banana,apple&number=2`
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <Layout onlyBackButton>
