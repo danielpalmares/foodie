@@ -6,8 +6,12 @@ const RECIPES_NOT_FOUND = 'RECIPES_NOT_FOUND';
 export async function recipesByIngredientsAction(ingredients) {
   try {
     const res = await api.get(`findByIngredients?ingredients=${ingredients}`);
-    const { results } = res.data;
+    const { status, statusText } = res;
+
+    if (status !== 200) throw new Error(statusText);
+
     const { totalResults } = res.data;
+    const { results } = res.data;
 
     const recipes = results.map(rec => {
       return {
@@ -41,12 +45,43 @@ export async function recipesByIngredientsAction(ingredients) {
       };
     });
 
-    console.log(res.data);
+    return {
+      type: FOUND_RECIPES,
+      payload: {
+        status: statusText,
+        totalResults: totalResults,
+        recipes: recipes,
+      },
+    };
   } catch (err) {
-    console.log(err);
+    return {
+      type: RECIPES_NOT_FOUND,
+      payload: {
+        status: err,
+        totalResults: null,
+        recipes: null,
+      },
+    };
   }
 }
 
-const initialState = {};
+const initialState = {
+  data: null,
+};
 
-export function recipesByIngredientsReducer(state, action) {}
+export function recipesByIngredientsReducer(state = initialState, action) {
+  switch (action.type) {
+    case FOUND_RECIPES:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case RECIPES_NOT_FOUND:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    default:
+      return state;
+  }
+}
