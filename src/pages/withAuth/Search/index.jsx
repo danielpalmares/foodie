@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { api } from '../../../services/spoonacular/api';
+import api from '../../../services/spoonacular/api';
 
 import Layout from '../../Layout';
 import RecipeCard from '../../../components/AppRecipeCard';
@@ -42,9 +42,7 @@ export default function Search() {
     try {
       const ing = inputIngredients.join(',');
       console.log(ing);
-      const res = await api.get(
-        `findByIngredients?ingredients=${ing}&number=10`
-      );
+      const res = await api.get(`?includeIngredients=${ing}`);
       console.log(res);
     } catch (err) {
       console.log(err);
