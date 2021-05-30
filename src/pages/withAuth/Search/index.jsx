@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import api from '../../../services/spoonacular/api';
 
 import Layout from '../../Layout';
@@ -9,19 +8,20 @@ import AppTitle from '../../../components/AppTitle';
 import { IoSearchOutline } from 'react-icons/io5';
 import { SearchContainer, InputWrapper } from './styles';
 
-const API_KEY = 'ce9ca7ccb5154bcfa3dfda280afcdd30';
+import { useDispatch, useSelector } from 'react-redux';
+import { recipesByIngredientsAction } from '../../../store/recipesByIngredients';
 
 export default function Search() {
   const [inputSearch, setInputSearch] = useState('');
   const [inputIngredients, setInputIngredients] = useState(null);
+  const dispatch = useDispatch();
+  const stateH = useSelector(state => state);
+
+  console.log(inputIngredients, stateH);
 
   useEffect(() => {
-    async function getData() {
-      inputIngredients !== null &&
-        (await fetchRecipesByIngredients(inputIngredients));
-    }
-    getData();
-  }, [inputIngredients]);
+    dispatch(recipesByIngredientsAction(inputIngredients));
+  }, [dispatch, inputIngredients]);
 
   function getInputChange(e) {
     e.preventDefault();
@@ -35,18 +35,8 @@ export default function Search() {
     const ingredientsArrFormatted = ingredientsArr.map(ing =>
       ing.trim().replace(' ', '+').toLowerCase()
     );
-    return setInputIngredients(ingredientsArrFormatted);
-  }
-
-  async function fetchRecipesByIngredients() {
-    try {
-      const ing = inputIngredients.join(',');
-      console.log(ing);
-      const res = await api.get(`?includeIngredients=${ing}`);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
+    const ingredientsFormatted = ingredientsArrFormatted.join(',');
+    return setInputIngredients(ingredientsFormatted);
   }
 
   return (

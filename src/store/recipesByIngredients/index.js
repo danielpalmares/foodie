@@ -5,7 +5,7 @@ const RECIPES_NOT_FOUND = 'RECIPES_NOT_FOUND';
 
 export async function recipesByIngredientsAction(ingredients) {
   try {
-    const res = await api.get(`findByIngredients?ingredients=${ingredients}`);
+    const res = await api.get(`?includeIngredients=${ingredients}`);
     const { status, statusText } = res;
 
     if (status !== 200) throw new Error(statusText);
