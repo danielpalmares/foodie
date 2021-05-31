@@ -16,6 +16,7 @@ export const RecipeCardContainer = styled.div`
 
   border-radius: 1rem;
   padding: 2rem 1rem;
+  margin: 2rem 0;
 
   transition: all 0.2s;
 `;

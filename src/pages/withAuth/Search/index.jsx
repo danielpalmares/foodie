@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../../Layout';
 import RecipeCard from '../../../components/AppRecipeCard';
 import AppTitle from '../../../components/AppTitle';
+import Spinner from '../../../components/Spinner';
 
 import { IoSearchOutline } from 'react-icons/io5';
 import { SearchContainer, InputWrapper } from './styles';
@@ -13,6 +14,7 @@ import { recipesByIngredientsAction } from '../../../store/recipesByIngredients'
 export default function Search() {
   const [inputSearch, setInputSearch] = useState('');
   const [inputIngredients, setInputIngredients] = useState(null);
+  const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
   const recipes = useSelector(
@@ -20,9 +22,13 @@ export default function Search() {
   );
   console.log(recipes);
 
+  useEffect(() => setSpinner(false), [recipes]);
+
   useEffect(() => {
-    if (inputIngredients !== null)
-      return dispatch(recipesByIngredientsAction(inputIngredients));
+    if (!inputIngredients) return;
+
+    setSpinner(true);
+    return dispatch(recipesByIngredientsAction(inputIngredients));
   }, [inputIngredients]);
 
   // setting up the inputIngredients
@@ -64,7 +70,10 @@ export default function Search() {
         </header>
 
         <main>
-          {recipes &&
+          {spinner ? (
+            <Spinner />
+          ) : (
+            recipes &&
             recipes.map(rec => {
               return (
                 <RecipeCard
@@ -74,7 +83,8 @@ export default function Search() {
                   likes={rec.likes}
                 />
               );
-            })}
+            })
+          )}
         </main>
       </SearchContainer>
     </Layout>
