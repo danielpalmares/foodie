@@ -17,6 +17,13 @@ export default function Search() {
   const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
+  const [resultsPerPage, setResultsPerPage] = useState(20);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // pagination buttons
+  const [previousButton, setPreviousButton] = useState(false);
+  const [nextButton, setNextButton] = useState(false);
+
   const recipes = useSelector(
     state => state.recipesByIngredientsReducer.data?.recipes
   );
@@ -47,6 +54,43 @@ export default function Search() {
     const ingredientsFormatted = ingredientsArrFormatted.join(',');
 
     return ingredientsFormatted;
+  }
+
+  // give us the recipes for page
+  function getSearchResultsPage(
+    recipesArr,
+    page = currentPage,
+    resultsPerPage
+  ) {
+    const start = (page - 1) * resultsPerPage;
+    const end = page * resultsPerPage;
+
+    return recipesArr.slice(start, end);
+  }
+
+  function pagination(recipes, resultsPerPage, currentPage) {
+    // get the number of pages
+    const numPages = Math.ceil(recipes.length / resultsPerPage); // array full of recipes / resultsPerPage = 20
+
+    // possible situations
+    // 1) page one, and there are other pages
+    if (currentPage === 1 && numPages > 1) {
+      setNextButton(true);
+      return;
+    }
+    // 2) other page
+    if (currentPage < numPages) {
+      setPreviousButton(true);
+      setNextButton(true);
+      return;
+    }
+    // 3) last page
+    if (currentPage === numPages && numPages > 1) {
+      setPreviousButton(true);
+      return;
+    }
+    // 4) page one, and there are no other pages
+    return;
   }
 
   return (
