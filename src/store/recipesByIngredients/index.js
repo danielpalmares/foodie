@@ -1,47 +1,21 @@
-import api from '../../services/spoonacular/api';
+import { apiFindByIngredients } from '../../services/spoonacular/api';
 
 const FOUND_RECIPES = 'FOUND_RECIPES';
 const RECIPES_NOT_FOUND = 'RECIPES_NOT_FOUND';
 
 export async function recipesByIngredientsAction(ingredients) {
   try {
-    const res = await api.get(`?includeIngredients=${ingredients}`);
-    const { status, statusText } = res;
+    const res = await apiFindByIngredients.get(`?ingredients=${ingredients}`);
+    const { data, status, statusText } = res;
 
     if (status !== 200) throw new Error(statusText);
 
-    const { totalResults } = res.data;
-    const { results } = res.data;
-
-    const recipes = results.map(rec => {
+    const recipes = data.map(rec => {
       return {
         id: rec.id,
         title: rec.title,
         image: rec.image,
-        ingredients: rec.extendedIngredients.map(ing => {
-          return {
-            name: ing.originalName,
-            unit: ing.unitShort,
-            amount: ing.amount,
-          };
-        }),
-        instructions: rec.analyzedInstructions.map(ins =>
-          ins.steps.map(stp => {
-            return {
-              number: stp.number,
-              step: stp.step,
-            };
-          })
-        ),
-        servings: rec.servings,
-        readyInMinutes: rec.readyInMinutes,
-
-        veryPopular: rec.veryPopular,
-        veryHealthy: rec.veryHealthy,
-        healthScore: rec.healthScore,
-        likes: rec.aggregateLikes,
-        dairyFree: rec.dairyFree,
-        glutenFree: rec.glutenFree,
+        likes: rec.likes,
       };
     });
 
@@ -49,7 +23,6 @@ export async function recipesByIngredientsAction(ingredients) {
       type: FOUND_RECIPES,
       payload: {
         status: statusText,
-        totalResults: totalResults,
         recipes: recipes,
       },
     };
@@ -58,7 +31,6 @@ export async function recipesByIngredientsAction(ingredients) {
       type: RECIPES_NOT_FOUND,
       payload: {
         status: err,
-        totalResults: null,
         recipes: null,
       },
     };

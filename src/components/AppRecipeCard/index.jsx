@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IoArrowForwardOutline, IoTimerOutline } from 'react-icons/io5';
+import { IoArrowForwardOutline, IoHeartSharp } from 'react-icons/io5';
 import {
   RecipeCardContainer,
   RecipeCardInfo,
@@ -9,24 +9,24 @@ import {
 } from './styles';
 
 export default function AppRecipeCard({
-  title = 'Pizza brasileira feita',
-  cookingTime,
+  title,
+  likes,
   imageSrc,
   handleRecipe,
 }) {
   return (
     <>
-      <RecipeCardContainer imageSrc="/images/pasta.jpg" onClick={handleRecipe}>
+      <RecipeCardContainer imageSrc={imageSrc} onClick={handleRecipe}>
         <RecipeCardInfo>
           <RecipeCardTitle>{title}</RecipeCardTitle>
 
           <RecipeCardInfoContainer>
             <span>
-              <IoTimerOutline size={14} /> {cookingTime} min
+              <IoHeartSharp size={26} color="#FE251B" /> {likes} likes
             </span>
-            <span>
+            <button onClick={handleRecipe}>
               How to make <IoArrowForwardOutline size={14} />
-            </span>
+            </button>
           </RecipeCardInfoContainer>
         </RecipeCardInfo>
       </RecipeCardContainer>

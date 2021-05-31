@@ -18,7 +18,6 @@ export const RecipeCardContainer = styled.div`
   padding: 2rem 1rem;
 
   transition: all 0.2s;
-  cursor: pointer;
 `;
 
 export const RecipeCardInfo = styled.div`
@@ -42,6 +41,11 @@ export const RecipeCardInfoContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  color: ${props =>
+    props.theme.mode === 'light'
+      ? props.theme.fontColors.bg
+      : props.theme.fontColors.primary};
+
   span {
     display: flex;
     align-items: center;
@@ -49,9 +53,29 @@ export const RecipeCardInfoContainer = styled.div`
 
     font-size: 1.4rem;
     font-weight: 600;
-    color: ${props =>
-      props.theme.mode === 'light'
-        ? props.theme.fontColors.bg
-        : props.theme.fontColors.primary};
+    color: inherit;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    font-size: 1.4rem;
+
+    padding: 0.5rem 1rem;
+
+    border: none;
+    border-radius: 1rem;
+    outline: none;
+    background: ${props => props.theme.colors.primary};
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:active {
+      transform: translateY(0.5rem) scale(0.9);
+    }
   }
 `;

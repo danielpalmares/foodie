@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../../services/spoonacular/api';
 
 import Layout from '../../Layout';
 import RecipeCard from '../../../components/AppRecipeCard';
@@ -15,20 +14,24 @@ export default function Search() {
   const [inputSearch, setInputSearch] = useState('');
   const [inputIngredients, setInputIngredients] = useState(null);
   const dispatch = useDispatch();
-  const stateH = useSelector(state => state);
 
-  console.log(inputIngredients, stateH);
+  const recipes = useSelector(
+    state => state.recipesByIngredientsReducer.data?.recipes
+  );
+  console.log(recipes);
 
   useEffect(() => {
-    dispatch(recipesByIngredientsAction(inputIngredients));
-  }, [dispatch, inputIngredients]);
+    if (inputIngredients !== null)
+      return dispatch(recipesByIngredientsAction(inputIngredients));
+  }, [inputIngredients]);
 
-  function getInputChange(e) {
-    e.preventDefault();
-
-    return setInputSearch(e.target.value);
+  // setting up the inputIngredients
+  function sendAction() {
+    const ingredients = formatInputString(inputSearch);
+    return setInputIngredients(ingredients);
   }
 
+  // formatting input data
   function formatInputString(inputString) {
     const ingredientsString = inputString;
     const ingredientsArr = ingredientsString.replace(/\s+/g, ' ').split(',');
@@ -36,7 +39,8 @@ export default function Search() {
       ing.trim().replace(' ', '+').toLowerCase()
     );
     const ingredientsFormatted = ingredientsArrFormatted.join(',');
-    return setInputIngredients(ingredientsFormatted);
+
+    return ingredientsFormatted;
   }
 
   return (
@@ -50,17 +54,27 @@ export default function Search() {
             <input
               type="text"
               placeholder="Apple, Avocado, Potato..."
-              onChange={e => getInputChange(e)}
+              onChange={e => setInputSearch(e.target.value)}
             />
 
-            <button onClick={e => formatInputString(inputSearch)}>
+            <button onClick={() => sendAction()}>
               <IoSearchOutline size={26} />
             </button>
           </InputWrapper>
         </header>
 
         <main>
-          <RecipeCard />
+          {recipes &&
+            recipes.map(rec => {
+              return (
+                <RecipeCard
+                  key={rec.id}
+                  title={rec.title}
+                  imageSrc={rec.image}
+                  likes={rec.likes}
+                />
+              );
+            })}
         </main>
       </SearchContainer>
     </Layout>
