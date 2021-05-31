@@ -6,7 +6,7 @@ import AppTitle from '../../../components/AppTitle';
 import Spinner from '../../../components/Spinner';
 
 import { IoSearchOutline } from 'react-icons/io5';
-import { SearchContainer, InputWrapper } from './styles';
+import { SearchContainer, InputWrapper, GridLayout } from './styles';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { recipesByIngredientsAction } from '../../../store/recipesByIngredients';
@@ -69,7 +69,7 @@ export default function Search() {
           </InputWrapper>
         </header>
 
-        <main>
+        <GridLayout>
           {spinner ? (
             <Spinner />
           ) : (
@@ -85,7 +85,7 @@ export default function Search() {
               );
             })
           )}
-        </main>
+        </GridLayout>
       </SearchContainer>
     </Layout>
   );

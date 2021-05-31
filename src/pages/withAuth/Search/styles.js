@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const GridLayout = styled.main`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
+`;
+
 export const SearchContainer = styled.div`
   // media queries start area
   @media screen and (min-width: 320px) {
@@ -18,7 +25,7 @@ export const SearchContainer = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    max-width: 568px;
+    max-width: 668px;
     margin: 0 auto;
   }
   // media queries final area

@@ -12,11 +12,11 @@ export const RecipeCardContainer = styled.div`
   justify-content: flex-end;
 
   width: 100%;
-  height: 18rem;
+  height: 20rem;
 
   border-radius: 1rem;
   padding: 2rem 1rem;
-  margin: 2rem 0;
+  /* margin: 2rem 0; */
 
   transition: all 0.2s;
 `;
@@ -28,13 +28,18 @@ export const RecipeCardInfo = styled.div`
 `;
 
 export const RecipeCardTitle = styled.h3`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  line-height: 1.5;
   color: ${props =>
     props.theme.mode === 'light'
       ? props.theme.fontColors.bg
       : props.theme.fontColors.primary};
+
+  // for text overflowing
+  line-height: 1.5;
+  height: 3em;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 export const RecipeCardInfoContainer = styled.div`
