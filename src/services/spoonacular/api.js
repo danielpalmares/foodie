@@ -6,6 +6,6 @@ export const apiFindByIngredients = axios.create({
   baseURL: `https://api.spoonacular.com/recipes/findByIngredients`,
   params: {
     apiKey: API_KEY,
-    number: 40, // results per request
+    number: 100, // results per request
   },
 });

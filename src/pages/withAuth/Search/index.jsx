@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { recipesByIngredientsAction } from '../../../store/recipesByIngredients';
 
 import Layout from '../../Layout';
 import RecipeCard from '../../../components/AppRecipeCard';
@@ -8,26 +10,36 @@ import Spinner from '../../../components/Spinner';
 import { IoSearchOutline } from 'react-icons/io5';
 import { SearchContainer, InputWrapper, GridLayout } from './styles';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { recipesByIngredientsAction } from '../../../store/recipesByIngredients';
-
 export default function Search() {
-  const [inputSearch, setInputSearch] = useState('');
-  const [inputIngredients, setInputIngredients] = useState(null);
-  const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
-  const [resultsPerPage, setResultsPerPage] = useState(20);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // pagination buttons
-  const [previousButton, setPreviousButton] = useState(false);
-  const [nextButton, setNextButton] = useState(false);
-
+  // get all recipes from state
   const recipes = useSelector(
     state => state.recipesByIngredientsReducer.data?.recipes
   );
-  console.log(recipes);
+
+  // states for pagination
+  const [recipesPerPage, setRecipesPerPage] = useState([]);
+  const [resultsPerPage, setResultsPerPage] = useState(20);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [previousButton, setPreviousButton] = useState(false);
+  const [nextButton, setNextButton] = useState(false);
+  // states for other functionalities
+  const [spinner, setSpinner] = useState(false);
+  const [inputData, setInputData] = useState('');
+  const [inputIngredients, setInputIngredients] = useState('');
+
+  useEffect(() => {
+    if (!recipes) return;
+    const newRecipesPerPage = getSearchResultsPage(
+      recipes,
+      currentPage,
+      resultsPerPage
+    );
+    setRecipesPerPage(newRecipesPerPage);
+    pagination(recipes, currentPage, resultsPerPage);
+    return;
+  }, [recipes]);
 
   useEffect(() => setSpinner(false), [recipes]);
 
@@ -38,9 +50,17 @@ export default function Search() {
     return dispatch(recipesByIngredientsAction(inputIngredients));
   }, [inputIngredients]);
 
+  // give us the recipes for page
+  function getSearchResultsPage(recipesArr, curPage, resultsPerPage) {
+    const start = (curPage - 1) * resultsPerPage;
+    const end = curPage * resultsPerPage;
+
+    return recipesArr.slice(start, end);
+  }
+
   // setting up the inputIngredients
   function sendAction() {
-    const ingredients = formatInputString(inputSearch);
+    const ingredients = formatInputString(inputData);
     return setInputIngredients(ingredients);
   }
 
@@ -56,19 +76,7 @@ export default function Search() {
     return ingredientsFormatted;
   }
 
-  // give us the recipes for page
-  function getSearchResultsPage(
-    recipesArr,
-    page = currentPage,
-    resultsPerPage
-  ) {
-    const start = (page - 1) * resultsPerPage;
-    const end = page * resultsPerPage;
-
-    return recipesArr.slice(start, end);
-  }
-
-  function pagination(recipes, resultsPerPage, currentPage) {
+  function pagination(recipes, currentPage, resultsPerPage) {
     // get the number of pages
     const numPages = Math.ceil(recipes.length / resultsPerPage); // array full of recipes / resultsPerPage = 20
 
@@ -104,7 +112,7 @@ export default function Search() {
             <input
               type="text"
               placeholder="Apple, Avocado, Potato..."
-              onChange={e => setInputSearch(e.target.value)}
+              onChange={e => setInputData(e.target.value)}
             />
 
             <button onClick={() => sendAction()}>
@@ -117,8 +125,8 @@ export default function Search() {
           {spinner ? (
             <Spinner />
           ) : (
-            recipes &&
-            recipes.map(rec => {
+            recipesPerPage &&
+            recipesPerPage.map(rec => {
               return (
                 <RecipeCard
                   key={rec.id}
@@ -129,6 +137,8 @@ export default function Search() {
               );
             })
           )}
+          {nextButton && <button>next</button>}
+          {previousButton && <button>previous</button>}
         </GridLayout>
       </SearchContainer>
     </Layout>
