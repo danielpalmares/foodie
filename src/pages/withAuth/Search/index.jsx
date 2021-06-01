@@ -39,7 +39,7 @@ export default function Search() {
     setRecipesPerPage(newRecipesPerPage);
     pagination(recipes, currentPage, resultsPerPage);
     return;
-  }, [recipes]);
+  }, [recipes, currentPage, resultsPerPage]);
 
   useEffect(() => setSpinner(false), [recipes]);
 
@@ -48,7 +48,7 @@ export default function Search() {
 
     setSpinner(true);
     return dispatch(recipesByIngredientsAction(inputIngredients));
-  }, [inputIngredients]);
+  }, [inputIngredients, dispatch]);
 
   // give us the recipes for page
   function getSearchResultsPage(recipesArr, curPage, resultsPerPage) {
@@ -95,6 +95,7 @@ export default function Search() {
     // 3) last page
     if (currentPage === numPages && numPages > 1) {
       setPreviousButton(true);
+      setNextButton(false);
       return;
     }
     // 4) page one, and there are no other pages
@@ -137,8 +138,16 @@ export default function Search() {
               );
             })
           )}
-          {nextButton && <button>next</button>}
-          {previousButton && <button>previous</button>}
+          {previousButton && (
+            <button onClick={() => setCurrentPage(currentPage - 1)}>
+              previous
+            </button>
+          )}
+          {nextButton && (
+            <button onClick={() => setCurrentPage(currentPage + 1)}>
+              next
+            </button>
+          )}
         </GridLayout>
       </SearchContainer>
     </Layout>
