@@ -1,11 +1,18 @@
 import styled from 'styled-components';
 
+export const PaginationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10rem;
+`;
+
 export const GridLayout = styled.main`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   gap: 2rem;
-  padding-bottom: 10rem;
 `;
 
 export const SearchContainer = styled.div`

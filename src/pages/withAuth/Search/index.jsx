@@ -8,7 +8,15 @@ import AppTitle from '../../../components/AppTitle';
 import Spinner from '../../../components/Spinner';
 
 import { IoSearchOutline } from 'react-icons/io5';
-import { SearchContainer, InputWrapper, GridLayout } from './styles';
+import {
+  SearchContainer,
+  InputWrapper,
+  GridLayout,
+  PaginationContainer,
+} from './styles';
+
+import PreviousPageButton from '../../../components/AppPrevPageBtn';
+import NextPageButton from '../../../components/AppNextPageBtn';
 
 export default function Search() {
   const dispatch = useDispatch();
@@ -84,6 +92,7 @@ export default function Search() {
     // 1) page one, and there are other pages
     if (currentPage === 1 && numPages > 1) {
       setNextButton(true);
+      setPreviousButton(false);
       return;
     }
     // 2) other page
@@ -138,16 +147,20 @@ export default function Search() {
               );
             })
           )}
-          {previousButton && (
-            <button onClick={() => setCurrentPage(currentPage - 1)}>
-              previous
-            </button>
-          )}
-          {nextButton && (
-            <button onClick={() => setCurrentPage(currentPage + 1)}>
-              next
-            </button>
-          )}
+          <PaginationContainer>
+            {previousButton && (
+              <PreviousPageButton
+                handleClick={() => setCurrentPage(currentPage - 1)}
+                value={currentPage - 1}
+              />
+            )}
+            {nextButton && (
+              <NextPageButton
+                handleClick={() => setCurrentPage(currentPage + 1)}
+                value={currentPage + 1}
+              />
+            )}
+          </PaginationContainer>
         </GridLayout>
       </SearchContainer>
     </Layout>

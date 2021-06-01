@@ -20,5 +20,5 @@ export const SpinnerLoading = styled.div`
   border-radius: 50%;
   margin: 0 auto;
 
-  animation: 1s ${rotating} cubic-bezier(0.72, 0.9, 0.76, 0.13) infinite;
+  animation: 0.5s ${rotating} cubic-bezier(0.72, 0.9, 0.76, 0.13) infinite;
 `;
