@@ -19,16 +19,8 @@ import PreviousPageButton from '../../../components/AppPrevPageBtn';
 import NextPageButton from '../../../components/AppNextPageBtn';
 
 export default function Search() {
-  const recipesRef = useRef();
   const dispatch = useDispatch();
-
-  function handlePagination(prevOrNext) {
-    prevOrNext === 'previous'
-      ? setCurrentPage(currentPage - 1)
-      : setCurrentPage(currentPage + 1);
-
-    return recipesRef.current.scrollIntoView({ behavior: 'smooth' });
-  }
+  const recipesRef = useRef();
 
   // get all recipes from state
   const recipes = useSelector(
@@ -46,29 +38,38 @@ export default function Search() {
   const [inputData, setInputData] = useState('');
   const [inputIngredients, setInputIngredients] = useState('');
 
+  // fetch the recipes from api
+  useEffect(() => {
+    if (!inputIngredients) return;
+    setSpinner(true);
+
+    return dispatch(recipesByIngredientsAction(inputIngredients));
+  }, [inputIngredients]);
+
   // get the recipes per page and store it in the state
   useEffect(() => {
     if (!recipes) return;
+
+    // render the recipes while changing the state
     const newRecipesPerPage = getSearchResultsPage(
       recipes,
       currentPage,
       resultsPerPage
     );
-    setRecipesPerPage(newRecipesPerPage);
-    pagination(recipes, currentPage, resultsPerPage);
-    return;
-  }, [recipes, currentPage, resultsPerPage]);
+    return setRecipesPerPage(newRecipesPerPage);
+  }, [recipes, currentPage]);
 
+  // set how pagination will look like
+  useEffect(() => {
+    if (!recipesPerPage) return;
+
+    return pagination(recipes, currentPage, resultsPerPage);
+  }, [recipesPerPage, currentPage]);
+
+  // set spinner to not show up whenever the recipes has loaded
   useEffect(() => setSpinner(false), [recipes]);
 
-  useEffect(() => {
-    if (!inputIngredients) return;
-
-    setSpinner(true);
-    return dispatch(recipesByIngredientsAction(inputIngredients));
-  }, [inputIngredients, dispatch]);
-
-  // give us the recipes for page
+  // get the recipes for each page
   function getSearchResultsPage(recipesArr, curPage, resultsPerPage) {
     const start = (curPage - 1) * resultsPerPage;
     const end = curPage * resultsPerPage;
@@ -76,10 +77,26 @@ export default function Search() {
     return recipesArr.slice(start, end);
   }
 
-  // setting up the inputIngredients
-  function sendAction() {
-    const ingredients = formatInputString(inputData);
+  // handle pagination button click event
+  function handlePagination(prevOrNext) {
+    // set current page
+    prevOrNext === 'previous'
+      ? setCurrentPage(currentPage - 1)
+      : setCurrentPage(currentPage + 1);
+
+    // scroll to the top of the recipes
+    recipesRef.current.scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
+  // setting up the inputIngredients when the user searches
+  function handleSearchRecipes() {
+    // back to default
     setCurrentPage(1);
+    setNextButton(false);
+    setPreviousButton(false);
+
+    const ingredients = formatInputString(inputData);
     return setInputIngredients(ingredients);
   }
 
@@ -96,6 +113,8 @@ export default function Search() {
   }
 
   function pagination(recipes, currentPage, resultsPerPage) {
+    if (!recipes) return;
+
     // get the number of pages
     const numPages = Math.ceil(recipes.length / resultsPerPage); // array full of recipes / resultsPerPage = 20
 
@@ -106,18 +125,21 @@ export default function Search() {
       setPreviousButton(false);
       return;
     }
+
     // 2) other page
     if (currentPage < numPages) {
       setPreviousButton(true);
       setNextButton(true);
       return;
     }
+
     // 3) last page
     if (currentPage === numPages && numPages > 1) {
       setPreviousButton(true);
       setNextButton(false);
       return;
     }
+
     // 4) page one, and there are no other pages
     return;
   }
@@ -132,11 +154,11 @@ export default function Search() {
           <InputWrapper>
             <input
               type="text"
-              placeholder="Apple, Avocado, Potato..."
+              placeholder="Apple, Avocado, Peanut Butter..."
               onChange={e => setInputData(e.target.value)}
             />
 
-            <button onClick={() => sendAction()}>
+            <button onClick={() => handleSearchRecipes()}>
               <IoSearchOutline size={26} />
             </button>
           </InputWrapper>

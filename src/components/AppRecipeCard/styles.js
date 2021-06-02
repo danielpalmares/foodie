@@ -75,7 +75,7 @@ export const RecipeCardInfoContainer = styled.div`
     border: none;
     border-radius: 1rem;
     outline: none;
-    background: ${props => props.theme.colors.primary};
+    background: ${props => props.theme.colors.secondary};
     color: inherit;
     cursor: pointer;
     transition: all 0.2s;

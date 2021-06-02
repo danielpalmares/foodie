@@ -4,7 +4,7 @@ export const PaginationContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 10rem;
+  padding: 4rem 0;
 `;
 
 export const GridLayout = styled.main`
@@ -15,6 +15,7 @@ export const GridLayout = styled.main`
 `;
 
 export const SearchContainer = styled.div`
+  padding-bottom: 6rem;
   // media queries start area
   @media screen and (min-width: 320px) {
     max-width: 300px;
