@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { recipesByIngredientsAction } from '../../../store/recipesByIngredients';
 
@@ -19,7 +19,16 @@ import PreviousPageButton from '../../../components/AppPrevPageBtn';
 import NextPageButton from '../../../components/AppNextPageBtn';
 
 export default function Search() {
+  const recipesRef = useRef();
   const dispatch = useDispatch();
+
+  function handlePagination(prevOrNext) {
+    prevOrNext === 'previous'
+      ? setCurrentPage(currentPage - 1)
+      : setCurrentPage(currentPage + 1);
+
+    return recipesRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
 
   // get all recipes from state
   const recipes = useSelector(
@@ -28,7 +37,7 @@ export default function Search() {
 
   // states for pagination
   const [recipesPerPage, setRecipesPerPage] = useState([]);
-  const [resultsPerPage, setResultsPerPage] = useState(20);
+  const [resultsPerPage, setResultsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [previousButton, setPreviousButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
@@ -37,6 +46,7 @@ export default function Search() {
   const [inputData, setInputData] = useState('');
   const [inputIngredients, setInputIngredients] = useState('');
 
+  // get the recipes per page and store it in the state
   useEffect(() => {
     if (!recipes) return;
     const newRecipesPerPage = getSearchResultsPage(
@@ -69,6 +79,7 @@ export default function Search() {
   // setting up the inputIngredients
   function sendAction() {
     const ingredients = formatInputString(inputData);
+    setCurrentPage(1);
     return setInputIngredients(ingredients);
   }
 
@@ -131,7 +142,7 @@ export default function Search() {
           </InputWrapper>
         </header>
 
-        <GridLayout>
+        <GridLayout ref={recipesRef}>
           {spinner ? (
             <Spinner />
           ) : (
@@ -147,21 +158,21 @@ export default function Search() {
               );
             })
           )}
-          <PaginationContainer>
-            {previousButton && (
-              <PreviousPageButton
-                handleClick={() => setCurrentPage(currentPage - 1)}
-                value={currentPage - 1}
-              />
-            )}
-            {nextButton && (
-              <NextPageButton
-                handleClick={() => setCurrentPage(currentPage + 1)}
-                value={currentPage + 1}
-              />
-            )}
-          </PaginationContainer>
         </GridLayout>
+        <PaginationContainer>
+          {previousButton && (
+            <PreviousPageButton
+              handleClick={() => handlePagination('previous')}
+              value={currentPage - 1}
+            />
+          )}
+          {nextButton && (
+            <NextPageButton
+              handleClick={() => handlePagination('next')}
+              value={currentPage + 1}
+            />
+          )}
+        </PaginationContainer>
       </SearchContainer>
     </Layout>
   );
