@@ -92,12 +92,13 @@ export default function Search() {
   // setting up the inputIngredients when the user searches
   function handleSearchRecipes() {
     // back to default
-    setCurrentPage(1);
-    setNextButton(false);
-    setPreviousButton(false);
+    currentPage !== 1 && setCurrentPage(1);
+    nextButton && setNextButton(false);
+    previousButton && setPreviousButton(false);
 
     const ingredients = formatInputString(inputData);
-    return setInputIngredients(ingredients);
+    setInputIngredients(ingredients);
+    return;
   }
 
   // formatting input data
@@ -108,7 +109,6 @@ export default function Search() {
       ing.trim().replace(' ', '+').toLowerCase()
     );
     const ingredientsFormatted = ingredientsArrFormatted.join(',');
-
     return ingredientsFormatted;
   }
 
@@ -165,10 +165,9 @@ export default function Search() {
         </header>
 
         <GridLayout ref={recipesRef}>
-          {spinner ? (
-            <Spinner />
-          ) : (
-            recipesPerPage &&
+          {spinner && <Spinner />}
+
+          {recipesPerPage &&
             recipesPerPage.map(rec => {
               return (
                 <RecipeCard
@@ -178,21 +177,25 @@ export default function Search() {
                   likes={rec.likes}
                 />
               );
-            })
-          )}
+            })}
         </GridLayout>
+
         <PaginationContainer>
-          {previousButton && (
+          {previousButton && spinner === false ? (
             <PreviousPageButton
               handleClick={() => handlePagination('previous')}
               value={currentPage - 1}
             />
+          ) : (
+            ''
           )}
-          {nextButton && (
+          {nextButton && spinner === false ? (
             <NextPageButton
               handleClick={() => handlePagination('next')}
               value={currentPage + 1}
             />
+          ) : (
+            ''
           )}
         </PaginationContainer>
       </SearchContainer>
