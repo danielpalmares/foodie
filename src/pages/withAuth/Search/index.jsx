@@ -6,6 +6,8 @@ import Layout from '../../Layout';
 import RecipeCard from '../../../components/AppRecipeCard';
 import AppTitle from '../../../components/AppTitle';
 import Spinner from '../../../components/Spinner';
+import PreviousPageButton from '../../../components/AppPrevPageBtn';
+import NextPageButton from '../../../components/AppNextPageBtn';
 
 import { IoSearchOutline } from 'react-icons/io5';
 import {
@@ -14,9 +16,6 @@ import {
   GridLayout,
   PaginationContainer,
 } from './styles';
-
-import PreviousPageButton from '../../../components/AppPrevPageBtn';
-import NextPageButton from '../../../components/AppNextPageBtn';
 
 export default function Search() {
   const dispatch = useDispatch();
@@ -29,7 +28,7 @@ export default function Search() {
 
   // states for pagination
   const [recipesPerPage, setRecipesPerPage] = useState([]);
-  const [resultsPerPage, setResultsPerPage] = useState(10); // magic number
+  const [resultsPerPage, setResultsPerPage] = useState(10); // !magic number
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPages, setMaxPages] = useState(null);
   const [previousButton, setPreviousButton] = useState(false);
@@ -187,18 +186,18 @@ export default function Search() {
         <GridLayout ref={recipesRef}>
           {spinner && <Spinner />}
 
-          {recipesPerPage && !spinner
-            ? recipesPerPage.map(rec => {
-                return (
-                  <RecipeCard
-                    key={rec.id}
-                    title={rec.title}
-                    imageSrc={rec.image}
-                    likes={rec.likes}
-                  />
-                );
-              })
-            : ''}
+          {recipesPerPage &&
+            !spinner &&
+            recipesPerPage.map(rec => {
+              return (
+                <RecipeCard
+                  key={rec.id}
+                  title={rec.title}
+                  imageSrc={rec.image}
+                  likes={rec.likes}
+                />
+              );
+            })}
         </GridLayout>
 
         <PaginationContainer>
