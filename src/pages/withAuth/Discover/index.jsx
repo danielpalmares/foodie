@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
 import Layout from '../../../pages/Layout';
 
@@ -11,12 +10,19 @@ import FindRecipesCard from '../../../components/FindRecipesCard';
 import AppTitle from '../../../components/AppTitle';
 import InputSearch from '../../../components/InputSearch';
 
-const APIKEY = 'ce9ca7ccb5154bcfa3dfda280afcdd30';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Discover() {
+  const [inputData, setInputData] = useState();
+
+  const recipes = useSelector(state => state.recipesByName.data?.recipes);
+  console.log(recipes);
+
   function fetchRecipesByIngredients() {
     return console.log('oi');
   }
+
+  function handleSearch() {}
 
   const greetingByTime = () => {
     const currentHour = new Date().getHours();
