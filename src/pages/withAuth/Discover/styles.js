@@ -19,7 +19,7 @@ export const DiscoverContainer = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    max-width: 568px;
+    max-width: 668px;
     margin: 0 auto;
   }
 

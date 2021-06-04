@@ -9,20 +9,16 @@ import { DiscoverContainer, DrinkList } from './styles';
 import FindRecipesCard from '../../../components/FindRecipesCard';
 
 import AppTitle from '../../../components/AppTitle';
+import InputSearch from '../../../components/InputSearch';
 
 const APIKEY = 'ce9ca7ccb5154bcfa3dfda280afcdd30';
 
-export default class Discover extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      randomRecipe: {},
-      recipesByCategory: [],
-    };
+export default function Discover() {
+  function fetchRecipesByIngredients() {
+    return console.log('oi');
   }
 
-  greetingByTime() {
+  const greetingByTime = () => {
     const currentHour = new Date().getHours();
 
     if (currentHour >= 5 && currentHour < 12) {
@@ -32,91 +28,96 @@ export default class Discover extends Component {
     } else {
       return 'Good Night!';
     }
-  }
+  };
 
-  render() {
-    return (
-      <Layout defaultHeader>
-        <DiscoverContainer>
-          <main>
-            <AppTitle>{this.greetingByTime()} Adalberto</AppTitle>
+  return (
+    <Layout defaultHeader>
+      <DiscoverContainer>
+        <main>
+          <section>
+            <AppTitle>{greetingByTime()} Adalberto</AppTitle>
             <FindRecipesCard />
+          </section>
 
-            <section>
-              <AppTitle>Up to drink something?</AppTitle>
-              <DrinkList>
-                <li>
-                  <button>Wine</button>
-                </li>
-                <li>
-                  <button>Vodka</button>
-                </li>
-                <li>
-                  <button>Whiskey</button>
-                </li>
-                <li>
-                  <button>Rum</button>
-                </li>
-                <li>
-                  <button>Tea</button>
-                </li>
-                <li>
-                  <button>Coffee</button>
-                </li>
-                <li>
-                  <button>Apple juice</button>
-                </li>
-              </DrinkList>
-            </section>
+          <section>
+            <AppTitle>Search for some recipe</AppTitle>
+            <InputSearch placeholderText="We have tasty pizzas, try it :)" />
+          </section>
 
-            <section>
-              <AppTitle>Usual ingredients based recipes</AppTitle>
+          <section>
+            <AppTitle>Up to drink something?</AppTitle>
+            <DrinkList>
+              <li>
+                <button>Wine</button>
+              </li>
+              <li>
+                <button>Vodka</button>
+              </li>
+              <li>
+                <button>Whiskey</button>
+              </li>
+              <li>
+                <button>Rum</button>
+              </li>
+              <li>
+                <button>Tea</button>
+              </li>
+              <li>
+                <button>Coffee</button>
+              </li>
+              <li>
+                <button>Apple juice</button>
+              </li>
+            </DrinkList>
+          </section>
 
-              <BasedRecipeCard
-                image="bread.jpg"
-                basedIngredient="Bread"
-                handleClick={e => this.fetchRecipesByIngredients(e, 'bread')}
-              />
+          <section>
+            <AppTitle>Usual ingredients based recipes</AppTitle>
 
-              <BasedRecipeCard
-                image="milk.jpg"
-                basedIngredient="Milk"
-                handleClick={e => this.getRecipesByIngredients(e, 'milk')}
-              />
+            <BasedRecipeCard
+              image="bread.jpg"
+              basedIngredient="Bread"
+              handleClick={e => fetchRecipesByIngredients(e, 'bread')}
+            />
 
-              <BasedRecipeCard
-                image="orange.jpg"
-                basedIngredient="Orange"
-                handleClick={e => this.getRecipesByIngredients(e, 'orange')}
-              />
+            <BasedRecipeCard
+              image="milk.jpg"
+              basedIngredient="Milk"
+              handleClick={e => fetchRecipesByIngredients(e, 'milk')}
+            />
 
-              <BasedRecipeCard
-                image="meat.jpg"
-                basedIngredient="Meat"
-                handleClick={e => this.getRecipesByIngredients(e, 'meat')}
-              />
+            <BasedRecipeCard
+              image="orange.jpg"
+              basedIngredient="Orange"
+              handleClick={e => fetchRecipesByIngredients(e, 'orange')}
+            />
 
-              <BasedRecipeCard
-                image="pizza.jpg"
-                basedIngredient="Pizza"
-                handleClick={e => this.getRecipesByIngredients(e, 'pizza')}
-              />
+            <BasedRecipeCard
+              image="meat.jpg"
+              basedIngredient="Meat"
+              handleClick={e => fetchRecipesByIngredients(e, 'meat')}
+            />
 
-              <BasedRecipeCard
-                image="pasta.jpg"
-                basedIngredient="Pasta"
-                handleClick={e => this.getRecipesByIngredients(e, 'pasta')}
-              />
+            <BasedRecipeCard
+              image="pizza.jpg"
+              basedIngredient="Pizza"
+              handleClick={e => fetchRecipesByIngredients(e, 'pizza')}
+            />
 
-              <BasedRecipeCard
-                image="egg.jpg"
-                basedIngredient="Egg"
-                handleClick={e => this.getRecipesByIngredients(e, 'egg')}
-              />
-            </section>
-          </main>
-        </DiscoverContainer>
-      </Layout>
-    );
-  }
+            <BasedRecipeCard
+              image="pasta.jpg"
+              basedIngredient="Pasta"
+              handleClick={e => fetchRecipesByIngredients(e, 'pasta')}
+            />
+
+            <BasedRecipeCard
+              image="egg.jpg"
+              basedIngredient="Egg"
+              handleClick={e => fetchRecipesByIngredients(e, 'egg')}
+            />
+          </section>
+        </main>
+      </DiscoverContainer>
+    </Layout>
+  );
 }
