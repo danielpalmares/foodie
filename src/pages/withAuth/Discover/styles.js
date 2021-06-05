@@ -42,7 +42,7 @@ export const DiscoverContainer = styled.div`
 export const DrinkList = styled.ul`
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 2rem;
   overflow: scroll;
 
   &::-webkit-scrollbar {
