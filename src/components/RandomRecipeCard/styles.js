@@ -56,6 +56,10 @@ export const Card = styled.div`
   button {
     background: ${props => props.theme.colors.secondary};
     align-self: flex-end;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     color: ${props =>
       props.theme.mode === 'light'
@@ -71,6 +75,7 @@ export const Card = styled.div`
     padding: 0.5rem 1rem;
     cursor: pointer;
     transition: all 0.2s;
+    z-index: 20;
 
     &:active {
       transform: translateY(0.5rem) scale(0.9);
