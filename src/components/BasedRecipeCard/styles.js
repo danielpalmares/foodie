@@ -17,11 +17,12 @@ export const Container = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    background: ${props => props.theme.colors.secondary};
+    background: ${props => props.theme.colors.primary};
     font-size: 1.7rem;
     font-weight: 700;
     color: #ecedf1;
     padding: 1rem;
     border-bottom-right-radius: 1rem;
+    text-transform: uppercase;
   }
 `;

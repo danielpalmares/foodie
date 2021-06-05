@@ -13,15 +13,36 @@ import InputSearch from '../../../components/InputSearch';
 import { useSelector, useDispatch } from 'react-redux';
 import RandomRecipeCard from '../../../components/RandomRecipeCard';
 
+import RecipesGrid from '../../../components/RecipesGrid';
+
 export default function Discover() {
   const [inputData, setInputData] = useState();
+
+  const recipeTypes = [
+    'main course',
+    'side dish',
+    'dessert',
+    'appetizer',
+    'salad',
+    'bread',
+    'breakfast',
+    'soup',
+    'beverage',
+    'sauce',
+    'snack',
+    'drink',
+  ];
 
   const recipes = useSelector(state => state.recipesByName?.data.recipes);
 
   console.log(recipes);
 
-  function fetchRecipesByIngredients() {
-    return console.log('oi');
+  async function fetchRecipesByIngredients() {
+    const res = await fetch(
+      'https://api.spoonacular.com/recipes/complexSearch?type=dessert&apiKey=ce9ca7ccb5154bcfa3dfda280afcdd30'
+    );
+    const data = await res.json();
+    return console.log(data);
   }
 
   function handleSearch() {}
@@ -58,76 +79,94 @@ export default function Discover() {
           </section>
 
           <section>
-            <AppTitle>Up to drink something?</AppTitle>
+            <AppTitle>Find a recipe by its type</AppTitle>
             <DrinkList>
-              <li>
-                <button>Wine</button>
-              </li>
-              <li>
-                <button>Vodka</button>
-              </li>
-              <li>
-                <button>Whiskey</button>
-              </li>
-              <li>
-                <button>Rum</button>
-              </li>
-              <li>
-                <button>Tea</button>
-              </li>
-              <li>
-                <button>Coffee</button>
-              </li>
-              <li>
-                <button>Apple juice</button>
-              </li>
+              {recipeTypes.map(type => {
+                return (
+                  <li>
+                    <button>{type}</button>
+                  </li>
+                );
+              })}
             </DrinkList>
           </section>
 
           <section>
-            <AppTitle>Usual ingredients based recipes</AppTitle>
+            <AppTitle>Curious about other cuisines?</AppTitle>
 
-            <BasedRecipeCard
-              image="bread.jpg"
-              basedIngredient="Bread"
-              handleClick={e => fetchRecipesByIngredients(e, 'bread')}
-            />
+            <RecipesGrid>
+              <BasedRecipeCard
+                image="british"
+                title="British"
+                handleClick={e => fetchRecipesByIngredients(e, 'bread')}
+              />
 
-            <BasedRecipeCard
-              image="milk.jpg"
-              basedIngredient="Milk"
-              handleClick={e => fetchRecipesByIngredients(e, 'milk')}
-            />
+              <BasedRecipeCard
+                image="caribbean"
+                title="Caribbean"
+                handleClick={e => fetchRecipesByIngredients(e, 'bread')}
+              />
 
-            <BasedRecipeCard
-              image="orange.jpg"
-              basedIngredient="Orange"
-              handleClick={e => fetchRecipesByIngredients(e, 'orange')}
-            />
+              <BasedRecipeCard
+                image="chinese"
+                title="Chinese"
+                handleClick={e => fetchRecipesByIngredients(e, 'milk')}
+              />
 
-            <BasedRecipeCard
-              image="meat.jpg"
-              basedIngredient="Meat"
-              handleClick={e => fetchRecipesByIngredients(e, 'meat')}
-            />
+              <BasedRecipeCard
+                image="french"
+                title="French"
+                handleClick={e => fetchRecipesByIngredients(e, 'orange')}
+              />
 
-            <BasedRecipeCard
-              image="pizza.jpg"
-              basedIngredient="Pizza"
-              handleClick={e => fetchRecipesByIngredients(e, 'pizza')}
-            />
+              <BasedRecipeCard
+                image="greek"
+                title="Greek"
+                handleClick={e => fetchRecipesByIngredients(e, 'meat')}
+              />
 
-            <BasedRecipeCard
-              image="pasta.jpg"
-              basedIngredient="Pasta"
-              handleClick={e => fetchRecipesByIngredients(e, 'pasta')}
-            />
+              <BasedRecipeCard
+                image="irish"
+                title="Irish"
+                handleClick={e => fetchRecipesByIngredients(e, 'pizza')}
+              />
 
-            <BasedRecipeCard
-              image="egg.jpg"
-              basedIngredient="Egg"
-              handleClick={e => fetchRecipesByIngredients(e, 'egg')}
-            />
+              <BasedRecipeCard
+                image="italian"
+                title="Italian"
+                handleClick={e => fetchRecipesByIngredients(e, 'pasta')}
+              />
+
+              <BasedRecipeCard
+                image="japanese"
+                title="Japanese"
+                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
+              />
+
+              <BasedRecipeCard
+                image="jewish"
+                title="Jewish"
+                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
+              />
+
+              <BasedRecipeCard
+                image="mexican"
+                title="Mexican"
+                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
+              />
+
+              <BasedRecipeCard
+                image="nordic"
+                title="Nordic"
+                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
+              />
+
+              <BasedRecipeCard
+                image="spanish"
+                title="Spanish"
+                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
+              />
+            </RecipesGrid>
           </section>
         </main>
       </DiscoverContainer>

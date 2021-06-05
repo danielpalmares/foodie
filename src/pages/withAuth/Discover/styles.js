@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const DiscoverContainer = styled.div`
-  @media screen and (min-width: 320px) {
+  padding: 0 2rem;
+
+  /* @media screen and (min-width: 320px) {
     max-width: 300px;
     margin: 0 auto;
   }
@@ -14,7 +16,7 @@ export const DiscoverContainer = styled.div`
   @media screen and (min-width: 425px) {
     max-width: 405px;
     margin: 0 auto;
-  }
+  } */
 
   @media screen and (min-width: 768px) {
     max-width: 668px;
@@ -52,12 +54,12 @@ export const DrinkList = styled.ul`
       font-family: 'Lexend', sans-serif;
       font-size: 1.7rem;
       font-weight: 700;
-      color: ${props => props.theme.fontColors.primary};
+      color: ${props => props.theme.fontColors.bg};
       padding: 1rem;
-      border: 2px solid ${props => props.theme.colors.border};
+      border: 2px solid transparent;
       outline: none;
       border-radius: 1rem;
-      background: ${props => props.theme.fontColors.tertiary};
+      background: ${props => props.theme.colors.tertiary};
       transition: all 0.2s;
       text-align: center;
       white-space: nowrap;

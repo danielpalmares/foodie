@@ -2,18 +2,14 @@ import React from 'react';
 
 import { Container } from './styles';
 
-export default function BasedRecipeCard({
-  image,
-  basedIngredient,
-  handleClick,
-}) {
+export default function BasedRecipeCard({ image, title, handleClick }) {
   return (
     <>
       <Container
-        imageSrc={`${process.env.PUBLIC_URL + 'images/' + image}`}
+        imageSrc={`${process.env.PUBLIC_URL + 'images/' + image + '.jpg'}`}
         onClick={handleClick}
       >
-        <span>{basedIngredient} Based Recipes</span>
+        <span>{title}</span>
       </Container>
     </>
   );
