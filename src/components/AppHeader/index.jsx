@@ -15,7 +15,7 @@ import { HeaderContainer, UserContainer } from './styles';
 
 export default function AppHeader({
   onlyBackButton = false,
-  switchThemeButton = false,
+  profileHeader = false,
   defaultHeader = false,
 }) {
   // setting up back page button
@@ -41,26 +41,26 @@ export default function AppHeader({
           </button>
         )}
 
-        {switchThemeButton && (
+        {profileHeader && (
           <>
             <button onClick={goBack}>
               <IoArrowBackOutline size={26} />
             </button>
 
-            <button onClick={switchTheme}>
-              {currentTheme === 'light' ? (
-                <IoMoonSharp size={26} color="#F4F1C9" />
-              ) : (
-                <IoSunnySharp size={26} color="#FDB813" />
-              )}
+            <button>
+              <IoCartOutline size={26} />
             </button>
           </>
         )}
 
         {defaultHeader && (
           <>
-            <button>
-              <IoCartOutline size={26} />
+            <button onClick={switchTheme}>
+              {currentTheme === 'light' ? (
+                <IoMoonSharp size={26} color="#F4F1C9" />
+              ) : (
+                <IoSunnySharp size={26} color="#FDB813" />
+              )}
             </button>
 
             <img src={Logo} alt="Foodie logo" />

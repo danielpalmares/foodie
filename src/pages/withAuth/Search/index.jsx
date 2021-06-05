@@ -121,7 +121,7 @@ export default function Search() {
       : setCurrentPage(currentPage + 1);
 
     // scroll to the top of the recipes
-    // recipesRef.current.scrollIntoView({ behavior: 'smooth' });
+    recipesRef.current.scrollIntoView({ behavior: 'smooth' });
     return;
   }
 

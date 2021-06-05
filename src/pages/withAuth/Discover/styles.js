@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const DiscoverContainer = styled.div`
-  padding-bottom: 6.6rem;
-
   @media screen and (min-width: 320px) {
     max-width: 300px;
     margin: 0 auto;
@@ -26,7 +24,7 @@ export const DiscoverContainer = styled.div`
   main {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    margin-bottom: 6rem; // because of navigation
     overflow: hidden;
   }
 
@@ -35,13 +33,7 @@ export const DiscoverContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-top: 4rem;
-
-    h3 {
-      color: ${props => props.theme.fontColors.primary};
-      font-size: 2rem;
-      font-weight: 700;
-    }
+    margin: 2rem 0;
   }
 `;
 

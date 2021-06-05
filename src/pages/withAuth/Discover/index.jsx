@@ -11,11 +11,13 @@ import AppTitle from '../../../components/AppTitle';
 import InputSearch from '../../../components/InputSearch';
 
 import { useSelector, useDispatch } from 'react-redux';
+import RandomRecipeCard from '../../../components/RandomRecipeCard';
 
 export default function Discover() {
   const [inputData, setInputData] = useState();
 
-  const recipes = useSelector(state => state.recipesByName.data?.recipes);
+  const recipes = useSelector(state => state.recipesByName?.data.recipes);
+
   console.log(recipes);
 
   function fetchRecipesByIngredients() {
@@ -46,8 +48,13 @@ export default function Discover() {
           </section>
 
           <section>
-            <AppTitle>Search for some recipe</AppTitle>
+            <AppTitle>Looking for a specific recipe?</AppTitle>
             <InputSearch placeholderText="We have tasty pizzas, try it :)" />
+          </section>
+
+          <section>
+            <AppTitle>Try to get a random recipe</AppTitle>
+            <RandomRecipeCard></RandomRecipeCard>
           </section>
 
           <section>

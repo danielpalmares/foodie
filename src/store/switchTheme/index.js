@@ -12,7 +12,7 @@ export const switchThemeAction = theme => {
 
 // initial state
 const defaultTheme = {
-  theme: light,
+  theme: dark,
 };
 
 // reducers area

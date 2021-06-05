@@ -6,14 +6,14 @@ import Navigation from '../components/Navigation/index';
 export default function Layout({
   children,
   onlyBackButton,
-  switchThemeButton,
+  profileHeader,
   defaultHeader,
 }) {
   return (
     <>
       <Header
         onlyBackButton={onlyBackButton}
-        switchThemeButton={switchThemeButton}
+        profileHeader={profileHeader}
         defaultHeader={defaultHeader}
       />
       {children}
