@@ -66,6 +66,7 @@ export async function recipesByNameAction(recipe) {
 }
 
 const initialState = {
+  status: null,
   data: null,
 };
 
@@ -74,12 +75,13 @@ export function recipesByName(state = initialState, action) {
     case FOUND_RECIPES_BY_NAME:
       return {
         ...state,
-        data: action.payload,
+        data: action.payload.recipes,
+        status: action.payload.status,
       };
     case RECIPES_BY_NAME_NOT_FOUND:
       return {
         ...state,
-        data: action.payload,
+        status: action.payload.status,
       };
     default:
       return state;

@@ -19,49 +19,14 @@ import SearchVideoButton from '../../../components/SearchVideoButton';
 import { apiComplexSearch } from '../../../services/spoonacular/api';
 import { recipesByNameAction } from '../../../store/recipesByName';
 
+import {
+  recipesType,
+  recipesCuisines,
+  recipesCookingTime,
+} from '../../../config';
+
 export default function Discover() {
-  const recipesType = [
-    { id: 'main+course', text: 'Main Course' },
-    { id: 'side+dish', text: 'Side Dish' },
-    { id: 'dessert', text: 'Dessert' },
-    { id: 'appetizer', text: 'Appetizer' },
-    { id: 'salad', text: 'Salad' },
-    { id: 'bread', text: 'Bread' },
-    { id: 'breakfast', text: 'Breakfast' },
-    { id: 'soup', text: 'Soup' },
-    { id: 'beverage', text: 'Beverage' },
-    { id: 'sauce', text: 'Sauce' },
-    { id: 'snack', text: 'Snack' },
-    { id: 'drink', text: 'Drink' },
-  ];
-
-  const recipesCookingTime = [
-    { id: 5, text: '5 min' },
-    { id: 10, text: '10 min' },
-    { id: 15, text: '15 min' },
-    { id: 20, text: '20 min' },
-    { id: 25, text: '25 min' },
-    { id: 30, text: '30 min' },
-  ];
-
-  const recipesCuisines = [
-    'british',
-    'caribbean',
-    'chinese',
-    'french',
-    'greek',
-    'irish',
-    'italian',
-    'japanese',
-    'jewish',
-    'mexican',
-    'nordic',
-    'spanish',
-  ];
-
   const dispatch = useDispatch();
-  const recipes = useSelector(state => state.recipesByName.data?.recipes);
-  console.log(recipes);
 
   const [inputData, setInputData] = useState('');
   const [recipeName, setRecipeName] = useState('');
@@ -69,20 +34,12 @@ export default function Discover() {
   useEffect(() => {
     if (!recipeName) return;
 
-    // call dispatch
     return dispatch(recipesByNameAction(recipeName));
   }, [recipeName, dispatch]);
-
-  async function fetchRecipesByIngredients() {
-    const res = await apiComplexSearch.get('?query=pizza');
-    console.log(res);
-    return;
-  }
 
   // format input data
   function formatInputString(inputString) {
     const recipeString = inputString;
-    // check the whole string, replace double whitespace or more for one, and then remove whitespace from start and end
     const recipeFormatted = recipeString.replace(/\s+/g, ' ').trim();
 
     return recipeFormatted;
@@ -90,8 +47,11 @@ export default function Discover() {
 
   // send recipe name formatted to its state
   function handleSearch() {
-    const recipeName = formatInputString(inputData);
-    return setRecipeName(recipeName);
+    const newRecipeName = formatInputString(inputData);
+
+    if (newRecipeName === recipeName) return;
+
+    return setRecipeName(newRecipeName);
   }
 
   function handleRecipesByCuisine() {}
@@ -113,7 +73,7 @@ export default function Discover() {
       <Container>
         <main>
           <section>
-            <button onClick={() => fetchRecipesByIngredients()}>TESTE</button>
+            {/* <button onClick={() => fetchRecipesByIngredients()}>TESTE</button> */}
           </section>
 
           <section>
