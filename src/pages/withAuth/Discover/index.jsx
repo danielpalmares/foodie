@@ -21,6 +21,7 @@ import { recipesByNameAction } from '../../../store/recipesByName';
 import { recipesByTypeAction } from '../../../store/recipesByType';
 import { recipesByCuisineAction } from '../../../store/recipesByCuisine';
 import { recipesByTimingAction } from '../../../store/recipesByTiming';
+import { recipeVideosAction } from '../../../store/recipeVideos';
 
 import {
   recipesType,
@@ -31,20 +32,24 @@ import {
 export default function Discover() {
   const dispatch = useDispatch();
 
-  const recipes = useSelector(state => state.recipesByTiming?.data);
+  const recipes = useSelector(state => state.recipesByName?.data);
+  const videos = useSelector(state => state.recipeVideos);
   console.log(recipes);
+  console.log(videos);
 
   const [inputData, setInputData] = useState('');
   const [recipeName, setRecipeName] = useState('');
   const [recipeType, setRecipeType] = useState('');
   const [recipeTiming, setRecipeTiming] = useState(0);
   const [recipeCuisine, setRecipeCuisine] = useState('');
+  const [searchVideos, setSearchVideos] = useState(false);
 
   // fetch recipes by name
   useEffect(() => {
     if (!recipeName) return;
 
-    return dispatch(recipesByNameAction(recipeName));
+    if (searchVideos) return dispatch(recipeVideosAction(recipeName));
+    else return dispatch(recipesByNameAction(recipeName));
   }, [recipeName]);
 
   // fetch recipes by type
@@ -71,7 +76,10 @@ export default function Discover() {
   // format input data
   function formatInputString(inputString) {
     const recipeString = inputString;
-    const recipeFormatted = recipeString.replace(/\s+/g, ' ').trim();
+    const recipeFormatted = recipeString
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(' ', '+');
 
     return recipeFormatted;
   }
@@ -121,12 +129,20 @@ export default function Discover() {
     }
   };
 
+  async function test() {
+    const res = await fetch(
+      'https://api.spoonacular.com/recipes/random?number=1&apiKey=ce9ca7ccb5154bcfa3dfda280afcdd30'
+    );
+    const data = await res.json();
+    return console.log(data);
+  }
+
   return (
     <Layout defaultHeader>
       <Container>
         <main>
           <section>
-            {/* <button onClick={() => fetchRecipesByIngredients()}>TESTE</button> */}
+            <button onClick={() => test()}>TESTE</button>
           </section>
 
           <section>
@@ -136,7 +152,10 @@ export default function Discover() {
 
           <section>
             <AppTitle>Looking for a specific recipe?</AppTitle>
-            <SearchVideoButton active />
+            <SearchVideoButton
+              active={searchVideos}
+              handleClick={() => setSearchVideos(!searchVideos)}
+            />
             <InputSearch
               handleInputChange={e => setInputData(e.target.value)}
               handleSearch={() => handleSearch()}

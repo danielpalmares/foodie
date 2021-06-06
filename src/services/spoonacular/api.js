@@ -24,22 +24,22 @@ export const apiComplexSearch = axios.create({
 export const apiFindByID = axios.create({
   baseURL: `https://api.spoonacular.com/recipes/{id}/information`, // id/information
   params: {
-    api: API_KEY,
+    apiKey: API_KEY,
   },
 });
 
 export const apiGetRandom = axios.create({
   baseURL: `https://api.spoonacular.com/recipes/random`,
   params: {
-    api: API_KEY,
+    apiKey: API_KEY,
     number: 1, // random recipes per request
   },
 });
 
 export const apiFindVideos = axios.create({
-  baseURL: `https://api.spoonacular.com/food/videos/search`, // query
+  baseURL: `https://api.spoonacular.com/food/videos/search`, // ?query
   params: {
-    api: API_KEY,
-    number: 50, // videos per request
+    apiKey: API_KEY,
+    number: 10, // videos per request
   },
 });

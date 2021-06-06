@@ -7,6 +7,7 @@ import { recipesByName } from './recipesByName';
 import { recipesByType } from './recipesByType';
 import { recipesByTiming } from './recipesByTiming';
 import { recipesByCuisine } from './recipesByCuisine';
+import { recipeVideos } from './recipeVideos';
 
 export const rootReducer = combineReducers({
   createUserReducer,
@@ -16,4 +17,5 @@ export const rootReducer = combineReducers({
   recipesByType,
   recipesByTiming,
   recipesByCuisine,
+  recipeVideos,
 });
