@@ -4,15 +4,15 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { InputWrapper } from './styles';
 
 export default function InputSearch({
-  handleSearch,
   handleInputChange,
-  placeholderText,
+  handleSearch,
+  placeholder,
 }) {
   return (
     <InputWrapper>
       <input
         type="text"
-        placeholder={placeholderText}
+        placeholder={placeholder}
         onChange={handleInputChange}
       />
 

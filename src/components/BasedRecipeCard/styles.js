@@ -6,23 +6,29 @@ export const Container = styled.div`
   background-size: cover;
   background-position: center;
 
-  min-width: 100%;
-  height: 16rem;
+  width: 100%;
+  height: 20rem;
+
   border-radius: 1rem;
-  overflow: hidden;
+  /* overflow: hidden; */
   cursor: pointer;
   position: relative;
 
   span {
     position: absolute;
-    top: 0;
+    top: -5%;
     left: 0;
     background: ${props => props.theme.colors.primary};
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #ecedf1;
-    padding: 1rem;
-    border-bottom-right-radius: 1rem;
     text-transform: uppercase;
+    padding: 1rem;
+
+    border: 5px solid ${props => props.theme.fontColors.bg};
+    border-radius: 1rem;
+    border-left: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
   }
 `;

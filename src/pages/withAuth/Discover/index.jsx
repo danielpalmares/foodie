@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Layout from '../../../pages/Layout';
 
 import BasedRecipeCard from '../../../components/BasedRecipeCard';
 
-import { DiscoverContainer, DrinkList } from './styles';
+import { Container, HorizontalList } from './styles';
 import FindRecipesCard from '../../../components/FindRecipesCard';
 
 import AppTitle from '../../../components/AppTitle';
@@ -14,38 +14,87 @@ import { useSelector, useDispatch } from 'react-redux';
 import RandomRecipeCard from '../../../components/RandomRecipeCard';
 
 import RecipesGrid from '../../../components/RecipesGrid';
+import SearchVideoButton from '../../../components/SearchVideoButton';
+
+import { apiComplexSearch } from '../../../services/spoonacular/api';
+import { recipesByNameAction } from '../../../store/recipesByName';
 
 export default function Discover() {
-  const [inputData, setInputData] = useState();
-
-  const recipeTypes = [
-    'main course',
-    'side dish',
-    'dessert',
-    'appetizer',
-    'salad',
-    'bread',
-    'breakfast',
-    'soup',
-    'beverage',
-    'sauce',
-    'snack',
-    'drink',
+  const recipesType = [
+    { id: 'main+course', text: 'Main Course' },
+    { id: 'side+dish', text: 'Side Dish' },
+    { id: 'dessert', text: 'Dessert' },
+    { id: 'appetizer', text: 'Appetizer' },
+    { id: 'salad', text: 'Salad' },
+    { id: 'bread', text: 'Bread' },
+    { id: 'breakfast', text: 'Breakfast' },
+    { id: 'soup', text: 'Soup' },
+    { id: 'beverage', text: 'Beverage' },
+    { id: 'sauce', text: 'Sauce' },
+    { id: 'snack', text: 'Snack' },
+    { id: 'drink', text: 'Drink' },
   ];
 
-  const recipes = useSelector(state => state.recipesByName?.data.recipes);
+  const recipesCookingTime = [
+    { id: 5, text: '5 min' },
+    { id: 10, text: '10 min' },
+    { id: 15, text: '15 min' },
+    { id: 20, text: '20 min' },
+    { id: 25, text: '25 min' },
+    { id: 30, text: '30 min' },
+  ];
 
+  const recipesCuisines = [
+    'british',
+    'caribbean',
+    'chinese',
+    'french',
+    'greek',
+    'irish',
+    'italian',
+    'japanese',
+    'jewish',
+    'mexican',
+    'nordic',
+    'spanish',
+  ];
+
+  const dispatch = useDispatch();
+  const recipes = useSelector(state => state.recipesByName.data?.recipes);
   console.log(recipes);
 
+  const [inputData, setInputData] = useState('');
+  const [recipeName, setRecipeName] = useState('');
+
+  useEffect(() => {
+    if (!recipeName) return;
+
+    // call dispatch
+    return dispatch(recipesByNameAction(recipeName));
+  }, [recipeName, dispatch]);
+
   async function fetchRecipesByIngredients() {
-    const res = await fetch(
-      'https://api.spoonacular.com/recipes/complexSearch?type=dessert&apiKey=ce9ca7ccb5154bcfa3dfda280afcdd30'
-    );
-    const data = await res.json();
-    return console.log(data);
+    const res = await apiComplexSearch.get('?query=pizza');
+    console.log(res);
+    return;
   }
 
-  function handleSearch() {}
+  // format input data
+  function formatInputString(inputString) {
+    const recipeString = inputString;
+    // check the whole string, replace double whitespace or more for one, and then remove whitespace from start and end
+    const recipeFormatted = recipeString.replace(/\s+/g, ' ').trim();
+
+    return recipeFormatted;
+  }
+
+  // send recipe name formatted to its state
+  function handleSearch() {
+    const recipeName = formatInputString(inputData);
+    return setRecipeName(recipeName);
+  }
+
+  function handleRecipesByCuisine() {}
 
   const greetingByTime = () => {
     const currentHour = new Date().getHours();
@@ -61,8 +110,12 @@ export default function Discover() {
 
   return (
     <Layout defaultHeader>
-      <DiscoverContainer>
+      <Container>
         <main>
+          <section>
+            <button onClick={() => fetchRecipesByIngredients()}>TESTE</button>
+          </section>
+
           <section>
             <AppTitle>{greetingByTime()} Adalberto</AppTitle>
             <FindRecipesCard />
@@ -70,106 +123,62 @@ export default function Discover() {
 
           <section>
             <AppTitle>Looking for a specific recipe?</AppTitle>
-            <InputSearch placeholderText="We have tasty pizzas, try it :)" />
+            <SearchVideoButton active />
+            <InputSearch
+              handleInputChange={e => setInputData(e.target.value)}
+              handleSearch={() => handleSearch()}
+              placeholder="We have tasty pizzas, try it :)"
+            />
           </section>
 
           <section>
             <AppTitle>Try to get a random recipe</AppTitle>
-            <RandomRecipeCard></RandomRecipeCard>
+            <RandomRecipeCard />
           </section>
 
           <section>
             <AppTitle>Find a recipe by its type</AppTitle>
-            <DrinkList>
-              {recipeTypes.map(type => {
+            <HorizontalList>
+              {recipesType.map(type => {
                 return (
-                  <li>
-                    <button>{type}</button>
+                  <li key={type.id}>
+                    <button>{type.text}</button>
                   </li>
                 );
               })}
-            </DrinkList>
+            </HorizontalList>
+          </section>
+
+          <section>
+            <AppTitle>Or more, get a quick recipe</AppTitle>
+            <HorizontalList>
+              {recipesCookingTime.map(time => {
+                return (
+                  <li key={time.id}>
+                    <button>{time.text}</button>
+                  </li>
+                );
+              })}
+            </HorizontalList>
           </section>
 
           <section>
             <AppTitle>Curious about other cuisines?</AppTitle>
-
             <RecipesGrid>
-              <BasedRecipeCard
-                image="british"
-                title="British"
-                handleClick={e => fetchRecipesByIngredients(e, 'bread')}
-              />
-
-              <BasedRecipeCard
-                image="caribbean"
-                title="Caribbean"
-                handleClick={e => fetchRecipesByIngredients(e, 'bread')}
-              />
-
-              <BasedRecipeCard
-                image="chinese"
-                title="Chinese"
-                handleClick={e => fetchRecipesByIngredients(e, 'milk')}
-              />
-
-              <BasedRecipeCard
-                image="french"
-                title="French"
-                handleClick={e => fetchRecipesByIngredients(e, 'orange')}
-              />
-
-              <BasedRecipeCard
-                image="greek"
-                title="Greek"
-                handleClick={e => fetchRecipesByIngredients(e, 'meat')}
-              />
-
-              <BasedRecipeCard
-                image="irish"
-                title="Irish"
-                handleClick={e => fetchRecipesByIngredients(e, 'pizza')}
-              />
-
-              <BasedRecipeCard
-                image="italian"
-                title="Italian"
-                handleClick={e => fetchRecipesByIngredients(e, 'pasta')}
-              />
-
-              <BasedRecipeCard
-                image="japanese"
-                title="Japanese"
-                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
-              />
-
-              <BasedRecipeCard
-                image="jewish"
-                title="Jewish"
-                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
-              />
-
-              <BasedRecipeCard
-                image="mexican"
-                title="Mexican"
-                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
-              />
-
-              <BasedRecipeCard
-                image="nordic"
-                title="Nordic"
-                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
-              />
-
-              <BasedRecipeCard
-                image="spanish"
-                title="Spanish"
-                handleClick={e => fetchRecipesByIngredients(e, 'egg')}
-              />
+              {recipesCuisines.map(cuisine => {
+                return (
+                  <BasedRecipeCard
+                    key={cuisine}
+                    image={cuisine}
+                    title={cuisine}
+                    handleClick={_ => handleRecipesByCuisine(cuisine)}
+                  />
+                );
+              })}
             </RecipesGrid>
           </section>
         </main>
-      </DiscoverContainer>
+      </Container>
     </Layout>
   );
 }

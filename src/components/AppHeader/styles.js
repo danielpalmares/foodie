@@ -4,9 +4,9 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 1rem;
 
-  @media screen and (min-width: 320px) {
+  /* @media screen and (min-width: 320px) {
     max-width: 300px;
     margin: 0 auto;
   }
@@ -19,7 +19,7 @@ export const HeaderContainer = styled.header`
   @media screen and (min-width: 425px) {
     max-width: 405px;
     margin: 0 auto;
-  }
+  } */
 
   @media screen and (min-width: 768px) {
     max-width: 668px;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const DiscoverContainer = styled.div`
-  padding: 0 2rem;
+export const Container = styled.div`
+  padding: 0 1rem;
 
   /* @media screen and (min-width: 320px) {
     max-width: 300px;
@@ -39,7 +39,7 @@ export const DiscoverContainer = styled.div`
   }
 `;
 
-export const DrinkList = styled.ul`
+export const HorizontalList = styled.ul`
   display: flex;
   justify-content: space-between;
   gap: 2rem;

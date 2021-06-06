@@ -1,22 +1,49 @@
-import { fetchRecipesByName } from '../../services/forkify/api';
+import { apiComplexSearch } from '../../services/spoonacular/api';
 
 const FOUND_RECIPES_BY_NAME = 'FOUND_RECIPES_BY_NAME';
 const RECIPES_BY_NAME_NOT_FOUND = 'RECIPES_BY_NAME_NOT_FOUND';
 
-async function recipesByNameAction(recipe) {
+export async function recipesByNameAction(recipe) {
   try {
-    const response = await fetchRecipesByName.get(`${recipe}`);
-    const { status, results, data } = response;
-    const { recipes } = data;
+    const response = await apiComplexSearch.get(`?query=${recipe}`);
+    const { data, status } = response;
 
-    if (status !== 'success') throw new Error(status);
+    if (status !== 200) throw new Error(status);
+
+    const recipes = data.results;
 
     const newRecipes = recipes.map(rec => {
+      const instructions = rec.analyzedInstructions.map(ins => {
+        return {
+          steps: ins.steps.map(stp => {
+            return {
+              number: stp.number,
+              step: stp.step,
+            };
+          }),
+        };
+      });
+
+      const ingredients = rec.extendedIngredients.map(ing => {
+        return {
+          name: ing.originalName,
+          amount: ing.amount,
+          unit: ing.unit,
+        };
+      });
+
       return {
-        publisher: rec.publisher,
-        image: rec.image_url,
-        title: rec.title,
         id: rec.id,
+        title: rec.title,
+        image: rec.image,
+        servings: rec.servings,
+        readyInMinutes: rec.readyInMinutes,
+        instructions: instructions,
+        ingredients: ingredients,
+        likes: rec.aggregateLikes,
+        dairyFree: rec.dairyFree,
+        glutenFree: rec.glutenFree,
+        healthScore: rec.healthScore,
       };
     });
 
@@ -24,8 +51,7 @@ async function recipesByNameAction(recipe) {
       type: FOUND_RECIPES_BY_NAME,
       payload: {
         status: status,
-        results: results,
-        data: newRecipes,
+        recipes: newRecipes,
       },
     };
   } catch (err) {
@@ -33,8 +59,7 @@ async function recipesByNameAction(recipe) {
       type: RECIPES_BY_NAME_NOT_FOUND,
       payload: {
         status: err,
-        results: null,
-        data: null,
+        recipes: null,
       },
     };
   }

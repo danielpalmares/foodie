@@ -8,6 +8,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 2rem;
   padding: 1rem;
+  border: 2px solid ${props => props.theme.colors.border};
   border-radius: 1rem;
 `;
 
