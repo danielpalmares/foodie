@@ -1,5 +1,14 @@
 import React from 'react';
-import { Container, Stats, Missions } from './styles';
+import {
+  Container,
+  Stats,
+  Missions,
+  ProgressContainer,
+  Marker,
+  LevelList,
+  BarContainer,
+} from './styles';
+import progressBar from '../../../assets/timelineBar.png';
 
 import Layout from '../../Layout';
 
@@ -44,6 +53,23 @@ export default function Profile() {
               </li>
             </ul>
           </Stats>
+
+          <ProgressContainer>
+            <section>
+              <BarContainer>
+                <img src={progressBar} alt="Progress Bar" />
+                <Marker src={process.env.PUBLIC_URL + '/images/woman-1.png'} />
+              </BarContainer>
+
+              <LevelList>
+                <li id="beginner">Beginner</li>
+                <li id="amateur">Amateur</li>
+                <li id="aspirant">Aspirant</li>
+                <li id="pro">Pro</li>
+                <li id="chef">Chef</li>
+              </LevelList>
+            </section>
+          </ProgressContainer>
 
           <Missions>
             <h1>Daily Tasks</h1>

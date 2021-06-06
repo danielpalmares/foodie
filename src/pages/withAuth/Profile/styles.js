@@ -1,19 +1,105 @@
 import styled from 'styled-components';
 
+export const BarContainer = styled.div`
+  width: 100%;
+  height: 6rem; // cover avatar
+
+  // for the progress bar image
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  position: relative;
+`;
+
+export const LevelList = styled.ul`
+  width: 100%;
+  display: flex;
+  position: relative;
+
+  li {
+    position: absolute;
+    top: 0%;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: ${props => props.theme.fontColors.primary};
+    margin-top: 4rem;
+
+    // top bar under the li
+    &::before {
+      content: '';
+      width: 2px;
+      height: 4rem;
+      background: ${props => props.theme.fontColors.secondary};
+      border-radius: 1rem;
+
+      position: absolute;
+      top: -200%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+    }
+  }
+
+  #beginner {
+    left: 0%;
+  }
+
+  #amateur {
+    left: 25%;
+    transform: translateX(-25%);
+  }
+
+  #aspirant {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #pro {
+    left: 75%;
+    transform: translateX(-75%);
+  }
+
+  #chef {
+    left: 100%;
+    transform: translateX(-100%);
+  }
+`;
+
+export const Marker = styled.img`
+  height: calc(560px / 10);
+
+  position: absolute;
+  top: 50%;
+  left: 50%; // progress
+  transform: translate(-50%, -50%);
+  z-index: 10;
+`;
+
+export const ProgressContainer = styled.div`
+  width: 100%;
+  height: 15rem;
+  overflow-x: scroll;
+
+  section {
+    width: 2400px;
+    height: 100%;
+
+    // change later
+    padding: 0 1rem;
+    @media screen and (min-width: 768px) {
+      max-width: 668px;
+      margin: 0 auto;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+`;
+
 export const Missions = styled.div`
   width: 100%;
   padding-bottom: 15rem;
 
   // media queries start area
-  @media screen and (min-width: 320px) {
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  @media screen and (min-width: 375px) {
-    max-width: 355px;
-    margin: 0 auto;
-  }
 
   @media screen and (min-width: 425px) {
     max-width: 405px;
