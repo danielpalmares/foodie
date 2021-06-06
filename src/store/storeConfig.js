@@ -5,6 +5,8 @@ import { switchThemeReducer } from './switchTheme';
 import { recipesByIngredientsReducer } from './recipesByIngredients';
 import { recipesByName } from './recipesByName';
 import { recipesByType } from './recipesByType';
+import { recipesByTiming } from './recipesByTiming';
+import { recipesByCuisine } from './recipesByCuisine';
 
 export const rootReducer = combineReducers({
   createUserReducer,
@@ -12,4 +14,6 @@ export const rootReducer = combineReducers({
   recipesByIngredientsReducer,
   recipesByName,
   recipesByType,
+  recipesByTiming,
+  recipesByCuisine,
 });

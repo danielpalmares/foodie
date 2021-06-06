@@ -19,6 +19,8 @@ import SearchVideoButton from '../../../components/SearchVideoButton';
 import { apiComplexSearch } from '../../../services/spoonacular/api';
 import { recipesByNameAction } from '../../../store/recipesByName';
 import { recipesByTypeAction } from '../../../store/recipesByType';
+import { recipesByCuisineAction } from '../../../store/recipesByCuisine';
+import { recipesByTimingAction } from '../../../store/recipesByTiming';
 
 import {
   recipesType,
@@ -29,24 +31,42 @@ import {
 export default function Discover() {
   const dispatch = useDispatch();
 
-  const recipes = useSelector(state => state.recipesByType?.data);
+  const recipes = useSelector(state => state.recipesByTiming?.data);
   console.log(recipes);
 
   const [inputData, setInputData] = useState('');
   const [recipeName, setRecipeName] = useState('');
   const [recipeType, setRecipeType] = useState('');
+  const [recipeTiming, setRecipeTiming] = useState(0);
+  const [recipeCuisine, setRecipeCuisine] = useState('');
 
+  // fetch recipes by name
   useEffect(() => {
     if (!recipeName) return;
 
     return dispatch(recipesByNameAction(recipeName));
-  }, [recipeName, dispatch]);
+  }, [recipeName]);
 
+  // fetch recipes by type
   useEffect(() => {
     if (!recipeType) return;
 
     return dispatch(recipesByTypeAction(recipeType));
-  }, [recipeType, dispatch]);
+  }, [recipeType]);
+
+  // fetch recipes by cuisine
+  useEffect(() => {
+    if (!recipeCuisine) return;
+
+    return dispatch(recipesByCuisineAction(recipeCuisine));
+  }, [recipeCuisine]);
+
+  // fetch recipes by timing
+  useEffect(() => {
+    if (!recipeTiming) return;
+
+    return dispatch(recipesByTimingAction(recipeTiming));
+  }, [recipeTiming]);
 
   // format input data
   function formatInputString(inputString) {
@@ -68,10 +88,26 @@ export default function Discover() {
   function handleRecipesByType(e) {
     const type = e.target.dataset.type;
 
+    if (type === recipeType) return;
+
     return setRecipeType(type);
   }
 
-  function handleRecipesByCuisine() {}
+  function handleRecipesByCuisine(e) {
+    const cuisine = e.target.dataset.cuisine;
+
+    if (cuisine === recipeCuisine) return;
+
+    return setRecipeCuisine(cuisine);
+  }
+
+  function handleRecipesByTiming(e) {
+    const timing = e.target.dataset.timing;
+
+    if (timing === recipeTiming) return;
+
+    return setRecipeTiming(timing);
+  }
 
   const greetingByTime = () => {
     const currentHour = new Date().getHours();
@@ -137,7 +173,12 @@ export default function Discover() {
               {recipesCookingTime.map(time => {
                 return (
                   <li key={time.id}>
-                    <button>{time.text}</button>
+                    <button
+                      data-timing={time.id}
+                      onClick={e => handleRecipesByTiming(e)}
+                    >
+                      {time.text}
+                    </button>
                   </li>
                 );
               })}
@@ -151,9 +192,10 @@ export default function Discover() {
                 return (
                   <BasedRecipeCard
                     key={cuisine}
+                    data={cuisine}
                     image={cuisine}
                     title={cuisine}
-                    handleClick={_ => handleRecipesByCuisine(cuisine)}
+                    handleClick={e => handleRecipesByCuisine(e)}
                   />
                 );
               })}
