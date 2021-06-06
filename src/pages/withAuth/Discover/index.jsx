@@ -18,6 +18,7 @@ import SearchVideoButton from '../../../components/SearchVideoButton';
 
 import { apiComplexSearch } from '../../../services/spoonacular/api';
 import { recipesByNameAction } from '../../../store/recipesByName';
+import { recipesByTypeAction } from '../../../store/recipesByType';
 
 import {
   recipesType,
@@ -28,14 +29,24 @@ import {
 export default function Discover() {
   const dispatch = useDispatch();
 
+  const recipes = useSelector(state => state.recipesByType?.data);
+  console.log(recipes);
+
   const [inputData, setInputData] = useState('');
   const [recipeName, setRecipeName] = useState('');
+  const [recipeType, setRecipeType] = useState('');
 
   useEffect(() => {
     if (!recipeName) return;
 
     return dispatch(recipesByNameAction(recipeName));
   }, [recipeName, dispatch]);
+
+  useEffect(() => {
+    if (!recipeType) return;
+
+    return dispatch(recipesByTypeAction(recipeType));
+  }, [recipeType, dispatch]);
 
   // format input data
   function formatInputString(inputString) {
@@ -52,6 +63,12 @@ export default function Discover() {
     if (newRecipeName === recipeName) return;
 
     return setRecipeName(newRecipeName);
+  }
+
+  function handleRecipesByType(e) {
+    const type = e.target.dataset.type;
+
+    return setRecipeType(type);
   }
 
   function handleRecipesByCuisine() {}
@@ -102,7 +119,12 @@ export default function Discover() {
               {recipesType.map(type => {
                 return (
                   <li key={type.id}>
-                    <button>{type.text}</button>
+                    <button
+                      data-type={type.id}
+                      onClick={e => handleRecipesByType(e)}
+                    >
+                      {type.text}
+                    </button>
                   </li>
                 );
               })}
