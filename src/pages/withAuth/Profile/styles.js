@@ -1,7 +1,63 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+export const fillOpacity = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+`;
+
+export const SwipeDirection = styled.div`
+  margin: 1rem 0;
+
+  span {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+
+    animation: 5s ${fillOpacity} linear infinite;
+  }
+`;
+
+export const UserNameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  margin-top: 3rem;
+
+  h3 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  span {
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+`;
+
+export const Avatar = styled.img`
+  width: calc(528px / 6);
+  height: calc(560px / 6);
+
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 export const BarContainer = styled.div`
-  width: 100%;
+  width: 2400px;
   height: 6rem; // cover avatar
 
   // for the progress bar image
@@ -10,10 +66,51 @@ export const BarContainer = styled.div`
   justify-content: center;
 
   position: relative;
+
+  ul {
+    width: 2400px;
+    position: absolute;
+    bottom: -50%;
+    left: 0;
+
+    li {
+      width: 2px;
+      height: 4rem;
+      background: ${props => props.theme.colors.border};
+
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #beginner-bar {
+      left: calc(0% + 52.8px / 2);
+    }
+
+    #amateur-bar {
+      left: 25.5%;
+      transform: translateX(-25.5%);
+    }
+
+    #aspirant-bar {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #pro-bar {
+      left: 74.5%;
+      transform: translateX(-74.5%);
+    }
+
+    #chef-bar {
+      left: calc(100% - 52.8px / 2);
+    }
+  }
 `;
 
 export const LevelList = styled.ul`
-  width: 100%;
+  width: 2400px;
   display: flex;
   position: relative;
 
@@ -25,18 +122,14 @@ export const LevelList = styled.ul`
     color: ${props => props.theme.fontColors.primary};
     margin-top: 4rem;
 
-    // top bar under the li
-    &::before {
-      content: '';
-      width: 2px;
-      height: 4rem;
-      background: ${props => props.theme.fontColors.secondary};
-      border-radius: 1rem;
+    display: flex;
 
-      position: absolute;
-      top: -200%;
-      left: 50%;
-      transform: translate(-50%, 0%);
+    span {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      gap: 0.5rem;
+      color: ${props => props.theme.colors.primary};
     }
   }
 
@@ -45,8 +138,8 @@ export const LevelList = styled.ul`
   }
 
   #amateur {
-    left: 25%;
-    transform: translateX(-25%);
+    left: 24.5%;
+    transform: translateX(-24.5%);
   }
 
   #aspirant {
@@ -55,8 +148,8 @@ export const LevelList = styled.ul`
   }
 
   #pro {
-    left: 75%;
-    transform: translateX(-75%);
+    left: 75.5%;
+    transform: translateX(-75.5%);
   }
 
   #chef {
@@ -70,8 +163,8 @@ export const Marker = styled.img`
 
   position: absolute;
   top: 50%;
-  left: 50%; // progress
-  transform: translate(-50%, -50%);
+  left: 0%; // progress
+  transform: translate(-0%, -50%);
   z-index: 10;
 `;
 
@@ -95,76 +188,12 @@ export const ProgressContainer = styled.div`
   }
 `;
 
-export const Missions = styled.div`
-  width: 100%;
-  padding-bottom: 15rem;
-
-  // media queries start area
-
-  @media screen and (min-width: 425px) {
-    max-width: 405px;
-    margin: 0 auto;
-  }
-
-  @media screen and (min-width: 768px) {
-    max-width: 568px;
-    margin: 0 auto;
-  }
-  // media queries final area
-
-  h1 {
-    font-size: 2rem;
-    color: #8338ec;
-    font-weight: 700;
-    margin: 2rem 0;
-    padding: 1rem 0;
-    border-top: 2px solid #222;
-    border-bottom: 2px solid #222;
-  }
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    div {
-      width: 100%;
-      position: relative;
-
-      li {
-        color: #c7c7c7;
-        padding: 1rem;
-        font-weight: 700;
-        width: 100%;
-        height: auto;
-        background: #000;
-        opacity: 0.2;
-        border-radius: 1rem;
-        border: 2px solid #8338ec;
-        //border-style: dashed;
-        line-height: 1.5;
-
-        display: flex;
-        justify-content: space-between;
-
-        span {
-          color: #8338ec;
-          font-weight: 700;
-          align-self: flex-start;
-          text-align: center;
-          margin-left: 1rem;
-        }
-      }
-    }
-  }
-`;
-
 export const Stats = styled.div`
   width: 100%;
   padding: 3rem 0;
 
   // media queries start area
-  @media screen and (min-width: 320px) {
+  /* @media screen and (min-width: 320px) {
     max-width: 300px;
     margin: 0 auto;
   }
@@ -177,12 +206,8 @@ export const Stats = styled.div`
   @media screen and (min-width: 425px) {
     max-width: 405px;
     margin: 0 auto;
-  }
+  } */
 
-  @media screen and (min-width: 768px) {
-    max-width: 568px;
-    margin: 0 auto;
-  }
   // media queries final area
 
   ul {
@@ -228,6 +253,17 @@ export const Stats = styled.div`
   }
 `;
 
+export const Wrapper = styled.div`
+  padding: 0 1rem;
+
+  @media screen and (min-width: 768px) {
+    max-width: 668px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+`;
+
 export const Container = styled.div`
   header {
     height: 15rem;
@@ -244,49 +280,7 @@ export const Container = styled.div`
       right: 0;
       bottom: 0;
       clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%);
-      background-color: ${props => props.theme.colors.quartenary};
-    }
-
-    div {
-      height: 10rem;
-      width: 10rem;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-
-      border-radius: 50%;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      position: absolute;
-      top: 75%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        position: absolute;
-        top: 40%;
-        right: -10%;
-        color: ${props => props.theme.fontColors.bg};
-
-        border: 2px solid ${props => props.theme.background};
-        border-radius: 50%;
-        background: ${props => props.theme.colors.quartenary};
-
-        padding: 0.5rem;
-        cursor: pointer;
-        transition: all 0.2s;
-
-        &:active {
-          transform: translateY(-0.5rem);
-        }
-      }
+      background-color: ${props => props.theme.fontColors.tertiary};
     }
   }
 `;

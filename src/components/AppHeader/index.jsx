@@ -9,7 +9,7 @@ import {
   IoArrowBackOutline,
   IoMoonSharp,
   IoSunnySharp,
-  IoCartOutline,
+  IoPencilOutline,
 } from 'react-icons/io5';
 import { HeaderContainer, UserContainer } from './styles';
 
@@ -48,7 +48,7 @@ export default function AppHeader({
             </button>
 
             <button>
-              <IoCartOutline size={26} />
+              <IoPencilOutline size={26} />
             </button>
           </>
         )}

@@ -2,36 +2,37 @@ import React from 'react';
 import {
   Container,
   Stats,
-  Missions,
   ProgressContainer,
   Marker,
   LevelList,
   BarContainer,
+  Wrapper,
+  Avatar,
+  UserNameContainer,
+  SwipeDirection,
 } from './styles';
 import progressBar from '../../../assets/timelineBar.png';
 
 import Layout from '../../Layout';
 
-import { IoPencilOutline } from 'react-icons/io5';
+import { IoArrowForwardOutline, IoCloudUploadOutline } from 'react-icons/io5';
 
 export default function Profile() {
   return (
-    <>
-      <Layout profileHeader>
-        <Container>
-          <header>
-            <div
-              style={{
-                backgroundImage: `url(${
-                  process.env.PUBLIC_URL + '/images/woman-1.png'
-                })`,
-              }}
-            >
-              <button>
-                <IoPencilOutline size={18} />
-              </button>
-            </div>
-          </header>
+    <Layout profileHeader>
+      <Container>
+        <header>
+          <Avatar
+            src={process.env.PUBLIC_URL + '/images/woman-1.png'}
+            alt="Avatar"
+          />
+        </header>
+
+        <Wrapper>
+          <UserNameContainer>
+            <h3>Daniel Palmares</h3>
+            <span>@danfpl</span>
+          </UserNameContainer>
 
           <Stats>
             <ul>
@@ -44,8 +45,8 @@ export default function Profile() {
                 <span>20</span>
               </li>
               <li>
-                <p>Points</p>
-                <span>200</span>
+                <p>Gender</p>
+                <span>Female</span>
               </li>
               <li>
                 <p>Status</p>
@@ -58,49 +59,62 @@ export default function Profile() {
             <section>
               <BarContainer>
                 <img src={progressBar} alt="Progress Bar" />
-                <Marker src={process.env.PUBLIC_URL + '/images/woman-1.png'} />
+                <Marker
+                  src={process.env.PUBLIC_URL + '/images/woman-1.png'}
+                  alt="Marker"
+                />
+                <ul>
+                  <li id="beginner-bar"></li>
+                  <li id="amateur-bar"></li>
+                  <li id="aspirant-bar"></li>
+                  <li id="pro-bar"></li>
+                  <li id="chef-bar"></li>
+                </ul>
               </BarContainer>
 
               <LevelList>
-                <li id="beginner">Beginner</li>
-                <li id="amateur">Amateur</li>
-                <li id="aspirant">Aspirant</li>
-                <li id="pro">Pro</li>
-                <li id="chef">Chef</li>
+                <li id="beginner">
+                  Beginner
+                  <span>
+                    0 <IoCloudUploadOutline size={18} />
+                  </span>
+                </li>
+
+                <li id="amateur">
+                  Amateur
+                  <span>
+                    10 <IoCloudUploadOutline size={18} />
+                  </span>
+                </li>
+                <li id="aspirant">
+                  Aspirant
+                  <span>
+                    25 <IoCloudUploadOutline size={18} />
+                  </span>
+                </li>
+                <li id="pro">
+                  Pro
+                  <span>
+                    50 <IoCloudUploadOutline size={18} />
+                  </span>
+                </li>
+                <li id="chef">
+                  Chef
+                  <span>
+                    100 <IoCloudUploadOutline size={18} />
+                  </span>
+                </li>
               </LevelList>
             </section>
           </ProgressContainer>
 
-          <Missions>
-            <h1>Daily Tasks</h1>
-            <ul>
-              <div>
-                <li>
-                  <p>
-                    send us more than 20 recipes to receive a status and buy a
-                    recipe for a saturday lunch yeah yeah
-                  </p>
-                  <span>20 points</span>
-                </li>
-              </div>
-
-              <div>
-                <li>
-                  send us more than 20 recipes to receive a status
-                  <span>20 points</span>
-                </li>
-              </div>
-
-              <div>
-                <li>
-                  send us more than 20 recipes to receive a status
-                  <span>20 points</span>
-                </li>
-              </div>
-            </ul>
-          </Missions>
-        </Container>
-      </Layout>
-    </>
+          <SwipeDirection>
+            <span>
+              Swipe to see your journey <IoArrowForwardOutline size={16} />
+            </span>
+          </SwipeDirection>
+        </Wrapper>
+      </Container>
+    </Layout>
   );
 }
