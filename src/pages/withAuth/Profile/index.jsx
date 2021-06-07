@@ -10,10 +10,15 @@ import {
   Avatar,
   UserNameContainer,
   SwipeDirection,
+  MyRecipesList,
 } from './styles';
 import progressBar from '../../../assets/timelineBar.png';
 
 import Layout from '../../Layout';
+
+import AppTitle from '../../../components/AppTitle';
+import RecipesGrid from '../../../components/RecipesGrid';
+import RecipeCard from '../../../components/AppRecipeCard';
 
 import { IoArrowForwardOutline, IoCloudUploadOutline } from 'react-icons/io5';
 
@@ -111,6 +116,32 @@ export default function Profile() {
           <SwipeDirection>
             <span>
               Swipe to see your journey <IoArrowForwardOutline size={16} />
+            </span>
+          </SwipeDirection>
+
+          <AppTitle>My recipes</AppTitle>
+          <MyRecipesList>
+            <RecipeCard
+              title="A melhor pizza do brasil"
+              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+            />
+            <RecipeCard
+              title="A melhor pizza do brasil"
+              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+            />
+            <RecipeCard
+              title="A melhor pizza do brasil"
+              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+            />
+            <RecipeCard
+              title="A melhor pizza do brasil"
+              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+            />
+          </MyRecipesList>
+
+          <SwipeDirection>
+            <span>
+              Swipe to see your recipes <IoArrowForwardOutline size={16} />
             </span>
           </SwipeDirection>
         </Wrapper>

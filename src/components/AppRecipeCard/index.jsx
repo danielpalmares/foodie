@@ -10,7 +10,7 @@ import {
 
 export default function AppRecipeCard({
   title,
-  likes,
+  likes = 0,
   imageSrc,
   handleRecipe,
 }) {

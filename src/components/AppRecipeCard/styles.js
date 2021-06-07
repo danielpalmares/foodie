@@ -11,7 +11,7 @@ export const RecipeCardContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
 
-  width: 100%;
+  min-width: 30rem;
   height: 20rem;
 
   border-radius: 1rem;

@@ -1,5 +1,12 @@
 import styled, { keyframes } from 'styled-components';
 
+export const MyRecipesList = styled.ul`
+  display: flex;
+  overflow-x: scroll;
+  gap: 2rem;
+  padding: 1rem 0;
+`;
+
 export const fillOpacity = keyframes`
   from {
     opacity: 0;
@@ -255,10 +262,12 @@ export const Stats = styled.div`
 
 export const Wrapper = styled.div`
   padding: 0 1rem;
+  margin-bottom: 8rem;
 
   @media screen and (min-width: 768px) {
     max-width: 668px;
     margin: 0 auto;
+    margin-bottom: 8rem;
     padding-left: 0;
     padding-right: 0;
   }
