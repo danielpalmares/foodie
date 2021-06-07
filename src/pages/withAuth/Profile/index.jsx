@@ -144,6 +144,33 @@ export default function Profile() {
               Swipe to see your recipes <IoArrowForwardOutline size={16} />
             </span>
           </SwipeDirection>
+
+          <AppTitle>My favorite recipes</AppTitle>
+          <MyRecipesList>
+            <RecipeCard
+              title="A melhor pizza do brasil"
+              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+            />
+            <RecipeCard
+              title="A melhor pizza do brasil"
+              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+            />
+            <RecipeCard
+              title="A melhor pizza do brasil"
+              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+            />
+            <RecipeCard
+              title="A melhor pizza do brasil"
+              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+            />
+          </MyRecipesList>
+
+          <SwipeDirection>
+            <span>
+              Swipe to see your favorite recipes{' '}
+              <IoArrowForwardOutline size={16} />
+            </span>
+          </SwipeDirection>
         </Wrapper>
       </Container>
     </Layout>
