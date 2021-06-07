@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Container,
   Stats,
@@ -20,9 +20,23 @@ import AppTitle from '../../../components/AppTitle';
 import RecipesGrid from '../../../components/RecipesGrid';
 import RecipeCard from '../../../components/AppRecipeCard';
 
-import { IoArrowForwardOutline, IoCloudUploadOutline } from 'react-icons/io5';
+import {
+  IoArrowForwardOutline,
+  IoCloudUploadOutline,
+  IoMaleOutline,
+} from 'react-icons/io5';
+
+import { useIntersecting } from '../../../hooks';
 
 export default function Profile() {
+  const [containerRef, visible] = useIntersecting({
+    root: null,
+    rootMargin: '0px 0px -60px 0px', // navigation's height
+    threshold: 1.0,
+  });
+
+  console.log(visible);
+
   return (
     <Layout profileHeader>
       <Container>
@@ -50,8 +64,8 @@ export default function Profile() {
                 <span>20</span>
               </li>
               <li>
-                <p>Gender</p>
-                <span>Female</span>
+                <p>Points</p>
+                <span>200</span>
               </li>
               <li>
                 <p>Status</p>
@@ -171,6 +185,13 @@ export default function Profile() {
               <IoArrowForwardOutline size={16} />
             </span>
           </SwipeDirection>
+
+          <img
+            src={process.env.PUBLIC_URL + '/avatars/instructor-1.png'}
+            alt="Instructor"
+            style={{ height: '100px' }}
+            ref={containerRef}
+          />
         </Wrapper>
       </Container>
     </Layout>
