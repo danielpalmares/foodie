@@ -1,3 +1,3 @@
-import { useIntersecting } from './useIntersecting';
+import { useObserver } from './useObserver';
 
-export { useIntersecting };
+export { useObserver };

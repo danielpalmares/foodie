@@ -26,16 +26,29 @@ import {
   IoMaleOutline,
 } from 'react-icons/io5';
 
-import { useIntersecting } from '../../../hooks';
+import { useObserver } from '../../../hooks';
+import { SpeechBubble } from '../../../components/SpeechBubble';
 
 export default function Profile() {
-  const [containerRef, visible] = useIntersecting({
+  const [currentInstructor, setCurrentInstructor] = useState(1);
+  console.log(currentInstructor);
+
+  const [containerRef, visible] = useObserver({
     root: null,
     rootMargin: '0px 0px -60px 0px', // navigation's height
-    threshold: 1.0,
+    threshold: 0.7,
   });
 
   console.log(visible);
+
+  useEffect(() => {
+    if (visible) {
+      setTimeout(() => setCurrentInstructor(2), 1 * 1000);
+      setTimeout(() => setCurrentInstructor(3), 1 * 2000);
+    } else {
+      setCurrentInstructor(1);
+    }
+  }, [visible]);
 
   return (
     <Layout profileHeader>
@@ -184,10 +197,14 @@ export default function Profile() {
               Swipe to see your favorite recipes{' '}
               <IoArrowForwardOutline size={16} />
             </span>
+            <SpeechBubble>Hey, How are you doing?</SpeechBubble>
           </SwipeDirection>
 
           <img
-            src={process.env.PUBLIC_URL + '/avatars/instructor-1.png'}
+            src={
+              process.env.PUBLIC_URL +
+              `/avatars/instructor-${currentInstructor}.png`
+            }
             alt="Instructor"
             style={{ height: '100px' }}
             ref={containerRef}

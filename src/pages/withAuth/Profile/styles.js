@@ -262,12 +262,12 @@ export const Stats = styled.div`
 
 export const Wrapper = styled.div`
   padding: 0 1rem;
-  margin-bottom: 8rem;
+  margin-bottom: 6rem;
 
   @media screen and (min-width: 768px) {
     max-width: 668px;
     margin: 0 auto;
-    margin-bottom: 8rem;
+    margin-bottom: 6rem;
     padding-left: 0;
     padding-right: 0;
   }

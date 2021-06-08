@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-export function useIntersecting(options) {
+export function useObserver(options) {
   const containerRef = useRef(null);
   const [visible, setVisible] = useState(false);
 
