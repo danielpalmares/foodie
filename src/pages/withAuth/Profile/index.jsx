@@ -1,4 +1,17 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useObserver } from '../../../hooks';
+import {
+  instructorObserverOptions,
+  speechTexts,
+} from '../../../config/Profile';
+
+import Layout from '../../Layout';
+import progressBar from '../../../assets/timelineBar.png';
+import RecipeCard from '../../../components/AppRecipeCard';
+import AppTitle from '../../../components/AppTitle';
+import SpeechBubble from '../../../components/SpeechBubble';
+
+import { IoArrowForwardOutline, IoCloudUploadOutline } from 'react-icons/io5';
 import {
   Container,
   Stats,
@@ -11,44 +24,53 @@ import {
   UserNameContainer,
   SwipeDirection,
   MyRecipesList,
+  InstructionsContainer,
 } from './styles';
-import progressBar from '../../../assets/timelineBar.png';
-
-import Layout from '../../Layout';
-
-import AppTitle from '../../../components/AppTitle';
-import RecipesGrid from '../../../components/RecipesGrid';
-import RecipeCard from '../../../components/AppRecipeCard';
-
-import {
-  IoArrowForwardOutline,
-  IoCloudUploadOutline,
-  IoMaleOutline,
-} from 'react-icons/io5';
-
-import { useObserver } from '../../../hooks';
-import { SpeechBubble } from '../../../components/SpeechBubble';
 
 export default function Profile() {
+  // setting up the observer
+  const [containerRef, visible] = useObserver(instructorObserverOptions);
+
+  // states area
   const [currentInstructor, setCurrentInstructor] = useState(1);
-  console.log(currentInstructor);
+  const [currentText, setCurrentText] = useState(0);
+  const [speechBubble, setSpeechBubble] = useState(false);
 
-  const [containerRef, visible] = useObserver({
-    root: null,
-    rootMargin: '0px 0px -60px 0px', // navigation's height
-    threshold: 0.7,
-  });
-
-  console.log(visible);
-
+  // setting up the instruction animation
   useEffect(() => {
     if (visible) {
+      // animation starts
       setTimeout(() => setCurrentInstructor(2), 1 * 1000);
-      setTimeout(() => setCurrentInstructor(3), 1 * 2000);
-    } else {
-      setCurrentInstructor(1);
+      setTimeout(() => setCurrentInstructor(3), 2 * 1000);
+      setTimeout(() => setSpeechBubble(true), 2 * 1000);
+
+      return;
     }
+    // reset
+    setCurrentInstructor(1);
+    setCurrentText(0);
+    setSpeechBubble(false);
+
+    return;
   }, [visible]);
+
+  // once the speech bubble is rendered, set which instructor show up when clicking in the speech bubble
+  useEffect(() => {
+    currentText === 1 && setCurrentInstructor(4);
+    currentText === 3 && setCurrentInstructor(5);
+    currentText === 4 && setCurrentInstructor(3);
+
+    return;
+  }, [currentText]);
+
+  // get next speech when clicking in the speech bubble
+  function handleSpeechBubble() {
+    speechTexts.length > currentText + 1
+      ? setCurrentText(currentText + 1) // next speech
+      : setSpeechBubble(false); // make the speech bubble disappear when there are no speech
+
+    return;
+  }
 
   return (
     <Layout profileHeader>
@@ -56,159 +78,174 @@ export default function Profile() {
         <header>
           <Avatar
             src={process.env.PUBLIC_URL + '/images/woman-1.png'}
-            alt="Avatar"
+            alt="My Avatar"
           />
         </header>
 
         <Wrapper>
-          <UserNameContainer>
-            <h3>Daniel Palmares</h3>
-            <span>@danfpl</span>
-          </UserNameContainer>
+          <section>
+            <UserNameContainer>
+              <h3>Daniel Palmares</h3>
+              <span>@danfpl</span>
+            </UserNameContainer>
 
-          <Stats>
-            <ul>
-              <li>
-                <p>Uploads</p>
-                <span>12</span>
-              </li>
-              <li>
-                <p>Liked</p>
-                <span>20</span>
-              </li>
-              <li>
-                <p>Points</p>
-                <span>200</span>
-              </li>
-              <li>
-                <p>Status</p>
-                <span>Chief</span>
-              </li>
-            </ul>
-          </Stats>
-
-          <ProgressContainer>
-            <section>
-              <BarContainer>
-                <img src={progressBar} alt="Progress Bar" />
-                <Marker
-                  src={process.env.PUBLIC_URL + '/images/woman-1.png'}
-                  alt="Marker"
-                />
-                <ul>
-                  <li id="beginner-bar"></li>
-                  <li id="amateur-bar"></li>
-                  <li id="aspirant-bar"></li>
-                  <li id="pro-bar"></li>
-                  <li id="chef-bar"></li>
-                </ul>
-              </BarContainer>
-
-              <LevelList>
-                <li id="beginner">
-                  Beginner
-                  <span>
-                    0 <IoCloudUploadOutline size={18} />
-                  </span>
+            <Stats>
+              <ul>
+                <li>
+                  <p>Uploads</p>
+                  <span>12</span>
                 </li>
-
-                <li id="amateur">
-                  Amateur
-                  <span>
-                    10 <IoCloudUploadOutline size={18} />
-                  </span>
+                <li>
+                  <p>Liked</p>
+                  <span>20</span>
                 </li>
-                <li id="aspirant">
-                  Aspirant
-                  <span>
-                    25 <IoCloudUploadOutline size={18} />
-                  </span>
+                <li>
+                  <p>Points</p>
+                  <span>200</span>
                 </li>
-                <li id="pro">
-                  Pro
-                  <span>
-                    50 <IoCloudUploadOutline size={18} />
-                  </span>
+                <li>
+                  <p>Status</p>
+                  <span>Chief</span>
                 </li>
-                <li id="chef">
-                  Chef
-                  <span>
-                    100 <IoCloudUploadOutline size={18} />
-                  </span>
-                </li>
-              </LevelList>
-            </section>
-          </ProgressContainer>
+              </ul>
+            </Stats>
+          </section>
 
-          <SwipeDirection>
-            <span>
-              Swipe to see your journey <IoArrowForwardOutline size={16} />
-            </span>
-          </SwipeDirection>
+          <section>
+            <ProgressContainer>
+              <section>
+                <BarContainer>
+                  <img src={progressBar} alt="Progress Bar" />
+                  <Marker
+                    src={process.env.PUBLIC_URL + '/images/woman-1.png'}
+                    alt="Marker"
+                  />
+                  <ul>
+                    <li id="beginner-bar"></li>
+                    <li id="amateur-bar"></li>
+                    <li id="aspirant-bar"></li>
+                    <li id="pro-bar"></li>
+                    <li id="chef-bar"></li>
+                  </ul>
+                </BarContainer>
 
-          <AppTitle>My recipes</AppTitle>
-          <MyRecipesList>
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-          </MyRecipesList>
+                <LevelList>
+                  <li id="beginner">
+                    Beginner
+                    <span>
+                      0 <IoCloudUploadOutline size={18} />
+                    </span>
+                  </li>
 
-          <SwipeDirection>
-            <span>
-              Swipe to see your recipes <IoArrowForwardOutline size={16} />
-            </span>
-          </SwipeDirection>
+                  <li id="amateur">
+                    Amateur
+                    <span>
+                      10 <IoCloudUploadOutline size={18} />
+                    </span>
+                  </li>
+                  <li id="aspirant">
+                    Aspirant
+                    <span>
+                      25 <IoCloudUploadOutline size={18} />
+                    </span>
+                  </li>
+                  <li id="pro">
+                    Pro
+                    <span>
+                      50 <IoCloudUploadOutline size={18} />
+                    </span>
+                  </li>
+                  <li id="chef">
+                    Chef
+                    <span>
+                      100 <IoCloudUploadOutline size={18} />
+                    </span>
+                  </li>
+                </LevelList>
+              </section>
+            </ProgressContainer>
 
-          <AppTitle>My favorite recipes</AppTitle>
-          <MyRecipesList>
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-          </MyRecipesList>
+            <SwipeDirection>
+              <span>
+                Swipe to see your journey <IoArrowForwardOutline size={16} />
+              </span>
+            </SwipeDirection>
+          </section>
 
-          <SwipeDirection>
-            <span>
-              Swipe to see your favorite recipes{' '}
-              <IoArrowForwardOutline size={16} />
-            </span>
-            <SpeechBubble>Hey, How are you doing?</SpeechBubble>
-          </SwipeDirection>
+          <section>
+            <AppTitle>My recipes</AppTitle>
+            <MyRecipesList>
+              <RecipeCard
+                title="A melhor pizza do brasil"
+                imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+              />
+              <RecipeCard
+                title="A melhor pizza do brasil"
+                imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+              />
+              <RecipeCard
+                title="A melhor pizza do brasil"
+                imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+              />
+              <RecipeCard
+                title="A melhor pizza do brasil"
+                imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+              />
+            </MyRecipesList>
 
-          <img
-            src={
-              process.env.PUBLIC_URL +
-              `/avatars/instructor-${currentInstructor}.png`
-            }
-            alt="Instructor"
-            style={{ height: '100px' }}
-            ref={containerRef}
-          />
+            <SwipeDirection>
+              <span>
+                Swipe to see your recipes <IoArrowForwardOutline size={16} />
+              </span>
+            </SwipeDirection>
+          </section>
+
+          <section>
+            <AppTitle>My favorite recipes</AppTitle>
+            <MyRecipesList>
+              <RecipeCard
+                title="A melhor pizza do brasil"
+                imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+              />
+              <RecipeCard
+                title="A melhor pizza do brasil"
+                imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+              />
+              <RecipeCard
+                title="A melhor pizza do brasil"
+                imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+              />
+              <RecipeCard
+                title="A melhor pizza do brasil"
+                imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
+              />
+            </MyRecipesList>
+
+            <SwipeDirection>
+              <span>
+                Swipe to see your favorite recipes{' '}
+                <IoArrowForwardOutline size={16} />
+              </span>
+            </SwipeDirection>
+          </section>
+
+          <InstructionsContainer>
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                `/avatars/instructor-${currentInstructor}.png`
+              }
+              alt="Instructor"
+              style={{ height: '100px' }}
+              ref={containerRef}
+            />
+            <SpeechBubble
+              active={speechBubble}
+              handleClick={() => handleSpeechBubble()}
+            >
+              {speechTexts[currentText]}
+            </SpeechBubble>
+          </InstructionsContainer>
         </Wrapper>
       </Container>
     </Layout>

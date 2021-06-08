@@ -2,10 +2,12 @@ import React from 'react';
 
 import { Container } from './styles';
 
-export function SpeechBubble({ children }) {
+export default function SpeechBubble({ children, active, handleClick }) {
   return (
     <>
-      <Container>{children}</Container>
+      <Container onClick={handleClick} active={active}>
+        {children}
+      </Container>
     </>
   );
 }

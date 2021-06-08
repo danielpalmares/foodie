@@ -1,5 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 
+export const InstructionsContainer = styled.div`
+  display: flex;
+`;
+
 export const MyRecipesList = styled.ul`
   display: flex;
   overflow-x: scroll;
