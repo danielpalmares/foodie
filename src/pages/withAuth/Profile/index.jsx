@@ -29,7 +29,7 @@ import {
 
 export default function Profile() {
   // setting up the observer
-  const [containerRef, visible] = useObserver(instructorObserverOptions);
+  const [setRef, visible] = useObserver(instructorObserverOptions);
 
   // states area
   const [currentInstructor, setCurrentInstructor] = useState(1);
@@ -237,7 +237,7 @@ export default function Profile() {
               }
               alt="Instructor"
               style={{ height: '100px' }}
-              ref={containerRef}
+              ref={setRef}
             />
             <SpeechBubble
               active={speechBubble}

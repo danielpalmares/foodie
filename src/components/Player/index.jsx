@@ -29,7 +29,7 @@ export default function Player({
 
   return (
     <Container>
-      <div>
+      <div className="up-wrapper">
         <AppTitle>{tutorialTitle}</AppTitle>
         <span className="player-timing">
           <IoTimerOutline size={18} />

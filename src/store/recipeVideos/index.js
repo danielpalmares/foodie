@@ -46,7 +46,7 @@ export async function recipeVideosAction(query) {
 const initialState = {
   errorMessage: '',
   totalResults: 0,
-  videos: [],
+  videos: null,
 };
 
 export function recipeVideos(state = initialState, action) {

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const ObserverTarget = styled.div`
+  display: block;
+`;
+
 export const PlayerWrapper = styled.div`
   width: 100%;
   min-height: 20rem;

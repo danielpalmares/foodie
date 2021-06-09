@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export function useObserver(options) {
-  const containerRef = useRef(null);
+  const [ref, setRef] = useState(null);
   const [visible, setVisible] = useState(false);
 
   const callback = useCallback(
@@ -18,15 +18,15 @@ export function useObserver(options) {
 
     const observer = new IntersectionObserver(callback, options);
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-      observerRefValue = containerRef.current; // save the ref value
+    if (ref) {
+      observer.observe(ref);
+      observerRefValue = ref; // save the ref value
     }
 
     return () => {
       if (observerRefValue) observer.unobserve(observerRefValue); // use saved value
     };
-  }, [callback, containerRef, options]);
+  }, [callback, ref, options]);
 
-  return [containerRef, visible];
+  return [setRef, visible];
 }

@@ -40,6 +40,6 @@ export const apiFindVideos = axios.create({
   baseURL: `https://api.spoonacular.com/food/videos/search`, // ?query
   params: {
     apiKey: API_KEY,
-    number: 10, // videos per request
+    number: 50, // videos per request
   },
 });
