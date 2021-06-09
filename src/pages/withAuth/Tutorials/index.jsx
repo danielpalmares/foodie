@@ -76,16 +76,18 @@ export default function Tutorials() {
                 return (
                   <Player
                     key={tut.id}
+                    tutorialID={tut.id}
+                    currentTutorialID={currentTutorialID}
                     tutorialTitle={tut.shortTitle}
                     duration={tut.duration}
-                    tutorialID={tut.id}
                     thumbnail={tut.thumbnail}
-                    views={tut.views.toLocaleString('pt-BR')}
-                    isPlaying={currentTutorialID === tut.id ? true : false}
-                    handlePlay={() => setCurrentTutorialID(tut.id)}
+                    views={tut.views}
+                    rating={tut.rating}
+                    handlePlay={() =>
+                      currentTutorialID !== tut.id &&
+                      setCurrentTutorialID(tut.id)
+                    }
                     handlePreview={() => setCurrentTutorialID(tut.id)}
-                    handlePause={() => setCurrentTutorialID('')}
-                    handleEnd={() => setCurrentTutorialID('')}
                   />
                 );
               })}

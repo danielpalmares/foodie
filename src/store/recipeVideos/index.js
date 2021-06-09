@@ -20,6 +20,7 @@ export async function recipeVideosAction(query) {
           minutes: parseInt((vid.length % 3600) / 60),
           seconds: parseInt((vid.length % 3600) % 60),
         },
+        rating: vid.rating,
         id: vid.youTubeId,
       };
     });
