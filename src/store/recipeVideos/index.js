@@ -13,12 +13,13 @@ export async function recipeVideosAction(query) {
 
     const recipeVideos = videos.map(vid => {
       return {
-        title: vid.title,
         shortTitle: vid.shortTitle,
         thumbnail: vid.thumbnail,
         views: vid.views,
-        length: vid.length,
-        rating: vid.rating,
+        duration: {
+          minutes: parseInt((vid.length % 3600) / 60),
+          seconds: parseInt((vid.length % 3600) % 60),
+        },
         id: vid.youTubeId,
       };
     });

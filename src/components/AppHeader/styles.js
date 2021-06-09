@@ -24,6 +24,8 @@ export const HeaderContainer = styled.header`
   @media screen and (min-width: 768px) {
     max-width: 668px;
     margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   button {

@@ -5,7 +5,7 @@ import {
   IoCompassOutline,
   IoSearchOutline,
   IoAddCircleOutline,
-  IoHeartOutline,
+  IoPlayOutline,
   IoPersonOutline,
 } from 'react-icons/io5';
 import { NavContainer } from './styles';
@@ -37,8 +37,8 @@ export default function Navigation() {
 
         <Link to="/favorites">
           <button>
-            <IoHeartOutline size={26} />
-            <span>Favorites</span>
+            <IoPlayOutline size={26} />
+            <span>Tutorials</span>
           </button>
         </Link>
 
