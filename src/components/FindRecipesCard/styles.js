@@ -2,21 +2,21 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  background: ${props => props.theme.fontColors.tertiary};
-
+  background: ${props => props.theme.colors.absolute};
   display: flex;
   align-items: center;
   gap: 2rem;
   padding: 1rem;
-  border: 2px solid ${props => props.theme.colors.border};
-  border-radius: 1rem;
+
+  border: none;
+  border-radius: ${props => props.theme.border.radius};
 `;
 
 export const IconContainer = styled.div`
   background: ${props => props.theme.background};
   width: 30%;
   height: 10rem;
-  border-radius: 1rem;
+  border-radius: ${props => props.theme.border.radius};
   padding: 1rem;
   overflow: hidden;
 
@@ -30,9 +30,8 @@ export const TextContainer = styled.div`
   width: 70%;
   padding: 1rem;
 
-  font-size: 1.7rem;
-  font-weight: 400;
-  line-height: 1.4;
+  font-size: ${props => props.theme.fontSizes.regular};
+  line-height: 1.5;
 
   p {
     color: ${props => props.theme.fontColors.primary};

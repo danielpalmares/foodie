@@ -2,83 +2,53 @@ import styled from 'styled-components';
 
 export const LandingContainer = styled.div`
   min-height: 100vh;
-  position: relative;
-  overflow: hidden;
+  padding: 0 1rem;
 `;
 
-export const BlobContainer = styled.div`
-  height: 40rem;
-  position: absolute;
-  top: 15%;
-  left: 30%;
-  z-index: -1;
-  display: ${props => (props.theme.mode === 'dark' ? 'none' : 'block')};
+export const SectionContent = styled.section`
+  padding: 6rem 0;
+  border-bottom: 1px solid ${props => props.theme.border.color};
 
-  @media screen and (min-width: 425px) {
-    left: 40%;
+  h1 {
+    font-size: ${props => props.theme.fontSizes.h1};
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+
+    span {
+      color: ${props => props.theme.colors.quaternary};
+    }
   }
 
-  @media screen and (min-width: 768px) {
-    left: 50%;
+  .svg-image {
+    height: 15rem;
+    justify-self: center;
+    align-self: center;
   }
 
-  img {
-    height: 100%;
+  @media screen and (min-width: 640px) {
+    .left {
+      grid-column: 1/1;
+      grid-row: 1/1;
+    }
+
+    .right {
+      grid-column: 2/2;
+      grid-row: 1/1;
+    }
   }
 `;
 
-export const LandingContent = styled.div`
+export const GridLayout = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 2rem;
+`;
+
+export const Flex = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 1rem;
-
-  @media screen and (min-width: 320px) {
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 0;
-  }
-  @media screen and (min-width: 375px) {
-    max-width: 355px;
-    margin: 0 auto;
-    padding: 0;
-  }
-  @media screen and (min-width: 425px) {
-    max-width: 405px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  @media screen and (min-width: 768px) {
-    max-width: 568px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-    margin: 4rem 0;
-
-    h1 {
-      font-size: 4rem;
-      font-weight: 700;
-      color: ${props => props.theme.fontColors.primary};
-      line-height: 1.5;
-    }
-
-    h2 {
-      font-size: 3rem;
-      font-weight: 700;
-      color: ${props => props.theme.colors.primary};
-      line-height: 1.5;
-    }
-
-    h3 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: ${props => props.theme.fontColors.primary};
-      line-height: 1.5;
-    }
-  }
+  gap: 6rem;
 `;

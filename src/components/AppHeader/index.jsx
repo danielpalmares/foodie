@@ -33,44 +33,42 @@ export default function AppHeader({
       : dispatch(switchThemeAction(light));
 
   return (
-    <>
-      <HeaderContainer>
-        {onlyBackButton && (
+    <HeaderContainer>
+      {onlyBackButton && (
+        <button onClick={goBack}>
+          <IoArrowBackOutline size={26} />
+        </button>
+      )}
+
+      {profileHeader && (
+        <>
           <button onClick={goBack}>
             <IoArrowBackOutline size={26} />
           </button>
-        )}
 
-        {profileHeader && (
-          <>
-            <button onClick={goBack}>
-              <IoArrowBackOutline size={26} />
-            </button>
+          <button>
+            <IoSettingsOutline size={26} />
+          </button>
+        </>
+      )}
 
-            <button>
-              <IoSettingsOutline size={26} />
-            </button>
-          </>
-        )}
+      {defaultHeader && (
+        <>
+          <button onClick={switchTheme}>
+            {currentTheme === 'light' ? (
+              <IoMoonSharp size={26} color="#F4F1C9" />
+            ) : (
+              <IoSunnySharp size={26} color="#FDB813" />
+            )}
+          </button>
 
-        {defaultHeader && (
-          <>
-            <button onClick={switchTheme}>
-              {currentTheme === 'light' ? (
-                <IoMoonSharp size={26} color="#F4F1C9" />
-              ) : (
-                <IoSunnySharp size={26} color="#FDB813" />
-              )}
-            </button>
+          <img src={Logo} alt="Foodie logo" />
 
-            <img src={Logo} alt="Foodie logo" />
-
-            <UserContainer>
-              <img src="/images/woman-1.png" alt="User Profile" />
-            </UserContainer>
-          </>
-        )}
-      </HeaderContainer>
-    </>
+          <UserContainer>
+            <img src="/images/woman-1.png" alt="User Profile" />
+          </UserContainer>
+        </>
+      )}
+    </HeaderContainer>
   );
 }

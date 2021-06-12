@@ -20,7 +20,9 @@ export const Card = styled.div`
   height: 20rem;
 
   border: ${props =>
-    props.active ? 'none' : `2px dashed ${props.theme.colors.border}`};
+    props.active
+      ? 'none'
+      : `${props.theme.border.size} dashed ${props.theme.border.color}`};
   border-radius: 1rem;
   padding: 2rem 1rem;
   /* margin: 2rem 0; */
@@ -44,10 +46,12 @@ export const Card = styled.div`
 
     font-weight: 700;
     font-size: 3rem;
-    color: ${props => props.theme.fontColors.secondary};
+    color: ${props => props.theme.fontColors.tertiary};
 
     border: ${props =>
-      props.active ? 'none' : `2px dashed ${props.theme.colors.border}`};
+      props.active
+        ? 'none'
+        : `${props.theme.border.size} dashed ${props.theme.border.color}`};
     border-radius: 50%;
 
     visibility: ${props => (props.active ? 'hidden' : 'visible')};

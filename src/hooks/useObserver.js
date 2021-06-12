@@ -4,6 +4,8 @@ export function useObserver(options) {
   const [ref, setRef] = useState(null);
   const [visible, setVisible] = useState(false);
 
+  const clearRef = () => setRef(null);
+
   const callback = useCallback(
     entries => {
       const [entry] = entries;
@@ -28,5 +30,5 @@ export function useObserver(options) {
     };
   }, [callback, ref, options]);
 
-  return [setRef, visible];
+  return [setRef, visible, clearRef];
 }

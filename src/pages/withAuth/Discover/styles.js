@@ -3,26 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   padding: 0 1rem;
 
-  /* @media screen and (min-width: 320px) {
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  @media screen and (min-width: 375px) {
-    max-width: 355px;
-    margin: 0 auto;
-  }
-
-  @media screen and (min-width: 425px) {
-    max-width: 405px;
-    margin: 0 auto;
-  } */
-
-  @media screen and (min-width: 768px) {
-    max-width: 668px;
-    margin: 0 auto;
-  }
-
   main {
     display: flex;
     flex-direction: column;
@@ -45,29 +25,23 @@ export const HorizontalList = styled.ul`
   gap: 2rem;
   overflow: scroll;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
   li {
     button {
-      font-family: 'Lexend', sans-serif;
-      font-size: 1.7rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: ${props => props.theme.fontSizes.larger};
       font-weight: 700;
-      color: ${props => props.theme.fontColors.bg};
-      padding: 1rem;
-      border: 2px solid transparent;
-      outline: none;
-      border-radius: 1rem;
-      background: ${props => props.theme.colors.tertiary};
-      transition: all 0.2s;
+      color: ${props => props.theme.fontColors.primary};
       text-align: center;
       white-space: nowrap;
-      cursor: pointer;
 
-      &:active {
-        border-color: ${props => props.theme.colors.primary};
-      }
+      outline: none;
+      border: none;
+      padding: 1rem;
+      border-radius: ${props => props.theme.border.radius};
+
+      background: ${props => props.theme.colors.quaternary};
+      transition: all 0.2s;
+      cursor: pointer;
     }
   }
 `;

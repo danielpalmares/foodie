@@ -5,22 +5,27 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-size: 1.6rem;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: ${props => props.theme.fontSizes.larger};
+  font-weight: 700;
+  color: ${props =>
+    props.theme.mode === 'light'
+      ? props.theme.fontColors.secondary
+      : props.theme.fontColors.primary};
+
+  margin: 0 auto;
+  padding: 1rem 2rem;
 
   background: ${props => props.theme.colors.secondary};
   outline: none;
   border: none;
-  border-radius: 1rem;
-  padding: 1rem 2rem;
-  color: ${props =>
-    props.theme.mode === 'light'
-      ? props.theme.fontColors.bg
-      : props.theme.fontColors.primary};
+  border-radius: ${props => props.theme.border.radius};
 
   cursor: pointer;
   transition: all 0.2s;
 
-  ${this}:active {
-    transform: translateX(1rem);
+  &:active {
+    transform: translateX(0.5rem);
   }
 `;

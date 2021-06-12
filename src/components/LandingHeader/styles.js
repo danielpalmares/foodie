@@ -4,9 +4,9 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 0;
+  padding: 1rem 0;
 
   img {
-    height: calc(86px / 2);
+    height: 5rem;
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useObserver } from '../../../hooks';
 
@@ -12,65 +12,71 @@ import Player from '../../../components/Player';
 
 import { Container, ObserverTarget } from './styles';
 
+import { getPagination } from '../../../utils';
+
 export default function Tutorials() {
   const dispatch = useDispatch();
-  const tutorials = useSelector(state => state.recipeVideos.videos); // null at start
+  const tutorials = useSelector(state => state.recipeVideos.videos);
+
+  const [setRef, visible, clearRef] = useObserver({
+    threshold: 1.0,
+  });
 
   const [changedInput, setChangedInput] = useState('');
   const [researchedRecipe, setResearchedRecipe] = useState('');
 
   const [currentTutorialID, setCurrentTutorialID] = useState('');
   const [spinner, setSpinner] = useState(false);
-  const [videosPerPage, setVideosPerPage] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const resultsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [videos, setVideos] = useState(null);
+  const [resultsCount, setResultsCount] = useState(10);
 
-  // get the recipes for each page
-  function getSearchResultsPage(recipesArr, curPage, resultsPerPage) {
-    const start = (curPage - 1) * resultsPerPage;
-    const end = curPage * resultsPerPage;
-    const newResults = recipesArr.slice(start, end);
+  useEffect(() => {
+    if (visible) {
+      setCurrentPage(currentPage + 1);
+      clearRef();
+    }
+  }, [visible]);
 
-    return newResults;
-  }
-
-  // get the recipes per page and store it in the state
   useEffect(() => {
     if (!tutorials) return;
 
-    // render the recipes while changing the state
-    const newVideosPerPage = getSearchResultsPage(
-      tutorials,
-      currentPage,
-      resultsPerPage
-    );
+    // if we got the tutorials then stop spinner
+    if (tutorials) setSpinner(false);
 
-    const newArr = videosPerPage;
-    newArr.push(newVideosPerPage);
+    // first time we got tutorials
+    if (currentPage === 1) {
+      const videosPerPage = getPagination(
+        tutorials,
+        currentPage,
+        resultsPerPage
+      );
 
-    return setVideosPerPage(newArr);
-  }, [tutorials, currentPage]);
+      setVideos(videosPerPage);
+      return;
+    }
 
-  // remove recipes while searching again
-  // get recipes sliced
+    // after first time we got tutorials
+    if (currentPage > 1) {
+      const videosPerPage = getPagination(
+        tutorials,
+        currentPage,
+        resultsPerPage
+      );
 
-  const [setRef, visible] = useObserver({
-    threshold: 1.0,
-  });
+      let videosPushed = videos.slice();
 
-  useEffect(() => {
-    if (videosPerPage) setSpinner(false);
+      videosPushed.push(...videosPerPage);
+
+      setVideos(videosPushed);
+      setResultsCount(resultsCount + 10);
+      return;
+    }
 
     return;
-  }, [tutorials]);
-
-  useEffect(() => {
-    if (videosPerPage === []) return;
-
-    if (visible && currentPage < 10) {
-      setCurrentPage(currentPage + 1);
-    }
-  }, [visible]);
+  }, [tutorials, currentPage]);
 
   // fetch recipe tutorials
   useEffect(() => {
@@ -119,34 +125,29 @@ export default function Tutorials() {
 
           {spinner && <Spinner />}
 
-          {videosPerPage !== [] &&
-            videosPerPage.map((pageArr, i) => {
+          {console.log(videos, currentPage)}
+          {videos &&
+            videos.map((tutorial, i) => {
               return (
-                <section key={i}>
-                  {pageArr.map(tut => {
-                    return (
-                      <Player
-                        key={tut.id}
-                        tutorialID={tut.id}
-                        currentTutorialID={currentTutorialID}
-                        tutorialTitle={tut.shortTitle}
-                        duration={tut.duration}
-                        thumbnail={tut.thumbnail}
-                        views={tut.views}
-                        rating={tut.rating}
-                        handlePlay={() =>
-                          currentTutorialID !== tut.id &&
-                          setCurrentTutorialID(tut.id)
-                        }
-                        handlePreview={() => setCurrentTutorialID(tut.id)}
-                      />
-                    );
-                  })}
+                <section key={i} ref={resultsCount - 1 === i ? setRef : null}>
+                  <Player
+                    key={tutorial.id}
+                    tutorialID={tutorial.id}
+                    currentTutorialID={currentTutorialID}
+                    tutorialTitle={tutorial.shortTitle}
+                    duration={tutorial.duration}
+                    thumbnail={tutorial.thumbnail}
+                    views={tutorial.views}
+                    rating={tutorial.rating}
+                    handlePlay={() =>
+                      currentTutorialID !== tutorial.id &&
+                      setCurrentTutorialID(tutorial.id)
+                    }
+                    handlePreview={() => setCurrentTutorialID(tutorial.id)}
+                  />
                 </section>
               );
             })}
-
-          <ObserverTarget ref={setRef} />
         </main>
       </Container>
     </Layout>

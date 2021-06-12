@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from '../components/AppHeader';
 import Navigation from '../components/Navigation/index';
+import Wrapper from '../components/Wrapper';
 
 export default function Layout({
   children,
@@ -10,7 +11,7 @@ export default function Layout({
   defaultHeader,
 }) {
   return (
-    <>
+    <Wrapper>
       <Header
         onlyBackButton={onlyBackButton}
         profileHeader={profileHeader}
@@ -18,6 +19,6 @@ export default function Layout({
       />
       {children}
       <Navigation />
-    </>
+    </Wrapper>
   );
 }

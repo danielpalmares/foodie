@@ -6,11 +6,12 @@ import LandingHeader from '../../../components/LandingHeader';
 
 import { IoArrowForwardOutline } from 'react-icons/io5';
 import { SignInContainer, Directions } from './styles';
+import Wrapper from '../../../components/Wrapper';
 
 export default function SignIn() {
   return (
-    <>
-      <SignInContainer>
+    <SignInContainer>
+      <Wrapper>
         <LandingHeader />
 
         <Directions>
@@ -24,13 +25,13 @@ export default function SignIn() {
             <span>Are you new?</span>
             <br />
             <Link to="/signup">
-              Let's create a new account <IoArrowForwardOutline size={14} />
+              Let's create a new account <IoArrowForwardOutline size={16} />
             </Link>
           </div>
         </Directions>
 
         <SignInForm />
-      </SignInContainer>
-    </>
+      </Wrapper>
+    </SignInContainer>
   );
 }

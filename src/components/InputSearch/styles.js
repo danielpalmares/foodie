@@ -6,27 +6,22 @@ export const InputWrapper = styled.div`
   margin: 2rem 0;
 
   input {
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    font-size: ${props => props.theme.fontSizes.larger};
     color: ${props => props.theme.fontColors.primary};
 
     width: 100%;
     padding: 2rem 5rem 2rem 1rem;
 
-    background: ${props => props.theme.fontColors.tertiary};
-    border: 2px solid ${props => props.theme.colors.border};
-    border-radius: 1rem;
+    background: ${props => props.theme.colors.absolute};
+    border: none;
+    border-radius: ${props => props.theme.border.radius};
     outline: none;
 
     &::placeholder {
       font-size: 1.4rem;
       font-weight: 600;
-      color: ${props => props.theme.fontColors.secondary};
-    }
-
-    &:focus {
-      border-color: ${props => props.theme.colors.quartenary};
+      color: ${props => props.theme.fontColors.tertiary};
     }
   }
 
@@ -37,15 +32,15 @@ export const InputWrapper = styled.div`
 
     color: ${props =>
       props.theme.mode === 'light'
-        ? props.theme.fontColors.bg
+        ? props.theme.fontColors.secondary
         : props.theme.fontColors.primary};
 
     padding: 0.5rem;
 
-    background: ${props => props.theme.colors.quartenary};
+    background: ${props => props.theme.colors.tertiary};
     outline: none;
     border: none;
-    border-radius: 1rem;
+    border-radius: ${props => props.theme.border.radius};
 
     position: absolute;
     bottom: 22%;

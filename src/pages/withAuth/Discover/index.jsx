@@ -6,7 +6,7 @@ import BasedRecipeCard from '../../../components/BasedRecipeCard';
 
 import { Container, HorizontalList } from './styles';
 import FindRecipesCard from '../../../components/FindRecipesCard';
-
+import Wrapper from '../../../components/Wrapper';
 import AppTitle from '../../../components/AppTitle';
 import InputSearch from '../../../components/InputSearch';
 
@@ -139,89 +139,83 @@ export default function Discover() {
 
   return (
     <Layout defaultHeader>
-      <Container>
-        <main>
-          <section>
-            <button onClick={() => test()}>TESTE</button>
-          </section>
+      <Wrapper>
+        <Container>
+          <main>
+            <section>
+              <AppTitle>{greetingByTime()} Adalberto</AppTitle>
+              <FindRecipesCard />
+            </section>
 
-          <section>
-            <AppTitle>{greetingByTime()} Adalberto</AppTitle>
-            <FindRecipesCard />
-          </section>
+            <section>
+              <AppTitle>Looking for a specific recipe?</AppTitle>
+              <InputSearch
+                handleInputChange={e => setInputData(e.target.value)}
+                handleSearch={() => handleSearch()}
+                placeholder="We have tasty pizzas, try it :)"
+              />
+            </section>
 
-          <section>
-            <AppTitle>Looking for a specific recipe?</AppTitle>
-            <SearchVideoButton
-              active={searchVideos}
-              handleClick={() => setSearchVideos(!searchVideos)}
-            />
-            <InputSearch
-              handleInputChange={e => setInputData(e.target.value)}
-              handleSearch={() => handleSearch()}
-              placeholder="We have tasty pizzas, try it :)"
-            />
-          </section>
+            <section>
+              <AppTitle>Try to get a random recipe</AppTitle>
+              <RandomRecipeCard />
+            </section>
 
-          <section>
-            <AppTitle>Try to get a random recipe</AppTitle>
-            <RandomRecipeCard />
-          </section>
+            <section>
+              <AppTitle>Find a recipe by its type</AppTitle>
+              <HorizontalList>
+                {recipesType.map(type => {
+                  return (
+                    <li key={type.id}>
+                      <button
+                        data-type={type.id}
+                        onClick={e => handleRecipesByType(e)}
+                      >
+                        {type.text}
+                      </button>
+                    </li>
+                  );
+                })}
+              </HorizontalList>
+            </section>
 
-          <section>
-            <AppTitle>Find a recipe by its type</AppTitle>
-            <HorizontalList>
-              {recipesType.map(type => {
-                return (
-                  <li key={type.id}>
-                    <button
-                      data-type={type.id}
-                      onClick={e => handleRecipesByType(e)}
-                    >
-                      {type.text}
-                    </button>
-                  </li>
-                );
-              })}
-            </HorizontalList>
-          </section>
+            <section>
+              <AppTitle>Or more, get a quick recipe</AppTitle>
+              <HorizontalList>
+                {recipesCookingTime.map(time => {
+                  return (
+                    <li key={time.id}>
+                      <button
+                        data-timing={time.id}
+                        onClick={e => handleRecipesByTiming(e)}
+                      >
+                        {time.text}
+                      </button>
+                    </li>
+                  );
+                })}
+              </HorizontalList>
+            </section>
 
-          <section>
-            <AppTitle>Or more, get a quick recipe</AppTitle>
-            <HorizontalList>
-              {recipesCookingTime.map(time => {
-                return (
-                  <li key={time.id}>
-                    <button
-                      data-timing={time.id}
-                      onClick={e => handleRecipesByTiming(e)}
-                    >
-                      {time.text}
-                    </button>
-                  </li>
-                );
-              })}
-            </HorizontalList>
-          </section>
-
-          <section>
-            <AppTitle>Curious about other cuisines?</AppTitle>
-            <RecipesGrid>
-              {recipesCuisines.map(cuisine => {
-                return (
-                  <BasedRecipeCard
-                    key={cuisine}
-                    data={cuisine}
-                    image={cuisine}
-                    title={cuisine}
-                    handleClick={e => handleRecipesByCuisine(e)}
-                  />
-                );
-              })}
-            </RecipesGrid>
-          </section>
-        </main>
-      </Container>
+            <section>
+              <AppTitle>Curious about other cuisines?</AppTitle>
+              <RecipesGrid>
+                {recipesCuisines.map(cuisine => {
+                  return (
+                    <BasedRecipeCard
+                      key={cuisine}
+                      data={cuisine}
+                      image={cuisine}
+                      title={cuisine}
+                      handleClick={e => handleRecipesByCuisine(e)}
+                    />
+                  );
+                })}
+              </RecipesGrid>
+            </section>
+          </main>
+        </Container>
+      </Wrapper>
     </Layout>
   );
 }

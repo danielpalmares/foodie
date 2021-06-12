@@ -4,15 +4,12 @@ import { Link } from 'react-router-dom';
 import { IoArrowForwardOutline } from 'react-icons/io5';
 import { Button } from './styles';
 
-export default function SingUpButton() {
+export default function SingUpButton({ children, direction = '#' }) {
   return (
-    <>
-      <Link to="/signup">
-        <Button>
-          <span>Sign up now</span>
-          <IoArrowForwardOutline size={22} />
-        </Button>
-      </Link>
-    </>
+    <Link to={direction} style={{ width: '30rem', margin: '0 auto' }}>
+      <Button>
+        {children} <IoArrowForwardOutline size={20} />
+      </Button>
+    </Link>
   );
 }

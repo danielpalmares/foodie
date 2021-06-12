@@ -1,51 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import {
-  IoMailOutline,
-  IoKeyOutline,
-  IoArrowForwardOutline,
-} from 'react-icons/io5';
-import { Form, InputContainer } from './styles';
+import FormInput from '../../components/FormInput';
+import SignUpButton from '../../components/SignUpButton';
+
+import { IoPersonOutline, IoKeyOutline } from 'react-icons/io5';
+import { Form } from './styles';
 
 export default function SignInForm() {
   return (
-    <>
-      <Form>
-        <InputContainer>
-          <label htmlFor="email">
-            <IoMailOutline size={26} />
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            required
-          />
-        </InputContainer>
+    <Form>
+      <FormInput
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Username"
+        isRequired
+        labelHtmlFor="username"
+        label={<IoPersonOutline size={26} />}
+      />
 
-        <InputContainer>
-          <label htmlFor="password">
-            <IoKeyOutline size={26} />
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            required
-          />
-        </InputContainer>
+      <FormInput
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Password"
+        isRequired
+        labelHtmlFor="password"
+        label={<IoKeyOutline size={26} />}
+      />
 
-        <span>
-          <Link to="/">Forgot password?</Link>
-        </span>
+      <Link to="/">Forgot password?</Link>
 
-        <button type="submit">
-          Sign in <IoArrowForwardOutline size={26} />
-        </button>
-      </Form>
-    </>
+      <SignUpButton>Sign in</SignUpButton>
+    </Form>
   );
 }

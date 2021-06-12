@@ -1,31 +1,10 @@
 import styled from 'styled-components';
 
 export const SignInContainer = styled.div`
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
-
-  @media screen and (min-width: 320px) {
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 0;
-  }
-  @media screen and (min-width: 375px) {
-    max-width: 355px;
-    margin: 0 auto;
-    padding: 0;
-  }
-  @media screen and (min-width: 425px) {
-    max-width: 405px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  @media screen and (min-width: 768px) {
-    max-width: 568px;
-    margin: 0 auto;
-    padding: 0;
-  }
 `;
 
 export const Directions = styled.div`
@@ -35,7 +14,7 @@ export const Directions = styled.div`
   align-items: flex-start;
 
   h1 {
-    font-size: 4rem;
+    font-size: ${props => props.theme.fontSizes.h1};
     font-weight: 700;
     color: ${props => props.theme.fontColors.primary};
     line-height: 1.5;
@@ -43,8 +22,8 @@ export const Directions = styled.div`
   }
 
   div {
+    font-size: ${props => props.theme.fontSizes.small};
     line-height: 1.5;
-    font-size: 1.4rem;
     padding-bottom: 1rem;
 
     span {
@@ -53,7 +32,7 @@ export const Directions = styled.div`
 
     a {
       color: ${props => props.theme.colors.primary};
-      font-weight: 600;
+      font-weight: 700;
 
       display: flex;
       align-items: center;
