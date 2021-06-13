@@ -58,6 +58,7 @@ export const Card = styled.div`
   }
 
   button {
+    font-family: 'Nunito', sans-serif;
     background: ${props => props.theme.colors.secondary};
     align-self: flex-end;
     height: 3rem;
@@ -67,7 +68,7 @@ export const Card = styled.div`
 
     color: ${props =>
       props.theme.mode === 'light'
-        ? props.theme.fontColors.bg
+        ? props.theme.fontColors.secondary
         : props.theme.fontColors.primary};
     font-size: 1.4rem;
     font-weight: 700;

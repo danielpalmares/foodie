@@ -1,7 +1,17 @@
 import styled from 'styled-components';
 
+export const TextContainer = styled.div`
+  overflow: hidden;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
 export const Container = styled.div`
-  background: url(${props => props.imageSrc});
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(${props => props.imageSrc});
   background-repeat: none;
   background-size: cover;
   background-position: center;
@@ -12,23 +22,21 @@ export const Container = styled.div`
   border-radius: 1rem;
   /* overflow: hidden; */
   cursor: pointer;
-  position: relative;
+  text-align: center;
+  padding: 2rem;
 
+  font-weight: 700;
   span {
-    position: absolute;
-    top: -5%;
-    left: 0;
-    background: ${props => props.theme.colors.primary};
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #ecedf1;
+    font-size: ${props => props.theme.fontSizes.larger};
+    color: ${props => props.theme.colors.secondary};
     text-transform: uppercase;
-    padding: 1rem;
+  }
 
-    border: 5px solid ${props => props.theme.fontColors.bg};
-    border-radius: 1rem;
-    border-left: none;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
+  p {
+    font-size: ${props => props.theme.fontSizes.small};
+    color: ${props =>
+      props.theme.mode === 'light'
+        ? props.theme.fontColors.secondary
+        : props.theme.fontColors.primary};
   }
 `;

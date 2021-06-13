@@ -54,6 +54,8 @@ export default function AppHeader({
 
       {defaultHeader && (
         <>
+          <img src={Logo} alt="Foodie logo" />
+
           <button onClick={switchTheme}>
             {currentTheme === 'light' ? (
               <IoMoonSharp size={26} color="#F4F1C9" />
@@ -62,11 +64,9 @@ export default function AppHeader({
             )}
           </button>
 
-          <img src={Logo} alt="Foodie logo" />
-
-          <UserContainer>
+          {/* <UserContainer>
             <img src="/images/woman-1.png" alt="User Profile" />
-          </UserContainer>
+          </UserContainer> */}
         </>
       )}
     </HeaderContainer>

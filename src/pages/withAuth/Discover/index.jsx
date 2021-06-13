@@ -16,6 +16,10 @@ import RandomRecipeCard from '../../../components/RandomRecipeCard';
 import RecipesGrid from '../../../components/RecipesGrid';
 import SearchVideoButton from '../../../components/SearchVideoButton';
 
+import dietSvg from '../../../assets/diet.svg';
+import chefSvg from '../../../assets/chef.svg';
+import tutorialSvg from '../../../assets/tutorial.svg';
+
 import { apiComplexSearch } from '../../../services/spoonacular/api';
 import { recipesByNameAction } from '../../../store/recipesByName';
 import { recipesByTypeAction } from '../../../store/recipesByType';
@@ -28,9 +32,12 @@ import {
   recipesCuisines,
   recipesCookingTime,
 } from '../../../config';
+import { activePageAction } from '../../../store/activePage';
 
 export default function Discover() {
   const dispatch = useDispatch();
+
+  useEffect(() => dispatch(activePageAction('discover')));
 
   const recipes = useSelector(state => state.recipesByName?.data);
   const videos = useSelector(state => state.recipeVideos);
@@ -42,14 +49,12 @@ export default function Discover() {
   const [recipeType, setRecipeType] = useState('');
   const [recipeTiming, setRecipeTiming] = useState(0);
   const [recipeCuisine, setRecipeCuisine] = useState('');
-  const [searchVideos, setSearchVideos] = useState(false);
 
   // fetch recipes by name
   useEffect(() => {
     if (!recipeName) return;
 
-    if (searchVideos) return dispatch(recipeVideosAction(recipeName));
-    else return dispatch(recipesByNameAction(recipeName));
+    return dispatch(recipesByNameAction(recipeName));
   }, [recipeName]);
 
   // fetch recipes by type
@@ -139,83 +144,96 @@ export default function Discover() {
 
   return (
     <Layout defaultHeader>
-      <Wrapper>
-        <Container>
-          <main>
-            <section>
-              <AppTitle>{greetingByTime()} Adalberto</AppTitle>
-              <FindRecipesCard />
-            </section>
+      <Container>
+        <main>
+          <section>
+            <AppTitle>{greetingByTime()} Adalberto</AppTitle>
+            <FindRecipesCard
+              image={dietSvg}
+              direction="/search"
+              text="Find recipes based on what you already have on your kitchen"
+            />
+            <FindRecipesCard
+              image={chefSvg}
+              direction="/upload"
+              text="Make lots of recipes and build an amazing progress until become a chef!"
+            />
+          </section>
 
-            <section>
-              <AppTitle>Looking for a specific recipe?</AppTitle>
-              <InputSearch
-                handleInputChange={e => setInputData(e.target.value)}
-                handleSearch={() => handleSearch()}
-                placeholder="We have tasty pizzas, try it :)"
-              />
-            </section>
+          <section>
+            <AppTitle>Looking for a specific recipe?</AppTitle>
+            <InputSearch
+              handleInputChange={e => setInputData(e.target.value)}
+              handleSearch={() => handleSearch()}
+              placeholder="We have tasty pizzas, try it :)"
+            />
+            <FindRecipesCard
+              image={tutorialSvg}
+              direction="/favorites" // change later
+              text="Watch any tutorial you want, anytime, anywhere"
+            />
+          </section>
 
-            <section>
-              <AppTitle>Try to get a random recipe</AppTitle>
-              <RandomRecipeCard />
-            </section>
+          <section>
+            <AppTitle>Try to get a random recipe</AppTitle>
+            <RandomRecipeCard />
+          </section>
 
-            <section>
-              <AppTitle>Find a recipe by its type</AppTitle>
-              <HorizontalList>
-                {recipesType.map(type => {
-                  return (
-                    <li key={type.id}>
-                      <button
-                        data-type={type.id}
-                        onClick={e => handleRecipesByType(e)}
-                      >
-                        {type.text}
-                      </button>
-                    </li>
-                  );
-                })}
-              </HorizontalList>
-            </section>
+          <section>
+            <AppTitle>Find a recipe by its type</AppTitle>
+            <HorizontalList>
+              {recipesType.map(type => {
+                return (
+                  <li key={type.id}>
+                    <button
+                      data-type={type.id}
+                      onClick={e => handleRecipesByType(e)}
+                    >
+                      {type.text}
+                    </button>
+                  </li>
+                );
+              })}
+            </HorizontalList>
+          </section>
 
-            <section>
-              <AppTitle>Or more, get a quick recipe</AppTitle>
-              <HorizontalList>
-                {recipesCookingTime.map(time => {
-                  return (
-                    <li key={time.id}>
-                      <button
-                        data-timing={time.id}
-                        onClick={e => handleRecipesByTiming(e)}
-                      >
-                        {time.text}
-                      </button>
-                    </li>
-                  );
-                })}
-              </HorizontalList>
-            </section>
+          <section>
+            <AppTitle>Or more, get a quick recipe</AppTitle>
+            <HorizontalList>
+              {recipesCookingTime.map(time => {
+                return (
+                  <li key={time.id}>
+                    <button
+                      data-timing={time.id}
+                      onClick={e => handleRecipesByTiming(e)}
+                    >
+                      {time.text}
+                    </button>
+                  </li>
+                );
+              })}
+            </HorizontalList>
+          </section>
 
-            <section>
-              <AppTitle>Curious about other cuisines?</AppTitle>
-              <RecipesGrid>
-                {recipesCuisines.map(cuisine => {
-                  return (
-                    <BasedRecipeCard
-                      key={cuisine}
-                      data={cuisine}
-                      image={cuisine}
-                      title={cuisine}
-                      handleClick={e => handleRecipesByCuisine(e)}
-                    />
-                  );
-                })}
-              </RecipesGrid>
-            </section>
-          </main>
-        </Container>
-      </Wrapper>
+          <section>
+            <AppTitle>Curious about some other cuisines?</AppTitle>
+            <RecipesGrid>
+              {recipesCuisines.map(cuisine => {
+                return (
+                  <BasedRecipeCard
+                    key={cuisine.id}
+                    data={cuisine.id}
+                    image={cuisine.id}
+                    title={cuisine.id}
+                    text={cuisine.info}
+                    handleClick={e => handleRecipesByCuisine(e)}
+                  />
+                );
+              })}
+            </RecipesGrid>
+          </section>
+        </main>
+      </Container>
     </Layout>
   );
 }

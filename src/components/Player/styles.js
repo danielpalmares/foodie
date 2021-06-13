@@ -46,8 +46,9 @@ export const PlayerWrapper = styled.div`
   position: relative;
   padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
 
-  border: 2px solid ${props => props.theme.colors.border};
-  border-radius: 1rem;
+  border: ${props => props.theme.border.size} solid
+    ${props => props.theme.border.color};
+  border-radius: ${props => props.theme.border.radius};
   overflow: hidden;
 
   .react-player {

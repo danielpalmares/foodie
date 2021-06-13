@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useObserver } from '../../../hooks';
 
@@ -10,16 +10,20 @@ import Spinner from '../../../components/Spinner';
 
 import Player from '../../../components/Player';
 
-import { Container, ObserverTarget } from './styles';
+import { Container, TutorialSection } from './styles';
 
 import { getPagination } from '../../../utils';
 
+import { activePageAction } from '../../../store/activePage';
+
 export default function Tutorials() {
   const dispatch = useDispatch();
+  useEffect(() => dispatch(activePageAction('tutorials')));
+
   const tutorials = useSelector(state => state.recipeVideos.videos);
 
   const [setRef, visible, clearRef] = useObserver({
-    threshold: 1.0,
+    threshold: 1,
   });
 
   const [changedInput, setChangedInput] = useState('');
@@ -129,7 +133,10 @@ export default function Tutorials() {
           {videos &&
             videos.map((tutorial, i) => {
               return (
-                <section key={i} ref={resultsCount - 1 === i ? setRef : null}>
+                <TutorialSection
+                  key={i}
+                  ref={resultsCount - 1 === i ? setRef : null}
+                >
                   <Player
                     key={tutorial.id}
                     tutorialID={tutorial.id}
@@ -145,7 +152,7 @@ export default function Tutorials() {
                     }
                     handlePreview={() => setCurrentTutorialID(tutorial.id)}
                   />
-                </section>
+                </TutorialSection>
               );
             })}
         </main>

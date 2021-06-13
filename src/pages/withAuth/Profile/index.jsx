@@ -27,7 +27,14 @@ import {
   InstructionsContainer,
 } from './styles';
 
+import { useDispatch } from 'react-redux';
+import { activePageAction } from '../../../store/activePage';
+
 export default function Profile() {
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(activePageAction('profile')));
+
   // setting up the observer
   const [setRef, visible] = useObserver(instructorObserverOptions);
 

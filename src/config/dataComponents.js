@@ -24,16 +24,36 @@ export const recipesCookingTime = [
 ];
 
 export const recipesCuisines = [
-  'british',
-  'caribbean',
-  'chinese',
-  'french',
-  'greek',
-  'irish',
-  'italian',
-  'japanese',
-  'jewish',
-  'mexican',
-  'nordic',
-  'spanish',
+  {
+    id: 'british',
+    info: 'It may be considered the sum of the culinary habits and traditions of its components, such as the cuisine of England, Scotland and Gibraltar, among many others.',
+  },
+  {
+    id: 'caribbean',
+    info: 'It is a combination of African, Amerindian, French, Indian and Spanish cuisine. These traditions were brought from many countries of origin by the regional population.',
+  },
+  {
+    id: 'chinese',
+    info: 'It consists of several dishes and customs considered exotic by the western population.',
+  },
+  {
+    id: 'french',
+    info: 'Wide variety of cheeses, wines, meats and sweets is the hallmark of France in terms of gastronomy.',
+  },
+  {
+    id: 'greek',
+    info: 'With many similar characteristics to the cuisines of Italy, Balkans, Turkey and the Middle East in general.',
+  },
+  {
+    id: 'irish',
+    info: 'It can be divided into two main categories: traditional, which basically consists of simple dishes, and more modern dishes, such as those served in restaurants and hotels.',
+  },
+  {
+    id: 'italian',
+    info: 'With features influences from Etruscan cuisine, ancient Greece, ancient Rome, Byzantine, Hebrew and Arabic cuisine.',
+  },
+  {
+    id: 'japanese',
+    info: 'Traditional Japanese cuisine is dominated by white rice (hakumai, 白米), and just a few meals would be made without it.',
+  },
 ];

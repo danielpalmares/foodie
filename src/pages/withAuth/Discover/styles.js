@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 0 1rem;
-
   main {
     display: flex;
     flex-direction: column;
@@ -14,7 +12,7 @@ export const Container = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     margin: 2rem 0;
   }
 `;
@@ -30,7 +28,10 @@ export const HorizontalList = styled.ul`
       font-family: 'Nunito', sans-serif;
       font-size: ${props => props.theme.fontSizes.larger};
       font-weight: 700;
-      color: ${props => props.theme.fontColors.primary};
+      color: ${props =>
+        props.theme.mode === 'light'
+          ? props.theme.fontColors.secondary
+          : props.theme.fontColors.primary};
       text-align: center;
       white-space: nowrap;
 
@@ -39,7 +40,7 @@ export const HorizontalList = styled.ul`
       padding: 1rem;
       border-radius: ${props => props.theme.border.radius};
 
-      background: ${props => props.theme.colors.quaternary};
+      background: ${props => props.theme.colors.tertiary};
       transition: all 0.2s;
       cursor: pointer;
     }

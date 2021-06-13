@@ -17,9 +17,13 @@ import {
   PaginationContainer,
 } from './styles';
 
+import { activePageAction } from '../../../store/activePage';
+
 export default function Search() {
   const dispatch = useDispatch();
   const recipesRef = useRef();
+
+  useEffect(() => dispatch(activePageAction('search')));
 
   // access to all recipes from state
   const recipes = useSelector(

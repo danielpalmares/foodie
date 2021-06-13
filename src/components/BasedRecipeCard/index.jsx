@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, TextContainer } from './styles';
 
-export default function BasedRecipeCard({ image, title, handleClick, data }) {
+export default function BasedRecipeCard({
+  image,
+  title,
+  handleClick,
+  data,
+  text,
+}) {
   return (
     <>
       <Container
@@ -10,7 +16,10 @@ export default function BasedRecipeCard({ image, title, handleClick, data }) {
         onClick={handleClick}
         data-cuisine={data}
       >
-        <span>{title}</span>
+        <TextContainer>
+          <span>{title}</span>
+          <p>{text}</p>
+        </TextContainer>
       </Container>
     </>
   );

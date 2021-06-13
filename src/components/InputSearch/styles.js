@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const InputWrapper = styled.div`
   width: 100%;
   position: relative;
-  margin: 2rem 0;
+  /* margin: 2rem 0; */
 
   input {
     font-family: 'Nunito', sans-serif;
@@ -14,9 +14,14 @@ export const InputWrapper = styled.div`
     padding: 2rem 5rem 2rem 1rem;
 
     background: ${props => props.theme.colors.absolute};
-    border: none;
+    border: ${props => props.theme.border.size} solid
+      ${props => props.theme.border.color};
     border-radius: ${props => props.theme.border.radius};
     outline: none;
+
+    &:focus {
+      border-color: ${props => props.theme.colors.quaternary};
+    }
 
     &::placeholder {
       font-size: 1.4rem;
@@ -37,7 +42,7 @@ export const InputWrapper = styled.div`
 
     padding: 0.5rem;
 
-    background: ${props => props.theme.colors.tertiary};
+    background: ${props => props.theme.colors.quaternary};
     outline: none;
     border: none;
     border-radius: ${props => props.theme.border.radius};

@@ -2,11 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
+  height: 15rem;
   background: ${props => props.theme.colors.absolute};
+
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   padding: 1rem;
+  /* margin-bottom: 1rem; */
 
   border: none;
   border-radius: ${props => props.theme.border.radius};
@@ -15,7 +18,7 @@ export const Container = styled.div`
 export const IconContainer = styled.div`
   background: ${props => props.theme.background};
   width: 30%;
-  height: 10rem;
+  height: 100%;
   border-radius: ${props => props.theme.border.radius};
   padding: 1rem;
   overflow: hidden;
@@ -28,10 +31,17 @@ export const IconContainer = styled.div`
 
 export const TextContainer = styled.div`
   width: 70%;
+  height: 100%;
   padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   font-size: ${props => props.theme.fontSizes.regular};
   line-height: 1.5;
+
+  overflow: hidden;
 
   p {
     color: ${props => props.theme.fontColors.primary};

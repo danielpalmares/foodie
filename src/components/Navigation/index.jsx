@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import Wrapper from '../../components/Wrapper';
 
 import {
   IoCompassOutline,
@@ -8,47 +10,51 @@ import {
   IoPlayOutline,
   IoPersonOutline,
 } from 'react-icons/io5';
-import { NavContainer } from './styles';
+import { NavContainer, Button } from './styles';
+
+import { useSelector } from 'react-redux';
 
 export default function Navigation() {
+  const { activePage } = useSelector(state => state.activePage);
+
   return (
-    <>
+    <Wrapper>
       <NavContainer>
         <Link to="/discover">
-          <button>
+          <Button isActive={activePage === 'discover'}>
             <IoCompassOutline size={26} />
             <span>Discover</span>
-          </button>
+          </Button>
         </Link>
 
         <Link to="/search">
-          <button>
+          <Button isActive={activePage === 'search'}>
             <IoSearchOutline size={26} />
             <span>Search</span>
-          </button>
+          </Button>
         </Link>
 
         <Link to="/upload">
-          <button>
+          <Button isActive={activePage === 'upload'}>
             <IoAddCircleOutline size={26} />
             <span>Upload</span>
-          </button>
+          </Button>
         </Link>
 
         <Link to="/favorites">
-          <button>
+          <Button isActive={activePage === 'tutorials'}>
             <IoPlayOutline size={26} />
             <span>Tutorials</span>
-          </button>
+          </Button>
         </Link>
 
         <Link to="/profile">
-          <button>
+          <Button isActive={activePage === 'profile'}>
             <IoPersonOutline size={26} />
             <span>Profile</span>
-          </button>
+          </Button>
         </Link>
       </NavContainer>
-    </>
+    </Wrapper>
   );
 }
