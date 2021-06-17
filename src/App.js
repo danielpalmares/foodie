@@ -8,8 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './styles/global';
 
 export default function App() {
-  const theme = useSelector(state => state.switchThemeReducer.theme);
-  console.log(theme);
+  const { theme } = useSelector(state => state.theme);
 
   return (
     <ThemeProvider theme={theme}>

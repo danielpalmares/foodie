@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.header`
+export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,23 +26,7 @@ export const HeaderContainer = styled.header`
     }
   }
 
-  img {
-    height: calc(86px / 2);
-  }
-`;
-
-export const UserContainer = styled.div`
-  width: 4.6rem;
-  height: 4.6rem;
-  transition: all 0.2s;
-
-  &:active {
-    transform: translateY(0.5rem) scale(0.9);
-  }
-
-  img {
-    height: 100%;
-    width: 100%;
-    cursor: pointer;
+  .logo {
+    height: 4.5rem;
   }
 `;

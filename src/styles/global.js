@@ -32,29 +32,13 @@ export const GlobalStyles = createGlobalStyle`
   // Works on Firefox 
   * {
     scrollbar-width: thin;
-    scrollbar-color: ${props => props.theme.colors.border} transparent;
-
-    @media screen and (min-width: 320px) {
-      scrollbar-width: 0;
-    }
-
-    @media screen and (min-width: 768px) {
-      scrollbar-width: thin;
-    }
+    scrollbar-color: ${props => props.theme.border.color} transparent;
   }
 
   // Works on Chrome, Edge, and Safari 
   *::-webkit-scrollbar {
     width: 6px; // overflow y
     height: 6px; // overflow x
-
-    @media screen and (min-width: 320px) {
-      display: none;
-    }
-
-    @media screen and (min-width: 768px) {
-      display: block;
-    }
   }
 
   *::-webkit-scrollbar-track {
@@ -62,7 +46,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   *::-webkit-scrollbar-thumb {
-    background-color: ${props => props.theme.colors.border};
+    background-color: ${props => props.theme.border.color};
     border-radius: 2rem;
     border: none;
   }

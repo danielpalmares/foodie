@@ -10,17 +10,15 @@ export default function BasedRecipeCard({
   text,
 }) {
   return (
-    <>
-      <Container
-        imageSrc={`${process.env.PUBLIC_URL + 'images/' + image + '.jpg'}`}
-        onClick={handleClick}
-        data-cuisine={data}
-      >
-        <TextContainer>
-          <span>{title}</span>
-          <p>{text}</p>
-        </TextContainer>
-      </Container>
-    </>
+    <Container
+      imageSrc={`${process.env.PUBLIC_URL + 'images/' + image + '.jpg'}`}
+      onClick={handleClick}
+      data-cuisine={data}
+    >
+      <TextContainer>
+        <span>{title}</span>
+        <p>{text}</p>
+      </TextContainer>
+    </Container>
   );
 }

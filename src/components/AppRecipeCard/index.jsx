@@ -13,24 +13,23 @@ export default function AppRecipeCard({
   likes = 0,
   imageSrc,
   handleRecipe,
+  refValue,
 }) {
   return (
-    <>
-      <RecipeCardContainer imageSrc={imageSrc} onClick={handleRecipe}>
-        <RecipeCardInfo>
-          <RecipeCardTitle>{title}</RecipeCardTitle>
+    <RecipeCardContainer ref={refValue} imageSrc={imageSrc}>
+      <RecipeCardInfo>
+        <RecipeCardTitle>{title}</RecipeCardTitle>
 
-          <RecipeCardInfoContainer>
-            <span>
-              <IoHeartSharp size={26} color="#FE251B" /> {likes}{' '}
-              {likes === 1 ? 'like' : 'likes'}
-            </span>
-            <button onClick={handleRecipe}>
-              How to make <IoArrowForwardOutline size={14} />
-            </button>
-          </RecipeCardInfoContainer>
-        </RecipeCardInfo>
-      </RecipeCardContainer>
-    </>
+        <RecipeCardInfoContainer>
+          <span>
+            <IoHeartSharp size={26} color="#FE251B" /> {likes}{' '}
+            {likes === 1 ? 'like' : 'likes'}
+          </span>
+          <button onClick={handleRecipe}>
+            How to make <IoArrowForwardOutline size={14} />
+          </button>
+        </RecipeCardInfoContainer>
+      </RecipeCardInfo>
+    </RecipeCardContainer>
   );
 }

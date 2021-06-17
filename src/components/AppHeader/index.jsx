@@ -1,39 +1,54 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { dark, light } from '../../styles/themes';
-import { switchThemeAction } from '../../store/switchTheme';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+import { dark, light } from '../../styles/themes';
+import { themeAction } from '../../store/theme';
 
 import Logo from '../../assets/foodie-logo.svg';
+
 import {
   IoArrowBackOutline,
   IoMoonSharp,
   IoSunnySharp,
   IoSettingsOutline,
 } from 'react-icons/io5';
-import { HeaderContainer, UserContainer } from './styles';
+import { Header } from './styles';
 
 export default function AppHeader({
-  onlyBackButton = false,
-  profileHeader = false,
-  defaultHeader = false,
+  defaultHeader,
+  onlyBackButton,
+  profileHeader,
 }) {
-  // setting up back page button
+  const dispatch = useDispatch();
   const history = useHistory();
+
+  // setting up back page button
   const goBack = () => history.goBack();
 
   // setting up switch theme button
-  const dispatch = useDispatch();
-  const currentTheme = useSelector(
-    state => state.switchThemeReducer.theme.mode
-  );
+  const currentTheme = useSelector(state => state.theme.theme.mode);
   const switchTheme = () =>
     currentTheme === 'light'
-      ? dispatch(switchThemeAction(dark))
-      : dispatch(switchThemeAction(light));
+      ? dispatch(themeAction(dark))
+      : dispatch(themeAction(light));
 
   return (
-    <HeaderContainer>
+    <Header>
+      {defaultHeader && (
+        <>
+          <img src={Logo} className="logo" alt="Foodie logo" />
+
+          <button onClick={switchTheme}>
+            {currentTheme === 'light' ? (
+              <IoMoonSharp size={26} color="#F4F1C9" />
+            ) : (
+              <IoSunnySharp size={26} color="#FDB813" />
+            )}
+          </button>
+        </>
+      )}
+
       {onlyBackButton && (
         <button onClick={goBack}>
           <IoArrowBackOutline size={26} />
@@ -51,24 +66,6 @@ export default function AppHeader({
           </button>
         </>
       )}
-
-      {defaultHeader && (
-        <>
-          <img src={Logo} alt="Foodie logo" />
-
-          <button onClick={switchTheme}>
-            {currentTheme === 'light' ? (
-              <IoMoonSharp size={26} color="#F4F1C9" />
-            ) : (
-              <IoSunnySharp size={26} color="#FDB813" />
-            )}
-          </button>
-
-          {/* <UserContainer>
-            <img src="/images/woman-1.png" alt="User Profile" />
-          </UserContainer> */}
-        </>
-      )}
-    </HeaderContainer>
+    </Header>
   );
 }

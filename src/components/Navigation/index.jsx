@@ -41,7 +41,7 @@ export default function Navigation() {
           </Button>
         </Link>
 
-        <Link to="/favorites">
+        <Link to="/tutorials">
           <Button isActive={activePage === 'tutorials'}>
             <IoPlayOutline size={26} />
             <span>Tutorials</span>

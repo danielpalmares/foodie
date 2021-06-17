@@ -23,26 +23,24 @@ export const HorizontalList = styled.ul`
   gap: 2rem;
   overflow: scroll;
 
-  li {
-    button {
-      font-family: 'Nunito', sans-serif;
-      font-size: ${props => props.theme.fontSizes.larger};
-      font-weight: 700;
-      color: ${props =>
-        props.theme.mode === 'light'
-          ? props.theme.fontColors.secondary
-          : props.theme.fontColors.primary};
-      text-align: center;
-      white-space: nowrap;
+  li button {
+    font-family: 'Nunito', sans-serif;
+    font-size: ${props => props.theme.fontSizes.larger};
+    font-weight: 700;
+    color: ${props =>
+      props.theme.mode === 'light'
+        ? props.theme.fontColors.secondary
+        : props.theme.fontColors.primary};
+    text-align: center;
+    white-space: nowrap;
 
-      outline: none;
-      border: none;
-      padding: 1rem;
-      border-radius: ${props => props.theme.border.radius};
+    outline: none;
+    border: none;
+    padding: 1rem;
+    border-radius: ${props => props.theme.border.radius};
 
-      background: ${props => props.theme.colors.tertiary};
-      transition: all 0.2s;
-      cursor: pointer;
-    }
+    background: ${props => props.theme.colors.tertiary};
+    transition: all 0.2s;
+    cursor: pointer;
   }
 `;

@@ -8,6 +8,7 @@ import AppTitle from '../../../components/AppTitle';
 import Spinner from '../../../components/Spinner';
 import PreviousPageButton from '../../../components/AppPrevPageBtn';
 import NextPageButton from '../../../components/AppNextPageBtn';
+import InputSearch from '../../../components/InputSearch';
 
 import { IoSearchOutline } from 'react-icons/io5';
 import {
@@ -23,12 +24,11 @@ export default function Search() {
   const dispatch = useDispatch();
   const recipesRef = useRef();
 
+  // set active page
   useEffect(() => dispatch(activePageAction('search')));
 
-  // access to all recipes from state
-  const recipes = useSelector(
-    state => state.recipesByIngredientsReducer.data?.recipes
-  );
+  // get all recipes from state
+  const recipes = useSelector(state => state.recipesByIngredients.data);
 
   // states for pagination
   const [recipesPerPage, setRecipesPerPage] = useState([]);
@@ -37,6 +37,7 @@ export default function Search() {
   const [maxPages, setMaxPages] = useState(null);
   const [previousButton, setPreviousButton] = useState(false);
   const [nextButton, setNextButton] = useState(false);
+
   // states for other functionalities
   const [spinner, setSpinner] = useState(false);
   const [inputData, setInputData] = useState('');
@@ -117,7 +118,7 @@ export default function Search() {
     return;
   }
 
-  // handle pagination click event
+  // handle pagination
   function handlePagination(prevOrNext) {
     // set current page
     prevOrNext === 'previous'
@@ -174,17 +175,11 @@ export default function Search() {
           <AppTitle>What's in your kitchen?</AppTitle>
           <span>Enter up to 2 ingredients or more</span>
 
-          <InputWrapper>
-            <input
-              type="text"
-              placeholder="Apple, Avocado, Peanut Butter..."
-              onChange={e => setInputData(e.target.value)}
-            />
-
-            <button onClick={() => handleSearchRecipes()}>
-              <IoSearchOutline size={26} />
-            </button>
-          </InputWrapper>
+          <InputSearch
+            handleInputChange={e => setInputData(e.target.value)}
+            handleSearch={() => handleSearchRecipes()}
+            placeholder="Apple, Avocado, Peanut Butter..."
+          />
         </header>
 
         <GridLayout ref={recipesRef}>

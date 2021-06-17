@@ -8,6 +8,7 @@ export default {
     tertiary: '#3A86FF', // blue
     quaternary: '#8338EC', // purple
     absolute: '#000',
+    red: '#E31B23',
   },
 
   border: {

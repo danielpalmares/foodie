@@ -129,7 +129,6 @@ export default function Tutorials() {
 
           {spinner && <Spinner />}
 
-          {console.log(videos, currentPage)}
           {videos &&
             videos.map((tutorial, i) => {
               return (

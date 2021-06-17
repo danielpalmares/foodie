@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect, useHistory, generatePath } from 'react-router-dom';
 
 import Layout from '../../../pages/Layout';
 
@@ -6,7 +7,7 @@ import BasedRecipeCard from '../../../components/BasedRecipeCard';
 
 import { Container, HorizontalList } from './styles';
 import FindRecipesCard from '../../../components/FindRecipesCard';
-import Wrapper from '../../../components/Wrapper';
+
 import AppTitle from '../../../components/AppTitle';
 import InputSearch from '../../../components/InputSearch';
 
@@ -14,18 +15,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import RandomRecipeCard from '../../../components/RandomRecipeCard';
 
 import RecipesGrid from '../../../components/RecipesGrid';
-import SearchVideoButton from '../../../components/SearchVideoButton';
 
 import dietSvg from '../../../assets/diet.svg';
 import chefSvg from '../../../assets/chef.svg';
 import tutorialSvg from '../../../assets/tutorial.svg';
-
-import { apiComplexSearch } from '../../../services/spoonacular/api';
-import { recipesByNameAction } from '../../../store/recipesByName';
-import { recipesByTypeAction } from '../../../store/recipesByType';
-import { recipesByCuisineAction } from '../../../store/recipesByCuisine';
-import { recipesByTimingAction } from '../../../store/recipesByTiming';
-import { recipeVideosAction } from '../../../store/recipeVideos';
 
 import {
   recipesType,
@@ -36,47 +29,13 @@ import { activePageAction } from '../../../store/activePage';
 
 export default function Discover() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
+  // set active page
   useEffect(() => dispatch(activePageAction('discover')));
 
-  const recipes = useSelector(state => state.recipesByName?.data);
-  const videos = useSelector(state => state.recipeVideos);
-  console.log(recipes);
-  console.log(videos);
-
+  // search recipe input
   const [inputData, setInputData] = useState('');
-  const [recipeName, setRecipeName] = useState('');
-  const [recipeType, setRecipeType] = useState('');
-  const [recipeTiming, setRecipeTiming] = useState(0);
-  const [recipeCuisine, setRecipeCuisine] = useState('');
-
-  // fetch recipes by name
-  useEffect(() => {
-    if (!recipeName) return;
-
-    return dispatch(recipesByNameAction(recipeName));
-  }, [recipeName]);
-
-  // fetch recipes by type
-  useEffect(() => {
-    if (!recipeType) return;
-
-    return dispatch(recipesByTypeAction(recipeType));
-  }, [recipeType]);
-
-  // fetch recipes by cuisine
-  useEffect(() => {
-    if (!recipeCuisine) return;
-
-    return dispatch(recipesByCuisineAction(recipeCuisine));
-  }, [recipeCuisine]);
-
-  // fetch recipes by timing
-  useEffect(() => {
-    if (!recipeTiming) return;
-
-    return dispatch(recipesByTimingAction(recipeTiming));
-  }, [recipeTiming]);
 
   // format input data
   function formatInputString(inputString) {
@@ -90,36 +49,41 @@ export default function Discover() {
   }
 
   // send recipe name formatted to its state
-  function handleSearch() {
-    const newRecipeName = formatInputString(inputData);
+  function handleRecipesByName() {
+    const recipeName = formatInputString(inputData);
 
-    if (newRecipeName === recipeName) return;
-
-    return setRecipeName(newRecipeName);
+    return history.push({
+      pathname: '/discover/results',
+      search: `?query=${recipeName}`,
+    });
   }
 
   function handleRecipesByType(e) {
     const type = e.target.dataset.type;
 
-    if (type === recipeType) return;
-
-    return setRecipeType(type);
+    // return history.push({
+    //   pathname: '/discover/results',
+    //   search: `?type=${type}`,
+    // });
   }
 
   function handleRecipesByCuisine(e) {
+    console.log(e.target);
     const cuisine = e.target.dataset.cuisine;
 
-    if (cuisine === recipeCuisine) return;
-
-    return setRecipeCuisine(cuisine);
+    // return history.push({
+    //   pathname: '/discover/results',
+    //   search: `?cuisine=${cuisine}`,
+    // });
   }
 
   function handleRecipesByTiming(e) {
-    const timing = e.target.dataset.timing;
+    const maxReadyTime = e.target.dataset.timing;
 
-    if (timing === recipeTiming) return;
-
-    return setRecipeTiming(timing);
+    // return history.push({
+    //   pathname: '/discover/results',
+    //   search: `?maxReadyTime=${maxReadyTime}`,
+    // });
   }
 
   const greetingByTime = () => {
@@ -133,14 +97,6 @@ export default function Discover() {
       return 'Good Night!';
     }
   };
-
-  async function test() {
-    const res = await fetch(
-      'https://api.spoonacular.com/recipes/random?number=1&apiKey=ce9ca7ccb5154bcfa3dfda280afcdd30'
-    );
-    const data = await res.json();
-    return console.log(data);
-  }
 
   return (
     <Layout defaultHeader>
@@ -164,7 +120,7 @@ export default function Discover() {
             <AppTitle>Looking for a specific recipe?</AppTitle>
             <InputSearch
               handleInputChange={e => setInputData(e.target.value)}
-              handleSearch={() => handleSearch()}
+              handleSearch={() => handleRecipesByName()}
               placeholder="We have tasty pizzas, try it :)"
             />
             <FindRecipesCard

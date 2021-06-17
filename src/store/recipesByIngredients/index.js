@@ -1,59 +1,29 @@
-import { apiFindByIngredients } from '../../services/spoonacular/api';
-
-const FOUND_RECIPES = 'FOUND_RECIPES';
-const RECIPES_NOT_FOUND = 'RECIPES_NOT_FOUND';
-
-export async function recipesByIngredientsAction(ingredients) {
-  try {
-    const res = await apiFindByIngredients.get(`?ingredients=${ingredients}`);
-    const { data, status, statusText } = res;
-
-    if (status !== 200) throw new Error(statusText);
-
-    const recipes = data.map(rec => {
-      return {
-        id: rec.id,
-        title: rec.title,
-        image: rec.image,
-        likes: rec.likes,
-      };
-    });
-
-    return {
-      type: FOUND_RECIPES,
-      payload: {
-        status: statusText,
-        recipes: recipes,
-      },
-    };
-  } catch (err) {
-    return {
-      type: RECIPES_NOT_FOUND,
-      payload: {
-        status: err,
-        recipes: null,
-      },
-    };
-  }
-}
+import { recipesByIngredientsAction } from './actions';
+import {
+  FOUND_RECIPES_BY_INGREDIENTS,
+  RECIPES_BY_INGREDIENTS_NOT_FOUND,
+} from './types';
 
 const initialState = {
   data: null,
+  status: '',
 };
 
-export function recipesByIngredientsReducer(state = initialState, action) {
+function recipesByIngredients(state = initialState, action) {
   switch (action.type) {
-    case FOUND_RECIPES:
+    case FOUND_RECIPES_BY_INGREDIENTS:
       return {
         ...state,
-        data: action.payload,
+        data: action.payload.recipes,
       };
-    case RECIPES_NOT_FOUND:
+    case RECIPES_BY_INGREDIENTS_NOT_FOUND:
       return {
         ...state,
-        data: action.payload,
+        status: action.payload.status,
       };
     default:
       return state;
   }
 }
+
+export { recipesByIngredients, recipesByIngredientsAction };

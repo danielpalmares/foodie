@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+export const fillOpacity = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
 
 export const RecipeCardContainer = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
@@ -19,6 +29,10 @@ export const RecipeCardContainer = styled.div`
   /* margin: 2rem 0; */
 
   transition: all 0.2s;
+
+  opacity: 0;
+  transition: all 0.2s;
+  animation: 2s ${fillOpacity} cubic-bezier(0.73, 0.4, 0.4, 0.66) forwards;
 `;
 
 export const RecipeCardInfo = styled.div`
@@ -32,7 +46,7 @@ export const RecipeCardTitle = styled.h3`
   font-weight: 700;
   color: ${props =>
     props.theme.mode === 'light'
-      ? props.theme.fontColors.bg
+      ? props.theme.fontColors.secondary
       : props.theme.fontColors.primary};
 
   // for text overflowing
@@ -49,7 +63,7 @@ export const RecipeCardInfoContainer = styled.div`
 
   color: ${props =>
     props.theme.mode === 'light'
-      ? props.theme.fontColors.bg
+      ? props.theme.fontColors.secondary
       : props.theme.fontColors.primary};
 
   span {
@@ -63,6 +77,8 @@ export const RecipeCardInfoContainer = styled.div`
   }
 
   button {
+    font-family: 'Nunito', sans-serif;
+
     display: flex;
     justify-content: center;
     align-items: center;

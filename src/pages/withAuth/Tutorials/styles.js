@@ -67,6 +67,5 @@ export const fadeIn = keyframes`
 export const TutorialSection = styled.section`
   opacity: 0;
   transition: all 0.2s;
-
   animation: 2s ${fadeIn} cubic-bezier(0.73, 0.4, 0.4, 0.66) forwards;
 `;

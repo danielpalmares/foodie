@@ -14,8 +14,7 @@ export const InputWrapper = styled.div`
     padding: 2rem 5rem 2rem 1rem;
 
     background: ${props => props.theme.colors.absolute};
-    border: ${props => props.theme.border.size} solid
-      ${props => props.theme.border.color};
+    border: ${props => props.theme.border.size} solid transparent;
     border-radius: ${props => props.theme.border.radius};
     outline: none;
 
