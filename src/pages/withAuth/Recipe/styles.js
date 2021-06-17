@@ -28,6 +28,10 @@ export const RecipePhoto = styled.div`
   position: relative;
 
   border-radius: ${props => props.theme.border.radius};
+
+  @media screen and (min-width: 425px) {
+    height: 30rem;
+  }
 `;
 
 export const FavoriteButton = styled.button`
@@ -122,6 +126,15 @@ export const ChangeIngredients = styled.div`
       transform: translateY(0.25rem) scale(0.9);
     }
   }
+
+  .inactive {
+    cursor: auto;
+    opacity: 0.2;
+
+    &:active {
+      transform: none;
+    }
+  }
 `;
 
 export const IngredientsList = styled.ul`
@@ -129,8 +142,8 @@ export const IngredientsList = styled.ul`
   display: flex;
   flex-direction: column;
 
-  gap: 1rem;
-  margin: 1rem 0;
+  gap: 2rem;
+  margin: 2rem 0;
 
   li {
     display: flex;
@@ -138,13 +151,21 @@ export const IngredientsList = styled.ul`
     align-items: flex-start;
     gap: 1rem;
 
+    span {
+      text-transform: capitalize;
+    }
+
     strong {
+      color: ${props => props.theme.colors.primary};
+      text-transform: lowercase;
       white-space: nowrap;
     }
   }
 `;
 
 export const StepContainer = styled.div`
+  margin-bottom: 2rem;
+
   span {
     font-size: ${props => props.theme.fontSizes.larger};
     font-weight: 700;

@@ -1,53 +1,29 @@
-import { apiGetRecipeInformation } from '../../services/spoonacular/api';
+import { recipeInformationAction } from './actions';
+import {
+  RECIPE_INFORMATION_FOUND,
+  RECIPE_INFORMATION_NOT_FOUND,
+} from './types';
 
-export async function recipeInformationAction(id) {
-  try {
-    const response = await apiGetRecipeInformation.get(`${id}/information`);
-    const { data, status, statusText } = response;
-    console.log(data);
+const initialState = {
+  recipe: null,
+  status: '',
+};
 
-    if (status !== 200) throw new Error(statusText);
-
-    const recipe = Array({ ...data });
-
-    const recipeInformation = recipe.map(recipe => {
+function recipeInformation(state = initialState, action) {
+  switch (action.type) {
+    case RECIPE_INFORMATION_FOUND:
       return {
-        id: recipe.id,
-        title: recipe.title,
-        image: recipe.image,
-        cookingTime: recipe.readyInMinutes,
-        likes: recipe.aggregateLikes,
-
-        dairyFree: recipe.dairyFree,
-        glutenFree: recipe.glutenFree,
-        veryHealthy: recipe.veryHealthy,
-        veryPopular: recipe.veryPopular,
-        sustainable: recipe.sustainable,
-
-        ingredients: [...recipe.extendedIngredients].map(ingredient => {
-          return {
-            name: ingredient.name,
-            amount: ingredient.amount,
-            unit: ingredient.unit,
-          };
-        }),
-        servings: recipe.servings,
-
-        instructions: Array({ ...recipe.analyzedInstructions[0] }).map(
-          instruction => {
-            return [
-              ...[...instruction.steps].map(step => {
-                return {
-                  number: step.number,
-                  step: step.step,
-                };
-              }),
-            ];
-          }
-        ),
+        ...state,
+        recipe: action.payload.recipeInformation,
       };
-    });
-
-    console.log(recipeInformation);
-  } catch (err) {}
+    case RECIPE_INFORMATION_NOT_FOUND:
+      return {
+        ...state,
+        status: action.payload.status,
+      };
+    default:
+      return state;
+  }
 }
+
+export { recipeInformation, recipeInformationAction };

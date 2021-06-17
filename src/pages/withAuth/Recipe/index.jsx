@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useLocation } from 'react-router-dom';
 
 import Layout from '../../Layout';
 import AppTitle from '../../../components/AppTitle';
 
 import { recipeInformationAction } from '../../../store/recipeInformation';
+
+import { getFractional } from '../../../utils';
 
 import {
   IoAddOutline,
@@ -27,78 +30,122 @@ import {
   StepContainer,
 } from './styles';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 export default function Recipe() {
+  const dispatch = useDispatch();
   const { search } = useLocation();
   const id = search.split('=').pop();
 
-  console.log(id);
+  const recipe = useSelector(state => state.recipeInformation.recipe);
+  console.log(recipe);
 
   useEffect(() => {
-    recipeInformationAction(id);
-  });
+    dispatch(recipeInformationAction(id));
+  }, [dispatch, id]);
+
+  const [ingredients, setIngredients] = useState([]);
+  const [servings, setServings] = useState(0);
+
+  useEffect(() => {
+    if (!recipe) return;
+
+    setIngredients(recipe.ingredients);
+    setServings(recipe.servings);
+    return;
+  }, [recipe]);
+
+  function handleUpdateServings(newServings) {
+    ingredients.forEach(ingredient => {
+      ingredient.amount = (ingredient.amount * newServings) / servings;
+    });
+
+    setServings(newServings);
+    return;
+  }
 
   return (
     <Layout onlyBackButton>
       <Container>
-        <section>
-          <RecipeTitle>Torta de Maçã</RecipeTitle>
+        {recipe && (
+          <>
+            <section>
+              <RecipeTitle>{recipe.title}</RecipeTitle>
 
-          <RecipePhoto imageSrc="https://img.itdg.com.br/tdg/images/recipes/000/121/412/177581/177581_original.jpg?mode=crop&width=710&height=400">
-            <FavoriteButton>
-              <IoHeartOutline size={26} />
-            </FavoriteButton>
-          </RecipePhoto>
+              <RecipePhoto imageSrc={recipe.image}>
+                <FavoriteButton>
+                  <IoHeartOutline size={26} />
+                </FavoriteButton>
+              </RecipePhoto>
 
-          <InfoContainer>
-            <span>
-              <IoTimerOutline size={18} /> 10 min
-            </span>
-            <span>
-              <IoThumbsUpOutline size={18} /> 12 likes
-            </span>
-          </InfoContainer>
+              <InfoContainer>
+                <span>
+                  <IoTimerOutline size={18} /> {recipe.cookingTime} min
+                </span>
+                <span>
+                  <IoThumbsUpOutline size={18} /> {recipe.likes}
+                  {recipe.likes === 1 ? ' like' : ' likes'}
+                </span>
+              </InfoContainer>
 
-          <BadgeContainer>
-            <Badge>Dairy Free</Badge>
-            <Badge>Gluten Free</Badge>
-            <Badge>100% Healthy</Badge>
-          </BadgeContainer>
-        </section>
+              <BadgeContainer>
+                {recipe.dairyFree && <Badge>Dairy Free</Badge>}
+                {recipe.glutenFree && <Badge>Gluten Free</Badge>}
+                {recipe.veryHealthy && <Badge>Very Healthy</Badge>}
+                {recipe.veryPopular && <Badge>Very Popular</Badge>}
+                {recipe.sustainable && <Badge>Sustainable</Badge>}
+              </BadgeContainer>
+            </section>
 
-        <section>
-          <IngredientsHeader>
-            <AppTitle>Ingredients</AppTitle>
-            <ChangeIngredients>
-              <span>2 servings</span>
-              <button>
-                <IoRemoveOutline size={14} />
-              </button>
-              <button>
-                <IoAddOutline size={14} />
-              </button>
-            </ChangeIngredients>
-          </IngredientsHeader>
+            <section>
+              <IngredientsHeader>
+                <AppTitle>Ingredients</AppTitle>
+                <ChangeIngredients>
+                  <span>
+                    {servings}
+                    {servings === 1 ? ' serving' : ' servings'}
+                  </span>
+                  <button
+                    className={servings === 1 && 'inactive'}
+                    onClick={() =>
+                      servings > 1 && handleUpdateServings(servings - 1)
+                    }
+                  >
+                    <IoRemoveOutline size={14} />
+                  </button>
+                  <button onClick={() => handleUpdateServings(servings + 1)}>
+                    <IoAddOutline size={14} />
+                  </button>
+                </ChangeIngredients>
+              </IngredientsHeader>
 
-          <IngredientsList>
-            <li>
-              <span>Long bread</span>
-              <strong>4 slices</strong>
-            </li>
-          </IngredientsList>
-        </section>
+              <IngredientsList>
+                {ingredients.map((ingredient, i) => {
+                  return (
+                    <li key={i + 1}>
+                      <span>{ingredient.name}</span>
+                      <strong>
+                        {getFractional(ingredient.amount)} {ingredient.unit}
+                      </strong>
+                    </li>
+                  );
+                })}
+              </IngredientsList>
+            </section>
 
-        <section>
-          <AppTitle>How to cook</AppTitle>
-          <StepContainer>
-            <span>Step 1</span>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta
-              voluptate atque unde cumque fugiat corporis nisi exercitationem
-              sapiente amet, provident eos voluptatibus, id repellat maiores
-              tempore ab labore ex ullam?
-            </p>
-          </StepContainer>
-        </section>
+            <section>
+              <AppTitle>How to cook</AppTitle>
+              {recipe.instructions.map((step, i) => {
+                return (
+                  <StepContainer key={i + 1}>
+                    <span>Step {step.number}</span>
+                    <p>{step.step}</p>
+                  </StepContainer>
+                );
+              })}
+            </section>
+          </>
+        )}
       </Container>
     </Layout>
   );
