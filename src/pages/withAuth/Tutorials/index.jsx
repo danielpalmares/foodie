@@ -3,47 +3,60 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useObserver } from '../../../hooks';
 
 import { recipeVideosAction } from '../../../store/recipeVideos';
+import { activePageAction } from '../../../store/activePage';
+
+import { resultsPerPage } from '../../../config/Tutorials';
+
+import { getPagination, getSingleStringFromInput } from '../../../utils';
 
 import Layout from '../../Layout';
+import AppTitle from '../../../components/AppTitle';
 import SearchInput from '../../../components/InputSearch';
 import Spinner from '../../../components/Spinner';
-
 import Player from '../../../components/Player';
 
-import { Container, TutorialSection } from './styles';
-
-import { getPagination } from '../../../utils';
-
-import { activePageAction } from '../../../store/activePage';
+import { Container, TutorialContainer } from './styles';
 
 export default function Tutorials() {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(activePageAction('tutorials')));
-
   const tutorials = useSelector(state => state.recipeVideos.videos);
 
   const [setRef, visible, clearRef] = useObserver({
     threshold: 1,
   });
 
-  const [changedInput, setChangedInput] = useState('');
-  const [researchedRecipe, setResearchedRecipe] = useState('');
-
+  const [videos, setVideos] = useState(null);
   const [currentTutorialID, setCurrentTutorialID] = useState('');
   const [spinner, setSpinner] = useState(false);
 
-  const resultsPerPage = 10;
+  const [changedInput, setChangedInput] = useState('');
+  const [researchedRecipe, setResearchedRecipe] = useState('');
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [videos, setVideos] = useState(null);
   const [resultsCount, setResultsCount] = useState(10);
 
+  // set up it as active page for the navigation
+  useEffect(() => dispatch(activePageAction('tutorials')));
+
+  // fetch recipe tutorials
   useEffect(() => {
-    if (visible) {
-      setCurrentPage(currentPage + 1);
-      clearRef();
-    }
+    if (!researchedRecipe) return;
+
+    setSpinner(true);
+
+    return dispatch(recipeVideosAction(researchedRecipe));
+  }, [researchedRecipe, dispatch]);
+
+  // scrolling pagination
+  useEffect(() => {
+    if (!visible) return;
+
+    setCurrentPage(currentPage + 1);
+    clearRef(); // clear the old ref
+    return;
   }, [visible]);
 
+  // scrolling pagination functionality
   useEffect(() => {
     if (!tutorials) return;
 
@@ -70,8 +83,10 @@ export default function Tutorials() {
         resultsPerPage
       );
 
-      let videosPushed = videos.slice();
+      // copy the current videos
+      const videosPushed = videos.slice();
 
+      // then push the new ones
       videosPushed.push(...videosPerPage);
 
       setVideos(videosPushed);
@@ -82,35 +97,24 @@ export default function Tutorials() {
     return;
   }, [tutorials, currentPage]);
 
-  // fetch recipe tutorials
-  useEffect(() => {
-    if (!researchedRecipe) return;
-
-    setSpinner(true);
-
-    return dispatch(recipeVideosAction(researchedRecipe));
-  }, [researchedRecipe, dispatch]);
-
   // send recipe name formatted to its state
   function handleSearch() {
-    const recipe = formatStringFromInput(changedInput);
+    const recipe = getSingleStringFromInput(changedInput);
 
-    // if the recipe is the same as before
+    // if the recipe is the same as before then do nothing
     if (recipe === researchedRecipe) return;
 
-    return setResearchedRecipe(recipe);
+    reset(); // reset the old results
+    setResearchedRecipe(recipe);
+    return;
   }
 
-  // format input data
-  function formatStringFromInput(string) {
-    // for one recipe/query
-    const recipeString = string;
-    const recipeFormatted = recipeString
-      .replace(/\s+/g, ' ')
-      .trim()
-      .replace(' ', '+');
-
-    return recipeFormatted;
+  // get states back to the start point
+  function reset() {
+    setVideos([]);
+    setCurrentPage(1);
+    setResultsCount(10);
+    return;
   }
 
   return (
@@ -118,13 +122,14 @@ export default function Tutorials() {
       <Container>
         <main>
           <header>
-            <h1>Find the tutorial you want!</h1>
+            <AppTitle>Find the tutorial you want!</AppTitle>
             <span>Don't know what to search? Search for chicken soup!</span>
           </header>
+
           <SearchInput
             handleInputChange={e => setChangedInput(e.target.value)}
             handleSearch={() => handleSearch()}
-            placeholder="Search"
+            placeholder="Chicken soup? Pizza? Cake?"
           />
 
           {spinner && <Spinner />}
@@ -132,8 +137,8 @@ export default function Tutorials() {
           {videos &&
             videos.map((tutorial, i) => {
               return (
-                <TutorialSection
-                  key={i}
+                <TutorialContainer
+                  key={i + 1}
                   ref={resultsCount - 1 === i ? setRef : null}
                 >
                   <Player
@@ -151,7 +156,7 @@ export default function Tutorials() {
                     }
                     handlePreview={() => setCurrentTutorialID(tutorial.id)}
                   />
-                </TutorialSection>
+                </TutorialContainer>
               );
             })}
         </main>

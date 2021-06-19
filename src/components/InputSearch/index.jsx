@@ -8,12 +8,18 @@ export default function InputSearch({
   handleSearch,
   placeholder,
 }) {
+  // search whenever the enter key is pressed
+  function handleSearchKeyDown(e) {
+    e.key === 'Enter' && handleSearch();
+  }
+
   return (
     <InputWrapper>
       <input
         type="text"
         placeholder={placeholder}
         onChange={handleInputChange}
+        onKeyDown={e => handleSearchKeyDown(e)}
       />
 
       <button onClick={handleSearch}>
