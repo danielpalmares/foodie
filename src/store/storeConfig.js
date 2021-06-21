@@ -1,20 +1,19 @@
 import { combineReducers } from 'redux';
 
+import { activePage } from './activePage';
+import { user } from './user';
 import { theme } from './theme';
 import { recipesByIngredients } from './recipesByIngredients';
-import { createUserReducer } from './createUser';
 import { recipeInformation } from './recipeInformation';
-
 import { recipeVideos } from './recipeVideos';
-import { activePage } from './activePage';
 import { resultsRecipes } from './resultsRecipes';
 
 export const rootReducer = combineReducers({
+  activePage,
+  user,
   theme,
   recipesByIngredients,
-  createUserReducer,
   recipeInformation,
   recipeVideos,
-  activePage,
   resultsRecipes,
 });

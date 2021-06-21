@@ -90,11 +90,8 @@ export default function Results() {
   }, [visible]);
 
   function handleRecipe(id) {
-    // send to recipe page
-    console.log(id);
-
     return history.push({
-      pathname: '/discover/recipe',
+      pathname: '/recipe',
       search: `?id=${id}`,
     });
   }

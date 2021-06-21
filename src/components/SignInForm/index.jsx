@@ -1,38 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import FormInput from '../../components/FormInput';
-import SignUpButton from '../../components/SignUpButton';
+import SubmitButton from '../SubmitButton';
 
 import { IoPersonOutline, IoKeyOutline } from 'react-icons/io5';
 import { Form } from './styles';
 
-export default function SignInForm() {
+export default function SignInForm({ handleGetData }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const user = {
+      username: username,
+      password: password,
+    };
+
+    return handleGetData(user);
+  }
+
   return (
-    <Form>
+    <Form onSubmit={e => handleSubmit(e)}>
       <FormInput
         type="text"
-        name="username"
         id="username"
         placeholder="Username"
         isRequired
-        labelHtmlFor="username"
         label={<IoPersonOutline size={26} />}
+        handleChange={e => setUsername(e.target.value)}
       />
 
       <FormInput
         type="password"
-        name="password"
         id="password"
         placeholder="Password"
         isRequired
-        labelHtmlFor="password"
         label={<IoKeyOutline size={26} />}
+        handleChange={e => setPassword(e.target.value)}
       />
 
       <Link to="/">Forgot password?</Link>
 
-      <SignUpButton>Sign in</SignUpButton>
+      <SubmitButton>Sign in</SubmitButton>
     </Form>
   );
 }

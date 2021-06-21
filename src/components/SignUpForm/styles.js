@@ -4,27 +4,27 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding-bottom: 4rem;
 
   button {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
-
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 600;
     padding: 2rem;
+
+    font-family: 'Nunito', sans-serif;
+    font-size: ${props => props.theme.fontSizes.larger};
+    font-weight: 700;
     color: ${props =>
       props.theme.mode === 'light'
-        ? props.theme.fontColors.bg
+        ? props.theme.fontColors.secondary
         : props.theme.fontColors.primary};
 
     outline: none;
     border: none;
-    border-radius: 1rem;
+    border-radius: ${props => props.theme.border.radius};
     background: ${props => props.theme.colors.primary};
+
     transition: all 0.2s;
     cursor: pointer;
 
@@ -41,7 +41,7 @@ export const InputContainer = styled.div`
     position: absolute;
     top: 28%;
     left: 5%;
-    color: ${props => props.theme.fontColors.secondary};
+    color: ${props => props.theme.fontColors.tertiary};
 
     @media screen and (min-width: 425px) {
       left: 3%;
@@ -51,26 +51,25 @@ export const InputContainer = styled.div`
   input {
     width: 100%;
     outline: none;
+    background: ${props => props.theme.colors.absolute};
 
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.7rem;
-    font-weight: 400;
+    font-family: 'Nunito', sans-serif;
+    font-size: ${props => props.theme.fontSizes.regular};
     color: ${props => props.theme.fontColors.primary};
-    padding: 2rem 2rem 2rem 5rem;
 
-    border: 2px solid ${props => props.theme.colors.border};
-    border-radius: 1rem;
-    background: ${props => props.theme.background};
+    padding: 2rem 2rem 2rem 5rem;
+    border: ${props => props.theme.border.size} solid
+      ${props => props.theme.border.color};
+    border-radius: ${props => props.theme.border.radius};
 
     &:focus {
       border-color: ${props => props.theme.colors.primary};
     }
 
     &::placeholder {
-      font-family: 'Lexend', sans-serif;
-      font-size: 1.7rem;
-      font-weight: 400;
-      color: ${props => props.theme.fontColors.secondary};
+      font-family: 'Nunito', sans-serif;
+      font-size: ${props => props.theme.fontSizes.regular};
+      color: ${props => props.theme.fontColors.tertiary};
     }
   }
 `;
@@ -84,10 +83,10 @@ export const GenderContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: ${props => props.theme.fontColors.secondary};
+    color: ${props => props.theme.fontColors.tertiary};
 
     span {
-      font-size: 1.8rem;
+      font-size: ${props => props.theme.fontSizes.larger};
       color: ${props => props.theme.fontColors.primary};
     }
   }
@@ -107,8 +106,8 @@ export const GenderContainer = styled.div`
 
 export const Warning = styled.span`
   display: block;
-  font-size: 1.2rem;
-  color: ${props => props.theme.fontColors.secondary};
+  font-size: ${props => props.theme.fontSizes.tiny};
+  color: ${props => props.theme.fontColors.primary};
   text-align: center;
   text-transform: uppercase;
 `;

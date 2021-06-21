@@ -2,7 +2,7 @@ import React from 'react';
 
 import LandingHeader from '../../../components/LandingHeader';
 import LandingFooter from '../../../components/LandingFooter';
-import SingUpButton from '../../../components/SignUpButton';
+import SubmitButton from '../../../components/SubmitButton';
 import Wrapper from '../../../components/Wrapper';
 
 import hamburger from '../../../assets/hamburger.svg';
@@ -84,7 +84,7 @@ export default function Landing() {
               />
             </GridLayout>
 
-            <SingUpButton direction="/signup">Start now</SingUpButton>
+            <SubmitButton>Start now</SubmitButton>
           </Flex>
         </Wrapper>
       </SectionContent>

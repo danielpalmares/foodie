@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 
 export const SignInContainer = styled.div`
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
+
+  @media screen and (min-width: 768px) {
+    max-width: 668px;
+    margin: 0 auto;
+  }
 `;
 
 export const Directions = styled.div`

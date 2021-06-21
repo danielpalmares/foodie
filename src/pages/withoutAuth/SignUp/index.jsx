@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import SignUpForm from '../../../components/SignUpForm/index';
@@ -6,29 +6,32 @@ import LandingHeader from '../../../components/LandingHeader';
 
 import { IoArrowBackOutline } from 'react-icons/io5';
 
-import { useDispatch } from 'react-redux';
-import { createUserAction } from '../../../store/createUser';
+import { useDispatch, useSelector } from 'react-redux';
+import { signUpAction } from '../../../store/user';
 
+import AppTitle from '../../../components/AppTitle';
 import { SignUpContainer, Directions, ErrorMessage } from './styles';
 
 export default function SignUp() {
   const dispatch = useDispatch();
 
   const createNewUser = user => {
-    dispatch(createUserAction(user));
+    dispatch(signUpAction(user));
   };
 
-  const status = 'error';
+  const { status, errorStatus, authenticatedUser, user } = useSelector(
+    state => state.user
+  );
 
   return (
     <SignUpContainer>
       <LandingHeader />
 
       <Directions>
-        <h1>
+        <AppTitle>
           Hey, <br />
           Sign up now.
-        </h1>
+        </AppTitle>
 
         <div>
           <span>Already have an account?</span>
@@ -39,11 +42,7 @@ export default function SignUp() {
           </Link>
         </div>
 
-        {status === 'error' && (
-          <ErrorMessage>
-            An account with this email already exists.
-          </ErrorMessage>
-        )}
+        {errorStatus && <ErrorMessage>{errorStatus}</ErrorMessage>}
       </Directions>
 
       <SignUpForm handleGetData={createNewUser} />

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, useHistory, generatePath } from 'react-router-dom';
+import {
+  Redirect,
+  useHistory,
+  generatePath,
+  useRouteMatch,
+  Route,
+  BrowserRouter,
+  Switch,
+} from 'react-router-dom';
 
 import Layout from '../../../pages/Layout';
 
@@ -27,33 +35,27 @@ import {
 } from '../../../config';
 import { activePageAction } from '../../../store/activePage';
 
+import Results from '../../../pages/withAuth/Results';
+
+import { getSingleStringFromInput } from '../../../utils';
+import NestedRoutes from '../../../routes/NestedRoutes';
+
 export default function Discover() {
   const dispatch = useDispatch();
   const history = useHistory();
+  let { url, path } = useRouteMatch();
+  console.log(url);
 
-  // set active page
-  useEffect(() => dispatch(activePageAction('discover')));
-
-  // search recipe input
   const [inputData, setInputData] = useState('');
 
-  // format input data
-  function formatInputString(inputString) {
-    const recipeString = inputString;
-    const recipeFormatted = recipeString
-      .replace(/\s+/g, ' ')
-      .trim()
-      .replace(' ', '+');
+  // set it as active page for the navigation
+  useEffect(() => dispatch(activePageAction('discover')));
 
-    return recipeFormatted;
-  }
-
-  // send recipe name formatted to its state
   function handleRecipesByName() {
-    const recipeName = formatInputString(inputData);
+    const recipeName = getSingleStringFromInput(inputData);
 
     return history.push({
-      pathname: '/discover/results',
+      pathname: `/results`,
       search: `?query=${recipeName}`,
     });
   }
@@ -61,29 +63,29 @@ export default function Discover() {
   function handleRecipesByType(e) {
     const type = e.target.dataset.type;
 
-    // return history.push({
-    //   pathname: '/discover/results',
-    //   search: `?type=${type}`,
-    // });
+    return history.push({
+      pathname: `/results`,
+      search: `?type=${type}`,
+    });
   }
 
   function handleRecipesByCuisine(e) {
     console.log(e.target);
     const cuisine = e.target.dataset.cuisine;
 
-    // return history.push({
-    //   pathname: '/discover/results',
-    //   search: `?cuisine=${cuisine}`,
-    // });
+    return history.push({
+      pathname: `/results`,
+      search: `?cuisine=${cuisine}`,
+    });
   }
 
   function handleRecipesByTiming(e) {
     const maxReadyTime = e.target.dataset.timing;
 
-    // return history.push({
-    //   pathname: '/discover/results',
-    //   search: `?maxReadyTime=${maxReadyTime}`,
-    // });
+    return history.push({
+      pathname: `/results`,
+      search: `?maxReadyTime=${maxReadyTime}`,
+    });
   }
 
   const greetingByTime = () => {
@@ -99,97 +101,106 @@ export default function Discover() {
   };
 
   return (
-    <Layout defaultHeader>
-      <Container>
-        <main>
-          <section>
-            <AppTitle>{greetingByTime()} Adalberto</AppTitle>
-            <FindRecipesCard
-              image={dietSvg}
-              direction="/search"
-              text="Find recipes based on what you already have on your kitchen"
-            />
-            <FindRecipesCard
-              image={chefSvg}
-              direction="/upload"
-              text="Make lots of recipes and build an amazing progress until become a chef!"
-            />
-          </section>
+    <>
+      <Layout defaultHeader>
+        <Container>
+          <main>
+            <section>
+              <AppTitle>{greetingByTime()} Adalberto</AppTitle>
+              <FindRecipesCard
+                image={dietSvg}
+                direction="/search"
+                text="Find recipes based on what you already have on your kitchen"
+              />
+              <FindRecipesCard
+                image={chefSvg}
+                direction="/upload"
+                text="Make lots of recipes and build an amazing progress until become a chef!"
+              />
+            </section>
 
-          <section>
-            <AppTitle>Looking for a specific recipe?</AppTitle>
-            <InputSearch
-              handleInputChange={e => setInputData(e.target.value)}
-              handleSearch={() => handleRecipesByName()}
-              placeholder="We have tasty pizzas, try it :)"
-            />
-            <FindRecipesCard
-              image={tutorialSvg}
-              direction="/favorites" // change later
-              text="Watch any tutorial you want, anytime, anywhere"
-            />
-          </section>
+            <section>
+              <AppTitle>Looking for a specific recipe?</AppTitle>
+              <InputSearch
+                handleInputChange={e => setInputData(e.target.value)}
+                handleSearch={() => handleRecipesByName()}
+                placeholder="We have tasty pizzas, try it :)"
+              />
+              <FindRecipesCard
+                image={tutorialSvg}
+                direction="/tutorials"
+                text="Watch any tutorial you want, anytime, anywhere"
+              />
+            </section>
 
-          <section>
-            <AppTitle>Try to get a random recipe</AppTitle>
-            <RandomRecipeCard />
-          </section>
+            <section>
+              <AppTitle>Try to get a random recipe</AppTitle>
+              <RandomRecipeCard />
+            </section>
 
-          <section>
-            <AppTitle>Find a recipe by its type</AppTitle>
-            <HorizontalList>
-              {recipesType.map(type => {
-                return (
-                  <li key={type.id}>
-                    <button
-                      data-type={type.id}
-                      onClick={e => handleRecipesByType(e)}
-                    >
-                      {type.text}
-                    </button>
-                  </li>
-                );
-              })}
-            </HorizontalList>
-          </section>
+            <section>
+              <AppTitle>Find a recipe by its type</AppTitle>
+              <HorizontalList>
+                {recipesType.map(type => {
+                  return (
+                    <li key={type.id}>
+                      <button
+                        data-type={type.id}
+                        onClick={e => handleRecipesByType(e)}
+                      >
+                        {type.text}
+                      </button>
+                    </li>
+                  );
+                })}
+              </HorizontalList>
+            </section>
 
-          <section>
-            <AppTitle>Or more, get a quick recipe</AppTitle>
-            <HorizontalList>
-              {recipesCookingTime.map(time => {
-                return (
-                  <li key={time.id}>
-                    <button
-                      data-timing={time.id}
-                      onClick={e => handleRecipesByTiming(e)}
-                    >
-                      {time.text}
-                    </button>
-                  </li>
-                );
-              })}
-            </HorizontalList>
-          </section>
+            <section>
+              <AppTitle>Or more, get a quick recipe</AppTitle>
+              <HorizontalList>
+                {recipesCookingTime.map(time => {
+                  return (
+                    <li key={time.id}>
+                      <button
+                        data-timing={time.id}
+                        onClick={e => handleRecipesByTiming(e)}
+                      >
+                        {time.text}
+                      </button>
+                    </li>
+                  );
+                })}
+              </HorizontalList>
+            </section>
 
-          <section>
-            <AppTitle>Curious about some other cuisines?</AppTitle>
-            <RecipesGrid>
-              {recipesCuisines.map(cuisine => {
-                return (
-                  <BasedRecipeCard
-                    key={cuisine.id}
-                    data={cuisine.id}
-                    image={cuisine.id}
-                    title={cuisine.id}
-                    text={cuisine.info}
-                    handleClick={e => handleRecipesByCuisine(e)}
-                  />
-                );
-              })}
-            </RecipesGrid>
-          </section>
-        </main>
-      </Container>
-    </Layout>
+            <section>
+              <AppTitle>Curious about some other cuisines?</AppTitle>
+              <RecipesGrid>
+                {recipesCuisines.map(cuisine => {
+                  return (
+                    <BasedRecipeCard
+                      key={cuisine.id}
+                      data={cuisine.id}
+                      image={cuisine.id}
+                      title={cuisine.id}
+                      text={cuisine.info}
+                      handleClick={e => handleRecipesByCuisine(e)}
+                    />
+                  );
+                })}
+              </RecipesGrid>
+            </section>
+          </main>
+        </Container>
+      </Layout>
+
+      {/* <NestedRoutes results /> */}
+      {/* <BrowserRouter>
+        <Switch>
+          <Route path={`${path}/results`} component={Results} />
+        </Switch>
+      </BrowserRouter> */}
+    </>
   );
 }
