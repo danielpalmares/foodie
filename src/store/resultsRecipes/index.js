@@ -1,5 +1,9 @@
-import { resultsRecipesAction } from './actions';
-import { FOUND_RESULTS, RESULTS_NOT_FOUND } from './types';
+import { resultsRecipesAction, clearResultsRecipesAction } from './actions';
+import {
+  FOUND_RESULTS,
+  RESULTS_NOT_FOUND,
+  CLEAR_RESULTS_RECIPES,
+} from './types';
 
 const initialState = {
   recipes: null,
@@ -18,9 +22,15 @@ function resultsRecipes(state = initialState, action) {
         ...state,
         status: action.payload.status,
       };
+    case CLEAR_RESULTS_RECIPES: {
+      return {
+        ...state,
+        recipes: action.payload.recipes,
+      };
+    }
     default:
       return state;
   }
 }
 
-export { resultsRecipes, resultsRecipesAction };
+export { resultsRecipes, resultsRecipesAction, clearResultsRecipesAction };

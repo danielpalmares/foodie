@@ -73,7 +73,7 @@ export default function Recipe() {
               <RecipeTitle>{recipe.title}</RecipeTitle>
 
               <RecipePhoto imageSrc={recipe.image}>
-                <FavoriteButton>
+                <FavoriteButton data-id={recipe.id}>
                   <IoHeartOutline size={26} />
                 </FavoriteButton>
               </RecipePhoto>

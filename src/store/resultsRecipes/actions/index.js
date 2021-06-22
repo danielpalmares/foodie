@@ -1,5 +1,18 @@
 import { apiComplexSearch } from '../../../services/spoonacular/api';
-import { FOUND_RESULTS, RESULTS_NOT_FOUND } from '../types';
+import {
+  FOUND_RESULTS,
+  RESULTS_NOT_FOUND,
+  CLEAR_RESULTS_RECIPES,
+} from '../types';
+
+export function clearResultsRecipesAction() {
+  return {
+    type: CLEAR_RESULTS_RECIPES,
+    payload: {
+      recipes: null,
+    },
+  };
+}
 
 export async function resultsRecipesAction(search) {
   try {

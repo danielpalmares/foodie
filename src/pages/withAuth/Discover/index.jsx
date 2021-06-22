@@ -9,11 +9,13 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import { IoArrowForwardOutline } from 'react-icons/io5';
+
 import Layout from '../../../pages/Layout';
 
-import BasedRecipeCard from '../../../components/BasedRecipeCard';
+import CuisineCards from '../../../components/CuisineCards';
 
-import { Container, HorizontalList } from './styles';
+import { Container, HorizontalList, SwipeDirection } from './styles';
 import FindRecipesCard from '../../../components/FindRecipesCard';
 
 import AppTitle from '../../../components/AppTitle';
@@ -39,19 +41,27 @@ import Results from '../../../pages/withAuth/Results';
 
 import { getSingleStringFromInput } from '../../../utils';
 
+import { useGreeting } from '../../../hooks';
+
+import { clearResultsRecipesAction } from '../../../store/resultsRecipes';
+
 export default function Discover() {
   const dispatch = useDispatch();
   const history = useHistory();
-  let { url, path } = useRouteMatch();
-  console.log(url);
 
+  const { user } = useSelector(state => state.user);
+
+  const [greeting] = useGreeting();
   const [inputData, setInputData] = useState('');
 
-  // set it as active page for the navigation
   useEffect(() => dispatch(activePageAction('discover')));
 
   function handleRecipesByName() {
     const recipeName = getSingleStringFromInput(inputData);
+
+    if (!recipeName) return;
+
+    dispatch(clearResultsRecipesAction());
 
     return history.push({
       pathname: `/results`,
@@ -62,6 +72,10 @@ export default function Discover() {
   function handleRecipesByType(e) {
     const type = e.target.dataset.type;
 
+    if (!type) return;
+
+    dispatch(clearResultsRecipesAction());
+
     return history.push({
       pathname: `/results`,
       search: `?type=${type}`,
@@ -69,8 +83,11 @@ export default function Discover() {
   }
 
   function handleRecipesByCuisine(e) {
-    console.log(e.target);
     const cuisine = e.target.dataset.cuisine;
+
+    if (!cuisine) return;
+
+    dispatch(clearResultsRecipesAction());
 
     return history.push({
       pathname: `/results`,
@@ -81,125 +98,121 @@ export default function Discover() {
   function handleRecipesByTiming(e) {
     const maxReadyTime = e.target.dataset.timing;
 
+    if (!maxReadyTime) return;
+
+    dispatch(clearResultsRecipesAction());
+
     return history.push({
       pathname: `/results`,
       search: `?maxReadyTime=${maxReadyTime}`,
     });
   }
 
-  const greetingByTime = () => {
-    const currentHour = new Date().getHours();
-
-    if (currentHour >= 5 && currentHour < 12) {
-      return 'Good Morning!';
-    } else if (currentHour >= 12 && currentHour < 19) {
-      return 'Good Afternoon!';
-    } else {
-      return 'Good Night!';
-    }
-  };
-
   return (
-    <>
-      <Layout defaultHeader>
-        <Container>
-          <main>
-            <section>
-              <AppTitle>{greetingByTime()} Adalberto</AppTitle>
-              <FindRecipesCard
-                image={dietSvg}
-                direction="/search"
-                text="Find recipes based on what you already have on your kitchen"
-              />
-              <FindRecipesCard
-                image={chefSvg}
-                direction="/upload"
-                text="Make lots of recipes and build an amazing progress until become a chef!"
-              />
-            </section>
+    <Layout defaultHeader>
+      <Container>
+        <main>
+          <section>
+            <AppTitle>
+              {greeting} {user.name}
+            </AppTitle>
+            <FindRecipesCard
+              image={dietSvg}
+              direction="/search"
+              text="Find recipes based on what you already have on your kitchen"
+            />
+            <FindRecipesCard
+              image={chefSvg}
+              direction="/upload"
+              text="Make lots of recipes and build an amazing progress until become a chef!"
+            />
+          </section>
 
-            <section>
-              <AppTitle>Looking for a specific recipe?</AppTitle>
-              <InputSearch
-                handleInputChange={e => setInputData(e.target.value)}
-                handleSearch={() => handleRecipesByName()}
-                placeholder="We have tasty pizzas, try it :)"
-              />
-              <FindRecipesCard
-                image={tutorialSvg}
-                direction="/tutorials"
-                text="Watch any tutorial you want, anytime, anywhere"
-              />
-            </section>
+          <section>
+            <AppTitle>Looking for a specific recipe?</AppTitle>
+            <InputSearch
+              handleInputChange={e => setInputData(e.target.value)}
+              handleSearch={() => handleRecipesByName()}
+              placeholder="We have tasty pizzas, try it :)"
+            />
+            <FindRecipesCard
+              image={tutorialSvg}
+              direction="/tutorials"
+              text="Watch any tutorial you want, anytime, anywhere"
+            />
+          </section>
 
-            <section>
-              <AppTitle>Try to get a random recipe</AppTitle>
-              <RandomRecipeCard />
-            </section>
+          <section>
+            <AppTitle>Try to get a random recipe</AppTitle>
+            <RandomRecipeCard />
+          </section>
 
-            <section>
-              <AppTitle>Find a recipe by its type</AppTitle>
-              <HorizontalList>
-                {recipesType.map(type => {
-                  return (
-                    <li key={type.id}>
-                      <button
-                        data-type={type.id}
-                        onClick={e => handleRecipesByType(e)}
-                      >
-                        {type.text}
-                      </button>
-                    </li>
-                  );
-                })}
-              </HorizontalList>
-            </section>
+          <section>
+            <AppTitle>Find a recipe by its type</AppTitle>
+            <HorizontalList>
+              {recipesType.map(type => {
+                return (
+                  <li key={type.id}>
+                    <button
+                      data-type={type.id}
+                      onClick={e => handleRecipesByType(e)}
+                    >
+                      {type.text}
+                    </button>
+                  </li>
+                );
+              })}
+            </HorizontalList>
 
-            <section>
-              <AppTitle>Or more, get a quick recipe</AppTitle>
-              <HorizontalList>
-                {recipesCookingTime.map(time => {
-                  return (
-                    <li key={time.id}>
-                      <button
-                        data-timing={time.id}
-                        onClick={e => handleRecipesByTiming(e)}
-                      >
-                        {time.text}
-                      </button>
-                    </li>
-                  );
-                })}
-              </HorizontalList>
-            </section>
+            <SwipeDirection>
+              <span>
+                Swipe to see more <IoArrowForwardOutline size={16} />
+              </span>
+            </SwipeDirection>
+          </section>
 
-            <section>
-              <AppTitle>Curious about some other cuisines?</AppTitle>
-              <RecipesGrid>
-                {recipesCuisines.map(cuisine => {
-                  return (
-                    <BasedRecipeCard
-                      key={cuisine.id}
-                      data={cuisine.id}
-                      image={cuisine.id}
-                      title={cuisine.id}
-                      text={cuisine.info}
-                      handleClick={e => handleRecipesByCuisine(e)}
-                    />
-                  );
-                })}
-              </RecipesGrid>
-            </section>
-          </main>
-        </Container>
-      </Layout>
+          <section>
+            <AppTitle>Or more, get a quick recipe</AppTitle>
+            <HorizontalList>
+              {recipesCookingTime.map(time => {
+                return (
+                  <li key={time.id}>
+                    <button
+                      data-timing={time.id}
+                      onClick={e => handleRecipesByTiming(e)}
+                    >
+                      {time.text}
+                    </button>
+                  </li>
+                );
+              })}
+            </HorizontalList>
 
-      {/* <NestedRoutes results /> */}
-      {/* <BrowserRouter>
-        <Switch>
-          <Route path={`${path}/results`} component={Results} />
-        </Switch>
-      </BrowserRouter> */}
-    </>
+            <SwipeDirection>
+              <span>
+                Swipe to see more <IoArrowForwardOutline size={16} />
+              </span>
+            </SwipeDirection>
+          </section>
+
+          <section>
+            <AppTitle>Curious about some other cuisines?</AppTitle>
+            <RecipesGrid>
+              {recipesCuisines.map(cuisine => {
+                return (
+                  <CuisineCards
+                    key={cuisine.id}
+                    data={cuisine.id}
+                    image={cuisine.id}
+                    title={cuisine.id}
+                    handleClick={e => handleRecipesByCuisine(e)}
+                  />
+                );
+              })}
+            </RecipesGrid>
+          </section>
+        </main>
+      </Container>
+    </Layout>
   );
 }

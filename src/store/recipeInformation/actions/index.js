@@ -2,7 +2,17 @@ import { apiGetRecipeInformation } from '../../../services/spoonacular/api';
 import {
   RECIPE_INFORMATION_FOUND,
   RECIPE_INFORMATION_NOT_FOUND,
+  CLEAR_RECIPE_INFORMATION,
 } from '../types';
+
+export function clearRecipeInformation() {
+  return {
+    type: CLEAR_RECIPE_INFORMATION,
+    payload: {
+      recipeInformation: null,
+    },
+  };
+}
 
 export async function recipeInformationAction(id) {
   try {

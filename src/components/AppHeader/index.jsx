@@ -15,6 +15,8 @@ import {
 } from 'react-icons/io5';
 import { Header } from './styles';
 
+import { getItemFromLS, setItemFromLS } from '../../utils';
+
 export default function AppHeader({
   defaultHeader,
   onlyBackButton,
@@ -28,10 +30,26 @@ export default function AppHeader({
 
   // setting up switch theme button
   const currentTheme = useSelector(state => state.theme.theme.mode);
-  const switchTheme = () =>
+
+  function switchTheme() {
     currentTheme === 'light'
       ? dispatch(themeAction(dark))
       : dispatch(themeAction(light));
+
+    sendThemeToLS();
+  }
+
+  function sendThemeToLS() {
+    const themeArr = getItemFromLS('theme');
+
+    const theme = {
+      theme: currentTheme === 'light' ? 'dark' : 'light',
+    };
+
+    themeArr[0] = theme;
+
+    return setItemFromLS('theme', themeArr);
+  }
 
   return (
     <Header>

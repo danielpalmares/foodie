@@ -14,6 +14,8 @@ import { GridLayout } from '../../../components/RecipesGrid/styles';
 
 import { getPagination } from '../../../utils';
 
+import { clearRecipeInformation } from '../../../store/recipeInformation';
+
 export default function Results() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -40,6 +42,7 @@ export default function Results() {
     if (!search) return;
     setSpinner(true);
 
+    dispatch(clearRecipeInformation());
     return dispatch(resultsRecipesAction(search));
   }, [search, dispatch]);
 

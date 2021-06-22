@@ -1,4 +1,32 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+export const fillOpacity = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+`;
+
+export const SwipeDirection = styled.div`
+  margin: 1rem 0;
+
+  span {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+
+    animation: 5s ${fillOpacity} linear infinite;
+  }
+`;
 
 export const Container = styled.div`
   main {
@@ -22,6 +50,7 @@ export const HorizontalList = styled.ul`
   justify-content: space-between;
   gap: 2rem;
   overflow: scroll;
+  padding: 1rem 0;
 
   li button {
     font-family: 'Nunito', sans-serif;
