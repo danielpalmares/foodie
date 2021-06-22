@@ -1,4 +1,7 @@
-import { apiGetRecipeInformation } from '../../../services/spoonacular/api';
+import {
+  apiGetRecipeInformation,
+  apiGetRandom,
+} from '../../../services/spoonacular/api';
 import {
   RECIPE_INFORMATION_FOUND,
   RECIPE_INFORMATION_NOT_FOUND,
@@ -14,10 +17,26 @@ export function clearRecipeInformation() {
   };
 }
 
-export async function recipeInformationAction(id) {
+export async function recipeInformationAction(id, random) {
   try {
-    const response = await apiGetRecipeInformation.get(`${id}/information`);
-    const { data, status, statusText } = response;
+    async function randomRec() {
+      if (random) {
+        const response = await apiGetRandom.get(`random`);
+        return response;
+      }
+    }
+
+    async function idRec() {
+      if (id) {
+        const response = await apiGetRecipeInformation.get(`${id}/information`);
+        return response;
+      }
+    }
+
+    const res = random ? await randomRec() : await idRec();
+    console.log(res);
+
+    const { data, status, statusText } = res;
 
     if (status !== 200) throw new Error(statusText);
 

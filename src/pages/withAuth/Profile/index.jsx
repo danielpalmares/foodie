@@ -31,6 +31,10 @@ import { useDispatch } from 'react-redux';
 import { activePageAction } from '../../../store/activePage';
 
 export default function Profile() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(activePageAction('profile')));

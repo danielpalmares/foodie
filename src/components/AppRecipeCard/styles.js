@@ -32,7 +32,7 @@ export const RecipeCardContainer = styled.div`
 
   opacity: 0;
   transition: all 0.2s;
-  animation: 2s ${fillOpacity} cubic-bezier(0.73, 0.4, 0.4, 0.66) forwards;
+  animation: 1s ${fillOpacity} cubic-bezier(0.73, 0.4, 0.4, 0.66) forwards;
 `;
 
 export const RecipeCardInfo = styled.div`

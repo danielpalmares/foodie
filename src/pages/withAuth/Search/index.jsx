@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { recipesByIngredientsAction } from '../../../store/recipesByIngredients';
+import { useHistory } from 'react-router-dom';
 
 import Layout from '../../Layout';
 import RecipeCard from '../../../components/AppRecipeCard';
@@ -19,9 +20,17 @@ import {
 } from './styles';
 
 import { activePageAction } from '../../../store/activePage';
+import { identity } from 'mathjs';
+
+import { clearRecipeInformation } from '../../../store/recipeInformation';
 
 export default function Search() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
+  const history = useHistory();
   const recipesRef = useRef();
 
   // set active page
@@ -168,6 +177,17 @@ export default function Search() {
     return ingredientsFormatted;
   }
 
+  function handleRecipe(id) {
+    if (!id) return;
+
+    dispatch(clearRecipeInformation());
+
+    return history.push({
+      pathname: '/recipe',
+      search: `?id=${id}`,
+    });
+  }
+
   return (
     <Layout onlyBackButton>
       <SearchContainer>
@@ -194,6 +214,8 @@ export default function Search() {
                   title={rec.title}
                   imageSrc={rec.image}
                   likes={rec.likes}
+                  data={rec.id}
+                  handleRecipe={() => handleRecipe(rec.id)}
                 />
               );
             })}

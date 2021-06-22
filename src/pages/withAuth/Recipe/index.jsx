@@ -33,16 +33,21 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Recipe() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
   const { search } = useLocation();
-  const id = search.split('=').pop();
+
+  const id = search.includes('id') && search.split('=').pop();
+  const random = search.includes('random') && search.replace('?', '');
 
   const recipe = useSelector(state => state.recipeInformation.recipe);
-  console.log(recipe);
 
   useEffect(() => {
-    dispatch(recipeInformationAction(id));
-  }, [dispatch, id]);
+    dispatch(recipeInformationAction(id, random));
+  }, [dispatch, id, random]);
 
   const [ingredients, setIngredients] = useState([]);
   const [servings, setServings] = useState(0);
@@ -106,7 +111,7 @@ export default function Recipe() {
                     {servings === 1 ? ' serving' : ' servings'}
                   </span>
                   <button
-                    className={servings === 1 && 'inactive'}
+                    className={servings === 1 ? 'inactive' : ''}
                     onClick={() =>
                       servings > 1 && handleUpdateServings(servings - 1)
                     }

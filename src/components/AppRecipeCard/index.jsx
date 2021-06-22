@@ -14,6 +14,7 @@ export default function AppRecipeCard({
   imageSrc,
   handleRecipe,
   refValue,
+  data,
 }) {
   return (
     <RecipeCardContainer ref={refValue} imageSrc={imageSrc}>
@@ -25,7 +26,7 @@ export default function AppRecipeCard({
             <IoHeartSharp size={26} color="#FE251B" /> {likes}{' '}
             {likes === 1 ? 'like' : 'likes'}
           </span>
-          <button onClick={handleRecipe}>
+          <button data-id={data} onClick={handleRecipe}>
             How to make <IoArrowForwardOutline size={14} />
           </button>
         </RecipeCardInfoContainer>

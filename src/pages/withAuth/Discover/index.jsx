@@ -44,6 +44,7 @@ import { getSingleStringFromInput } from '../../../utils';
 import { useGreeting } from '../../../hooks';
 
 import { clearResultsRecipesAction } from '../../../store/resultsRecipes';
+import { clearRecipeInformation } from '../../../store/recipeInformation';
 
 export default function Discover() {
   const dispatch = useDispatch();
@@ -53,6 +54,10 @@ export default function Discover() {
 
   const [greeting] = useGreeting();
   const [inputData, setInputData] = useState('');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => dispatch(activePageAction('discover')));
 
@@ -101,10 +106,14 @@ export default function Discover() {
     if (!maxReadyTime) return;
 
     dispatch(clearResultsRecipesAction());
+  }
+
+  function handleRandomRecipe() {
+    dispatch(clearRecipeInformation());
 
     return history.push({
-      pathname: `/results`,
-      search: `?maxReadyTime=${maxReadyTime}`,
+      pathname: `/recipe`,
+      search: `random`,
     });
   }
 
@@ -114,7 +123,7 @@ export default function Discover() {
         <main>
           <section>
             <AppTitle>
-              {greeting} {user.name}
+              {greeting} {user?.name}
             </AppTitle>
             <FindRecipesCard
               image={dietSvg}
@@ -144,7 +153,7 @@ export default function Discover() {
 
           <section>
             <AppTitle>Try to get a random recipe</AppTitle>
-            <RandomRecipeCard />
+            <RandomRecipeCard handleRandom={() => handleRandomRecipe()} />
           </section>
 
           <section>

@@ -18,6 +18,10 @@ import Player from '../../../components/Player';
 import { Container, TutorialContainer } from './styles';
 
 export default function Tutorials() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
   const tutorials = useSelector(state => state.recipeVideos.videos);
 

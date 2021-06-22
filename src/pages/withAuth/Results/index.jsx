@@ -17,6 +17,10 @@ import { getPagination } from '../../../utils';
 import { clearRecipeInformation } from '../../../store/recipeInformation';
 
 export default function Results() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const recipes = useSelector(state => state.resultsRecipes.recipes);

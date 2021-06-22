@@ -7,8 +7,13 @@ import { UploadContainer } from './styles';
 
 import { useDispatch } from 'react-redux';
 import { activePageAction } from '../../../store/activePage';
+import { useObserver } from '../../../hooks';
 
 export default function Upload() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(activePageAction('upload')));

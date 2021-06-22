@@ -2,13 +2,10 @@ import React from 'react';
 
 import { Card } from './styles';
 
-export default function RandomRecipeCard() {
+export default function RandomRecipeCard({ handleRandom }) {
   return (
     <Card>
-      <button>Get random recipe</button>
-      {/* <button>
-        <IoArrowForwardOutline size={26} />
-      </button> */}
+      <button onClick={handleRandom}>Get random recipe</button>
     </Card>
   );
 }

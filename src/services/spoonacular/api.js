@@ -38,7 +38,7 @@ export const apiFindByID = axios.create({
 });
 
 export const apiGetRandom = axios.create({
-  baseURL: `https://api.spoonacular.com/recipes/random`,
+  baseURL: baseURL,
   params: {
     apiKey: API_KEY,
     number: 1, // random recipes per request

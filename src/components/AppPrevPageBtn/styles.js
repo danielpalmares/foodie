@@ -11,6 +11,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 1rem;
 
+  font-family: 'Nunito', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: ${props =>
