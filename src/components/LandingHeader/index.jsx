@@ -6,7 +6,7 @@ import SignInButton from '../SignInButton';
 import Logo from '../../assets/foodie-logo.svg';
 import { Header } from './styles';
 
-export default function LandingHeader({ hasSignInButton = false }) {
+export default function LandingHeader({ hasSignInButton }) {
   return (
     <Wrapper>
       <Header>

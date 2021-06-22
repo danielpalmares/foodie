@@ -38,7 +38,6 @@ import { activePageAction } from '../../../store/activePage';
 import Results from '../../../pages/withAuth/Results';
 
 import { getSingleStringFromInput } from '../../../utils';
-import NestedRoutes from '../../../routes/NestedRoutes';
 
 export default function Discover() {
   const dispatch = useDispatch();

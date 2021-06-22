@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import LandingHeader from '../../../components/LandingHeader';
 import LandingFooter from '../../../components/LandingFooter';
-import SubmitButton from '../../../components/SubmitButton';
 import Wrapper from '../../../components/Wrapper';
 
 import hamburger from '../../../assets/hamburger.svg';
@@ -84,7 +84,9 @@ export default function Landing() {
               />
             </GridLayout>
 
-            <SubmitButton>Start now</SubmitButton>
+            <Link to="/signup">
+              <button>Start now</button>
+            </Link>
           </Flex>
         </Wrapper>
       </SectionContent>

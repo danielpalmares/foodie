@@ -1,10 +1,7 @@
 import React from 'react';
-import { GlobalContextProvider } from './contexts/GlobalContextProvider';
 import Routes from './routes';
-
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-
 import { GlobalStyles } from './styles/global';
 
 export default function App() {
@@ -13,9 +10,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <GlobalContextProvider>
-        <Routes />
-      </GlobalContextProvider>
+      <Routes />
     </ThemeProvider>
   );
 }

@@ -13,12 +13,13 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     box-sizing: border-box;
-    background: ${props => props.theme.background};
+    scroll-behavior: smooth;
+
     font-family: 'Nunito', sans-serif;
-    font-size: 1.6rem;
+    font-size: ${props => props.theme.fontSizes.regular};
     font-weight: 400;
     color: ${props => props.theme.fontColors.primary};
-    scroll-behavior: smooth;
+    background: ${props => props.theme.background};
   }
 
   a {
@@ -31,14 +32,23 @@ export const GlobalStyles = createGlobalStyle`
 
   // Works on Firefox 
   * {
-    scrollbar-width: thin;
+    scrollbar-width: 0;
     scrollbar-color: ${props => props.theme.border.color} transparent;
+
+    @media screen and (min-width: 768px) {
+      scrollbar-width: thin;
+    }
   }
 
   // Works on Chrome, Edge, and Safari 
   *::-webkit-scrollbar {
+    display: none;
     width: 6px; // overflow y
     height: 6px; // overflow x
+
+    @media screen and (min-width: 768px) {
+      display: block;
+    }
   }
 
   *::-webkit-scrollbar-track {

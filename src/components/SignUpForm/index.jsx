@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 
+import FormInput from '../FormInput';
+import SubmitButton from '../SubmitButton';
+
 import {
   IoPersonOutline,
   IoMailOutline,
   IoKeyOutline,
   IoMaleOutline,
   IoFemaleOutline,
-  IoArrowForwardOutline,
+  IoPersonCircleOutline,
 } from 'react-icons/io5';
-import { Form, InputContainer, GenderContainer, Warning } from './styles';
+import { Form, GenderContainer, Warning } from './styles';
 
 export default function SignUpForm({ handleGetData }) {
   const [name, setName] = useState('');
@@ -17,7 +20,6 @@ export default function SignUpForm({ handleGetData }) {
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState('male');
 
-  // handle both gender
   const handleMaleChange = e => {
     const isChecked = e.target.checked;
     isChecked && setGender('male');
@@ -27,8 +29,7 @@ export default function SignUpForm({ handleGetData }) {
     isChecked && setGender('female');
   };
 
-  // handle user data
-  function handleData(e) {
+  function handleForm(e) {
     e.preventDefault();
 
     const user = {
@@ -44,62 +45,42 @@ export default function SignUpForm({ handleGetData }) {
   }
 
   return (
-    <Form onSubmit={e => handleData(e)}>
-      <InputContainer>
-        <label htmlFor="name">
-          <IoPersonOutline size={26} />
-        </label>
+    <Form onSubmit={e => handleForm(e)}>
+      <FormInput
+        type="text"
+        id="name"
+        placeholder="Name"
+        handleChange={e => setName(e.target.value.trim())}
+        label={<IoPersonCircleOutline size={26} />}
+        isRequired
+      />
 
-        <input
-          type="text"
-          id="name"
-          placeholder="Name"
-          onChange={e => setName(e.target.value)}
-          required
-        />
-      </InputContainer>
+      <FormInput
+        type="text"
+        id="username"
+        placeholder="Username"
+        handleChange={e => setUsername(e.target.value.toLowerCase().trim())}
+        label={<IoPersonOutline size={26} />}
+        isRequired
+      />
 
-      <InputContainer>
-        <label htmlFor="username">
-          <IoPersonOutline size={26} />
-        </label>
+      <FormInput
+        type="email"
+        id="email"
+        placeholder="Email"
+        handleChange={e => setEmail(e.target.value.trim())}
+        label={<IoMailOutline size={26} />}
+        isRequired
+      />
 
-        <input
-          type="text"
-          id="username"
-          placeholder="Username"
-          onChange={e => setUsername(e.target.value)}
-          required
-        />
-      </InputContainer>
-
-      <InputContainer>
-        <label htmlFor="email">
-          <IoMailOutline size={26} />
-        </label>
-
-        <input
-          type="email"
-          id="email"
-          placeholder="Email"
-          onChange={e => setEmail(e.target.value)}
-          required
-        />
-      </InputContainer>
-
-      <InputContainer>
-        <label htmlFor="password">
-          <IoKeyOutline size={26} />
-        </label>
-
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
-      </InputContainer>
+      <FormInput
+        type="password"
+        id="password"
+        placeholder="Password"
+        handleChange={e => setPassword(e.target.value)}
+        label={<IoKeyOutline size={26} />}
+        isRequired
+      />
 
       <GenderContainer>
         <input
@@ -130,9 +111,7 @@ export default function SignUpForm({ handleGetData }) {
 
       <Warning>Data are stored in the local storage</Warning>
 
-      <button type="submit">
-        Sign up <IoArrowForwardOutline size={26} />
-      </button>
+      <SubmitButton>Sign up</SubmitButton>
     </Form>
   );
 }

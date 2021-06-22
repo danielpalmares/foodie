@@ -15,13 +15,11 @@ import { SignUpContainer, Directions, ErrorMessage } from './styles';
 export default function SignUp() {
   const dispatch = useDispatch();
 
-  const createNewUser = user => {
-    dispatch(signUpAction(user));
-  };
+  const { signUpErrorStatus } = useSelector(state => state.user);
 
-  const { status, errorStatus, authenticatedUser, user } = useSelector(
-    state => state.user
-  );
+  function handleForm(account) {
+    dispatch(signUpAction(account));
+  }
 
   return (
     <SignUpContainer>
@@ -37,15 +35,14 @@ export default function SignUp() {
           <span>Already have an account?</span>
           <br />
           <Link to="/signin">
-            <IoArrowBackOutline size={14} />
-            Go to login page.
+            <IoArrowBackOutline size={16} /> Go to login page.
           </Link>
         </div>
 
-        {errorStatus && <ErrorMessage>{errorStatus}</ErrorMessage>}
+        {signUpErrorStatus && <ErrorMessage>{signUpErrorStatus}</ErrorMessage>}
       </Directions>
 
-      <SignUpForm handleGetData={createNewUser} />
+      <SignUpForm handleGetData={handleForm} />
     </SignUpContainer>
   );
 }

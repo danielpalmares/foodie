@@ -10,7 +10,8 @@ import { signInAction, signUpAction, resetAction } from './actions';
 
 const initialState = {
   status: '',
-  errorStatus: '',
+  signInErrorStatus: '',
+  signUpErrorStatus: '',
   authenticatedUser: false,
   user: null,
 };
@@ -21,7 +22,7 @@ function user(state = initialState, action) {
       return {
         ...state,
         status: action.payload.status,
-        errorStatus: action.payload.errorStatus,
+        signUpErrorStatus: action.payload.errorStatus,
         authenticatedUser: action.payload.authenticatedUser,
         user: action.payload.user,
       };
@@ -29,7 +30,7 @@ function user(state = initialState, action) {
       return {
         ...state,
         status: action.payload.status,
-        errorStatus: action.payload.errorStatus,
+        signUpErrorStatus: action.payload.errorStatus,
         authenticatedUser: action.payload.authenticatedUser,
         user: action.payload.user,
       };
@@ -37,7 +38,7 @@ function user(state = initialState, action) {
       return {
         ...state,
         status: action.payload.status,
-        errorStatus: action.payload.errorStatus,
+        signInErrorStatus: action.payload.errorStatus,
         authenticatedUser: action.payload.authenticatedUser,
         user: action.payload.user,
       };
@@ -45,7 +46,7 @@ function user(state = initialState, action) {
       return {
         ...state,
         status: action.payload.status,
-        errorStatus: action.payload.errorStatus,
+        signInErrorStatus: action.payload.errorStatus,
         authenticatedUser: action.payload.authenticatedUser,
         user: action.payload.user,
       };
@@ -53,7 +54,7 @@ function user(state = initialState, action) {
       return {
         ...state,
         status: action.payload.status,
-        errorStatus: action.payload.errorStatus,
+        signInErrorStatus: action.payload.errorStatus,
         authenticatedUser: action.payload.authenticatedUser,
         user: action.payload.user,
       };

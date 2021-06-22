@@ -27,7 +27,7 @@ export const Input = styled.input`
   border: ${props => props.theme.border.size} solid
     ${props => props.theme.border.color};
   border-radius: ${props => props.theme.border.radius};
-  background: ${props => props.theme.background};
+  background: ${props => props.theme.colors.absolute};
 
   &:focus {
     border-color: ${props => props.theme.colors.primary};

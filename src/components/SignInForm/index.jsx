@@ -30,7 +30,7 @@ export default function SignInForm({ handleGetData }) {
         placeholder="Username"
         isRequired
         label={<IoPersonOutline size={26} />}
-        handleChange={e => setUsername(e.target.value)}
+        handleChange={e => setUsername(e.target.value.toLowerCase().trim())}
       />
 
       <FormInput

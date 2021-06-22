@@ -5,6 +5,7 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  width: 100%;
 
   font-family: 'Nunito', sans-serif;
   font-size: ${props => props.theme.fontSizes.larger};
@@ -14,10 +15,7 @@ export const Button = styled.button`
       ? props.theme.fontColors.secondary
       : props.theme.fontColors.primary};
 
-  width: 30rem;
-  margin: 0 auto;
   padding: 2rem;
-
   background: ${props => props.theme.colors.primary};
   outline: none;
   border: none;
