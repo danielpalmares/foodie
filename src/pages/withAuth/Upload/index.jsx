@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { activePageAction } from '../../../store/activePage';
 import { useObserver } from '../../../hooks';
 
+import { uploadRecipeAction } from '../../../store/uploadRecipe';
+
 export default function Upload() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -17,13 +19,18 @@ export default function Upload() {
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(activePageAction('upload')));
+
+  function handleForm(data) {
+    uploadRecipeAction(data);
+  }
+
   return (
     <>
       <Layout onlyBackButton>
         <UploadContainer>
           <h1>Show us your amazing recipe!</h1>
 
-          <UploadForm />
+          <UploadForm handleGetData={handleForm} />
         </UploadContainer>
       </Layout>
     </>
