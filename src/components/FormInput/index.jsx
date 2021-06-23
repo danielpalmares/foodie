@@ -9,6 +9,7 @@ export default function FormInput({
   isRequired,
   handleChange,
   label,
+  minValue,
 }) {
   return (
     <InputContainer>
@@ -19,6 +20,7 @@ export default function FormInput({
         placeholder={placeholder}
         required={isRequired}
         onChange={handleChange}
+        minLength={minValue}
       />
     </InputContainer>
   );

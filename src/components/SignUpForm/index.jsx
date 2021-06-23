@@ -61,6 +61,7 @@ export default function SignUpForm({ handleGetData }) {
         placeholder="Username"
         handleChange={e => setUsername(e.target.value.toLowerCase().trim())}
         label={<IoPersonOutline size={26} />}
+        minValue={5}
         isRequired
       />
 

@@ -39,32 +39,8 @@ export const SwipeDirection = styled.div`
   }
 `;
 
-export const UserNameContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-
-  margin-top: 3rem;
-
-  h3 {
-    font-size: 2rem;
-    font-weight: 700;
-  }
-
-  span {
-    font-size: 1.6rem;
-    font-weight: 400;
-  }
-`;
-
 export const Avatar = styled.img`
-  width: calc(528px / 6);
   height: calc(560px / 6);
-
-  position: absolute;
-  top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 export const BarContainer = styled.div`
@@ -87,7 +63,7 @@ export const BarContainer = styled.div`
     li {
       width: 2px;
       height: 4rem;
-      background: ${props => props.theme.colors.border};
+      background: ${props => props.theme.border.color};
 
       position: absolute;
       bottom: 0;
@@ -174,8 +150,8 @@ export const Marker = styled.img`
 
   position: absolute;
   top: 50%;
-  left: 0%; // progress
-  transform: translate(-0%, -50%);
+  left: ${props => `${props.position}%`}; // progress
+  transform: ${props => `translate(-${props.position}%, -50%)`};
   z-index: 10;
 `;
 
@@ -187,39 +163,12 @@ export const ProgressContainer = styled.div`
   section {
     width: 2400px;
     height: 100%;
-
-    // change later
-    padding: 0 1rem;
-    @media screen and (min-width: 768px) {
-      max-width: 668px;
-      margin: 0 auto;
-      padding-left: 0;
-      padding-right: 0;
-    }
   }
 `;
 
 export const Stats = styled.div`
   width: 100%;
   padding: 3rem 0;
-
-  // media queries start area
-  /* @media screen and (min-width: 320px) {
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  @media screen and (min-width: 375px) {
-    max-width: 355px;
-    margin: 0 auto;
-  }
-
-  @media screen and (min-width: 425px) {
-    max-width: 405px;
-    margin: 0 auto;
-  } */
-
-  // media queries final area
 
   ul {
     display: flex;
@@ -231,69 +180,68 @@ export const Stats = styled.div`
       align-items: center;
       gap: 1rem;
 
-      p {
-        color: ${props => props.theme.fontColors.primary};
-      }
+      color: ${props => props.theme.fontColors.primary};
 
       span {
         font-weight: 700;
         border-radius: 1rem;
         padding: 0.5rem 1rem;
+
+        color: ${props =>
+          props.theme.mode === 'light'
+            ? props.theme.fontColors.primary
+            : props.theme.fontColors.secondary};
       }
 
       &:not(:last-child) {
         span {
-          background: ${props => props.theme.colors.quartenary};
-          color: ${props =>
-            props.theme.mode === 'light'
-              ? props.theme.fontColors.bg
-              : props.theme.fontColors.primary};
+          background: ${props => props.theme.colors.secondary};
         }
       }
 
       &:last-child {
         span {
           background: ${props => props.theme.colors.primary};
-          color: ${props =>
-            props.theme.mode === 'light'
-              ? props.theme.fontColors.bg
-              : props.theme.fontColors.primary};
         }
       }
     }
   }
 `;
 
-export const Wrapper = styled.div`
-  padding: 0 1rem;
+export const Container = styled.div`
   margin-bottom: 6rem;
 
   @media screen and (min-width: 768px) {
     max-width: 668px;
     margin: 0 auto;
+
     margin-bottom: 6rem;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0;
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  section {
+    padding: 1rem 0;
   }
 `;
 
-export const Container = styled.div`
-  header {
-    height: 15rem;
-    position: relative;
-    z-index: 0;
+export const UserNameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
+  h3 {
+    font-size: ${props => props.theme.fontSizes.h3};
+    font-weight: 700;
+  }
 
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%);
-      background-color: ${props => props.theme.fontColors.tertiary};
-    }
+  span {
+    font-size: ${props => props.theme.fontSizes.regular};
   }
 `;

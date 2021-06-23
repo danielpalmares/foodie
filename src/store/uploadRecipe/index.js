@@ -1,5 +1,9 @@
-import { RECIPE_UPLOADED, RECIPE_NOT_UPLOADED } from './types';
-import { uploadRecipeAction } from './actions';
+import {
+  RECIPE_UPLOADED,
+  RECIPE_NOT_UPLOADED,
+  CLEAR_UPLOADED_RECIPE_STATUS,
+} from './types';
+import { uploadRecipeAction, clearUploadStatusAction } from './actions';
 
 const initialState = {
   status: '',
@@ -8,14 +12,22 @@ const initialState = {
 
 function uploadedRecipe(state = initialState, action) {
   switch (action.type) {
+    case CLEAR_UPLOADED_RECIPE_STATUS:
+      return {
+        ...state,
+        status: action.payload.status,
+        errorStatus: action.payload.errorStatus,
+      };
     case RECIPE_UPLOADED:
       return {
         ...state,
         status: action.payload.status,
+        errorStatus: action.payload.errorStatus,
       };
     case RECIPE_NOT_UPLOADED:
       return {
         ...state,
+        status: action.payload.status,
         errorStatus: action.payload.errorStatus,
       };
     default:
@@ -23,4 +35,4 @@ function uploadedRecipe(state = initialState, action) {
   }
 }
 
-export { uploadedRecipe, uploadRecipeAction };
+export { uploadedRecipe, uploadRecipeAction, clearUploadStatusAction };

@@ -19,7 +19,7 @@ export const NavContainer = styled.nav`
   z-index: 100;
 
   @media screen and (min-width: 768px) {
-    max-width: 648px;
+    max-width: 668px;
 
     left: 50%;
     transform: translate(-50%, 0);

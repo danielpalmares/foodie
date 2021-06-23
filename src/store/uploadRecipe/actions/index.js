@@ -1,6 +1,21 @@
-import { RECIPE_UPLOADED, RECIPE_NOT_UPLOADED } from '../types';
+import {
+  RECIPE_UPLOADED,
+  RECIPE_NOT_UPLOADED,
+  CLEAR_UPLOADED_RECIPE_STATUS,
+} from '../types';
 import { apiUpload } from '../../../services/forkify/api';
 import { getItemFromLS, setItemFromLS } from '../../../utils';
+
+// reset status
+export function clearUploadStatusAction() {
+  return {
+    type: CLEAR_UPLOADED_RECIPE_STATUS,
+    payload: {
+      status: '',
+      errorStatus: '',
+    },
+  };
+}
 
 /**
  * @param newRecipe The new recipe as an object
@@ -40,6 +55,7 @@ export async function uploadRecipeAction(newRecipe) {
       title: dataRecipe.title,
       image: dataRecipe.image_url,
       id: dataRecipe.id,
+      publisher: dataRecipe.publisher,
     };
 
     // send the recipe to localStorage
@@ -50,14 +66,19 @@ export async function uploadRecipeAction(newRecipe) {
     return {
       type: RECIPE_UPLOADED,
       payload: {
-        status: data.status,
+        status:
+          data.status === 'success'
+            ? 'Congratulations! Your recipe was successfully uploaded.'
+            : '',
+        errorStatus: '',
       },
     };
   } catch (err) {
     return {
       type: RECIPE_NOT_UPLOADED,
       payload: {
-        errorStatus: err,
+        status: '',
+        errorStatus: err.message,
       },
     };
   }

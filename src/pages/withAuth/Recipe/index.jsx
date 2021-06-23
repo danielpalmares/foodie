@@ -15,6 +15,7 @@ import {
   IoHeartOutline,
   IoTimerOutline,
   IoThumbsUpOutline,
+  IoHeartSharp,
 } from 'react-icons/io5';
 import {
   Container,
@@ -31,6 +32,7 @@ import {
 } from './styles';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { getItemFromLS, setItemFromLS } from '../../../utils';
 
 export default function Recipe() {
   useEffect(() => {
@@ -44,6 +46,7 @@ export default function Recipe() {
   const random = search.includes('random') && search.replace('?', '');
 
   const recipe = useSelector(state => state.recipeInformation.recipe);
+  const { username } = useSelector(state => state.user.user);
 
   useEffect(() => {
     dispatch(recipeInformationAction(id, random));
@@ -51,6 +54,8 @@ export default function Recipe() {
 
   const [ingredients, setIngredients] = useState([]);
   const [servings, setServings] = useState(0);
+
+  const [isFavoriteRecipe, setIsFavoriteRecipe] = useState(false);
 
   useEffect(() => {
     if (!recipe) return;
@@ -69,6 +74,52 @@ export default function Recipe() {
     return;
   }
 
+  // check if the current recipe showing up in the page is a favorite one
+  useEffect(() => {
+    if (!recipe) return;
+
+    const usersArr = getItemFromLS('users');
+
+    const currentUser = usersArr.filter(user => user.username === username);
+
+    const isFavorite = currentUser[0].favoriteRecipes?.some(
+      userRec => userRec.id === recipe.id
+    );
+
+    setIsFavoriteRecipe(isFavorite);
+  }, [recipe, username]);
+
+  function handleFavoriteRecipe(recipe) {
+    // favorite the recipe if it is not a favorite one yet
+    if (!isFavoriteRecipe) {
+      const usersArr = getItemFromLS('users');
+
+      usersArr.map(user => {
+        return user.username === username && user.favoriteRecipes.push(recipe);
+      });
+
+      setItemFromLS('users', usersArr);
+      return setIsFavoriteRecipe(true);
+    }
+
+    // unfavorite if it is already a favorite one
+    if (isFavoriteRecipe) {
+      const usersArr = getItemFromLS('users');
+
+      usersArr.map(user => {
+        return (
+          user.username === username &&
+          user.favoriteRecipes?.map((rec, i) => {
+            return rec.id === recipe.id && user.favoriteRecipes?.splice(i, 1);
+          })
+        );
+      });
+
+      setItemFromLS('users', usersArr);
+      return setIsFavoriteRecipe(false);
+    }
+  }
+
   return (
     <Layout onlyBackButton>
       <Container>
@@ -78,8 +129,20 @@ export default function Recipe() {
               <RecipeTitle>{recipe.title}</RecipeTitle>
 
               <RecipePhoto imageSrc={recipe.image}>
-                <FavoriteButton data-id={recipe.id}>
-                  <IoHeartOutline size={26} />
+                <FavoriteButton
+                  onClick={() =>
+                    handleFavoriteRecipe({
+                      title: recipe.title,
+                      image: recipe.image,
+                      id: recipe.id,
+                    })
+                  }
+                >
+                  {isFavoriteRecipe ? (
+                    <IoHeartSharp size={26} color="#E31B23" />
+                  ) : (
+                    <IoHeartOutline size={26} />
+                  )}
                 </FavoriteButton>
               </RecipePhoto>
 

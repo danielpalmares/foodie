@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import notFound from '../../assets/not-found.svg';
 
@@ -10,11 +11,11 @@ export default function NotFound() {
     <Container>
       <img src={notFound} alt="Not Found" />
 
-      <a href="/">
+      <Link to="/">
         <button>
           Go to home <IoHomeOutline size={20} />
         </button>
-      </a>
+      </Link>
     </Container>
   );
 }

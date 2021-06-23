@@ -22,10 +22,13 @@ export default function AppRecipeCard({
         <RecipeCardTitle>{title}</RecipeCardTitle>
 
         <RecipeCardInfoContainer>
-          <span>
-            <IoHeartSharp size={26} color="#FE251B" /> {likes}{' '}
-            {likes === 1 ? 'like' : 'likes'}
-          </span>
+          {likes > 0 && (
+            <span>
+              <IoHeartSharp size={26} color="#FE251B" /> {likes}{' '}
+              {likes === 1 ? 'like' : 'likes'}
+            </span>
+          )}
+
           <button data-id={data} onClick={handleRecipe}>
             How to make <IoArrowForwardOutline size={14} />
           </button>

@@ -1,15 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import AppTitle from '../AppTitle';
 
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Form, UploadColumn, InputWrapper } from './styles';
 
-import { useSelector } from 'react-redux';
-
 export default function UploadForm({ handleGetData }) {
-  // const { username } = useSelector(state => state.user.user);
-  const username = 'dann';
+  const { username } = useSelector(state => state.user.user);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,6 +16,7 @@ export default function UploadForm({ handleGetData }) {
     dataArr.push(['publisher', username ? username : '']);
 
     const dataObj = Object.fromEntries(dataArr);
+    console.log(dataObj);
 
     return handleGetData(dataObj);
   }
@@ -34,6 +33,7 @@ export default function UploadForm({ handleGetData }) {
             name="title"
             id="title"
             placeholder="Recipe's title"
+            minLength={2}
             required
           />
         </InputWrapper>
@@ -44,6 +44,7 @@ export default function UploadForm({ handleGetData }) {
             name="sourceUrl"
             id="sourceUrl"
             placeholder="Recipe's source url"
+            minLength={5}
             required
           />
         </InputWrapper>
@@ -54,6 +55,7 @@ export default function UploadForm({ handleGetData }) {
             name="image"
             id="image"
             placeholder="Recipe's image url"
+            minLength={5}
             required
           />
         </InputWrapper>
@@ -63,7 +65,8 @@ export default function UploadForm({ handleGetData }) {
             type="number"
             name="cookingTime"
             id="cookingTime"
-            placeholder="Recipe's cooking time"
+            placeholder="Recipe's preparation time (min)"
+            min={1}
             required
           />
         </InputWrapper>
@@ -73,7 +76,8 @@ export default function UploadForm({ handleGetData }) {
             type="number"
             name="servings"
             id="servings"
-            placeholder="Recipe's servings?"
+            placeholder="Recipe's servings"
+            min={1}
             required
           />
         </InputWrapper>
