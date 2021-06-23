@@ -60,4 +60,8 @@ export const GlobalStyles = createGlobalStyle`
     border-radius: 2rem;
     border: none;
   }
+
+  *::-webkit-scrollbar-corner {
+    display: none;
+  }
 `;

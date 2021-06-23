@@ -8,7 +8,8 @@ import { Form, UploadColumn, InputWrapper } from './styles';
 import { useSelector } from 'react-redux';
 
 export default function UploadForm({ handleGetData }) {
-  const username = useSelector(state => state.user?.username);
+  // const { username } = useSelector(state => state.user.user);
+  const username = 'dann';
 
   function handleSubmit(e) {
     e.preventDefault();
