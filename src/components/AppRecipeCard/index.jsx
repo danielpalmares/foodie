@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { IoArrowForwardOutline, IoHeartSharp } from 'react-icons/io5';
+
 import {
   RecipeCardContainer,
   RecipeCardInfo,
@@ -14,7 +15,7 @@ export default function AppRecipeCard({
   imageSrc,
   handleRecipe,
   refValue,
-  data,
+  showLikes,
 }) {
   return (
     <RecipeCardContainer ref={refValue} imageSrc={imageSrc}>
@@ -22,14 +23,14 @@ export default function AppRecipeCard({
         <RecipeCardTitle>{title}</RecipeCardTitle>
 
         <RecipeCardInfoContainer>
-          {likes > 0 && (
+          {showLikes && (
             <span>
               <IoHeartSharp size={26} color="#FE251B" /> {likes}{' '}
               {likes === 1 ? 'like' : 'likes'}
             </span>
           )}
 
-          <button data-id={data} onClick={handleRecipe}>
+          <button onClick={handleRecipe}>
             How to make <IoArrowForwardOutline size={14} />
           </button>
         </RecipeCardInfoContainer>

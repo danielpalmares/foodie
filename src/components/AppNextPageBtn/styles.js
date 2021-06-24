@@ -9,10 +9,10 @@ export const Button = styled.button`
 
   outline: none;
   border: none;
-  border-radius: 1rem;
+  border-radius: ${props => props.theme.border.radius};
 
   font-family: 'Nunito', sans-serif;
-  font-size: 1.4rem;
+  font-size: ${props => props.theme.fontSizes.small};
   font-weight: 700;
   color: ${props =>
     props.theme.mode === 'light'

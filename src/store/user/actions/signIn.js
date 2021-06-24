@@ -3,7 +3,7 @@ import {
   ERROR_NO_USERS_FOUND,
   ERROR_WRONG_ACCOUNT_DATA,
 } from '../types';
-import { getItemFromLS } from '../../../utils';
+import { getItemFromLS, setItemFromLS } from '../../../utils';
 
 export function signInAction(account) {
   const usersArr = getItemFromLS('users');
@@ -50,6 +50,10 @@ export function signInAction(account) {
         },
       };
     }
+
+    // set remember account to true
+    usersArr[userAccountIndex].remember = true;
+    setItemFromLS('users', usersArr);
 
     // if the account data is ok then return payload success
     if (username && password) {

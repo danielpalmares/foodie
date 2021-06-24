@@ -51,6 +51,6 @@ export const Button = styled.button`
   cursor: pointer;
 
   span {
-    font-size: 1.1rem;
+    font-size: 1.1rem; // unique situation
   }
 `;

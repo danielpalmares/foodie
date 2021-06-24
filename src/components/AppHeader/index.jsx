@@ -2,8 +2,12 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { dark, light } from '../../styles/themes';
 import { themeAction } from '../../store/theme';
+import { logOutAction } from '../../store/user/actions';
+
+import { dark, light } from '../../styles/themes';
+
+import { getItemFromLS, setItemFromLS } from '../../utils';
 
 import Logo from '../../assets/foodie-logo.svg';
 
@@ -11,11 +15,10 @@ import {
   IoArrowBackOutline,
   IoMoonSharp,
   IoSunnySharp,
-  IoSettingsOutline,
+  IoLogOutOutline,
 } from 'react-icons/io5';
-import { Header } from './styles';
 
-import { getItemFromLS, setItemFromLS } from '../../utils';
+import { Header } from './styles';
 
 export default function AppHeader({
   defaultHeader,
@@ -30,6 +33,9 @@ export default function AppHeader({
 
   // setting up switch theme button
   const currentTheme = useSelector(state => state.theme.theme.mode);
+
+  // get account username from redux
+  const { username } = useSelector(state => state.user.user);
 
   function switchTheme() {
     currentTheme === 'light'
@@ -49,6 +55,12 @@ export default function AppHeader({
     themeArr[0] = theme;
 
     return setItemFromLS('theme', themeArr);
+  }
+
+  function handleLogOut() {
+    setTimeout(() => {
+      return dispatch(logOutAction(username));
+    }, 1 * 1000);
   }
 
   return (
@@ -79,8 +91,8 @@ export default function AppHeader({
             <IoArrowBackOutline size={26} />
           </button>
 
-          <button>
-            <IoSettingsOutline size={26} />
+          <button onClick={() => handleLogOut()}>
+            <IoLogOutOutline size={26} />
           </button>
         </>
       )}

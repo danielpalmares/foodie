@@ -1,71 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Redirect,
-  useHistory,
-  generatePath,
-  useRouteMatch,
-  Route,
-  BrowserRouter,
-  Switch,
-} from 'react-router-dom';
-
-import { IoArrowForwardOutline } from 'react-icons/io5';
-
-import Layout from '../../../pages/Layout';
-
-import CuisineCards from '../../../components/CuisineCards';
-
-import { Container, HorizontalList, SwipeDirection } from './styles';
-import FindRecipesCard from '../../../components/FindRecipesCard';
-
-import AppTitle from '../../../components/AppTitle';
-import InputSearch from '../../../components/InputSearch';
-
 import { useSelector, useDispatch } from 'react-redux';
-import RandomRecipeCard from '../../../components/RandomRecipeCard';
-
-import RecipesGrid from '../../../components/RecipesGrid';
-
-import dietSvg from '../../../assets/diet.svg';
-import chefSvg from '../../../assets/chef.svg';
-import tutorialSvg from '../../../assets/tutorial.svg';
+import { useHistory } from 'react-router-dom';
+import { useGreeting } from '../../../hooks';
 
 import {
   recipesType,
   recipesCuisines,
   recipesCookingTime,
 } from '../../../config';
-import { activePageAction } from '../../../store/activePage';
-
-import Results from '../../../pages/withAuth/Results';
 
 import { getSingleStringFromInput } from '../../../utils';
 
-import { useGreeting } from '../../../hooks';
-
 import { clearResultsRecipesAction } from '../../../store/resultsRecipes';
 import { clearRecipeInformation } from '../../../store/recipeInformation';
+import { activePageAction } from '../../../store/activePage';
+
+import Layout from '../../../pages/Layout';
+import AppTitle from '../../../components/AppTitle';
+import CuisineCard from '../../../components/CuisineCard';
+import InputSearch from '../../../components/InputSearch';
+import RandomRecipeCard from '../../../components/RandomRecipeCard';
+import FindRecipesCard from '../../../components/FindRecipesCard';
+import RecipesGrid from '../../../components/RecipesGrid';
+
+import dietSvg from '../../../assets/diet.svg';
+import chefSvg from '../../../assets/chef.svg';
+import tutorialSvg from '../../../assets/tutorial.svg';
+
+import { IoArrowForwardOutline } from 'react-icons/io5';
+
+import { Container, HorizontalList, SwipeDirection } from './styles';
 
 export default function Discover() {
+  // hooks call
   const dispatch = useDispatch();
   const history = useHistory();
+  const [greeting] = useGreeting();
 
+  // current user data from state
   const { user } = useSelector(state => state.user);
 
-  const [greeting] = useGreeting();
+  // states
   const [inputData, setInputData] = useState('');
 
+  // initial page's position
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // set the page as active
   useEffect(() => dispatch(activePageAction('discover')));
 
+  // handle functions
   function handleRecipesByName() {
     const recipeName = getSingleStringFromInput(inputData);
 
     if (!recipeName) return;
 
+    // clear the previous results state to prevent it from showing up before the new one
     dispatch(clearResultsRecipesAction());
 
     return history.push({
@@ -74,11 +66,10 @@ export default function Discover() {
     });
   }
 
-  function handleRecipesByType(e) {
-    const type = e.target.dataset.type;
-
+  function handleRecipesByType(type) {
     if (!type) return;
 
+    // clear the previous results state to prevent it from showing up before the new one
     dispatch(clearResultsRecipesAction());
 
     return history.push({
@@ -87,11 +78,10 @@ export default function Discover() {
     });
   }
 
-  function handleRecipesByCuisine(e) {
-    const cuisine = e.target.dataset.cuisine;
-
+  function handleRecipesByCuisine(cuisine) {
     if (!cuisine) return;
 
+    // clear the previous results state to prevent it from showing up before the new one
     dispatch(clearResultsRecipesAction());
 
     return history.push({
@@ -100,15 +90,20 @@ export default function Discover() {
     });
   }
 
-  function handleRecipesByTiming(e) {
-    const maxReadyTime = e.target.dataset.timing;
-
+  function handleRecipesByTiming(maxReadyTime) {
     if (!maxReadyTime) return;
 
+    // clear the previous results state to prevent it from showing up before the new one
     dispatch(clearResultsRecipesAction());
+
+    return history.push({
+      pathname: `/results`,
+      search: `?maxReadyTime=${maxReadyTime}`,
+    });
   }
 
   function handleRandomRecipe() {
+    // clear the previous recipe information state to prevent it from showing up before the new one
     dispatch(clearRecipeInformation());
 
     return history.push({
@@ -123,13 +118,15 @@ export default function Discover() {
         <main>
           <section>
             <AppTitle>
-              {greeting} {user?.name}
+              {greeting} {user.name}
             </AppTitle>
+
             <FindRecipesCard
               image={dietSvg}
               direction="/search"
               text="Find recipes based on what you already have on your kitchen"
             />
+
             <FindRecipesCard
               image={chefSvg}
               direction="/upload"
@@ -139,11 +136,13 @@ export default function Discover() {
 
           <section>
             <AppTitle>Looking for a specific recipe?</AppTitle>
+
             <InputSearch
               handleInputChange={e => setInputData(e.target.value)}
               handleSearch={() => handleRecipesByName()}
               placeholder="We have tasty pizzas, try it :)"
             />
+
             <FindRecipesCard
               image={tutorialSvg}
               direction="/tutorials"
@@ -153,19 +152,18 @@ export default function Discover() {
 
           <section>
             <AppTitle>Try to get a random recipe</AppTitle>
+
             <RandomRecipeCard handleRandom={() => handleRandomRecipe()} />
           </section>
 
           <section>
             <AppTitle>Find a recipe by its type</AppTitle>
+
             <HorizontalList>
               {recipesType.map(type => {
                 return (
                   <li key={type.id}>
-                    <button
-                      data-type={type.id}
-                      onClick={e => handleRecipesByType(e)}
-                    >
+                    <button onClick={() => handleRecipesByType(type.id)}>
                       {type.text}
                     </button>
                   </li>
@@ -181,15 +179,13 @@ export default function Discover() {
           </section>
 
           <section>
-            <AppTitle>Or more, get a quick recipe</AppTitle>
+            <AppTitle>Find a recipe by the maximum cooking time</AppTitle>
+
             <HorizontalList>
               {recipesCookingTime.map(time => {
                 return (
                   <li key={time.id}>
-                    <button
-                      data-timing={time.id}
-                      onClick={e => handleRecipesByTiming(e)}
-                    >
+                    <button onClick={() => handleRecipesByTiming(time.id)}>
                       {time.text}
                     </button>
                   </li>
@@ -206,15 +202,15 @@ export default function Discover() {
 
           <section>
             <AppTitle>Curious about some other cuisines?</AppTitle>
+
             <RecipesGrid>
               {recipesCuisines.map(cuisine => {
                 return (
-                  <CuisineCards
+                  <CuisineCard
                     key={cuisine.id}
-                    data={cuisine.id}
                     image={cuisine.id}
                     title={cuisine.id}
-                    handleClick={e => handleRecipesByCuisine(e)}
+                    handleClick={() => handleRecipesByCuisine(cuisine.id)}
                   />
                 );
               })}

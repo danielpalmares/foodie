@@ -1,17 +1,7 @@
 import styled from 'styled-components';
 
 export const Card = styled.div`
-  background: ${props =>
-    props.active
-      ? `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(${props.imageSrc})`
-      : 'transparent'};
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   gap: 2rem;
@@ -19,13 +9,10 @@ export const Card = styled.div`
   width: 100%;
   height: 20rem;
 
-  border: ${props =>
-    props.active
-      ? 'none'
-      : `${props.theme.border.size} dashed ${props.theme.border.color}`};
-  border-radius: 1rem;
+  border: ${props => props.theme.border.size} dashed
+    ${props => props.theme.border.color};
+  border-radius: ${props => props.theme.border.radius};
   padding: 2rem 1rem;
-  /* margin: 2rem 0; */
 
   transition: all 0.2s;
   position: relative;
@@ -45,37 +32,32 @@ export const Card = styled.div`
     justify-content: center;
 
     font-weight: 700;
-    font-size: 3rem;
+    font-size: 3rem; // unique situation
     color: ${props => props.theme.fontColors.tertiary};
 
-    border: ${props =>
-      props.active
-        ? 'none'
-        : `${props.theme.border.size} dashed ${props.theme.border.color}`};
+    border: ${props => props.theme.border.size} dashed
+      ${props => props.theme.border.color};
     border-radius: 50%;
-
-    visibility: ${props => (props.active ? 'hidden' : 'visible')};
   }
 
   button {
     font-family: 'Nunito', sans-serif;
-    background: ${props => props.theme.colors.secondary};
-    align-self: flex-end;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    font-size: ${props => props.theme.fontSizes.small};
+    font-weight: 700;
     color: ${props =>
       props.theme.mode === 'light'
         ? props.theme.fontColors.secondary
         : props.theme.fontColors.primary};
-    font-size: 1.4rem;
-    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
 
     outline: none;
     border: none;
     border-radius: 1rem;
+    background: ${props => props.theme.colors.quaternary};
 
     padding: 0.5rem 1rem;
     cursor: pointer;

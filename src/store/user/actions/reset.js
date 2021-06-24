@@ -1,13 +1,18 @@
-import { RESET_USER_STATE } from '../types';
+import { LOG_OUT_USER } from '../types';
+import { getItemFromLS, setItemFromLS } from '../../../utils';
 
-export function resetAction() {
+export function logOutAction(username) {
+  const usersList = getItemFromLS('users');
+  usersList.map(user => {
+    return user.username === username ? (user.remember = false) : user;
+  });
+
+  setItemFromLS('users', usersList);
   return {
-    type: RESET_USER_STATE,
+    type: LOG_OUT_USER,
     payload: {
-      status: '',
-      errorStatus: '',
-      authenticatedUser: false,
       user: null,
+      authenticatedUser: false,
     },
   };
 }

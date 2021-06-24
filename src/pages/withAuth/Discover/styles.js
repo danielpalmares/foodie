@@ -15,10 +15,8 @@ export const fillOpacity = keyframes`
 `;
 
 export const SwipeDirection = styled.div`
-  margin: 1rem 0;
-
   span {
-    font-size: 1.6rem;
+    font-size: ${props => props.theme.fontSizes.regular};
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -29,10 +27,11 @@ export const SwipeDirection = styled.div`
 `;
 
 export const Container = styled.div`
+  margin-bottom: 6rem; // navigation's height
+
   main {
     display: flex;
     flex-direction: column;
-    margin-bottom: 6rem; // because of navigation
     overflow: hidden;
   }
 
@@ -60,6 +59,7 @@ export const HorizontalList = styled.ul`
       props.theme.mode === 'light'
         ? props.theme.fontColors.secondary
         : props.theme.fontColors.primary};
+
     text-align: center;
     white-space: nowrap;
 
@@ -68,7 +68,8 @@ export const HorizontalList = styled.ul`
     padding: 1rem;
     border-radius: ${props => props.theme.border.radius};
 
-    background: ${props => props.theme.colors.tertiary};
+    background: ${props =>
+      `linear-gradient(to right bottom, ${props.theme.colors.tertiary}, ${props.theme.colors.quaternary})`};
     transition: all 0.2s;
     cursor: pointer;
   }

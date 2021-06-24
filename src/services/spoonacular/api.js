@@ -46,7 +46,7 @@ export const apiGetRandom = axios.create({
 });
 
 export const apiFindVideos = axios.create({
-  baseURL: `https://api.spoonacular.com/food/videos/search`, // ?query
+  baseURL: `https://api.spoonacular.com/food/videos/`, // ?query
   params: {
     apiKey: API_KEY,
     number: 50, // videos per request

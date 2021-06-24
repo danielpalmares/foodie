@@ -9,9 +9,9 @@ export const Container = styled.div`
 
   width: 100%;
   height: 20rem;
-
-  border-radius: 1rem;
   padding: 2rem;
+
+  border-radius: ${props => props.theme.border.radius};
   cursor: pointer;
 
   span {
@@ -42,7 +42,8 @@ export const Container = styled.div`
       z-index: -1;
       opacity: 0.7;
       transform: scale(1.07, 1.05) skewX(344deg);
-      background: linear-gradient(to right, #ffbe0b, #fb5607);
+      background: ${props =>
+        `linear-gradient(to right, ${props.theme.colors.secondary}, ${props.theme.colors.primary})`};
     }
   }
 `;

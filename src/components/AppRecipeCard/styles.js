@@ -24,11 +24,8 @@ export const RecipeCardContainer = styled.div`
   min-width: 30rem;
   height: 20rem;
 
-  border-radius: 1rem;
+  border-radius: ${props => props.theme.border.radius};
   padding: 2rem 1rem;
-  /* margin: 2rem 0; */
-
-  transition: all 0.2s;
 
   opacity: 0;
   transition: all 0.2s;
@@ -42,7 +39,7 @@ export const RecipeCardInfo = styled.div`
 `;
 
 export const RecipeCardTitle = styled.h3`
-  font-size: 2rem;
+  font-size: ${props => props.theme.fontSizes.h3};
   font-weight: 700;
   color: ${props =>
     props.theme.mode === 'light'
@@ -71,28 +68,27 @@ export const RecipeCardInfoContainer = styled.div`
     align-items: center;
     gap: 0.5rem;
 
-    font-size: 1.4rem;
+    font-size: ${props => props.theme.fontSizes.small};
     font-weight: 600;
     color: inherit;
   }
 
   button {
     font-family: 'Nunito', sans-serif;
+    font-size: ${props => props.theme.fontSizes.small};
+    color: inherit;
 
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-
-    font-size: 1.4rem;
-
     padding: 0.5rem 1rem;
 
-    border: none;
-    border-radius: 1rem;
     outline: none;
-    background: ${props => props.theme.colors.secondary};
-    color: inherit;
+    border: none;
+    border-radius: ${props => props.theme.border.radius};
+    background: ${props =>
+      `linear-gradient(to right, ${props.theme.colors.secondary}, ${props.theme.colors.primary})`};
     cursor: pointer;
     transition: all 0.2s;
 

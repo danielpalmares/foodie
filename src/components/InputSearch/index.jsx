@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { IoSearchOutline } from 'react-icons/io5';
+
 import { InputWrapper } from './styles';
 
 export default function InputSearch({
@@ -17,9 +18,9 @@ export default function InputSearch({
     <InputWrapper>
       <input
         type="text"
-        placeholder={placeholder}
         onChange={handleInputChange}
         onKeyDown={e => handleSearchKeyDown(e)}
+        placeholder={placeholder}
       />
 
       <button onClick={handleSearch}>

@@ -5,11 +5,13 @@ const RECIPE_VIDEOS_NOT_FOUND = 'RECIPE_VIDEOS_NOT_FOUND';
 
 export async function recipeVideosAction(query) {
   try {
-    const response = await apiFindVideos.get(`?query=${query}`);
-    const { status, data } = response;
-    const { totalResults, videos } = data;
+    const response = await apiFindVideos.get(`search?query=${query}`);
+    const { status } = response;
 
-    if (status !== 200) throw new Error('Videos not found');
+    if (status !== 200) throw new Error(response.message);
+
+    const { data } = response;
+    const { totalResults, videos } = data;
 
     const recipeVideos = videos.map(vid => {
       return {

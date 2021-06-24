@@ -1,47 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { recipesByIngredientsAction } from '../../../store/recipesByIngredients';
 import { useHistory } from 'react-router-dom';
 
+import { resultsPerPage } from '../../../config/Search';
+
+import { getPagination, getIngredientsFromInput } from '../../../utils';
+
+import { recipesByIngredientsAction } from '../../../store/recipesByIngredients';
+import { activePageAction } from '../../../store/activePage';
+import { clearRecipeInformation } from '../../../store/recipeInformation';
+
 import Layout from '../../Layout';
-import RecipeCard from '../../../components/AppRecipeCard';
+import AppRecipeCard from '../../../components/AppRecipeCard';
 import AppTitle from '../../../components/AppTitle';
 import Spinner from '../../../components/Spinner';
 import PreviousPageButton from '../../../components/AppPrevPageBtn';
 import NextPageButton from '../../../components/AppNextPageBtn';
 import InputSearch from '../../../components/InputSearch';
 
-import { IoSearchOutline } from 'react-icons/io5';
-import {
-  SearchContainer,
-  InputWrapper,
-  GridLayout,
-  PaginationContainer,
-} from './styles';
-
-import { activePageAction } from '../../../store/activePage';
-import { identity } from 'mathjs';
-
-import { clearRecipeInformation } from '../../../store/recipeInformation';
+import { SearchContainer, GridLayout, PaginationContainer } from './styles';
 
 export default function Search() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const dispatch = useDispatch();
   const history = useHistory();
   const recipesRef = useRef();
-
-  // set active page
-  useEffect(() => dispatch(activePageAction('search')));
 
   // get all recipes from state
   const recipes = useSelector(state => state.recipesByIngredients.data);
 
   // states for pagination
   const [recipesPerPage, setRecipesPerPage] = useState([]);
-  const [resultsPerPage, setResultsPerPage] = useState(10); // !magic number
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPages, setMaxPages] = useState(null);
   const [previousButton, setPreviousButton] = useState(false);
@@ -52,13 +40,22 @@ export default function Search() {
   const [inputData, setInputData] = useState('');
   const [inputIngredients, setInputIngredients] = useState('');
 
+  // page's initial position
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // set active page
+  useEffect(() => dispatch(activePageAction('search')));
+
   // fetch the recipes from api
   useEffect(() => {
     if (!inputIngredients) return;
+
     setSpinner(true);
 
     return dispatch(recipesByIngredientsAction(inputIngredients));
-  }, [inputIngredients]);
+  }, [inputIngredients, dispatch]);
 
   // set spinner to false whenever the recipes has loaded
   useEffect(() => setSpinner(false), [recipes]);
@@ -68,11 +65,12 @@ export default function Search() {
     if (!recipes) return;
 
     // render the recipes while changing the state
-    const newRecipesPerPage = getSearchResultsPage(
+    const newRecipesPerPage = getPagination(
       recipes,
       currentPage,
       resultsPerPage
     );
+
     return setRecipesPerPage(newRecipesPerPage);
   }, [recipes, currentPage]);
 
@@ -81,15 +79,7 @@ export default function Search() {
     if (!recipesPerPage) return;
 
     return pagination(recipes, currentPage, resultsPerPage);
-  }, [recipesPerPage, currentPage]);
-
-  // get the recipes for each page
-  function getSearchResultsPage(recipesArr, curPage, resultsPerPage) {
-    const start = (curPage - 1) * resultsPerPage;
-    const end = curPage * resultsPerPage;
-
-    return recipesArr.slice(start, end);
-  }
+  }, [recipesPerPage, currentPage, recipes]); // recipes...
 
   // pagination functionality
   function pagination(recipes, currentPage, resultsPerPage) {
@@ -127,7 +117,15 @@ export default function Search() {
     return;
   }
 
-  // handle pagination
+  // get stuff back to default, usually when searching for new recipes
+  function backToDefault() {
+    previousButton && setPreviousButton(false);
+    nextButton && setNextButton(false);
+    recipesPerPage.length !== 0 && setRecipesPerPage([]);
+    currentPage !== 1 && setCurrentPage(1);
+  }
+
+  // handle functions
   function handlePagination(prevOrNext) {
     // set current page
     prevOrNext === 'previous'
@@ -136,50 +134,23 @@ export default function Search() {
 
     // scroll to the top of the recipes
     recipesRef.current.scrollIntoView({ behavior: 'smooth' });
-    return;
   }
 
-  // handle search click event (setting up the inputIngredients when the user searches)
   function handleSearchRecipes() {
-    const ingredients = formatInputString(inputData);
+    const ingredients = getIngredientsFromInput(inputData);
+
     // check if the ingredients are the same as before
     if (ingredients === inputIngredients) return;
 
     // if not, then get stuff back to default and set up ingredients to fetch after
     backToDefault();
     setInputIngredients(ingredients);
-
-    return;
-  }
-
-  // get stuff back to default, usually when searching for new recipes
-  function backToDefault() {
-    previousButton && setPreviousButton(false);
-    nextButton && setNextButton(false);
-    recipesPerPage.length !== 0 && setRecipesPerPage([]);
-    currentPage !== 1 && setCurrentPage(1);
-
-    return;
-  }
-
-  // format input data
-  function formatInputString(inputString) {
-    const ingredientsString = inputString;
-    // check the whole string, replace double whitespace or more for one, and then split them by comma into an array
-    const ingredientsArr = ingredientsString.replace(/\s+/g, ' ').split(',');
-    // for each ingredient inside the array, remove whitespace from start and end, for others just replace for +
-    const ingredientsArrFormatted = ingredientsArr.map(ing =>
-      ing.trim().replace(' ', '+').toLowerCase()
-    );
-    // transform them back to string separated by comma
-    const ingredientsFormatted = ingredientsArrFormatted.join(',');
-
-    return ingredientsFormatted;
   }
 
   function handleRecipe(id) {
     if (!id) return;
 
+    // clear previous recipe information state to prevent it from displaying before the new one
     dispatch(clearRecipeInformation());
 
     return history.push({
@@ -209,12 +180,12 @@ export default function Search() {
             !spinner &&
             recipesPerPage.map(rec => {
               return (
-                <RecipeCard
+                <AppRecipeCard
                   key={rec.id}
                   title={rec.title}
                   imageSrc={rec.image}
                   likes={rec.likes}
-                  data={rec.id}
+                  showLikes
                   handleRecipe={() => handleRecipe(rec.id)}
                 />
               );

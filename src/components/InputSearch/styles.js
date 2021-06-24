@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const InputWrapper = styled.div`
   width: 100%;
   position: relative;
-  /* margin: 2rem 0; */
 
   input {
     font-family: 'Nunito', sans-serif;

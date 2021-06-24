@@ -4,16 +4,22 @@ import {
   USER_SUCCESSFULLY_SIGNED_IN,
   ERROR_WRONG_ACCOUNT_DATA,
   ERROR_NO_USERS_FOUND,
-  RESET_USER_STATE,
+  LOG_OUT_USER,
+  RE_SIGN_IN,
 } from './types';
-import { signInAction, signUpAction, resetAction } from './actions';
+import {
+  signInAction,
+  signUpAction,
+  logOutAction,
+  reSignInAction,
+} from './actions';
 
 const initialState = {
+  user: null,
+  authenticatedUser: false,
   status: '',
   signInErrorStatus: '',
   signUpErrorStatus: '',
-  authenticatedUser: false,
-  user: null,
 };
 
 function user(state = initialState, action) {
@@ -58,17 +64,21 @@ function user(state = initialState, action) {
         authenticatedUser: action.payload.authenticatedUser,
         user: action.payload.user,
       };
-    case RESET_USER_STATE:
+    case LOG_OUT_USER:
       return {
         ...state,
-        status: action.payload.status,
-        errorStatus: action.payload.errorStatus,
         authenticatedUser: action.payload.authenticatedUser,
         user: action.payload.user,
+      };
+    case RE_SIGN_IN:
+      return {
+        ...state,
+        user: action.payload.user,
+        authenticatedUser: action.payload.authenticatedUser,
       };
     default:
       return state;
   }
 }
 
-export { signInAction, signUpAction, user, resetAction };
+export { signInAction, signUpAction, user, logOutAction, reSignInAction };

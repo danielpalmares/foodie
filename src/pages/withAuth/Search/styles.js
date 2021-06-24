@@ -20,12 +20,12 @@ export const SearchContainer = styled.div`
   header {
     display: flex;
     flex-direction: column;
-    margin-bottom: 4rem;
+    margin: 2rem 0;
 
     span {
       font-size: ${props => props.theme.fontSizes.small};
       font-weight: 600;
-      color: ${props => props.theme.fontColors.primary};
+      color: ${props => props.theme.fontColors.tertiary};
       margin-bottom: 3rem;
     }
   }

@@ -15,12 +15,12 @@ export const recipesType = [
 ];
 
 export const recipesCookingTime = [
-  { id: 5, text: '5 min' },
-  { id: 10, text: '10 min' },
-  { id: 15, text: '15 min' },
-  { id: 20, text: '20 min' },
-  { id: 25, text: '25 min' },
-  { id: 30, text: '30 min' },
+  { id: 5, text: '5 minutes' },
+  { id: 10, text: '10 minutes' },
+  { id: 15, text: '15 minutes' },
+  { id: 20, text: '20 minutes' },
+  { id: 25, text: '25 minutes' },
+  { id: 30, text: '30 minutes' },
 ];
 
 export const recipesCuisines = [

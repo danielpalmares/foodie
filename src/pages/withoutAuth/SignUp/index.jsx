@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import SignUpForm from '../../../components/SignUpForm/index';
@@ -7,13 +7,17 @@ import LandingHeader from '../../../components/LandingHeader';
 import { IoArrowBackOutline } from 'react-icons/io5';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { signUpAction } from '../../../store/user';
+import { signUpAction, reSignInAction } from '../../../store/user';
 
 import AppTitle from '../../../components/AppTitle';
 import { SignUpContainer, Directions, ErrorMessage } from './styles';
 
 export default function SignUp() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(reSignInAction());
+  });
 
   const { signUpErrorStatus } = useSelector(state => state.user);
 

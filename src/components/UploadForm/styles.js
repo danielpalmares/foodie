@@ -78,3 +78,9 @@ export const InputWrapper = styled.div`
     }
   }
 `;
+
+export const Title = styled.h5`
+  font-size: ${props => props.theme.fontSizes.small};
+  color: ${props => props.theme.colors.primary};
+  margin: 2rem 0 1rem 0;
+`;

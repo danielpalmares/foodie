@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { reSignInAction } from '../../../store/user';
 
 import LandingHeader from '../../../components/LandingHeader';
 import LandingFooter from '../../../components/LandingFooter';
@@ -14,6 +17,12 @@ import eatingTogether from '../../../assets/eating-together.svg';
 import { LandingContainer, SectionContent, GridLayout, Flex } from './styles';
 
 export default function Landing() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(reSignInAction());
+  });
+
   return (
     <LandingContainer>
       <LandingHeader hasSignInButton />

@@ -16,7 +16,7 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 2rem;
     margin-top: 2rem;
-    margin-bottom: 6rem; // navigation bar
+    margin-bottom: 6rem; // navigation's height
 
     header {
       display: flex;
@@ -33,5 +33,5 @@ export const Container = styled.div`
 export const TutorialContainer = styled.div`
   opacity: 0;
   transition: all 0.2s;
-  animation: 2s ${fillOpacity} cubic-bezier(0.73, 0.4, 0.4, 0.66) forwards;
+  animation: 1s ${fillOpacity} cubic-bezier(0.73, 0.4, 0.4, 0.66) forwards;
 `;

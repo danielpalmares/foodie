@@ -1,5 +1,6 @@
 import { signInAction } from './signIn';
 import { signUpAction } from './signUp';
-import { resetAction } from './reset';
+import { logOutAction } from './reset';
+import { reSignInAction } from './reSignIn';
 
-export { signInAction, signUpAction, resetAction };
+export { signInAction, signUpAction, logOutAction, reSignInAction };

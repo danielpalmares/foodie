@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useObserver } from '../../../hooks';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
+import { useObserver } from '../../../hooks';
+
+import { clearRecipeInformation } from '../../../store/recipeInformation/actions';
+import { activePageAction } from '../../../store/activePage';
+
+import { getItemFromLS } from '../../../utils';
+
 import {
   instructorObserverOptions,
   speechTexts,
@@ -8,11 +16,13 @@ import {
 
 import Layout from '../../Layout';
 import progressBar from '../../../assets/timelineBar.png';
-import RecipeCard from '../../../components/AppRecipeCard';
+import AppRecipeCard from '../../../components/AppRecipeCard';
 import AppTitle from '../../../components/AppTitle';
 import SpeechBubble from '../../../components/SpeechBubble';
+import NoRecipeCard from '../../../components/NoRecipeCard';
 
 import { IoArrowForwardOutline, IoCloudUploadOutline } from 'react-icons/io5';
+
 import {
   Container,
   Stats,
@@ -26,12 +36,6 @@ import {
   MyRecipesList,
   InstructionsContainer,
 } from './styles';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { activePageAction } from '../../../store/activePage';
-
-import { getItemFromLS, setItemFromLS } from '../../../utils';
-import NoRecipeCard from '../../../components/NoRecipeCard';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -135,6 +139,8 @@ export default function Profile() {
 
   // show recipe information in the recipe page
   function handleMyRecipe(id) {
+    dispatch(clearRecipeInformation());
+
     return history.push({
       pathname: '/recipe',
       search: `?forkID=${id}`,
@@ -143,6 +149,8 @@ export default function Profile() {
 
   // show recipe information in the recipe page
   function handleFavoriteRecipe(id) {
+    dispatch(clearRecipeInformation());
+
     return history.push({
       pathname: '/recipe',
       search: `?id=${id}`,
@@ -254,7 +262,7 @@ export default function Profile() {
             {userUploadedRecipes &&
               userUploadedRecipes.map(recipe => {
                 return (
-                  <RecipeCard
+                  <AppRecipeCard
                     key={recipe.id}
                     title={recipe.title}
                     imageSrc={recipe.image}
@@ -280,7 +288,7 @@ export default function Profile() {
             {userFavoriteRecipes &&
               userFavoriteRecipes.map(recipe => {
                 return (
-                  <RecipeCard
+                  <AppRecipeCard
                     key={recipe.id}
                     title={recipe.title}
                     imageSrc={recipe.image}

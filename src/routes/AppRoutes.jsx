@@ -14,7 +14,8 @@ import Recipe from '../pages/withAuth/Recipe';
 import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
-  const { authenticatedUser } = useSelector(state => state.user);
+  const { authenticatedUser, user } = useSelector(state => state.user);
+  console.log(authenticatedUser, user);
 
   return (
     <BrowserRouter>

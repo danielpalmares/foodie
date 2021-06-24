@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useObserver } from '../../../hooks';
 
-import { recipeVideosAction } from '../../../store/recipeVideos';
-import { activePageAction } from '../../../store/activePage';
+import { useObserver } from '../../../hooks';
 
 import { resultsPerPage } from '../../../config/Tutorials';
 
 import { getPagination, getSingleStringFromInput } from '../../../utils';
+
+import { recipeVideosAction } from '../../../store/recipeVideos';
+import { activePageAction } from '../../../store/activePage';
 
 import Layout from '../../Layout';
 import AppTitle from '../../../components/AppTitle';
@@ -18,17 +19,17 @@ import Player from '../../../components/Player';
 import { Container, TutorialContainer } from './styles';
 
 export default function Tutorials() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const dispatch = useDispatch();
+
+  // video data from redux
   const tutorials = useSelector(state => state.recipeVideos.videos);
 
+  // setting up the observer
   const [setRef, visible, clearRef] = useObserver({
     threshold: 1,
   });
 
+  // local states
   const [videos, setVideos] = useState(null);
   const [currentTutorialID, setCurrentTutorialID] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -38,6 +39,11 @@ export default function Tutorials() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [resultsCount, setResultsCount] = useState(10);
+
+  // page's initial position
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // set up it as active page for the navigation
   useEffect(() => dispatch(activePageAction('tutorials')));
@@ -57,7 +63,6 @@ export default function Tutorials() {
 
     setCurrentPage(currentPage + 1);
     clearRef(); // clear the old ref
-    return;
   }, [visible]);
 
   // scrolling pagination functionality
@@ -110,7 +115,6 @@ export default function Tutorials() {
 
     reset(); // reset the old results
     setResearchedRecipe(recipe);
-    return;
   }
 
   // get states back to the start point
@@ -118,7 +122,6 @@ export default function Tutorials() {
     setVideos([]);
     setCurrentPage(1);
     setResultsCount(10);
-    return;
   }
 
   return (

@@ -1,14 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import AppTitle from '../AppTitle';
-
 import { IoCloudUploadOutline } from 'react-icons/io5';
-import { Form, UploadColumn, InputWrapper } from './styles';
+
+import { Form, UploadColumn, InputWrapper, Title } from './styles';
 
 export default function UploadForm({ handleGetData }) {
+  // get user information from redux
   const { username } = useSelector(state => state.user.user);
 
+  // handle form
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -24,7 +25,7 @@ export default function UploadForm({ handleGetData }) {
   return (
     <Form onSubmit={handleSubmit}>
       <UploadColumn>
-        <AppTitle>Recipe data</AppTitle>
+        <Title>Recipe data</Title>
 
         <InputWrapper>
           <label htmlFor="title">Title</label>
@@ -84,7 +85,7 @@ export default function UploadForm({ handleGetData }) {
       </UploadColumn>
 
       <UploadColumn>
-        <AppTitle>Ingredients</AppTitle>
+        <Title>Ingredients</Title>
 
         <InputWrapper>
           <label htmlFor="ingredient-1">Ingredient 1</label>

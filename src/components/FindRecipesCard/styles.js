@@ -9,7 +9,6 @@ export const Container = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  /* margin-bottom: 1rem; */
 
   border: none;
   border-radius: ${props => props.theme.border.radius};
@@ -40,7 +39,6 @@ export const TextContainer = styled.div`
 
   font-size: ${props => props.theme.fontSizes.regular};
   line-height: 1.5;
-
   overflow: hidden;
 
   p {

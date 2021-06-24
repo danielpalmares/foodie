@@ -9,10 +9,14 @@ import { IoArrowForwardOutline } from 'react-icons/io5';
 import { SignInContainer, Directions, ErrorMessage } from './styles';
 import AppTitle from '../../../components/AppTitle';
 
-import { signInAction } from '../../../store/user';
+import { signInAction, reSignInAction } from '../../../store/user';
 
 export default function SignIn() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(reSignInAction());
+  });
 
   const { signInErrorStatus } = useSelector(state => state.user);
 

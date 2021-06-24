@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-
-import Wrapper from '../../components/Wrapper';
+import { useSelector } from 'react-redux';
 
 import {
   IoCompassOutline,
+  IoCompassSharp,
   IoSearchOutline,
+  IoSearchSharp,
   IoAddCircleOutline,
+  IoAddCircleSharp,
   IoPlayOutline,
+  IoPlaySharp,
   IoPersonOutline,
+  IoPersonSharp,
 } from 'react-icons/io5';
 import { NavContainer, Button } from './styles';
-
-import { useSelector } from 'react-redux';
 
 export default function Navigation() {
   const { activePage } = useSelector(state => state.activePage);
@@ -21,35 +23,55 @@ export default function Navigation() {
     <NavContainer>
       <Link to="/discover">
         <Button isActive={activePage === 'discover'}>
-          <IoCompassOutline size={26} />
+          {activePage === 'discover' ? (
+            <IoCompassSharp size={26} />
+          ) : (
+            <IoCompassOutline size={26} />
+          )}
           <span>Discover</span>
         </Button>
       </Link>
 
       <Link to="/search">
         <Button isActive={activePage === 'search'}>
-          <IoSearchOutline size={26} />
+          {activePage === 'search' ? (
+            <IoSearchSharp size={26} />
+          ) : (
+            <IoSearchOutline size={26} />
+          )}
           <span>Search</span>
         </Button>
       </Link>
 
       <Link to="/upload">
         <Button isActive={activePage === 'upload'}>
-          <IoAddCircleOutline size={26} />
+          {activePage === 'upload' ? (
+            <IoAddCircleSharp size={26} />
+          ) : (
+            <IoAddCircleOutline size={26} />
+          )}
           <span>Upload</span>
         </Button>
       </Link>
 
       <Link to="/tutorials">
         <Button isActive={activePage === 'tutorials'}>
-          <IoPlayOutline size={26} />
+          {activePage === 'tutorials' ? (
+            <IoPlaySharp size={26} />
+          ) : (
+            <IoPlayOutline size={26} />
+          )}
           <span>Tutorials</span>
         </Button>
       </Link>
 
       <Link to="/profile">
         <Button isActive={activePage === 'profile'}>
-          <IoPersonOutline size={26} />
+          {activePage === 'profile' ? (
+            <IoPersonSharp size={26} />
+          ) : (
+            <IoPersonOutline size={26} />
+          )}
           <span>Profile</span>
         </Button>
       </Link>

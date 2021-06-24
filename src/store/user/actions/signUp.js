@@ -38,6 +38,8 @@ export const signUpAction = newAccount => {
   newAccount.id = usersArr.length + 7;
   newAccount.favoriteRecipes = [];
   newAccount.myRecipes = [];
+  newAccount.remember = true;
+  newAccount.avatar = 1;
   const newUsersArr = usersArr;
   newUsersArr.push(newAccount);
 
