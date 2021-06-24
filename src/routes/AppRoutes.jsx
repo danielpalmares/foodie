@@ -29,14 +29,6 @@ export default function AppRoutes() {
           {authenticatedUser ? <Redirect to="/discover" /> : <SignUp />}
         </Route>
 
-        {/* <Route path="/search" component={Search} />
-        <Route path="/upload" component={Upload} />
-        <Route path="/tutorials" component={Tutorials} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/discover" component={Discover} />
-        <Route path="/results" component={Results} />
-        <Route path="/recipe" component={Recipe} /> */}
-
         {authenticatedUser && (
           <>
             <Route path="/search" component={Search} />
@@ -45,9 +37,9 @@ export default function AppRoutes() {
             <Route path="/profile" component={Profile} />
             <Route path="/discover" component={Discover} />
             <Route path="/results" component={Results} />
+            <Route path="/recipe" component={Recipe} />
           </>
         )}
-        <Route path="/recipe" component={Recipe} />
 
         <Route component={NotFound} />
       </Switch>
