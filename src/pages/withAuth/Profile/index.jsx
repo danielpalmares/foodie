@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useObserver } from '../../../hooks';
+import { useHistory } from 'react-router-dom';
 import {
   instructorObserverOptions,
   speechTexts,
@@ -30,28 +31,58 @@ import { useDispatch, useSelector } from 'react-redux';
 import { activePageAction } from '../../../store/activePage';
 
 import { getItemFromLS, setItemFromLS } from '../../../utils';
+import NoRecipeCard from '../../../components/NoRecipeCard';
 
 export default function Profile() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  // user account information
+  // current user account information
   const { username, name, gender } = useSelector(state => state.user.user);
 
-  const favoriteRecipes = getItemFromLS('favoriteRecipes');
-  const recipeUploads = getItemFromLS('myRecipes');
-  const uploadsFiltered = recipeUploads.filter(
-    recipe => recipe.publisher === username
-  );
+  // users list in the localStorage
+  const usersArr = getItemFromLS('users');
 
-  // stats
+  // current user from localStorage
+  const [currentUser] = usersArr.filter(user => user.username === username);
+
+  // user's favorite recipes
+  const userFavoriteRecipes =
+    currentUser.favoriteRecipes.length === 0
+      ? null
+      : currentUser.favoriteRecipes;
+
+  // user's uploaded recipes
+  const userUploadedRecipes =
+    currentUser.myRecipes.length === 0 ? null : currentUser.myRecipes;
+
+  // setting up the observer
+  const [setRef, visible] = useObserver(instructorObserverOptions);
+
+  // states for stats
   const [userUploads, setUserUploads] = useState(0);
   const [userLikes, setUserLikes] = useState(0);
   const [userStatus, setUserStatus] = useState('');
 
+  // states for the speech bubble
+  const [currentInstructor, setCurrentInstructor] = useState(1);
+  const [currentText, setCurrentText] = useState(0);
+  const [speechBubble, setSpeechBubble] = useState(false);
+
+  // states for general functionalities
+  const [myAvatar, setMyAvatar] = useState(3); // take it from state
+
+  // page's initial position
   useEffect(() => {
-    const upLength = uploadsFiltered.length;
+    window.scrollTo(0, 0);
+  }, []);
+
+  // set page as active
+  useEffect(() => dispatch(activePageAction('profile')));
+
+  // setting up the stats when the page is rendered
+  useEffect(() => {
+    const upLength = currentUser.myRecipes.length;
 
     const status = () => {
       let status;
@@ -66,22 +97,9 @@ export default function Profile() {
     };
 
     setUserUploads(upLength);
-    setUserLikes(favoriteRecipes.length);
+    setUserLikes(currentUser.favoriteRecipes.length);
     setUserStatus(status());
-  }, [uploadsFiltered, favoriteRecipes]);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => dispatch(activePageAction('profile')));
-
-  // setting up the observer
-  const [setRef, visible] = useObserver(instructorObserverOptions);
-
-  // states area
-  const [currentInstructor, setCurrentInstructor] = useState(1);
-  const [currentText, setCurrentText] = useState(0);
-  const [speechBubble, setSpeechBubble] = useState(false);
-  const [myAvatar, setMyAvatar] = useState(3);
+  }, [currentUser]);
 
   // setting up the instruction animation
   useEffect(() => {
@@ -97,8 +115,6 @@ export default function Profile() {
     setCurrentInstructor(1);
     setCurrentText(0);
     setSpeechBubble(false);
-
-    return;
   }, [visible]);
 
   // once the speech bubble is rendered, set which instructor show up when clicking in the speech bubble
@@ -106,8 +122,6 @@ export default function Profile() {
     currentText === 1 && setCurrentInstructor(4);
     currentText === 3 && setCurrentInstructor(5);
     currentText === 4 && setCurrentInstructor(3);
-
-    return;
   }, [currentText]);
 
   // get next speech when clicking in the speech bubble
@@ -119,9 +133,20 @@ export default function Profile() {
     return;
   }
 
+  // show recipe information in the recipe page
   function handleMyRecipe(id) {
-    console.log(id);
-    // show info in other page
+    return history.push({
+      pathname: '/recipe',
+      search: `?forkID=${id}`,
+    });
+  }
+
+  // show recipe information in the recipe page
+  function handleFavoriteRecipe(id) {
+    return history.push({
+      pathname: '/recipe',
+      search: `?id=${id}`,
+    });
   }
 
   return (
@@ -168,7 +193,7 @@ export default function Profile() {
                   src={`${process.env.PUBLIC_URL}images/${
                     gender === 'male' ? 'man' : 'woman'
                   }-${myAvatar}.png`}
-                  position={uploadsFiltered.length}
+                  position={currentUser.myRecipes.length}
                   alt="Marker"
                 />
                 <ul>
@@ -226,16 +251,20 @@ export default function Profile() {
         <section>
           <AppTitle>My recipes</AppTitle>
           <MyRecipesList>
-            {uploadsFiltered !== [] &&
-              uploadsFiltered.map(recipe => {
+            {userUploadedRecipes &&
+              userUploadedRecipes.map(recipe => {
                 return (
                   <RecipeCard
+                    key={recipe.id}
                     title={recipe.title}
                     imageSrc={recipe.image}
                     handleRecipe={() => handleMyRecipe(recipe.id)}
                   />
                 );
               })}
+            {!userUploadedRecipes && (
+              <NoRecipeCard message="You haven't uploaded any recipe yet" />
+            )}
           </MyRecipesList>
 
           <SwipeDirection>
@@ -248,22 +277,20 @@ export default function Profile() {
         <section>
           <AppTitle>My favorite recipes</AppTitle>
           <MyRecipesList>
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
-            <RecipeCard
-              title="A melhor pizza do brasil"
-              imageSrc={process.env.PUBLIC_URL + '/images/british.jpg'}
-            />
+            {userFavoriteRecipes &&
+              userFavoriteRecipes.map(recipe => {
+                return (
+                  <RecipeCard
+                    key={recipe.id}
+                    title={recipe.title}
+                    imageSrc={recipe.image}
+                    handleRecipe={() => handleFavoriteRecipe(recipe.id)}
+                  />
+                );
+              })}
+            {!userFavoriteRecipes && (
+              <NoRecipeCard message="You haven't favorited any recipe yet" />
+            )}
           </MyRecipesList>
 
           <SwipeDirection>

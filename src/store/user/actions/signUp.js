@@ -37,6 +37,7 @@ export const signUpAction = newAccount => {
   // if the data is ok then create the account plus ID
   newAccount.id = usersArr.length + 7;
   newAccount.favoriteRecipes = [];
+  newAccount.myRecipes = [];
   const newUsersArr = usersArr;
   newUsersArr.push(newAccount);
 

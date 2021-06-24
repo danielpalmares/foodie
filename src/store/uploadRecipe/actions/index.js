@@ -58,10 +58,14 @@ export async function uploadRecipeAction(newRecipe) {
       publisher: dataRecipe.publisher,
     };
 
-    // send the recipe to localStorage
-    const myRecipesInLS = getItemFromLS('myRecipes');
-    myRecipesInLS.push(myRecipe);
-    setItemFromLS('myRecipes', myRecipesInLS);
+    // send the recipe to user's localStorage
+    const usersArr = getItemFromLS('users');
+    usersArr.map(user => {
+      return (
+        user.username === myRecipe.publisher && user.myRecipes.push(myRecipe)
+      );
+    });
+    setItemFromLS('users', usersArr);
 
     return {
       type: RECIPE_UPLOADED,
