@@ -1,5 +1,43 @@
 import styled from 'styled-components';
 
+export const DirectionButton = styled.button`
+  width: fit-content;
+  margin: 0 auto;
+
+  padding: 2rem;
+  border: none;
+  outline: none;
+  border-radius: ${props => props.theme.border.radius};
+
+  background: ${props => props.theme.colors.tertiary};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: ${props => props.theme.fontSizes.larger};
+  font-weight: 700;
+  color: ${props =>
+    props.theme.mode === 'light'
+      ? props.theme.fontColors.secondary
+      : props.theme.fontColors.primary};
+
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:active {
+    transform: translateX(0.5rem);
+  }
+
+  & svg {
+    background: ${props => props.theme.colors.absolute};
+    color: ${props => props.theme.colors.tertiary};
+    border-radius: ${props => props.theme.border.radius};
+  }
+`;
+
 export const Container = styled.div`
   margin-bottom: 8rem;
 

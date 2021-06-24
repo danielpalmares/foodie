@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import Layout from '../../Layout';
@@ -16,6 +16,7 @@ import {
   IoTimerOutline,
   IoThumbsUpOutline,
   IoHeartSharp,
+  IoArrowForwardOutline,
 } from 'react-icons/io5';
 import {
   Container,
@@ -29,12 +30,16 @@ import {
   ChangeIngredients,
   IngredientsList,
   StepContainer,
+  DirectionButton,
 } from './styles';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getItemFromLS, setItemFromLS } from '../../../utils';
 
+import { fetchUploadedRecipeAction } from '../../../store/recipeInformation/actions';
+
 export default function Recipe() {
+  console.log('oi');
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -42,15 +47,24 @@ export default function Recipe() {
   const dispatch = useDispatch();
   const { search } = useLocation();
 
+  // possible params (false if there is no param)
   const id = search.includes('id') && search.split('=').pop();
+  const forkId = search.includes('forkID') && search.split('=').pop();
   const random = search.includes('random') && search.replace('?', '');
 
   const recipe = useSelector(state => state.recipeInformation.recipe);
-  const { username } = useSelector(state => state.user.user);
+  const recipeFork = useSelector(state => state.recipeInformation.recipeFork);
+  const username = useSelector(state => state.user.user?.username);
+  console.log(recipeFork);
 
+  // dispatch the action to fetch the recipe
   useEffect(() => {
-    dispatch(recipeInformationAction(id, random));
-  }, [dispatch, id, random]);
+    if (forkId) return dispatch(fetchUploadedRecipeAction(forkId));
+
+    if (!forkId) {
+      dispatch(recipeInformationAction(id, random));
+    }
+  }, [dispatch, id, random, forkId]);
 
   const [ingredients, setIngredients] = useState([]);
   const [servings, setServings] = useState(0);
@@ -58,12 +72,18 @@ export default function Recipe() {
   const [isFavoriteRecipe, setIsFavoriteRecipe] = useState(false);
 
   useEffect(() => {
-    if (!recipe) return;
+    if (recipe) {
+      setIngredients(recipe.ingredients);
+      setServings(recipe.servings);
+      return;
+    }
 
-    setIngredients(recipe.ingredients);
-    setServings(recipe.servings);
-    return;
-  }, [recipe]);
+    if (recipeFork) {
+      setIngredients(recipeFork.ingredients);
+      setServings(recipeFork.servings);
+      return;
+    }
+  }, [recipe, recipeFork]);
 
   function handleUpdateServings(newServings) {
     ingredients.forEach(ingredient => {
@@ -211,6 +231,75 @@ export default function Recipe() {
                   </StepContainer>
                 );
               })}
+            </section>
+          </>
+        )}
+
+        {recipeFork && (
+          <>
+            <section>
+              <RecipeTitle>{recipeFork.title}</RecipeTitle>
+
+              <RecipePhoto imageSrc={recipeFork.image} />
+
+              <InfoContainer>
+                <span>
+                  <IoTimerOutline size={18} /> {recipeFork.cookingTime} min
+                </span>
+              </InfoContainer>
+
+              {/* <BadgeContainer>
+                {recipe.dairyFree && <Badge>Dairy Free</Badge>}
+                {recipe.glutenFree && <Badge>Gluten Free</Badge>}
+                {recipe.veryHealthy && <Badge>Very Healthy</Badge>}
+                {recipe.veryPopular && <Badge>Very Popular</Badge>}
+                {recipe.sustainable && <Badge>Sustainable</Badge>}
+              </BadgeContainer> */}
+            </section>
+
+            <section>
+              <IngredientsHeader>
+                <AppTitle>Ingredients</AppTitle>
+                <ChangeIngredients>
+                  <span>
+                    {servings}
+                    {servings === 1 ? ' serving' : ' servings'}
+                  </span>
+                  <button
+                    className={servings === 1 ? 'inactive' : ''}
+                    onClick={() =>
+                      servings > 1 && handleUpdateServings(servings - 1)
+                    }
+                  >
+                    <IoRemoveOutline size={14} />
+                  </button>
+                  <button onClick={() => handleUpdateServings(servings + 1)}>
+                    <IoAddOutline size={14} />
+                  </button>
+                </ChangeIngredients>
+              </IngredientsHeader>
+
+              <IngredientsList>
+                {ingredients.map((ingredient, i) => {
+                  return (
+                    <li key={i + 1}>
+                      <span>{ingredient.name}</span>
+                      <strong>
+                        {getFractional(ingredient.amount)} {ingredient.unit}
+                      </strong>
+                    </li>
+                  );
+                })}
+              </IngredientsList>
+            </section>
+
+            <section>
+              <AppTitle>How to cook</AppTitle>
+              <Link to={`${recipeFork.sourceUrl}`} target="_blank">
+                <DirectionButton>
+                  Check directions <IoArrowForwardOutline size={26} />{' '}
+                </DirectionButton>
+              </Link>
             </section>
           </>
         )}

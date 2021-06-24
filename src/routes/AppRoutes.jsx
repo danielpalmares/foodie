@@ -45,9 +45,9 @@ export default function AppRoutes() {
             <Route path="/profile" component={Profile} />
             <Route path="/discover" component={Discover} />
             <Route path="/results" component={Results} />
-            <Route path="/recipe" component={Recipe} />
           </>
         )}
+        <Route path="/recipe" component={Recipe} />
 
         <Route component={NotFound} />
       </Switch>

@@ -8,7 +8,9 @@ import {
   CLEAR_RECIPE_INFORMATION,
 } from '../types';
 
-export function clearRecipeInformation() {
+import { fetchUploadedRecipeAction } from './fetchUploadedRecipe';
+
+function clearRecipeInformation() {
   return {
     type: CLEAR_RECIPE_INFORMATION,
     payload: {
@@ -17,7 +19,8 @@ export function clearRecipeInformation() {
   };
 }
 
-export async function recipeInformationAction(id, random) {
+async function recipeInformationAction(id, random) {
+  console.log('oi');
   try {
     async function randomRec() {
       if (random) {
@@ -34,11 +37,14 @@ export async function recipeInformationAction(id, random) {
     }
 
     const res = random ? await randomRec() : await idRec();
-    console.log(res);
-
-    const { data, status, statusText } = res;
+    const { status, statusText } = res;
 
     if (status !== 200) throw new Error(statusText);
+
+    let data;
+    random ? (data = res.data.recipes[0]) : (data = res.data);
+
+    console.log(data);
 
     const recipeInformation = {
       id: data.id,
@@ -70,6 +76,8 @@ export async function recipeInformationAction(id, random) {
       }),
     };
 
+    console.log(recipeInformation);
+
     return {
       type: RECIPE_INFORMATION_FOUND,
       payload: {
@@ -85,3 +93,9 @@ export async function recipeInformationAction(id, random) {
     };
   }
 }
+
+export {
+  recipeInformationAction,
+  clearRecipeInformation,
+  fetchUploadedRecipeAction,
+};

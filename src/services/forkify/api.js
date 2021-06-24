@@ -1,4 +1,11 @@
-import { URL, TIMEOUT_SECONDS, timeout } from './config';
+import axios from 'axios';
+import {
+  UPLOAD_URL,
+  API_URL,
+  API_KEY,
+  TIMEOUT_SECONDS,
+  timeout,
+} from './config';
 
 /**
  * @param uploadData The recipe data as an object
@@ -13,7 +20,9 @@ export async function apiUpload(uploadData) {
       body: JSON.stringify(uploadData),
     };
 
-    const fetchPro = uploadData ? fetch(URL, options) : fetch(URL);
+    const fetchPro = uploadData
+      ? fetch(UPLOAD_URL, options)
+      : fetch(UPLOAD_URL);
 
     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SECONDS)]);
     const data = await res.json();
@@ -28,3 +37,10 @@ export async function apiUpload(uploadData) {
     throw err;
   }
 }
+
+export const apiFetchUploadedRecipe = axios.create({
+  baseURL: API_URL,
+  params: {
+    key: API_KEY,
+  },
+});
