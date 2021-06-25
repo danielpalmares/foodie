@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -8,6 +8,8 @@ import { logOutAction } from '../../store/user/actions';
 import { dark, light } from '../../styles/themes';
 
 import { getItemFromLS, setItemFromLS } from '../../utils';
+
+import BlockLoadingScreen from '../BlockLoadingScreen';
 
 import Logo from '../../assets/foodie-logo.svg';
 
@@ -37,6 +39,8 @@ export default function AppHeader({
   // get account username from redux
   const { username } = useSelector(state => state.user.user);
 
+  const [isBlockScreen, setIsBlockScreen] = useState(false);
+
   function switchTheme() {
     currentTheme === 'light'
       ? dispatch(themeAction(dark))
@@ -58,44 +62,50 @@ export default function AppHeader({
   }
 
   function handleLogOut() {
+    setIsBlockScreen(true);
+
     setTimeout(() => {
       return dispatch(logOutAction(username));
     }, 1 * 1000);
   }
 
   return (
-    <Header>
-      {defaultHeader && (
-        <>
-          <img src={Logo} className="logo" alt="Foodie logo" />
+    <>
+      {isBlockScreen && <BlockLoadingScreen />}
 
-          <button onClick={switchTheme}>
-            {currentTheme === 'light' ? (
-              <IoMoonSharp size={26} color="#F4F1C9" />
-            ) : (
-              <IoSunnySharp size={26} color="#FDB813" />
-            )}
-          </button>
-        </>
-      )}
+      <Header>
+        {defaultHeader && (
+          <>
+            <img src={Logo} className="logo" alt="Foodie logo" />
 
-      {onlyBackButton && (
-        <button onClick={goBack}>
-          <IoArrowBackOutline size={26} />
-        </button>
-      )}
+            <button onClick={switchTheme}>
+              {currentTheme === 'light' ? (
+                <IoMoonSharp size={26} color="#F4F1C9" />
+              ) : (
+                <IoSunnySharp size={26} color="#FDB813" />
+              )}
+            </button>
+          </>
+        )}
 
-      {profileHeader && (
-        <>
+        {onlyBackButton && (
           <button onClick={goBack}>
             <IoArrowBackOutline size={26} />
           </button>
+        )}
 
-          <button onClick={() => handleLogOut()}>
-            <IoLogOutOutline size={26} />
-          </button>
-        </>
-      )}
-    </Header>
+        {profileHeader && (
+          <>
+            <button onClick={goBack}>
+              <IoArrowBackOutline size={26} />
+            </button>
+
+            <button onClick={() => handleLogOut()}>
+              <IoLogOutOutline size={26} />
+            </button>
+          </>
+        )}
+      </Header>
+    </>
   );
 }

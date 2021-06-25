@@ -2,6 +2,17 @@ import styled, { keyframes } from 'styled-components';
 
 export const InstructionsContainer = styled.div`
   display: flex;
+
+  a {
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    margin-bottom: -0.5rem;
+
+    img {
+      height: 10rem;
+    }
+  }
 `;
 
 export const MyRecipesList = styled.ul`

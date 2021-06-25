@@ -12,3 +12,5 @@ export const LOG_OUT_USER = 'LOG_OUT_USER';
 
 // redirect by remember account
 export const RE_SIGN_IN = 'RE_SIGN_IN';
+
+export const AVATAR_CHANGED = 'AVATAR_CHANGED';

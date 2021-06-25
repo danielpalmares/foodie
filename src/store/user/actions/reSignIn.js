@@ -8,8 +8,20 @@ export const reSignInAction = () => dispatch => {
 
   const userRememberIndex = usersList.findIndex(user => user.remember === true);
 
-  if (userRememberIndex !== undefined) {
-    dispatch({
+  // error
+  if (userRememberIndex === -1) {
+    return dispatch({
+      type: RE_SIGN_IN,
+      payload: {
+        user: null,
+        authenticatedUser: false,
+      },
+    });
+  }
+
+  // success
+  if (userRememberIndex !== -1) {
+    return dispatch({
       type: RE_SIGN_IN,
       payload: {
         user: usersList[userRememberIndex],

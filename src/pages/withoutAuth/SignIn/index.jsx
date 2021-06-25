@@ -9,23 +9,32 @@ import { IoArrowForwardOutline } from 'react-icons/io5';
 import { SignInContainer, Directions, ErrorMessage } from './styles';
 import AppTitle from '../../../components/AppTitle';
 
-import { signInAction, reSignInAction } from '../../../store/user';
+import { signInAction } from '../../../store/user';
+import BlockLoadingScreen from '../../../components/BlockLoadingScreen';
 
 export default function SignIn() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(reSignInAction());
-  });
-
   const { signInErrorStatus } = useSelector(state => state.user);
 
+  const [isBlockScreen, setIsBlockScreen] = useState(false);
+
   function handleForm(data) {
-    return dispatch(signInAction(data));
+    setIsBlockScreen(true);
+    setTimeout(() => {
+      return dispatch(signInAction(data));
+    }, 1 * 1000);
   }
+
+  useEffect(() => {
+    if (!signInErrorStatus) return;
+
+    setIsBlockScreen(false);
+  }, [signInErrorStatus]);
 
   return (
     <SignInContainer>
+      {isBlockScreen && <BlockLoadingScreen />}
       <LandingHeader />
 
       <Directions>

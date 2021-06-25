@@ -19,10 +19,6 @@ import { LandingContainer, SectionContent, GridLayout, Flex } from './styles';
 export default function Landing() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(reSignInAction());
-  });
-
   return (
     <LandingContainer>
       <LandingHeader hasSignInButton />

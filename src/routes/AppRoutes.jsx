@@ -11,15 +11,16 @@ import Tutorials from '../pages/withAuth/Tutorials';
 import Profile from '../pages/withAuth/Profile';
 import Results from '../pages/withAuth/Results';
 import Recipe from '../pages/withAuth/Recipe';
+import Avatars from '../pages/withAuth/Avatars';
 import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
-  const { authenticatedUser, user } = useSelector(state => state.user);
-  console.log(authenticatedUser, user);
+  const { authenticatedUser } = useSelector(state => state.user);
 
   return (
     <BrowserRouter>
       <Switch>
+        {/* initial routes */}
         <Route exact path="/">
           {authenticatedUser ? <Redirect to="/discover" /> : <Landing />}
         </Route>
@@ -30,18 +31,33 @@ export default function AppRoutes() {
           {authenticatedUser ? <Redirect to="/discover" /> : <SignUp />}
         </Route>
 
-        {authenticatedUser && (
-          <>
-            <Route path="/search" component={Search} />
-            <Route path="/upload" component={Upload} />
-            <Route path="/tutorials" component={Tutorials} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/discover" component={Discover} />
-            <Route path="/results" component={Results} />
-            <Route path="/recipe" component={Recipe} />
-          </>
-        )}
+        {/* app routes */}
+        <Route path="/discover">
+          {authenticatedUser ? <Discover /> : <Redirect to="/signin" />}
+        </Route>
+        <Route path="/search">
+          {authenticatedUser ? <Search /> : <Redirect to="/signin" />}
+        </Route>
+        <Route path="/upload">
+          {authenticatedUser ? <Upload /> : <Redirect to="/signin" />}
+        </Route>
+        <Route path="/tutorials">
+          {authenticatedUser ? <Tutorials /> : <Redirect to="/signin" />}
+        </Route>
+        <Route path="/profile">
+          {authenticatedUser ? <Profile /> : <Redirect to="/signin" />}
+        </Route>
+        <Route path="/results">
+          {authenticatedUser ? <Results /> : <Redirect to="/signin" />}
+        </Route>
+        <Route path="/recipe">
+          {authenticatedUser ? <Recipe /> : <Redirect to="/signin" />}
+        </Route>
+        <Route path="/avatars">
+          {authenticatedUser ? <Avatars /> : <Redirect to="/signin" />}
+        </Route>
 
+        {/* not found route */}
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

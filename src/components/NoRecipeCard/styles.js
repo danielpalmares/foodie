@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   div {
-    min-width: 30rem;
-    min-height: 20rem;
+    width: 30rem;
+    height: 20rem;
     background: none;
 
     border: ${props => props.theme.border.size} dashed

@@ -6,12 +6,14 @@ import {
   ERROR_NO_USERS_FOUND,
   LOG_OUT_USER,
   RE_SIGN_IN,
+  AVATAR_CHANGED,
 } from './types';
 import {
   signInAction,
   signUpAction,
   logOutAction,
   reSignInAction,
+  changeAvatarAction,
 } from './actions';
 
 const initialState = {
@@ -76,9 +78,22 @@ function user(state = initialState, action) {
         user: action.payload.user,
         authenticatedUser: action.payload.authenticatedUser,
       };
+    case AVATAR_CHANGED:
+      return {
+        ...state,
+        [user.avatar]: action.payload.avatar,
+      };
+
     default:
       return state;
   }
 }
 
-export { signInAction, signUpAction, user, logOutAction, reSignInAction };
+export {
+  signInAction,
+  signUpAction,
+  user,
+  logOutAction,
+  reSignInAction,
+  changeAvatarAction,
+};

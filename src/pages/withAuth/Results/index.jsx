@@ -121,6 +121,7 @@ export default function Results() {
                     likes={recipe.likes}
                     imageSrc={recipe.image}
                     handleRecipe={() => handleRecipe(recipe.id)}
+                    showLikes
                   />
                 );
               })}

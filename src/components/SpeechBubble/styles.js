@@ -9,11 +9,16 @@ export const Container = styled.div`
 
   font-size: 1.4rem;
   font-weight: 400;
-  color: ${props => props.theme.fontColors.bg};
+  color: ${props =>
+    props.theme.mode === 'light'
+      ? props.theme.fontColors.secondary
+      : props.theme.fontColors.primary};
   position: relative;
 
   align-self: center;
   margin-left: 2rem;
+
+  cursor: pointer;
 
   visibility: ${props => (props.active ? 'visible' : 'hidden')};
 

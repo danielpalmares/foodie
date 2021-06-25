@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import { useObserver } from '../../../hooks';
 
@@ -42,7 +42,9 @@ export default function Profile() {
   const history = useHistory();
 
   // current user account information
-  const { username, name, gender } = useSelector(state => state.user.user);
+  const { username, name, gender, avatar } = useSelector(
+    state => state.user.user
+  );
 
   // users list in the localStorage
   const usersArr = getItemFromLS('users');
@@ -72,9 +74,6 @@ export default function Profile() {
   const [currentInstructor, setCurrentInstructor] = useState(1);
   const [currentText, setCurrentText] = useState(0);
   const [speechBubble, setSpeechBubble] = useState(false);
-
-  // states for general functionalities
-  const [myAvatar, setMyAvatar] = useState(3); // take it from state
 
   // page's initial position
   useEffect(() => {
@@ -162,9 +161,9 @@ export default function Profile() {
       <Container>
         <header>
           <Avatar
-            src={`${process.env.PUBLIC_URL}images/${
+            src={`${process.env.PUBLIC_URL}avatars/${
               gender === 'male' ? 'man' : 'woman'
-            }-${myAvatar}.png`}
+            }-${avatar}.png`}
             alt="My Avatar"
           />
           <UserNameContainer>
@@ -198,9 +197,9 @@ export default function Profile() {
               <BarContainer>
                 <img src={progressBar} alt="Progress Bar" />
                 <Marker
-                  src={`${process.env.PUBLIC_URL}images/${
+                  src={`${process.env.PUBLIC_URL}avatars/${
                     gender === 'male' ? 'man' : 'woman'
-                  }-${myAvatar}.png`}
+                  }-${avatar}.png`}
                   position={currentUser.myRecipes.length}
                   alt="Marker"
                 />
@@ -275,11 +274,13 @@ export default function Profile() {
             )}
           </MyRecipesList>
 
-          <SwipeDirection>
-            <span>
-              Swipe to see your recipes <IoArrowForwardOutline size={16} />
-            </span>
-          </SwipeDirection>
+          {userUploadedRecipes && (
+            <SwipeDirection>
+              <span>
+                Swipe to see your recipes <IoArrowForwardOutline size={16} />
+              </span>
+            </SwipeDirection>
+          )}
         </section>
 
         <section>
@@ -301,24 +302,25 @@ export default function Profile() {
             )}
           </MyRecipesList>
 
-          <SwipeDirection>
-            <span>
-              Swipe to see your favorite recipes{' '}
-              <IoArrowForwardOutline size={16} />
-            </span>
-          </SwipeDirection>
+          {userFavoriteRecipes && (
+            <SwipeDirection>
+              <span>
+                Swipe to see your favorite recipes{' '}
+                <IoArrowForwardOutline size={16} />
+              </span>
+            </SwipeDirection>
+          )}
         </section>
 
         <InstructionsContainer>
-          <img
-            src={
-              process.env.PUBLIC_URL +
-              `/avatars/instructor-${currentInstructor}.png`
-            }
-            alt="Instructor"
-            style={{ height: '100px' }}
-            ref={setRef}
-          />
+          <Link to="/avatars">
+            <img
+              src={`${process.env.PUBLIC_URL}avatars/instructor-${currentInstructor}.png`}
+              alt="Instructor"
+              ref={setRef}
+            />
+          </Link>
+
           <SpeechBubble
             active={speechBubble}
             handleClick={() => handleSpeechBubble()}
