@@ -22,7 +22,7 @@ export const RecipeCardContainer = styled.div`
   justify-content: flex-end;
 
   min-width: 30rem;
-  max-width: 30rem;
+
   height: 20rem;
 
   border-radius: ${props => props.theme.border.radius};
@@ -72,11 +72,17 @@ export const RecipeCardInfoContainer = styled.div`
     font-size: ${props => props.theme.fontSizes.small};
     font-weight: 600;
     color: inherit;
+
+    svg {
+      color: ${props => props.theme.colors.primary};
+      margin-top: -4px;
+    }
   }
 
   button {
     font-family: 'Nunito', sans-serif;
     font-size: ${props => props.theme.fontSizes.small};
+    font-weight: 700;
     color: inherit;
 
     display: flex;

@@ -200,8 +200,8 @@ export const Stats = styled.div`
 
         color: ${props =>
           props.theme.mode === 'light'
-            ? props.theme.fontColors.primary
-            : props.theme.fontColors.secondary};
+            ? props.theme.fontColors.secondary
+            : props.theme.fontColors.primary};
       }
 
       &:not(:last-child) {

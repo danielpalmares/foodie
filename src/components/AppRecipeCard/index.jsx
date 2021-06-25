@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IoArrowForwardOutline, IoHeartSharp } from 'react-icons/io5';
+import { IoArrowForwardOutline, IoThumbsUpOutline } from 'react-icons/io5';
 
 import {
   RecipeCardContainer,
@@ -25,8 +25,8 @@ export default function AppRecipeCard({
         <RecipeCardInfoContainer>
           {showLikes && (
             <span>
-              <IoHeartSharp size={26} color="#FE251B" /> {likes}{' '}
-              {likes === 1 ? 'like' : 'likes'}
+              <IoThumbsUpOutline size={16} />
+              {likes} {likes === 1 ? 'like' : 'likes'}
             </span>
           )}
 

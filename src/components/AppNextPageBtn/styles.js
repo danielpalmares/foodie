@@ -16,7 +16,7 @@ export const Button = styled.button`
   font-weight: 700;
   color: ${props =>
     props.theme.mode === 'light'
-      ? props.theme.fontColors.bg
+      ? props.theme.fontColors.secondary
       : props.theme.fontColors.primary};
 
   background: ${props => props.theme.colors.primary};
