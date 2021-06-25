@@ -81,7 +81,7 @@ function user(state = initialState, action) {
     case AVATAR_CHANGED:
       return {
         ...state,
-        [user.avatar]: action.payload.avatar,
+        ...(state.user.avatar = action.payload.avatar),
       };
 
     default:
