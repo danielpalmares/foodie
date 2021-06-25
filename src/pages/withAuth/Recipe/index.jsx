@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
+import { WhatsappShareButton, WhatsappIcon } from 'react-share';
+
 import Layout from '../../Layout';
 import AppTitle from '../../../components/AppTitle';
 
@@ -46,6 +48,7 @@ export default function Recipe() {
 
   const dispatch = useDispatch();
   const { search } = useLocation();
+  const currentURL = window.location.href;
 
   // possible params (false if there is no param)
   const id = search.includes('id') && search.split('=').pop();
@@ -148,32 +151,42 @@ export default function Recipe() {
             <section>
               <RecipeTitle>{recipe.title}</RecipeTitle>
 
-              <RecipePhoto imageSrc={recipe.image}>
-                <FavoriteButton
-                  onClick={() =>
-                    handleFavoriteRecipe({
-                      title: recipe.title,
-                      image: recipe.image,
-                      id: recipe.id,
-                    })
-                  }
-                >
-                  {isFavoriteRecipe ? (
-                    <IoHeartSharp size={26} color="#E31B23" />
-                  ) : (
-                    <IoHeartOutline size={26} />
-                  )}
-                </FavoriteButton>
-              </RecipePhoto>
+              <RecipePhoto imageSrc={recipe.image}></RecipePhoto>
 
               <InfoContainer>
-                <span>
-                  <IoTimerOutline size={18} /> {recipe.cookingTime} min
-                </span>
-                <span>
-                  <IoThumbsUpOutline size={18} /> {recipe.likes}
-                  {recipe.likes === 1 ? ' like' : ' likes'}
-                </span>
+                <div id="interactions">
+                  <WhatsappShareButton
+                    title="Hey! Take a look at this recipe 😋"
+                    url={currentURL}
+                  >
+                    <WhatsappIcon size={50} borderRadius={10} />
+                  </WhatsappShareButton>
+                  <FavoriteButton
+                    onClick={() =>
+                      handleFavoriteRecipe({
+                        title: recipe.title,
+                        image: recipe.image,
+                        id: recipe.id,
+                      })
+                    }
+                  >
+                    {isFavoriteRecipe ? (
+                      <IoHeartSharp size={26} color="#E31B23" />
+                    ) : (
+                      <IoHeartOutline size={26} />
+                    )}
+                  </FavoriteButton>
+                </div>
+
+                <div id="information">
+                  <span>
+                    <IoTimerOutline size={18} /> {recipe.cookingTime} min
+                  </span>
+                  <span>
+                    <IoThumbsUpOutline size={18} /> {recipe.likes}
+                    {recipe.likes === 1 ? ' like' : ' likes'}
+                  </span>
+                </div>
               </InfoContainer>
 
               <BadgeContainer>
@@ -243,18 +256,29 @@ export default function Recipe() {
               <RecipePhoto imageSrc={recipeFork.image} />
 
               <InfoContainer>
-                <span>
-                  <IoTimerOutline size={18} /> {recipeFork.cookingTime} min
-                </span>
+                <div id="interactions">
+                  <WhatsappShareButton
+                    title="Hey! Take a look at this recipe 😋"
+                    url={currentURL}
+                  >
+                    <WhatsappIcon size={50} borderRadius={10} />
+                  </WhatsappShareButton>
+                </div>
+
+                <div id="information">
+                  <span>
+                    <IoTimerOutline size={18} /> {recipe.cookingTime} min
+                  </span>
+                </div>
               </InfoContainer>
 
-              {/* <BadgeContainer>
-                {recipe.dairyFree && <Badge>Dairy Free</Badge>}
+              <BadgeContainer>
+                {/* {recipe.dairyFree && <Badge>Dairy Free</Badge>}
                 {recipe.glutenFree && <Badge>Gluten Free</Badge>}
                 {recipe.veryHealthy && <Badge>Very Healthy</Badge>}
                 {recipe.veryPopular && <Badge>Very Popular</Badge>}
-                {recipe.sustainable && <Badge>Sustainable</Badge>}
-              </BadgeContainer> */}
+                {recipe.sustainable && <Badge>Sustainable</Badge>} */}
+              </BadgeContainer>
             </section>
 
             <section>

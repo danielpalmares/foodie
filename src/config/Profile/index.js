@@ -5,9 +5,9 @@ export const instructorObserverOptions = {
 };
 
 export const speechTexts = [
-  `Hey! Glad to see you here!`,
-  `So... I suppose you're tired of seeing that person up there...`,
-  `There are others but... you gotta know that they'll want a couple of your points...`,
-  `And also that you won't run into someone as nice as me there...`,
-  `Ok... whenever you want me to take you there, touch me!`,
+  `Hey! I'm Vladimir, Glad to see you here!`,
+  `I suppose you're tired of seeing that person up there...`,
+  `Luckily I have some friends who can help you...`,
+  `But you won't run into someone as nice as me over there...`,
+  `So whenever you want me to take you there, touch me!`,
 ];

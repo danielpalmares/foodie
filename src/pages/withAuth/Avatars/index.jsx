@@ -17,7 +17,8 @@ export default function Avatars() {
   const { gender, avatar, username } = useSelector(state => state.user.user);
   const avatarGender = gender === 'male' ? 'man' : 'woman';
   const [activeAvatar, setActiveAvatar] = useState();
-  console.log(avatar);
+
+  useEffect(() => window.scrollTo(0, 0));
 
   useEffect(() => setActiveAvatar(avatar), [avatar]);
 

@@ -15,11 +15,14 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-share": "^4.4.0",
     "redux": "^4.1.0",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
     "sass": "^1.32.11",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "workbox-routing": "^6.1.5",
+    "workbox-strategies": "^6.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

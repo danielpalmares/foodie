@@ -75,33 +75,55 @@ export const RecipePhoto = styled.div`
 export const FavoriteButton = styled.button`
   outline: none;
   border: none;
-  border-top-left-radius: ${props => props.theme.border.radius};
-  border-bottom-right-radius: ${props => props.theme.border.radius};
+  border-radius: ${props => props.theme.border.radius};
 
   background: ${props => props.theme.colors.absolute};
   color: ${props =>
     props.isFavorite ? props.theme.colors.red : props.theme.border.color};
 
-  padding: 1rem;
+  padding: 1.3rem;
   cursor: pointer;
   transition: all 0.2s;
 
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  &:active {
+    transform: translateY(0.5rem) scale(0.9);
+  }
 `;
 
 export const InfoContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   justify-content: space-between;
+  gap: 2rem;
 
-  span {
+  #interactions {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    gap: 0.5rem;
+    gap: 2rem;
 
-    svg {
-      color: ${props => props.theme.colors.primary};
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  #information {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      svg {
+        color: ${props => props.theme.colors.primary};
+      }
     }
   }
 `;
@@ -110,6 +132,7 @@ export const BadgeContainer = styled.div`
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  padding: 2rem 0;
 `;
 
 export const Badge = styled.span`

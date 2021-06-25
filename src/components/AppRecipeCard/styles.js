@@ -22,6 +22,7 @@ export const RecipeCardContainer = styled.div`
   justify-content: flex-end;
 
   min-width: 30rem;
+  max-width: 30rem;
   height: 20rem;
 
   border-radius: ${props => props.theme.border.radius};
