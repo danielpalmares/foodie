@@ -9,7 +9,6 @@ export async function fetchUploadedRecipeAction(id) {
     if (status !== 200) throw new Error(statusText);
 
     const { recipe } = data.data;
-    console.log(recipe);
 
     const recipeFormatted = {
       cookingTime: recipe.cooking_time,

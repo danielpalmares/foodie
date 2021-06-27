@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { getItemFromLS, setItemFromLS } from '../../utils';
+
 import { themeAction } from '../../store/theme';
 import { logOutAction } from '../../store/user/actions';
 
 import { dark, light } from '../../styles/themes';
-
-import { getItemFromLS, setItemFromLS } from '../../utils';
 
 import BlockLoadingScreen from '../BlockLoadingScreen';
 

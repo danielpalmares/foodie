@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   div {
-    width: 30rem;
+    min-width: 30rem;
     height: 20rem;
     background: none;
 

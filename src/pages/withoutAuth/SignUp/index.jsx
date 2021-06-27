@@ -7,7 +7,7 @@ import LandingHeader from '../../../components/LandingHeader';
 import { IoArrowBackOutline } from 'react-icons/io5';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { signUpAction, reSignInAction } from '../../../store/user';
+import { signUpAction } from '../../../store/user';
 
 import AppTitle from '../../../components/AppTitle';
 import { SignUpContainer, Directions, ErrorMessage } from './styles';

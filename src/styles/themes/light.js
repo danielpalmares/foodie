@@ -1,4 +1,4 @@
-export default {
+export const light = {
   mode: 'light',
   background: '#ECEDF1', // white light
 

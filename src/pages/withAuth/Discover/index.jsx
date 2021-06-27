@@ -7,7 +7,7 @@ import {
   recipesType,
   recipesCuisines,
   recipesCookingTime,
-} from '../../../config';
+} from '../../../config/Discover';
 
 import { getSingleStringFromInput } from '../../../utils';
 
@@ -44,9 +44,7 @@ export default function Discover() {
   const [inputData, setInputData] = useState('');
 
   // initial page's position
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => window.scrollTo(0, 0), []);
 
   // set the page as active
   useEffect(() => dispatch(activePageAction('discover')));

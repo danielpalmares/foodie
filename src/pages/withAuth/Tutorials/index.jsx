@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -41,9 +42,7 @@ export default function Tutorials() {
   const [resultsCount, setResultsCount] = useState(10);
 
   // page's initial position
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => window.scrollTo(0, 0), []);
 
   // set up it as active page for the navigation
   useEffect(() => dispatch(activePageAction('tutorials')));

@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import AppTitle from '../../../components/AppTitle';
 import Layout from '../../Layout';
 
-import { useParams, useLocation, useHistory } from 'react-router-dom';
+import { resultsPerPage } from '../../../config/Results';
+
+import { useLocation, useHistory } from 'react-router-dom';
 import { useObserver } from '../../../hooks';
 import Spinner from '../../../components/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,10 +20,6 @@ import { getPagination } from '../../../utils';
 import { clearRecipeInformation } from '../../../store/recipeInformation';
 
 export default function Results() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const dispatch = useDispatch();
   const history = useHistory();
   const recipes = useSelector(state => state.resultsRecipes.recipes);
@@ -31,7 +30,6 @@ export default function Results() {
 
   // for rendering when scrolling
   const [currentPage, setCurrentPage] = useState(1);
-  const [resultsPerPage, setResultsPerPage] = useState(10);
   const [resultsCount, setResultsCount] = useState(10);
 
   const [resultsRecipes, setResultsRecipes] = useState(null);
@@ -40,6 +38,8 @@ export default function Results() {
 
   const { search } = useLocation();
   const query = search.split('=').pop().replaceAll('+', ' '); // ?query=pizza
+
+  useEffect(() => window.scrollTo(0, 0), []);
 
   // fetch the recipes
   useEffect(() => {

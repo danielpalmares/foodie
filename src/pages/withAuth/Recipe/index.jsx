@@ -41,11 +41,6 @@ import { getItemFromLS, setItemFromLS } from '../../../utils';
 import { fetchUploadedRecipeAction } from '../../../store/recipeInformation/actions';
 
 export default function Recipe() {
-  console.log('oi');
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const dispatch = useDispatch();
   const { search } = useLocation();
   const currentURL = window.location.href;
@@ -58,7 +53,13 @@ export default function Recipe() {
   const recipe = useSelector(state => state.recipeInformation.recipe);
   const recipeFork = useSelector(state => state.recipeInformation.recipeFork);
   const username = useSelector(state => state.user.user?.username);
-  console.log(recipeFork);
+
+  const [ingredients, setIngredients] = useState([]);
+  const [servings, setServings] = useState(0);
+  const [isFavoriteRecipe, setIsFavoriteRecipe] = useState(false);
+
+  // page's initial position
+  useEffect(() => window.scrollTo(0, 0), []);
 
   // dispatch the action to fetch the recipe
   useEffect(() => {
@@ -68,11 +69,6 @@ export default function Recipe() {
       dispatch(recipeInformationAction(id, random));
     }
   }, [dispatch, id, random, forkId]);
-
-  const [ingredients, setIngredients] = useState([]);
-  const [servings, setServings] = useState(0);
-
-  const [isFavoriteRecipe, setIsFavoriteRecipe] = useState(false);
 
   useEffect(() => {
     if (recipe) {
@@ -267,18 +263,10 @@ export default function Recipe() {
 
                 <div id="information">
                   <span>
-                    <IoTimerOutline size={18} /> {recipe.cookingTime} min
+                    <IoTimerOutline size={18} /> {recipeFork.cookingTime} min
                   </span>
                 </div>
               </InfoContainer>
-
-              <BadgeContainer>
-                {/* {recipe.dairyFree && <Badge>Dairy Free</Badge>}
-                {recipe.glutenFree && <Badge>Gluten Free</Badge>}
-                {recipe.veryHealthy && <Badge>Very Healthy</Badge>}
-                {recipe.veryPopular && <Badge>Very Popular</Badge>}
-                {recipe.sustainable && <Badge>Sustainable</Badge>} */}
-              </BadgeContainer>
             </section>
 
             <section>

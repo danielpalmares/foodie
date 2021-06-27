@@ -41,9 +41,7 @@ export default function Search() {
   const [inputIngredients, setInputIngredients] = useState('');
 
   // page's initial position
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => window.scrollTo(0, 0), []);
 
   // set active page
   useEffect(() => dispatch(activePageAction('search')));

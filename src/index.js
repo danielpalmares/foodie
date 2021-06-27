@@ -5,8 +5,10 @@ import { createStore, applyMiddleware } from 'redux';
 import { rootReducer } from './store/storeConfig';
 import promise from 'redux-promise';
 import thunk from 'redux-thunk';
+import dotenv from 'dotenv';
 import App from './App';
 
+dotenv.config();
 const store = createStore(rootReducer, applyMiddleware(promise, thunk));
 
 ReactDOM.render(

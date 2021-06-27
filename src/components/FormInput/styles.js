@@ -2,6 +2,14 @@ import styled from 'styled-components';
 
 export const InputContainer = styled.div`
   position: relative;
+
+  .passordInput {
+    text-transform: lowercase;
+
+    &::placeholder {
+      text-transform: capitalize;
+    }
+  }
 `;
 
 export const Label = styled.label`

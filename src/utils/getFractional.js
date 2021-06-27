@@ -9,10 +9,8 @@ const mathConfig = {
  * @returns The value as a fraction
  */
 export function getFractional(value) {
-  // check value's remainder
   if (value % 1 === 0) return value;
 
-  // then get fraction
   const math = create(all, mathConfig);
   const fraction = math.fraction(value);
   const fractionFormatted = math.format(fraction, { fraction: 'ratio' });

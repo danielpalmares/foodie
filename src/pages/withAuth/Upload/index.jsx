@@ -24,9 +24,7 @@ export default function Upload() {
   const [message, setMessage] = useState('');
 
   // page's initial position
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => window.scrollTo(0, 0), []);
 
   // set the page as active
   useEffect(() => dispatch(activePageAction('upload')));

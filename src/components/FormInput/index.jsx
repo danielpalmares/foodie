@@ -10,6 +10,7 @@ export default function FormInput({
   handleChange,
   label,
   minValue,
+  isLowercase,
 }) {
   return (
     <InputContainer>
@@ -21,6 +22,7 @@ export default function FormInput({
         required={isRequired}
         onChange={handleChange}
         minLength={minValue}
+        className={isLowercase ? 'passordInput' : null}
       />
     </InputContainer>
   );

@@ -20,7 +20,6 @@ function clearRecipeInformation() {
 }
 
 async function recipeInformationAction(id, random) {
-  console.log('oi');
   try {
     async function randomRec() {
       if (random) {
@@ -43,8 +42,6 @@ async function recipeInformationAction(id, random) {
 
     let data;
     random ? (data = res.data.recipes[0]) : (data = res.data);
-
-    console.log(data);
 
     const recipeInformation = {
       id: data.id,
@@ -75,8 +72,6 @@ async function recipeInformationAction(id, random) {
         };
       }),
     };
-
-    console.log(recipeInformation);
 
     return {
       type: RECIPE_INFORMATION_FOUND,

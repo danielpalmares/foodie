@@ -62,6 +62,7 @@ export default function SignUpForm({ handleGetData }) {
         handleChange={e => setUsername(e.target.value.toLowerCase().trim())}
         label={<IoPersonOutline size={26} />}
         minValue={5}
+        isLowercase
         isRequired
       />
 

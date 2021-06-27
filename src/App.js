@@ -9,7 +9,7 @@ export default function App() {
   const dispatch = useDispatch();
   const { theme } = useSelector(state => state.theme);
 
-  // redirect user to discover page, if the account is set to remember
+  // redirect user if the account is set to remember
   useEffect(() => {
     dispatch(reSignInAction());
   });

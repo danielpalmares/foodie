@@ -15,7 +15,6 @@ import {
 } from '../../../config/Profile';
 
 import Layout from '../../Layout';
-import progressBar from '../../../assets/timelineBar.png';
 import AppRecipeCard from '../../../components/AppRecipeCard';
 import AppTitle from '../../../components/AppTitle';
 import SpeechBubble from '../../../components/SpeechBubble';
@@ -76,9 +75,7 @@ export default function Profile() {
   const [speechBubble, setSpeechBubble] = useState(false);
 
   // page's initial position
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => window.scrollTo(0, 0), []);
 
   // set page as active
   useEffect(() => dispatch(activePageAction('profile')));
@@ -195,7 +192,10 @@ export default function Profile() {
           <ProgressContainer>
             <section>
               <BarContainer>
-                <img src={progressBar} alt="Progress Bar" />
+                <img
+                  src={`${process.env.PUBLIC_URL}images/timelineBar.png`}
+                  alt="Progress Bar"
+                />
                 <Marker
                   src={`${process.env.PUBLIC_URL}avatars/${
                     gender === 'male' ? 'man' : 'woman'

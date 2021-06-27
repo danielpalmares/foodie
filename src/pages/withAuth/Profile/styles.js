@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components';
 
 export const InstructionsContainer = styled.div`
   display: flex;
+  margin-top: 3rem;
 
   a {
     width: fit-content;

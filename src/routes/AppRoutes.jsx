@@ -32,33 +32,25 @@ export default function AppRoutes() {
         </Route>
 
         {/* app routes */}
-        <Route path="/discover">
-          {authenticatedUser ? <Discover /> : <Redirect to="/signin" />}
-        </Route>
-        <Route path="/search">
-          {authenticatedUser ? <Search /> : <Redirect to="/signin" />}
-        </Route>
-        <Route path="/upload">
-          {authenticatedUser ? <Upload /> : <Redirect to="/signin" />}
-        </Route>
-        <Route path="/tutorials">
-          {authenticatedUser ? <Tutorials /> : <Redirect to="/signin" />}
-        </Route>
-        <Route path="/profile">
-          {authenticatedUser ? <Profile /> : <Redirect to="/signin" />}
-        </Route>
-        <Route path="/results">
-          {authenticatedUser ? <Results /> : <Redirect to="/signin" />}
-        </Route>
-        <Route path="/recipe">
-          {authenticatedUser ? <Recipe /> : <Redirect to="/signin" />}
-        </Route>
-        <Route path="/avatars">
-          {authenticatedUser ? <Avatars /> : <Redirect to="/signin" />}
-        </Route>
+        {authenticatedUser && (
+          <Switch>
+            <Route path="/discover">{authenticatedUser && <Discover />}</Route>
+            <Route path="/search">{authenticatedUser && <Search />}</Route>
+            <Route path="/upload">{authenticatedUser && <Upload />}</Route>
+            <Route path="/tutorials">
+              {authenticatedUser && <Tutorials />}
+            </Route>
+            <Route path="/profile">{authenticatedUser && <Profile />}</Route>
+            <Route path="/results">{authenticatedUser && <Results />}</Route>
+            <Route path="/recipe">{authenticatedUser && <Recipe />}</Route>
+            <Route path="/avatars">{authenticatedUser && <Avatars />}</Route>
+          </Switch>
+        )}
 
         {/* not found route */}
-        <Route component={NotFound} />
+        <Route exact path="*">
+          {authenticatedUser ? <Redirect to="/discover" /> : <NotFound />}
+        </Route>
       </Switch>
     </BrowserRouter>
   );
