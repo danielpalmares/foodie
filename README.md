@@ -17,6 +17,12 @@
   Find lots of recipes and become a master chef 😎
 </p>
 
+<p align="center">
+  <a href="https://dann-foodie.netlify.app/" target="_blank">
+    <img alt="Demo on Netlify" src="https://github.com/danielpalmares/omnifood/blob/master/.github/demo-on-netlify.png">
+  </a>
+</p>
+
 ---
 
 ## Layout 
