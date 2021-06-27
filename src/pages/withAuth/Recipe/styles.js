@@ -2,14 +2,15 @@ import styled from 'styled-components';
 
 export const DirectionButton = styled.button`
   width: fit-content;
-  margin: 0 auto;
+  margin: 2rem auto;
 
   padding: 2rem;
   border: none;
   outline: none;
   border-radius: ${props => props.theme.border.radius};
 
-  background: ${props => props.theme.colors.tertiary};
+  background: ${props =>
+    `linear-gradient(to right bottom, ${props.theme.colors.tertiary}, ${props.theme.colors.quaternary})`};
 
   display: flex;
   justify-content: center;
@@ -29,12 +30,6 @@ export const DirectionButton = styled.button`
 
   &:active {
     transform: translateX(0.5rem);
-  }
-
-  & svg {
-    background: ${props => props.theme.colors.absolute};
-    color: ${props => props.theme.colors.tertiary};
-    border-radius: ${props => props.theme.border.radius};
   }
 `;
 
@@ -77,11 +72,13 @@ export const FavoriteButton = styled.button`
   border: none;
   border-radius: ${props => props.theme.border.radius};
 
-  background: ${props => props.theme.colors.absolute};
-  color: ${props =>
-    props.isFavorite ? props.theme.colors.red : props.theme.border.color};
+  background: ${props =>
+    `linear-gradient(to right bottom, ${props.theme.colors.secondary},${props.theme.colors.quaternary} )`};
+  color: ${props => (props.isFavorite ? props.theme.colors.red : '#FFF')};
 
-  padding: 1.3rem;
+  height: 5rem;
+  width: 5rem;
+
   cursor: pointer;
   transition: all 0.2s;
 
@@ -98,15 +95,25 @@ export const InfoContainer = styled.div`
   gap: 2rem;
 
   #interactions {
+    width: 100%;
+    height: 5rem;
+
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 
     button {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    #socialButtons {
+      display: flex;
+      height: 100%;
+      margin-right: auto;
+      gap: 1rem;
     }
   }
 

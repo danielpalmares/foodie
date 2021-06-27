@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
-import { WhatsappShareButton, WhatsappIcon } from 'react-share';
+import {
+  WhatsappShareButton,
+  WhatsappIcon,
+  TelegramShareButton,
+  TelegramIcon,
+} from 'react-share';
 
 import Layout from '../../Layout';
 import AppTitle from '../../../components/AppTitle';
@@ -151,12 +156,22 @@ export default function Recipe() {
 
               <InfoContainer>
                 <div id="interactions">
-                  <WhatsappShareButton
-                    title="Hey! Take a look at this recipe 😋"
-                    url={currentURL}
-                  >
-                    <WhatsappIcon size={50} borderRadius={10} />
-                  </WhatsappShareButton>
+                  <div id="socialButtons">
+                    <WhatsappShareButton
+                      title="Hey! Take a look at this recipe 😋"
+                      url={currentURL}
+                    >
+                      <WhatsappIcon size={50} borderRadius={10} />
+                    </WhatsappShareButton>
+
+                    <TelegramShareButton
+                      title="Hey! Take a look at this recipe 😋"
+                      url={currentURL}
+                    >
+                      <TelegramIcon size={50} borderRadius={10} />
+                    </TelegramShareButton>
+                  </div>
+
                   <FavoriteButton
                     onClick={() =>
                       handleFavoriteRecipe({
@@ -253,12 +268,21 @@ export default function Recipe() {
 
               <InfoContainer>
                 <div id="interactions">
-                  <WhatsappShareButton
-                    title="Hey! Take a look at this recipe 😋"
-                    url={currentURL}
-                  >
-                    <WhatsappIcon size={50} borderRadius={10} />
-                  </WhatsappShareButton>
+                  <div id="socialButtons">
+                    <WhatsappShareButton
+                      title="Hey! Take a look at this recipe 😋"
+                      url={currentURL}
+                    >
+                      <WhatsappIcon size={50} borderRadius={10} />
+                    </WhatsappShareButton>
+
+                    <TelegramShareButton
+                      title="Hey! Take a look at this recipe 😋"
+                      url={currentURL}
+                    >
+                      <TelegramIcon size={50} borderRadius={10} />
+                    </TelegramShareButton>
+                  </div>
                 </div>
 
                 <div id="information">
