@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LandingHeader from '../../../components/LandingHeader';
@@ -14,6 +15,14 @@ import eatingTogether from '../../../assets/eating-together.svg';
 import { LandingContainer, SectionContent, GridLayout, Flex } from './styles';
 
 export default function Landing() {
+  const themeBg = useSelector(state => state.theme.theme.background);
+
+  useEffect(() => {
+    document
+      .querySelector('meta[name="theme"]')
+      .setAttribute('content', themeBg);
+  }, []);
+
   return (
     <LandingContainer>
       <LandingHeader hasSignInButton />
