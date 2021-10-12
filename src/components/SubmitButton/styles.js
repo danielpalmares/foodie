@@ -21,7 +21,6 @@ export const Button = styled.button`
   border: none;
   border-radius: ${props => props.theme.border.radius};
 
-  cursor: pointer;
   transition: all 0.2s;
 
   &:active {

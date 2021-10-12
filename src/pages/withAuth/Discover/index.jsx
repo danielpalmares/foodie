@@ -38,7 +38,7 @@ export default function Discover() {
   const [greeting] = useGreeting();
 
   // current user data from state
-  const { user } = useSelector(state => state.user);
+  const { loggedUser } = useSelector(state => state.user);
 
   // states
   const [inputData, setInputData] = useState('');
@@ -116,7 +116,7 @@ export default function Discover() {
         <main>
           <section>
             <AppTitle>
-              {greeting} {user.name}
+              {greeting} {loggedUser.name}
             </AppTitle>
 
             <FindRecipesCard

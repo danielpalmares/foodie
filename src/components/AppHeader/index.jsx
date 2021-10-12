@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { getItemFromLS, setItemFromLS } from '../../utils';
 
 import { themeAction } from '../../store/theme';
-import { logOutAction } from '../../store/user/actions';
+import { logoutAction } from '../../store/user/actions';
 
 import { dark, light } from '../../styles/themes';
 
@@ -37,7 +37,7 @@ export default function AppHeader({
   const currentTheme = useSelector(state => state.theme.theme.mode);
 
   // get account username from redux
-  const { username } = useSelector(state => state.user.user);
+  const { username } = useSelector(state => state.user.loggedUser);
 
   const [isBlockScreen, setIsBlockScreen] = useState(false);
 
@@ -65,7 +65,7 @@ export default function AppHeader({
     setIsBlockScreen(true);
 
     setTimeout(() => {
-      return dispatch(logOutAction(username));
+      return dispatch(logoutAction(username));
     }, 1 * 1000);
   }
 

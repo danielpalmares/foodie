@@ -8,7 +8,11 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font-size: 62.5%;
+    font-size: 62.5%; // 1rem = 10px // 10px / 16px * 100
+
+    @media screen and (min-width: 800px) {
+      font-size: 75%; // 1.2rem
+    }
   }
 
   body {
@@ -20,6 +24,8 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 400;
     color: ${props => props.theme.fontColors.primary};
     background: ${props => props.theme.background};
+    min-height: 100vh;
+
   }
 
   a {

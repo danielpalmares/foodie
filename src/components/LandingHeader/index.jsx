@@ -8,12 +8,10 @@ import { Header } from './styles';
 
 export default function LandingHeader({ hasSignInButton }) {
   return (
-    <Wrapper>
-      <Header>
-        <img src={Logo} alt="Foodie logo" />
+    <Header>
+      <img src={Logo} alt="Foodie logo" />
 
-        {hasSignInButton && <SignInButton />}
-      </Header>
-    </Wrapper>
+      {hasSignInButton && <SignInButton />}
+    </Header>
   );
 }

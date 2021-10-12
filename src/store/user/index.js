@@ -1,99 +1,76 @@
 import {
-  ACCOUNT_SUCCESSFULLY_CREATED,
-  ERROR_CREATING_ACCOUNT,
-  USER_SUCCESSFULLY_SIGNED_IN,
-  ERROR_WRONG_ACCOUNT_DATA,
-  ERROR_NO_USERS_FOUND,
-  LOG_OUT_USER,
-  RE_SIGN_IN,
-  AVATAR_CHANGED,
+  ERROR_IN_REGISTER,
+  LOGGED_USER,
+  ERROR_IN_LOGIN,
+  LOGOUT_USER,
+  ERROR_IN_UPDATE_USER,
+  UPDATED_USER,
+  ERROR_IN_DELETE_USER,
 } from './types';
+
 import {
-  signInAction,
-  signUpAction,
-  logOutAction,
-  reSignInAction,
-  changeAvatarAction,
+  registerAction,
+  loginAction,
+  logoutAction,
+  updateUserAction,
+  deleteUserAction,
 } from './actions';
 
 const initialState = {
-  user: null,
-  authenticatedUser: false,
-  status: '',
-  signInErrorStatus: '',
-  signUpErrorStatus: '',
+  loggedUser: null,
+  isAuthenticated: false,
+  errorMessage: '',
 };
 
 function user(state = initialState, action) {
   switch (action.type) {
-    case ACCOUNT_SUCCESSFULLY_CREATED:
+    case ERROR_IN_REGISTER:
       return {
         ...state,
-        status: action.payload.status,
-        signUpErrorStatus: action.payload.errorStatus,
-        authenticatedUser: action.payload.authenticatedUser,
-        user: action.payload.user,
+        errorMessage: action.payload.message,
       };
-    case ERROR_CREATING_ACCOUNT:
+    case LOGGED_USER:
       return {
         ...state,
-        status: action.payload.status,
-        signUpErrorStatus: action.payload.errorStatus,
-        authenticatedUser: action.payload.authenticatedUser,
-        user: action.payload.user,
+        loggedUser: action.payload,
+        isAuthenticated: true,
       };
-    case USER_SUCCESSFULLY_SIGNED_IN:
+    case ERROR_IN_LOGIN:
       return {
         ...state,
-        status: action.payload.status,
-        signInErrorStatus: action.payload.errorStatus,
-        authenticatedUser: action.payload.authenticatedUser,
-        user: action.payload.user,
+        errorMessage: action.payload.message,
       };
-    case ERROR_WRONG_ACCOUNT_DATA:
+    case LOGOUT_USER:
       return {
         ...state,
-        status: action.payload.status,
-        signInErrorStatus: action.payload.errorStatus,
-        authenticatedUser: action.payload.authenticatedUser,
-        user: action.payload.user,
+        loggedUser: action.payload.loggedUser,
+        isAuthenticated: action.payload.isAuthenticated,
       };
-    case ERROR_NO_USERS_FOUND:
+    case UPDATED_USER:
       return {
         ...state,
-        status: action.payload.status,
-        signInErrorStatus: action.payload.errorStatus,
-        authenticatedUser: action.payload.authenticatedUser,
-        user: action.payload.user,
+        loggedUser: action.payload,
       };
-    case LOG_OUT_USER:
+    case ERROR_IN_UPDATE_USER:
       return {
         ...state,
-        authenticatedUser: action.payload.authenticatedUser,
-        user: action.payload.user,
+        errorMessage: action.payload.message,
       };
-    case RE_SIGN_IN:
+    case ERROR_IN_DELETE_USER:
       return {
         ...state,
-        user: action.payload.user,
-        authenticatedUser: action.payload.authenticatedUser,
+        errorMessage: action.payload.message,
       };
-    case AVATAR_CHANGED:
-      return {
-        ...state,
-        ...(state.user.avatar = action.payload.avatar),
-      };
-
     default:
       return state;
   }
 }
 
 export {
-  signInAction,
-  signUpAction,
+  registerAction,
+  loginAction,
+  logoutAction,
+  updateUserAction,
+  deleteUserAction,
   user,
-  logOutAction,
-  reSignInAction,
-  changeAvatarAction,
 };

@@ -1,13 +1,13 @@
-import { signInAction } from './signIn';
-import { signUpAction } from './signUp';
-import { logOutAction } from './logOut';
-import { reSignInAction } from './reSignIn';
-import { changeAvatarAction } from './changeAvatar';
+import { registerAction } from './register';
+import { loginAction } from './login';
+import { logoutAction } from './logout';
+import { updateUserAction } from './updateUser';
+import { deleteUserAction } from './deleteUser';
 
 export {
-  signInAction,
-  signUpAction,
-  logOutAction,
-  reSignInAction,
-  changeAvatarAction,
+  registerAction,
+  loginAction,
+  logoutAction,
+  updateUserAction,
+  deleteUserAction,
 };

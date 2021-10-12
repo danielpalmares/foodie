@@ -15,12 +15,15 @@ export const GridLayout = styled.main`
 `;
 
 export const SearchContainer = styled.div`
-  padding-bottom: 6rem;
+  background-color: ${props => props.theme.background};
+  border-bottom-left-radius: ${props => props.theme.border.radius};
+  border-bottom-right-radius: ${props => props.theme.border.radius};
+  min-height: 100vh;
+  padding: 0 1rem;
 
   header {
     display: flex;
     flex-direction: column;
-    margin: 2rem 0;
 
     span {
       font-size: ${props => props.theme.fontSizes.small};

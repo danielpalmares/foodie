@@ -11,7 +11,7 @@ export default function Layout({
   defaultHeader,
 }) {
   return (
-    <Wrapper>
+    <>
       <Header
         onlyBackButton={onlyBackButton}
         profileHeader={profileHeader}
@@ -19,6 +19,6 @@ export default function Layout({
       />
       {children}
       <Navigation />
-    </Wrapper>
+    </>
   );
 }

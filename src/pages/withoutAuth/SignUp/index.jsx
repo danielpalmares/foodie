@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import SignUpForm from '../../../components/SignUpForm/index';
+import { SignUpForm } from '../../../components/SignUpForm/index';
 import LandingHeader from '../../../components/LandingHeader';
 
 import { IoArrowBackOutline } from 'react-icons/io5';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { signUpAction } from '../../../store/user';
+import { registerAction } from '../../../store/user';
 
 import AppTitle from '../../../components/AppTitle';
 import { SignUpContainer, Directions, ErrorMessage } from './styles';
@@ -17,21 +17,20 @@ import BlockLoadingScreen from '../../../components/BlockLoadingScreen';
 export default function SignUp() {
   const dispatch = useDispatch();
 
-  const { signUpErrorStatus } = useSelector(state => state.user);
+  const { errorMessage } = useSelector(state => state.user);
   const [isBlockScreen, setIsBlockScreen] = useState(false);
 
   function handleForm(account) {
     setIsBlockScreen(true);
-    setTimeout(() => {
-      return dispatch(signUpAction(account));
-    }, 1 * 1000);
+
+    return dispatch(registerAction(account));
   }
 
   useEffect(() => {
-    if (!signUpErrorStatus) return;
+    if (!errorMessage) return;
 
     setIsBlockScreen(false);
-  }, [signUpErrorStatus]);
+  }, [errorMessage]);
 
   return (
     <SignUpContainer>
@@ -40,19 +39,19 @@ export default function SignUp() {
 
       <Directions>
         <AppTitle>
-          Hey, <br />
-          Sign up now.
+          Olá, <br />
+          Registre-se agora!
         </AppTitle>
 
         <div>
-          <span>Already have an account?</span>
+          <span>Já possui uma conta?</span>
           <br />
           <Link to="/signin">
-            <IoArrowBackOutline size={16} /> Go to login page.
+            <IoArrowBackOutline size={16} /> Quero fazer login
           </Link>
         </div>
 
-        {signUpErrorStatus && <ErrorMessage>{signUpErrorStatus}</ErrorMessage>}
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </Directions>
 
       <SignUpForm handleGetData={handleForm} />

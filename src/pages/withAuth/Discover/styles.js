@@ -27,7 +27,12 @@ export const SwipeDirection = styled.div`
 `;
 
 export const Container = styled.div`
-  margin-bottom: 6rem; // navigation's height
+  background-color: ${props => props.theme.background};
+  border-bottom-left-radius: ${props => props.theme.border.radius};
+  border-bottom-right-radius: ${props => props.theme.border.radius};
+  min-height: 100vh;
+
+  padding: 0 1rem;
 
   main {
     display: flex;

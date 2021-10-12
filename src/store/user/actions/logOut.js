@@ -1,18 +1,13 @@
-import { LOG_OUT_USER } from '../types';
-import { getItemFromLS, setItemFromLS } from '../../../utils';
+import { LOGOUT_USER } from '../types';
 
-export function logOutAction(username) {
-  const usersList = getItemFromLS('users');
-  usersList.map(user => {
-    return user.username === username ? (user.remember = false) : user;
-  });
+export function logoutAction() {
+  sessionStorage.removeItem('token');
 
-  setItemFromLS('users', usersList);
   return {
-    type: LOG_OUT_USER,
+    type: LOGOUT_USER,
     payload: {
-      user: null,
-      authenticatedUser: false,
+      loggedUser: null,
+      isAuthenticated: false,
     },
   };
 }

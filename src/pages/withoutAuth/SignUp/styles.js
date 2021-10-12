@@ -3,12 +3,9 @@ import styled from 'styled-components';
 export const SignUpContainer = styled.div`
   padding: 0 1rem 6rem 1rem;
 
-  @media screen and (min-width: 768px) {
-    max-width: 668px;
-    margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
-  }
+  background-color: ${props => props.theme.background};
+  border-radius: ${props => props.theme.border.radius};
+  min-height: 100vh;
 `;
 
 export const Directions = styled.div`

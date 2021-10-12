@@ -1,106 +1,36 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import LandingHeader from '../../../components/LandingHeader';
-import LandingFooter from '../../../components/LandingFooter';
-import Wrapper from '../../../components/Wrapper';
-
+import { IoArrowForwardOutline } from 'react-icons/io5';
+import {
+  LandingContainer,
+  SectionContent,
+  LeftContainer,
+  RightContainer,
+} from './styles';
+import logo from '../../../assets/foodie-logo.svg';
 import hamburger from '../../../assets/hamburger.svg';
-import cooking from '../../../assets/cooking.svg';
-import healthy from '../../../assets/healthy.svg';
-import diet from '../../../assets/diet.svg';
-import eatingTogether from '../../../assets/eating-together.svg';
-
-import { LandingContainer, SectionContent, GridLayout, Flex } from './styles';
 
 export default function Landing() {
-  const themeBg = useSelector(state => state.theme.theme.background);
-
-  useEffect(() => {
-    document
-      .querySelector('meta[name="theme"]')
-      .setAttribute('content', themeBg);
-  }, []);
-
   return (
     <LandingContainer>
-      <LandingHeader hasSignInButton />
-
       <SectionContent>
-        <Wrapper>
-          <GridLayout>
-            <h1>
-              Are you foodie? <br />
-              So you're also in the <span>right</span> place!
-            </h1>
-            <img className="svg-image" src={hamburger} alt="Hamburger" />
-          </GridLayout>
-        </Wrapper>
+        <LeftContainer>
+          <img src={logo} alt="Foodie logo" />
+          <h1>
+            Descubra, crie, compartilhe
+            <br />
+            receitas com todo o <span>mundo!</span>
+          </h1>
+        </LeftContainer>
+
+        <RightContainer>
+          <img className="svg-hamburger" src={hamburger} alt="Hamburger" />
+          <Link to="/login">
+            <button>
+              Conectar-se <IoArrowForwardOutline size={26} />
+            </button>
+          </Link>
+        </RightContainer>
       </SectionContent>
-
-      <SectionContent>
-        <Wrapper>
-          <GridLayout>
-            <h1 className="right">
-              Mainly if you're passionate about <span>cooking!</span> <br />
-              You'll fall in love with the options.
-            </h1>
-            <img className="svg-image left" src={cooking} alt="Cooking" />
-          </GridLayout>
-        </Wrapper>
-      </SectionContent>
-
-      <SectionContent>
-        <Wrapper>
-          <GridLayout>
-            <h1>
-              There are lots of healthy recipes,
-              <br />
-              all waiting to be cooked by <span>you!</span>
-            </h1>
-            <img className="svg-image" src={healthy} alt="Healthy" />
-          </GridLayout>
-        </Wrapper>
-      </SectionContent>
-
-      <SectionContent>
-        <Wrapper>
-          <GridLayout>
-            <h1 className="right">
-              No limits for you who have a diet,
-              <br />
-              you'll find <span>whatever</span> you want!
-            </h1>
-            <img className="svg-image left" src={diet} alt="Diet" />
-          </GridLayout>
-        </Wrapper>
-      </SectionContent>
-
-      <SectionContent>
-        <Wrapper>
-          <Flex>
-            <GridLayout>
-              <h1>
-                Discover new recipes,
-                <br />
-                share with those you know and so much <span>more...</span>
-              </h1>
-              <img
-                className="svg-image"
-                src={eatingTogether}
-                alt="Eating Together"
-              />
-            </GridLayout>
-
-            <Link to="/signup">
-              <button>Start now</button>
-            </Link>
-          </Flex>
-        </Wrapper>
-      </SectionContent>
-
-      <LandingFooter />
     </LandingContainer>
   );
 }

@@ -1,19 +1,20 @@
 export const light = {
   mode: 'light',
-  background: '#ECEDF1', // white light
+  background: '#fff',
 
   colors: {
     primary: '#FB5607', // orange
     secondary: '#FFBE0B', // yellow
     tertiary: '#3A86FF', // blue
     quaternary: '#8338EC', // purple
-    absolute: '#FFF',
+    absolute: '#ECEDF1', // white light
     red: '#E31B23',
+    greenSuccess: '#4BB543',
   },
 
   border: {
     color: '#CCC',
-    size: '2px',
+    size: '1px',
     radius: '1rem',
   },
 
@@ -24,12 +25,13 @@ export const light = {
   },
 
   fontSizes: {
-    h1: '2.5rem',
-    h2: '2rem',
-    h3: '1.8rem',
+    bigger: '3.5rem',
+    h1: '3rem',
+    h2: '2.5rem',
+    h3: '2rem',
     tiny: '1.2rem',
     small: '1.4rem',
     regular: '1.6rem',
-    larger: '1.7rem',
+    larger: '1.8rem',
   },
 };

@@ -1,85 +1,88 @@
 import styled from 'styled-components';
 
 export const LandingContainer = styled.div`
-  min-height: 100vh;
-  padding: 0 1rem;
+  background: ${props => props.theme.background};
+  color: ${props => props.theme.fontColors.primary};
+  overflow: hidden;
 `;
 
 export const SectionContent = styled.section`
-  padding: 6rem 0;
-  border-bottom: 1px solid ${props => props.theme.border.color};
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 6rem;
+
+  @media screen and (max-width: 820px) {
+    padding: 3rem;
+  }
+
+  @media screen and (max-width: 425px) {
+    padding: 2rem 1rem;
+  }
+`;
+
+export const LeftContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 40%;
+  justify-content: space-between;
+  gap: 2rem;
+
+  img {
+    width: fit-content;
+
+    @media screen and (max-width: 425px) {
+      height: 5rem;
+    }
+  }
 
   h1 {
-    font-size: ${props => props.theme.fontSizes.h1};
+    font-size: 3.5rem;
     font-weight: 700;
     line-height: 1.5;
-    text-align: center;
-    justify-self: center;
-    align-self: center;
 
     span {
       color: ${props => props.theme.colors.quaternary};
     }
-  }
 
-  .svg-image {
-    height: 15rem;
-    justify-self: center;
-    align-self: center;
-  }
-
-  @media screen and (min-width: 640px) {
-    .left {
-      grid-column: 1/1;
-      grid-row: 1/1;
-    }
-
-    .right {
-      grid-column: 2/2;
-      grid-row: 1/1;
+    @media screen and (max-width: 425px) {
+      font-size: 3rem;
     }
   }
 `;
 
-export const GridLayout = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 2rem;
-`;
-
-export const Flex = styled.div`
+export const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6rem;
+  flex: 1 1 60%;
+  gap: 2rem;
+
+  .svg-hamburger {
+    max-width: 100%;
+    flex: 1;
+  }
 
   a {
-    width: 30rem;
-    margin: 0 auto;
+    margin-left: auto;
+    max-width: fit-content;
 
     button {
+      outline: none;
+      border: none;
+      padding: 1rem 2rem;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 0.5rem;
-
-      width: 100%;
-
       font-family: 'Nunito', sans-serif;
       font-size: ${props => props.theme.fontSizes.larger};
       font-weight: 700;
-      color: ${props =>
-        props.theme.mode === 'light'
-          ? props.theme.fontColors.secondary
-          : props.theme.fontColors.primary};
-
-      padding: 2rem;
-      background: ${props => props.theme.colors.primary};
-      outline: none;
-      border: none;
       border-radius: ${props => props.theme.border.radius};
-
-      cursor: pointer;
+      background: ${props => props.theme.colors.primary};
+      color: ${props => props.theme.fontColors.primary};
       transition: all 0.2s;
+      cursor: pointer;
 
       &:active {
         transform: translateX(0.5rem);
