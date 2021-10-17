@@ -8,13 +8,13 @@ import { Container } from './styles';
 
 import { getItemFromLS, setItemFromLS } from '../../../utils';
 
-import { changeAvatarAction } from '../../../store/user/actions';
-
 export default function Avatars() {
   const dispatch = useDispatch();
   const avatarsCount = Array.from(Array(7).keys());
 
-  const { gender, avatar, username } = useSelector(state => state.user.user);
+  const { gender, avatar, username } = useSelector(
+    state => state.user.loggedUser
+  );
   const avatarGender = gender === 'male' ? 'man' : 'woman';
   const [activeAvatar, setActiveAvatar] = useState();
 
@@ -31,7 +31,7 @@ export default function Avatars() {
     });
     setItemFromLS('users', usersList);
 
-    return dispatch(changeAvatarAction(id));
+    return;
   }
 
   return (

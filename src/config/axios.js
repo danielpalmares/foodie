@@ -7,6 +7,7 @@ export const foodieNoAuth = axios.create({
   baseURL: apiURL,
   headers: {
     'Content-Type': 'application/json',
+    Accept: 'application/json',
   },
 });
 
@@ -14,6 +15,7 @@ export const foodie = axios.create({
   baseURL: apiURL,
   headers: {
     'Content-Type': 'application/json',
+    Accept: 'application/json',
     Authorization: token,
   },
 });
@@ -22,6 +24,7 @@ export const foodieMulti = axios.create({
   baseURL: apiURL,
   headers: {
     'Content-Type': 'multipart/form-data',
+    Accept: 'multipart/form-data',
     Authorization: token,
   },
 });

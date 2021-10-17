@@ -38,7 +38,7 @@ function user(state = initialState, action) {
     case ERROR_IN_LOGIN:
       return {
         ...state,
-        errorMessage: action.payload.message,
+        errorMessage: action.payload,
       };
     case LOGOUT_USER:
       return {

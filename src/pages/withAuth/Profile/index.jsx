@@ -34,32 +34,27 @@ import {
   SwipeDirection,
   MyRecipesList,
   InstructionsContainer,
+  UserBiography,
 } from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // current user account information
-  const { username, name, gender, avatar } = useSelector(
-    state => state.user.user
+  // logged user information
+  const { username, name, gender, profilePhoto } = useSelector(
+    state => state.user.loggedUser
   );
 
-  // users list in the localStorage
-  const usersArr = getItemFromLS('users');
-
-  // current user from localStorage
-  const [currentUser] = usersArr.filter(user => user.username === username);
-
   // user's favorite recipes
-  const userFavoriteRecipes =
-    currentUser.favoriteRecipes.length === 0
-      ? null
-      : currentUser.favoriteRecipes;
+  const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+  const userFavoriteRecipes = favoriteRecipes
+    ? JSON.parse(favoriteRecipes)
+    : null;
 
-  // user's uploaded recipes
-  const userUploadedRecipes =
-    currentUser.myRecipes.length === 0 ? null : currentUser.myRecipes;
+  // // user's uploaded recipes
+  // const userUploadedRecipes =
+  //   currentUser.myRecipes.length === 0 ? null : currentUser.myRecipes;
 
   // setting up the observer
   const [setRef, visible] = useObserver(instructorObserverOptions);
@@ -156,37 +151,36 @@ export default function Profile() {
   return (
     <Layout profileHeader>
       <Container>
-        <header>
-          <Avatar
-            src={`${process.env.PUBLIC_URL}avatars/${
-              gender === 'male' ? 'man' : 'woman'
-            }-${avatar}.png`}
-            alt="My Avatar"
-          />
-          <UserNameContainer>
-            <h3>{name}</h3>
-            <span>{`@${username}`}</span>
-          </UserNameContainer>
-        </header>
+        <span className="username">{username}</span>
 
-        <section>
+        <header>
+          <Avatar imageSrc={profilePhoto} />
+
           <Stats>
             <ul>
               <li>
-                <p>Uploads</p>
+                <p>Receitas</p>
                 <span>{userUploads}</span>
               </li>
               <li>
-                <p>Liked</p>
+                <p>Amigos</p>
                 <span>{userLikes}</span>
               </li>
               <li>
-                <p>Status</p>
+                <p>Nível</p>
                 <span>{userStatus}</span>
               </li>
             </ul>
           </Stats>
-        </section>
+        </header>
+
+        <span className="name">{name}</span>
+        <UserBiography>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+          blanditiis minus quis rem cupiditate cum sunt odit illum accusantium
+          quisquam reprehenderit ex explicabo, ea nesciunt perspiciatis alias et
+          ipsum beatae!
+        </UserBiography>
 
         <section>
           <ProgressContainer>
@@ -197,11 +191,8 @@ export default function Profile() {
                   alt="Progress Bar"
                 />
                 <Marker
-                  src={`${process.env.PUBLIC_URL}avatars/${
-                    gender === 'male' ? 'man' : 'woman'
-                  }-${avatar}.png`}
+                  imageSrc={profilePhoto}
                   position={currentUser.myRecipes.length}
-                  alt="Marker"
                 />
                 <ul>
                   <li id="beginner-bar"></li>
@@ -214,26 +205,26 @@ export default function Profile() {
 
               <LevelList>
                 <li id="beginner">
-                  Beginner
+                  Iniciante
                   <span>
                     0 <IoCloudUploadOutline size={18} />
                   </span>
                 </li>
 
                 <li id="amateur">
-                  Amateur
+                  Amador
                   <span>
                     25 <IoCloudUploadOutline size={18} />
                   </span>
                 </li>
                 <li id="aspirant">
-                  Aspirant
+                  Aspirante
                   <span>
                     50 <IoCloudUploadOutline size={18} />
                   </span>
                 </li>
                 <li id="pro">
-                  Pro
+                  Profissional
                   <span>
                     75 <IoCloudUploadOutline size={18} />
                   </span>

@@ -51,8 +51,17 @@ export const SwipeDirection = styled.div`
   }
 `;
 
-export const Avatar = styled.img`
-  height: calc(560px / 6);
+export const Avatar = styled.div`
+  min-height: 10rem;
+  min-width: 10rem;
+  border: ${props => props.theme.border.size} solid
+    ${props => props.theme.border.color};
+  border-radius: 50%;
+
+  background-image: url(${props => props.imageSrc});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 export const BarContainer = styled.div`
@@ -157,8 +166,15 @@ export const LevelList = styled.ul`
   }
 `;
 
-export const Marker = styled.img`
-  height: calc(560px / 10);
+export const Marker = styled.div`
+  height: 5.6rem;
+  width: 5.6rem;
+  border-radius: 50%;
+
+  background-image: url(${props => props.imageSrc});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   position: absolute;
   top: 50%;
@@ -180,18 +196,20 @@ export const ProgressContainer = styled.div`
 
 export const Stats = styled.div`
   width: 100%;
-  padding: 3rem 0;
+  display: flex;
+  align-items: center;
 
   ul {
     display: flex;
     justify-content: space-between;
+    flex: 1 1 auto;
+    font-size: ${props => props.theme.fontSizes.small};
 
     li {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1rem;
-
       color: ${props => props.theme.fontColors.primary};
 
       span {
@@ -207,7 +225,7 @@ export const Stats = styled.div`
 
       &:not(:last-child) {
         span {
-          background: ${props => props.theme.colors.secondary};
+          background: ${props => props.theme.colors.absolute};
         }
       }
 
@@ -221,21 +239,31 @@ export const Stats = styled.div`
 `;
 
 export const Container = styled.div`
-  margin-bottom: 6rem;
+  margin: 0 1rem 6rem 1rem;
+
+  .username {
+    font-size: ${props => props.theme.fontSizes.small};
+    font-weight: 700;
+    display: block;
+    text-align: center;
+  }
+
+  .name {
+    font-size: ${props => props.theme.fontSizes.regular};
+    font-weight: 700;
+    display: block;
+  }
 
   @media screen and (min-width: 768px) {
     max-width: 668px;
     margin: 0 auto;
-
     margin-bottom: 6rem;
-    padding: 0;
   }
 
   header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    gap: 2rem;
+    margin: 1rem 0;
   }
 
   section {
@@ -243,10 +271,19 @@ export const Container = styled.div`
   }
 `;
 
+export const UserBiography = styled.span`
+  display: flex;
+  min-height: 5rem;
+  margin: 1rem 0;
+  background: ${props => props.theme.colors.absolute};
+  padding: 1rem;
+  border-radius: ${props => props.theme.border.radius};
+  font-size: ${props => props.theme.fontSizes.regular};
+  line-height: 1.5;
+`;
+
 export const UserNameContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  text-align: center;
 
   h3 {
     font-size: ${props => props.theme.fontSizes.h3};

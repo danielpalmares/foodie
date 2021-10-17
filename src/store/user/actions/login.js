@@ -27,7 +27,7 @@ export async function loginAction(formData) {
   } catch (error) {
     return {
       type: ERROR_IN_LOGIN,
-      payload: { message: error.response.data.message },
+      payload: error.response.data.message,
     };
   }
 }
