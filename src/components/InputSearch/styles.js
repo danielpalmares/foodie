@@ -6,23 +6,25 @@ export const InputWrapper = styled.div`
 
   input {
     font-family: 'Nunito', sans-serif;
-    font-size: ${props => props.theme.fontSizes.larger};
+    font-size: ${props => props.theme.fontSizes.regular};
     color: ${props => props.theme.fontColors.primary};
 
     width: 100%;
-    padding: 2rem 5rem 2rem 1rem;
+    padding: 1.6rem 5.5rem 1.6rem 1.5rem;
 
     background: ${props => props.theme.colors.absolute};
-    border: ${props => props.theme.border.size} solid transparent;
+    border: ${props => props.theme.border.size} solid ${props => props.theme.border.color};
     border-radius: ${props => props.theme.border.radius};
     outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 
     &:focus {
-      border-color: ${props => props.theme.colors.quaternary};
+      border-color: ${props => props.theme.colors.primary};
+      box-shadow: 0 0 0 3px ${props => `${props.theme.colors.primary}20`};
     }
 
     &::placeholder {
-      font-size: 1.4rem;
+      font-size: ${props => props.theme.fontSizes.small};
       font-weight: 600;
       color: ${props => props.theme.fontColors.tertiary};
     }
@@ -33,31 +35,28 @@ export const InputWrapper = styled.div`
     justify-content: center;
     align-items: center;
 
-    color: ${props =>
-      props.theme.mode === 'light'
-        ? props.theme.fontColors.secondary
-        : props.theme.fontColors.primary};
+    color: #fff;
+    padding: 0.8rem;
 
-    padding: 0.5rem;
-
-    background: ${props => props.theme.colors.quaternary};
+    background: ${props => props.theme.colors.primary};
     outline: none;
     border: none;
-    border-radius: ${props => props.theme.border.radius};
+    border-radius: 0.8rem;
 
     position: absolute;
-    bottom: 22%;
-    right: 3%;
-
-    @media screen and (min-width: 425px) {
-      right: 2%;
-    }
+    top: 50%;
+    right: 0.8rem;
+    transform: translateY(-50%);
 
     transition: all 0.2s;
     cursor: pointer;
 
+    &:hover {
+      background: ${props => props.theme.colors.quaternary};
+    }
+
     &:active {
-      transform: translateY(0.5rem) scale(0.9);
+      transform: translateY(-50%) scale(0.9);
     }
   }
 `;

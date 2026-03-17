@@ -8,6 +8,7 @@ import { recipeInformation } from './recipeInformation';
 import { recipeVideos } from './recipeVideos';
 import { resultsRecipes } from './resultsRecipes';
 import { uploadedRecipe } from './uploadRecipe';
+import { friends } from './friends';
 
 export const rootReducer = combineReducers({
   activePage,
@@ -18,4 +19,5 @@ export const rootReducer = combineReducers({
   recipeVideos,
   resultsRecipes,
   uploadedRecipe,
+  friends,
 });

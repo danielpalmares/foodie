@@ -20,6 +20,8 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 400;
     color: ${props => props.theme.fontColors.primary};
     background: ${props => props.theme.background};
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   a {
@@ -30,7 +32,15 @@ export const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
-  // Works on Firefox 
+  img {
+    max-width: 100%;
+  }
+
+  button {
+    font-family: 'Nunito', sans-serif;
+  }
+
+  // Works on Firefox
   * {
     scrollbar-width: 0;
     scrollbar-color: ${props => props.theme.border.color} transparent;
@@ -40,7 +50,7 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
-  // Works on Chrome, Edge, and Safari 
+  // Works on Chrome, Edge, and Safari
   *::-webkit-scrollbar {
     display: none;
     width: 6px; // overflow y

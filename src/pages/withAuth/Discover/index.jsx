@@ -2,219 +2,183 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useGreeting } from '../../../hooks';
-
-import {
-  recipesType,
-  recipesCuisines,
-  recipesCookingTime,
-} from '../../../config/Discover';
-
 import { getSingleStringFromInput } from '../../../utils';
-
 import { clearResultsRecipesAction } from '../../../store/resultsRecipes';
 import { clearRecipeInformation } from '../../../store/recipeInformation';
 import { activePageAction } from '../../../store/activePage';
+import { apiGetAllRecipes, apiGetUploadsUrl } from '../../../services/foodie/api';
 
 import Layout from '../../../pages/Layout';
 import AppTitle from '../../../components/AppTitle';
-import CuisineCard from '../../../components/CuisineCard';
 import InputSearch from '../../../components/InputSearch';
 import RandomRecipeCard from '../../../components/RandomRecipeCard';
 import FindRecipesCard from '../../../components/FindRecipesCard';
-import RecipesGrid from '../../../components/RecipesGrid';
+import Spinner from '../../../components/Spinner';
 
 import dietSvg from '../../../assets/diet.svg';
 import chefSvg from '../../../assets/chef.svg';
 import tutorialSvg from '../../../assets/tutorial.svg';
 
-import { IoArrowForwardOutline } from 'react-icons/io5';
+import {
+  IoTimerOutline,
+  IoArrowForwardOutline,
+  IoFlameOutline,
+  IoRestaurantOutline,
+} from 'react-icons/io5';
 
-import { Container, HorizontalList, SwipeDirection } from './styles';
+import {
+  Container,
+  HeroSection,
+  FeaturedSection,
+  FeaturedScroll,
+  FeaturedCard,
+  FeaturedImage,
+  FeaturedInfo,
+  QuickActions,
+  CommunityGrid,
+  CommunityCard,
+  CommunityImage,
+  CommunityInfo,
+  SectionHeader,
+  ViewAllLink,
+} from './styles';
 
 export default function Discover() {
-  // hooks call
   const dispatch = useDispatch();
   const history = useHistory();
   const [greeting] = useGreeting();
-
-  // current user data from state
   const { user } = useSelector(state => state.user);
-
-  // states
   const [inputData, setInputData] = useState('');
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // initial page's position
   useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => { dispatch(activePageAction('discover')); }, [dispatch]);
 
-  // set the page as active
-  useEffect(() => dispatch(activePageAction('discover')));
+  useEffect(() => {
+    apiGetAllRecipes()
+      .then(({ data }) => setRecipes(Array.isArray(data) ? data : []))
+      .catch(() => setRecipes([]))
+      .finally(() => setLoading(false));
+  }, []);
 
-  // handle functions
+  const baseUrl = apiGetUploadsUrl().replace('/uploads', '');
+
   function handleRecipesByName() {
     const recipeName = getSingleStringFromInput(inputData);
-
     if (!recipeName) return;
-
-    // clear the previous results state to prevent it from showing up before the new one
     dispatch(clearResultsRecipesAction());
-
-    return history.push({
-      pathname: `/results`,
-      search: `?query=${recipeName}`,
-    });
-  }
-
-  function handleRecipesByType(type) {
-    if (!type) return;
-
-    // clear the previous results state to prevent it from showing up before the new one
-    dispatch(clearResultsRecipesAction());
-
-    return history.push({
-      pathname: `/results`,
-      search: `?type=${type}`,
-    });
-  }
-
-  function handleRecipesByCuisine(cuisine) {
-    if (!cuisine) return;
-
-    // clear the previous results state to prevent it from showing up before the new one
-    dispatch(clearResultsRecipesAction());
-
-    return history.push({
-      pathname: `/results`,
-      search: `?cuisine=${cuisine}`,
-    });
-  }
-
-  function handleRecipesByTiming(maxReadyTime) {
-    if (!maxReadyTime) return;
-
-    // clear the previous results state to prevent it from showing up before the new one
-    dispatch(clearResultsRecipesAction());
-
-    return history.push({
-      pathname: `/results`,
-      search: `?maxReadyTime=${maxReadyTime}`,
-    });
+    return history.push({ pathname: '/results', search: `?query=${recipeName}` });
   }
 
   function handleRandomRecipe() {
-    // clear the previous recipe information state to prevent it from showing up before the new one
     dispatch(clearRecipeInformation());
-
-    return history.push({
-      pathname: `/recipe`,
-      search: `random`,
-    });
+    return history.push({ pathname: '/recipe', search: 'random' });
   }
+
+  function handleRecipeClick(recipeId) {
+    dispatch(clearRecipeInformation());
+    return history.push({ pathname: '/recipe', search: `?foodieId=${recipeId}` });
+  }
+
+  const featuredRecipes = recipes.slice(0, 8);
+  const communityRecipes = recipes.slice(0, 4);
 
   return (
     <Layout defaultHeader>
       <Container>
-        <main>
-          <section>
-            <AppTitle>
-              {greeting} {user.name}
-            </AppTitle>
+        <HeroSection>
+          <div className="hero-text">
+            <h1>{greeting} {user.name} <IoFlameOutline /></h1>
+            <p>What would you like to cook today?</p>
+          </div>
 
+          <InputSearch
+            handleInputChange={e => setInputData(e.target.value)}
+            handleSearch={() => handleRecipesByName()}
+            placeholder="Search for a recipe..."
+          />
+        </HeroSection>
+
+        {!loading && featuredRecipes.length > 0 && (
+          <FeaturedSection>
+            <SectionHeader>
+              <AppTitle>
+                <IoRestaurantOutline size={22} style={{ verticalAlign: 'middle', marginRight: '0.5rem' }} />
+                Featured Recipes
+              </AppTitle>
+            </SectionHeader>
+
+            <FeaturedScroll>
+              {featuredRecipes.map(recipe => {
+                const imgUrl = recipe.image?.url ? `${baseUrl}${recipe.image.url}` : null;
+                return (
+                  <FeaturedCard key={recipe.recipe_id} onClick={() => handleRecipeClick(recipe.recipe_id)}>
+                    <FeaturedImage imageSrc={imgUrl} />
+                    <FeaturedInfo>
+                      <h4>{recipe.title}</h4>
+                      <span><IoTimerOutline size={14} /> {recipe.ready_in_minutes} min</span>
+                    </FeaturedInfo>
+                  </FeaturedCard>
+                );
+              })}
+            </FeaturedScroll>
+          </FeaturedSection>
+        )}
+
+        {loading && <Spinner />}
+
+        <section>
+          <AppTitle>Quick Actions</AppTitle>
+          <QuickActions>
             <FindRecipesCard
               image={dietSvg}
               direction="/search"
-              text="Find recipes based on what you already have on your kitchen"
+              text="Find recipes based on what you already have"
             />
-
             <FindRecipesCard
               image={chefSvg}
               direction="/upload"
-              text="Make lots of recipes and build an amazing progress until become a chef!"
+              text="Upload your own recipes and build your progress"
             />
-          </section>
-
-          <section>
-            <AppTitle>Looking for a specific recipe?</AppTitle>
-
-            <InputSearch
-              handleInputChange={e => setInputData(e.target.value)}
-              handleSearch={() => handleRecipesByName()}
-              placeholder="We have tasty pizzas, try it :)"
-            />
-
             <FindRecipesCard
               image={tutorialSvg}
               direction="/tutorials"
-              text="Watch any tutorial you want, anytime, anywhere"
+              text="Watch cooking tutorials anytime, anywhere"
             />
-          </section>
+          </QuickActions>
+        </section>
 
+        <section>
+          <AppTitle>Feeling lucky?</AppTitle>
+          <RandomRecipeCard handleRandom={() => handleRandomRecipe()} />
+        </section>
+
+        {!loading && communityRecipes.length > 0 && (
           <section>
-            <AppTitle>Try to get a random recipe</AppTitle>
+            <SectionHeader>
+              <AppTitle>From the Community</AppTitle>
+              <ViewAllLink onClick={() => history.push('/community')}>
+                View all <IoArrowForwardOutline size={16} />
+              </ViewAllLink>
+            </SectionHeader>
 
-            <RandomRecipeCard handleRandom={() => handleRandomRecipe()} />
-          </section>
-
-          <section>
-            <AppTitle>Find a recipe by its type</AppTitle>
-
-            <HorizontalList>
-              {recipesType.map(type => {
+            <CommunityGrid>
+              {communityRecipes.map(recipe => {
+                const imgUrl = recipe.image?.url ? `${baseUrl}${recipe.image.url}` : null;
                 return (
-                  <li key={type.id}>
-                    <button onClick={() => handleRecipesByType(type.id)}>
-                      {type.text}
-                    </button>
-                  </li>
+                  <CommunityCard key={recipe.recipe_id} onClick={() => handleRecipeClick(recipe.recipe_id)}>
+                    <CommunityImage imageSrc={imgUrl} />
+                    <CommunityInfo>
+                      <h4>{recipe.title}</h4>
+                      <span><IoTimerOutline size={12} /> {recipe.ready_in_minutes} min</span>
+                    </CommunityInfo>
+                  </CommunityCard>
                 );
               })}
-            </HorizontalList>
-
-            <SwipeDirection>
-              <span>
-                Swipe to see more <IoArrowForwardOutline size={16} />
-              </span>
-            </SwipeDirection>
+            </CommunityGrid>
           </section>
-
-          <section>
-            <AppTitle>Find a recipe by the maximum cooking time</AppTitle>
-
-            <HorizontalList>
-              {recipesCookingTime.map(time => {
-                return (
-                  <li key={time.id}>
-                    <button onClick={() => handleRecipesByTiming(time.id)}>
-                      {time.text}
-                    </button>
-                  </li>
-                );
-              })}
-            </HorizontalList>
-
-            <SwipeDirection>
-              <span>
-                Swipe to see more <IoArrowForwardOutline size={16} />
-              </span>
-            </SwipeDirection>
-          </section>
-
-          <section>
-            <AppTitle>Curious about some other cuisines?</AppTitle>
-
-            <RecipesGrid>
-              {recipesCuisines.map(cuisine => {
-                return (
-                  <CuisineCard
-                    key={cuisine.id}
-                    image={cuisine.id}
-                    title={cuisine.id}
-                    handleClick={() => handleRecipesByCuisine(cuisine.id)}
-                  />
-                );
-              })}
-            </RecipesGrid>
-          </section>
-        </main>
+        )}
       </Container>
     </Layout>
   );

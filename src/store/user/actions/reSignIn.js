@@ -1,32 +1,38 @@
-import { RE_SIGN_IN } from '../types';
-import { getItemFromLS } from '../../../utils';
+import { RE_SIGN_IN, RE_SIGN_IN_FAILED } from '../types';
+import { apiGetUser } from '../../../services/foodie/api';
 
-export const reSignInAction = () => dispatch => {
-  const usersList = getItemFromLS('users');
+export const reSignInAction = () => async dispatch => {
+  const token = localStorage.getItem('foodie_token');
 
-  if (usersList.length === 0) return;
-
-  const userRememberIndex = usersList.findIndex(user => user.remember === true);
-
-  // error
-  if (userRememberIndex === -1) {
+  if (!token) {
     return dispatch({
-      type: RE_SIGN_IN,
-      payload: {
-        user: null,
-        authenticatedUser: false,
-      },
+      type: RE_SIGN_IN_FAILED,
+      payload: { user: null, authenticatedUser: false },
     });
   }
 
-  // success
-  if (userRememberIndex !== -1) {
+  try {
+    // decode username from JWT payload (no secret needed on client)
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const { username } = payload;
+
+    const { data: userData } = await apiGetUser(username);
+
+    const avatarKey = `foodie_avatar_${userData.user_id}`;
+    const avatar = parseInt(localStorage.getItem(avatarKey) || '1', 10);
+
+    const user = { ...userData, avatar, token };
+
     return dispatch({
       type: RE_SIGN_IN,
-      payload: {
-        user: usersList[userRememberIndex],
-        authenticatedUser: true,
-      },
+      payload: { user, authenticatedUser: true },
+    });
+  } catch {
+    localStorage.removeItem('foodie_token');
+
+    return dispatch({
+      type: RE_SIGN_IN_FAILED,
+      payload: { user: null, authenticatedUser: false },
     });
   }
 };

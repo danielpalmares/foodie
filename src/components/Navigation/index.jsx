@@ -13,6 +13,10 @@ import {
   IoPlaySharp,
   IoPersonOutline,
   IoPersonSharp,
+  IoPeopleOutline,
+  IoPeopleSharp,
+  IoEarthOutline,
+  IoEarthSharp,
 } from 'react-icons/io5';
 import { NavContainer, Button } from './styles';
 
@@ -62,6 +66,28 @@ export default function Navigation() {
             <IoPlayOutline size={26} />
           )}
           <span>Tutorials</span>
+        </Button>
+      </Link>
+
+      <Link to="/community">
+        <Button isActive={activePage === 'community'}>
+          {activePage === 'community' ? (
+            <IoEarthSharp size={26} />
+          ) : (
+            <IoEarthOutline size={26} />
+          )}
+          <span>Community</span>
+        </Button>
+      </Link>
+
+      <Link to="/friends">
+        <Button isActive={activePage === 'friends'}>
+          {activePage === 'friends' ? (
+            <IoPeopleSharp size={26} />
+          ) : (
+            <IoPeopleOutline size={26} />
+          )}
+          <span>Friends</span>
         </Button>
       </Link>
 

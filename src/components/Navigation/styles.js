@@ -32,6 +32,10 @@ export const NavContainer = styled.nav`
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
 `;
 
 export const Button = styled.button`

@@ -3,6 +3,7 @@ import React from 'react';
 import Wrapper from '../../components/Wrapper';
 import Header from '../../components/AppHeader';
 import Navigation from '../../components/Navigation';
+import Sidebar from '../../components/Sidebar';
 
 export default function Layout({
   children,
@@ -11,14 +12,17 @@ export default function Layout({
   defaultHeader,
 }) {
   return (
-    <Wrapper>
-      <Header
-        onlyBackButton={onlyBackButton}
-        profileHeader={profileHeader}
-        defaultHeader={defaultHeader}
-      />
-      {children}
-      <Navigation />
-    </Wrapper>
+    <>
+      <Sidebar />
+      <Wrapper>
+        <Header
+          onlyBackButton={onlyBackButton}
+          profileHeader={profileHeader}
+          defaultHeader={defaultHeader}
+        />
+        {children}
+        <Navigation />
+      </Wrapper>
+    </>
   );
 }

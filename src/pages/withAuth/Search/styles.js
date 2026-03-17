@@ -1,32 +1,78 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+export const SearchContainer = styled.div`
+  padding-bottom: 8rem;
+  animation: 0.4s ${fadeIn} ease-out;
+`;
+
+export const SearchHeader = styled.header`
+  margin: 2rem 0 3rem;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: ${props => props.theme.fontSizes.small};
+    color: ${props => props.theme.fontColors.tertiary};
+    margin-bottom: 2rem;
+  }
+`;
 
 export const PaginationContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 4rem 0;
+  padding: 3rem 0;
 `;
 
-export const GridLayout = styled.main`
-  width: 100%;
+export const GridLayout = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
-export const SearchContainer = styled.div`
-  padding-bottom: 6rem;
+export const RecipeCard = styled.div`
+  background: ${props => props.theme.colors.absolute};
+  border-radius: ${props => props.theme.border.radius};
+  border: ${props => props.theme.border.size} solid ${props => props.theme.border.color};
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 
-  header {
-    display: flex;
-    flex-direction: column;
-    margin: 2rem 0;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  }
+`;
 
-    span {
-      font-size: ${props => props.theme.fontSizes.small};
-      font-weight: 600;
-      color: ${props => props.theme.fontColors.tertiary};
-      margin-bottom: 3rem;
-    }
+export const RecipeCardImage = styled.div`
+  width: 100%;
+  padding-top: 70%;
+  background: ${props => props.imageSrc ? `url(${props.imageSrc}) center/cover no-repeat` : props.theme.border.color};
+`;
+
+export const RecipeCardInfo = styled.div`
+  padding: 1.2rem;
+
+  h4 {
+    font-size: ${props => props.theme.fontSizes.small};
+    font-weight: 700;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.4;
   }
 `;

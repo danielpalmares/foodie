@@ -1,156 +1,106 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-export const DirectionButton = styled.button`
-  width: fit-content;
-  margin: 2rem auto;
-
-  padding: 2rem;
-  border: none;
-  outline: none;
-  border-radius: ${props => props.theme.border.radius};
-
-  background: ${props =>
-    `linear-gradient(to right bottom, ${props.theme.colors.tertiary}, ${props.theme.colors.quaternary})`};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-
-  font-family: 'Nunito', sans-serif;
-  font-size: ${props => props.theme.fontSizes.larger};
-  font-weight: 700;
-  color: ${props =>
-    props.theme.mode === 'light'
-      ? props.theme.fontColors.secondary
-      : props.theme.fontColors.primary};
-
-  transition: all 0.2s;
-  cursor: pointer;
-
-  &:active {
-    transform: translateX(0.5rem);
-  }
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 `;
 
 export const Container = styled.div`
-  margin-bottom: 8rem;
+  padding-bottom: 8rem;
+  max-width: 70rem;
+  animation: 0.4s ${fadeIn} ease-out;
+
+  @media (min-width: 768px) {
+    margin: 0 auto;
+  }
 
   section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin: 2rem 0;
+    margin: 2.5rem 0;
   }
+`;
+
+export const RecipeHero = styled.div`
+  margin: 2rem 0 1.5rem;
 `;
 
 export const RecipeTitle = styled.h1`
   font-size: ${props => props.theme.fontSizes.h1};
-  font-weight: 700;
-  line-height: 1.5;
-  color: ${props => props.theme.colors.primary};
+  font-weight: 800;
+  line-height: 1.3;
+  color: ${props => props.theme.fontColors.primary};
+  margin-bottom: 1rem;
 `;
 
-export const RecipePhoto = styled.div`
-  background: url(${props => props.imageSrc});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+export const MetaRow = styled.div`
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+`;
 
-  height: 20rem;
-  position: relative;
+export const MetaBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background: ${props => props.theme.colors.absolute};
+  border: ${props => props.theme.border.size} solid ${props => props.theme.border.color};
+  border-radius: 10rem;
+  font-size: ${props => props.theme.fontSizes.small};
+  font-weight: 600;
+  color: ${props => props.theme.fontColors.tertiary};
 
-  border-radius: ${props => props.theme.border.radius};
-
-  @media screen and (min-width: 425px) {
-    height: 30rem;
+  svg {
+    color: ${props => props.theme.colors.primary};
   }
 `;
 
-export const FavoriteButton = styled.button`
-  outline: none;
-  border: none;
+export const RecipePhoto = styled.div`
+  background: ${props => props.imageSrc ? `url(${props.imageSrc}) center/cover no-repeat` : props.theme.border.color};
+  height: 24rem;
   border-radius: ${props => props.theme.border.radius};
 
-  background: ${props =>
-    `linear-gradient(to right bottom, ${props.theme.colors.secondary},${props.theme.colors.quaternary} )`};
-  color: ${props => (props.isFavorite ? props.theme.colors.red : '#FFF')};
+  @media (min-width: 425px) {
+    height: 32rem;
+  }
 
-  height: 5rem;
-  width: 5rem;
-
-  cursor: pointer;
-  transition: all 0.2s;
-
-  &:active {
-    transform: translateY(0.5rem) scale(0.9);
+  @media (min-width: 768px) {
+    height: 40rem;
   }
 `;
 
 export const InfoContainer = styled.div`
+  margin: 1.5rem 0;
+`;
+
+export const ShareSection = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 2rem;
 
-  #interactions {
-    width: 100%;
-    height: 5rem;
-
+  .share-buttons {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
     gap: 1rem;
-
-    button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #socialButtons {
-      display: flex;
-      height: 100%;
-      margin-right: auto;
-      gap: 1rem;
-    }
-  }
-
-  #information {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    span {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-
-      svg {
-        color: ${props => props.theme.colors.primary};
-      }
-    }
   }
 `;
 
-export const BadgeContainer = styled.div`
+export const FavoriteButton = styled.button`
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  padding: 2rem 0;
-`;
-
-export const Badge = styled.span`
-  background: ${props => props.theme.colors.secondary};
-  padding: 0.5rem 1rem;
-  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: ${props => props.theme.border.size} solid ${props => props.theme.border.color};
   border-radius: ${props => props.theme.border.radius};
-  color: ${props =>
-    props.theme.mode === 'light'
-      ? props.theme.fontColors.secondary
-      : props.theme.fontColors.primary};
+  background: ${props => props.theme.colors.absolute};
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:active {
+    transform: scale(0.9);
+  }
 `;
 
 export const IngredientsHeader = styled.header`
@@ -163,19 +113,12 @@ export const ChangeIngredients = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-
   border-radius: ${props => props.theme.border.radius};
-
   padding: 0.5rem 1rem;
   background: ${props => props.theme.colors.quaternary};
-  color: ${props =>
-    props.theme.mode === 'light'
-      ? props.theme.fontColors.secondary
-      : props.theme.fontColors.primary};
+  color: ${props => props.theme.mode === 'light' ? props.theme.fontColors.secondary : props.theme.fontColors.primary};
 
-  span {
-    white-space: nowrap;
-  }
+  span { white-space: nowrap; }
 
   button {
     padding: 0.5rem;
@@ -189,40 +132,33 @@ export const ChangeIngredients = styled.div`
     color: ${props => props.theme.colors.quaternary};
     background: ${props => props.theme.colors.absolute};
     transition: all 0.2s;
-
-    &:active {
-      transform: translateY(0.25rem) scale(0.9);
-    }
+    &:active { transform: translateY(0.25rem) scale(0.9); }
   }
 
   .inactive {
     cursor: auto;
     opacity: 0.2;
-
-    &:active {
-      transform: none;
-    }
+    &:active { transform: none; }
   }
 `;
 
 export const IngredientsList = styled.ul`
-  width: 100%;
   display: flex;
   flex-direction: column;
-
-  gap: 2rem;
-  margin: 2rem 0;
+  gap: 1.5rem;
+  margin: 1rem 0;
 
   li {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: ${props => props.theme.colors.absolute};
+    border: ${props => props.theme.border.size} solid ${props => props.theme.border.color};
+    border-radius: ${props => props.theme.border.radius};
 
-    span {
-      text-transform: capitalize;
-    }
-
+    span { text-transform: capitalize; }
     strong {
       color: ${props => props.theme.colors.primary};
       text-transform: lowercase;
@@ -232,16 +168,23 @@ export const IngredientsList = styled.ul`
 `;
 
 export const StepContainer = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: ${props => props.theme.colors.absolute};
+  border: ${props => props.theme.border.size} solid ${props => props.theme.border.color};
+  border-radius: ${props => props.theme.border.radius};
 
   span {
-    font-size: ${props => props.theme.fontSizes.larger};
+    font-size: ${props => props.theme.fontSizes.small};
     font-weight: 700;
-    color: ${props => props.theme.colors.secondary};
+    color: ${props => props.theme.colors.primary};
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   p {
     font-size: ${props => props.theme.fontSizes.regular};
-    line-height: 1.5;
+    line-height: 1.6;
+    margin-top: 0.8rem;
   }
 `;

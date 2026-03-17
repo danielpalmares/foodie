@@ -1,58 +1,61 @@
-import { ACCOUNT_SUCCESSFULLY_CREATED, ERROR_CREATING_ACCOUNT } from '../types';
-import { getItemFromLS, setItemFromLS } from '../../../utils';
+import {
+  ACCOUNT_SUCCESSFULLY_CREATED,
+  ERROR_CREATING_ACCOUNT,
+  USER_LOADING,
+} from '../types';
+import { apiCreateUser, apiSignIn, apiGetUser } from '../../../services/foodie/api';
 
-export const signUpAction = newAccount => {
-  const usersArr = getItemFromLS('users');
+export const signUpAction = newAccount => async dispatch => {
+  dispatch({ type: USER_LOADING });
 
-  // if there are users then check if the user has already created an account with this email or username
-  if (usersArr.length !== 0) {
-    // check if some of the data received already exists
-    const isUsernameInLS = usersArr.some(
-      user => user.username === newAccount.username
-    );
-    const isEmailInLS = usersArr.some(user => user.email === newAccount.email);
+  try {
+    // Backend stores gender as integer: 1 = male, 2 = female
+    const genderInt = newAccount.gender === 'female' ? 2 : 1;
 
-    // error messages
-    const usernameErrorMessage =
-      isUsernameInLS && 'An account with this username already exists.';
-    const emailErrorMessage =
-      isEmailInLS && 'An account with this email already exists.';
+    await apiCreateUser({
+      name: newAccount.name,
+      username: newAccount.username,
+      email: newAccount.email,
+      password: newAccount.password,
+      gender: genderInt,
+      profile_photo: '',
+    });
 
-    // if the data already exists then return error
-    if (isUsernameInLS || isEmailInLS) {
-      return {
-        type: ERROR_CREATING_ACCOUNT,
-        payload: {
-          status: '',
-          errorStatus: isUsernameInLS
-            ? usernameErrorMessage
-            : emailErrorMessage,
-          authenticatedUser: false,
-          user: null,
-        },
-      };
-    }
+    // auto sign-in after registration
+    const { data: tokenData } = await apiSignIn({
+      username: newAccount.username,
+      password: newAccount.password,
+    });
+
+    const { token } = tokenData;
+    localStorage.setItem('foodie_token', token);
+
+    const { data: userData } = await apiGetUser(newAccount.username);
+
+    const user = { ...userData, avatar: 1, token };
+    localStorage.setItem(`foodie_avatar_${userData.user_id}`, '1');
+
+    return dispatch({
+      type: ACCOUNT_SUCCESSFULLY_CREATED,
+      payload: {
+        status: 'Account successfully created!',
+        errorStatus: '',
+        authenticatedUser: true,
+        user,
+      },
+    });
+  } catch (err) {
+    const message =
+      err?.response?.data?.message || 'Error creating account, please try again.';
+
+    return dispatch({
+      type: ERROR_CREATING_ACCOUNT,
+      payload: {
+        status: '',
+        errorStatus: message,
+        authenticatedUser: false,
+        user: null,
+      },
+    });
   }
-
-  // if the data is ok then create the account plus ID
-  newAccount.id = usersArr.length + 7;
-  newAccount.favoriteRecipes = [];
-  newAccount.myRecipes = [];
-  newAccount.remember = true;
-  newAccount.avatar = 1;
-  const newUsersArr = usersArr;
-  newUsersArr.push(newAccount);
-
-  // send the data to LS and return payload
-  setItemFromLS('users', newUsersArr);
-
-  return {
-    type: ACCOUNT_SUCCESSFULLY_CREATED,
-    payload: {
-      status: 'Account successfully created!',
-      errorStatus: '',
-      authenticatedUser: true,
-      user: newAccount,
-    },
-  };
 };

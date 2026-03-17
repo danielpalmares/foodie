@@ -12,7 +12,7 @@ export default function App() {
   // redirect user if the account is set to remember
   useEffect(() => {
     dispatch(reSignInAction());
-  });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { getItemFromLS, setItemFromLS } from '../../utils';
+import { setItemFromLS, getItemFromLS } from '../../utils';
 
 import { themeAction } from '../../store/theme';
 import { logOutAction } from '../../store/user/actions';
@@ -36,9 +36,6 @@ export default function AppHeader({
   // setting up switch theme button
   const currentTheme = useSelector(state => state.theme.theme.mode);
 
-  // get account username from redux
-  const { username } = useSelector(state => state.user.user);
-
   const [isBlockScreen, setIsBlockScreen] = useState(false);
 
   function switchTheme() {
@@ -65,7 +62,7 @@ export default function AppHeader({
     setIsBlockScreen(true);
 
     setTimeout(() => {
-      return dispatch(logOutAction(username));
+      return dispatch(logOutAction());
     }, 1 * 1000);
   }
 

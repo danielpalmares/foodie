@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 
 import { useObserver } from '../../../hooks';
-
 import { clearRecipeInformation } from '../../../store/recipeInformation/actions';
 import { activePageAction } from '../../../store/activePage';
-
-import { getItemFromLS } from '../../../utils';
+import {
+  apiGetUserRecipes,
+  apiGetUploadsUrl,
+} from '../../../services/foodie/api';
 
 import {
   instructorObserverOptions,
@@ -15,302 +16,268 @@ import {
 } from '../../../config/Profile';
 
 import Layout from '../../Layout';
-import AppRecipeCard from '../../../components/AppRecipeCard';
 import AppTitle from '../../../components/AppTitle';
 import SpeechBubble from '../../../components/SpeechBubble';
-import NoRecipeCard from '../../../components/NoRecipeCard';
 
-import { IoArrowForwardOutline, IoCloudUploadOutline } from 'react-icons/io5';
+import {
+  IoArrowForwardOutline,
+  IoCloudUploadOutline,
+  IoHeartOutline,
+  IoTrophyOutline,
+  IoTimerOutline,
+  IoRestaurantOutline,
+} from 'react-icons/io5';
 
 import {
   Container,
   Stats,
-  ProgressContainer,
-  Marker,
-  LevelList,
-  BarContainer,
   Avatar,
   UserNameContainer,
-  SwipeDirection,
-  MyRecipesList,
+  RecipesSection,
+  RecipesGrid,
+  RecipeCard,
+  RecipeImage,
+  RecipeCardInfo,
   InstructionsContainer,
+  EmptyState,
+  ProfileHeader,
+  StatCard,
+  SectionHeader,
+  ViewAllLink,
+  StatusBadge,
+  ProgressSection,
+  ProgressLabel,
+  ProgressBarTrack,
+  ProgressBarFill,
 } from './styles';
+
+function getStatus(uploadCount) {
+  if (uploadCount >= 100) return 'Chef';
+  if (uploadCount >= 75) return 'Pro';
+  if (uploadCount >= 50) return 'Aspirant';
+  if (uploadCount >= 25) return 'Amateur';
+  return 'Beginner';
+}
+
+const STATUS_THRESHOLDS = [
+  { label: 'Beginner', min: 0 },
+  { label: 'Amateur', min: 25 },
+  { label: 'Aspirant', min: 50 },
+  { label: 'Pro', min: 75 },
+  { label: 'Chef', min: 100 },
+];
+
+function getProgress(uploadCount) {
+  const idx = STATUS_THRESHOLDS.findIndex(s => s.label === getStatus(uploadCount));
+  const current = STATUS_THRESHOLDS[idx];
+  const next = STATUS_THRESHOLDS[idx + 1];
+  if (!next) return { progress: 100, label: `${uploadCount} uploads`, nextLabel: null };
+  const progress = Math.round(((uploadCount - current.min) / (next.min - current.min)) * 100);
+  return { progress, label: `${uploadCount} / ${next.min} uploads`, nextLabel: next.label };
+}
 
 export default function Profile() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // current user account information
-  const { username, name, gender, avatar } = useSelector(
-    state => state.user.user
+  const { user_id, username, name, gender, avatar } = useSelector(
+    state => state.user.user,
   );
 
-  // users list in the localStorage
-  const usersArr = getItemFromLS('users');
+  const [myRecipes, setMyRecipes] = useState([]);
+  const [userStatus, setUserStatus] = useState('Beginner');
 
-  // current user from localStorage
-  const [currentUser] = usersArr.filter(user => user.username === username);
+  const favorites = JSON.parse(
+    localStorage.getItem(`foodie_favorites_${user_id}`) || '[]',
+  );
 
-  // user's favorite recipes
-  const userFavoriteRecipes =
-    currentUser.favoriteRecipes.length === 0
-      ? null
-      : currentUser.favoriteRecipes;
-
-  // user's uploaded recipes
-  const userUploadedRecipes =
-    currentUser.myRecipes.length === 0 ? null : currentUser.myRecipes;
-
-  // setting up the observer
   const [setRef, visible] = useObserver(instructorObserverOptions);
-
-  // states for stats
-  const [userUploads, setUserUploads] = useState(0);
-  const [userLikes, setUserLikes] = useState(0);
-  const [userStatus, setUserStatus] = useState('');
-
-  // states for the speech bubble
   const [currentInstructor, setCurrentInstructor] = useState(1);
   const [currentText, setCurrentText] = useState(0);
   const [speechBubble, setSpeechBubble] = useState(false);
 
-  // page's initial position
   useEffect(() => window.scrollTo(0, 0), []);
-
-  // set page as active
-  useEffect(() => dispatch(activePageAction('profile')));
-
-  // setting up the stats when the page is rendered
   useEffect(() => {
-    const upLength = currentUser.myRecipes.length;
+    dispatch(activePageAction('profile'));
+  }, [dispatch]);
 
-    const status = () => {
-      let status;
+  useEffect(() => {
+    if (!user_id) return;
+    apiGetUserRecipes(user_id)
+      .then(({ data }) => {
+        setMyRecipes(data || []);
+        setUserStatus(getStatus((data || []).length));
+      })
+      .catch(() => setMyRecipes([]));
+  }, [user_id]);
 
-      if (upLength >= 0 && upLength < 24) status = 'Beginner';
-      if (upLength >= 25 && upLength < 49) status = 'Amateur';
-      if (upLength >= 50 && upLength < 74) status = 'Aspirant';
-      if (upLength >= 75 && upLength < 99) status = 'Pro';
-      if (upLength >= 100) status = 'Chef';
-
-      return status;
-    };
-
-    setUserUploads(upLength);
-    setUserLikes(currentUser.favoriteRecipes.length);
-    setUserStatus(status());
-  }, [currentUser]);
-
-  // setting up the instruction animation
   useEffect(() => {
     if (visible) {
-      // animation starts
-      setTimeout(() => setCurrentInstructor(2), 1 * 1000);
-      setTimeout(() => setCurrentInstructor(3), 2 * 1000);
-      setTimeout(() => setSpeechBubble(true), 2 * 1000);
-
+      setTimeout(() => setCurrentInstructor(2), 1000);
+      setTimeout(() => setCurrentInstructor(3), 2000);
+      setTimeout(() => setSpeechBubble(true), 2000);
       return;
     }
-    // reset
     setCurrentInstructor(1);
     setCurrentText(0);
     setSpeechBubble(false);
   }, [visible]);
 
-  // once the speech bubble is rendered, set which instructor show up when clicking in the speech bubble
   useEffect(() => {
-    currentText === 1 && setCurrentInstructor(4);
-    currentText === 3 && setCurrentInstructor(5);
-    currentText === 4 && setCurrentInstructor(3);
+    if (currentText === 1) setCurrentInstructor(4);
+    if (currentText === 3) setCurrentInstructor(5);
+    if (currentText === 4) setCurrentInstructor(3);
   }, [currentText]);
 
-  // get next speech when clicking in the speech bubble
   function handleSpeechBubble() {
     speechTexts.length > currentText + 1
-      ? setCurrentText(currentText + 1) // next speech
-      : setSpeechBubble(false); // make the speech bubble disappear when there are no speech
-
-    return;
+      ? setCurrentText(currentText + 1)
+      : setSpeechBubble(false);
   }
 
-  // show recipe information in the recipe page
-  function handleMyRecipe(id) {
-    dispatch(clearRecipeInformation());
+  const baseUrl = apiGetUploadsUrl().replace('/uploads', '');
 
+  function handleMyRecipe(recipeId) {
+    dispatch(clearRecipeInformation());
     return history.push({
       pathname: '/recipe',
-      search: `?forkID=${id}`,
+      search: `?foodieId=${recipeId}`,
     });
   }
 
-  // show recipe information in the recipe page
   function handleFavoriteRecipe(id) {
     dispatch(clearRecipeInformation());
-
-    return history.push({
-      pathname: '/recipe',
-      search: `?id=${id}`,
-    });
+    return history.push({ pathname: '/recipe', search: `?foodieId=${id}` });
   }
 
   return (
     <Layout profileHeader>
       <Container>
-        <header>
+        <ProfileHeader>
           <Avatar
-            src={`${process.env.PUBLIC_URL}avatars/${
-              gender === 'male' ? 'man' : 'woman'
-            }-${avatar}.png`}
+            src={`${process.env.PUBLIC_URL}avatars/${gender === 'male' || gender === 1 ? 'man' : 'woman'}-${avatar}.png`}
             alt="My Avatar"
           />
           <UserNameContainer>
-            <h3>{name}</h3>
-            <span>{`@${username}`}</span>
+            <h2>{name}</h2>
+            <span>@{username}</span>
+            <Link to="/avatars" className="change-avatar">
+              Change avatar
+            </Link>
           </UserNameContainer>
-        </header>
+        </ProfileHeader>
 
-        <section>
-          <Stats>
-            <ul>
-              <li>
-                <p>Uploads</p>
-                <span>{userUploads}</span>
-              </li>
-              <li>
-                <p>Liked</p>
-                <span>{userLikes}</span>
-              </li>
-              <li>
-                <p>Status</p>
-                <span>{userStatus}</span>
-              </li>
-            </ul>
-          </Stats>
-        </section>
+        <Stats>
+          <StatCard>
+            <IoCloudUploadOutline size={22} />
+            <strong>{myRecipes.length}</strong>
+            <span>Uploads</span>
+          </StatCard>
+          <StatCard>
+            <IoHeartOutline size={22} />
+            <strong>{favorites.length}</strong>
+            <span>Favorites</span>
+          </StatCard>
+          <StatCard>
+            <IoTrophyOutline size={22} />
+            <StatusBadge>{userStatus}</StatusBadge>
+            <span>Status</span>
+          </StatCard>
+        </Stats>
 
-        <section>
-          <ProgressContainer>
-            <section>
-              <BarContainer>
-                <img
-                  src={`${process.env.PUBLIC_URL}images/timelineBar.png`}
-                  alt="Progress Bar"
-                />
-                <Marker
-                  src={`${process.env.PUBLIC_URL}avatars/${
-                    gender === 'male' ? 'man' : 'woman'
-                  }-${avatar}.png`}
-                  position={currentUser.myRecipes.length}
-                  alt="Marker"
-                />
-                <ul>
-                  <li id="beginner-bar"></li>
-                  <li id="amateur-bar"></li>
-                  <li id="aspirant-bar"></li>
-                  <li id="pro-bar"></li>
-                  <li id="chef-bar"></li>
-                </ul>
-              </BarContainer>
+        {(() => {
+          const { progress, label, nextLabel } = getProgress(myRecipes.length);
+          return (
+            <ProgressSection>
+              <ProgressLabel>
+                <span>{nextLabel ? `Progress to ${nextLabel}` : 'Max level reached 🏆'}</span>
+                <strong>{label}</strong>
+              </ProgressLabel>
+              <ProgressBarTrack>
+                <ProgressBarFill progress={progress} />
+              </ProgressBarTrack>
+            </ProgressSection>
+          );
+        })()}
 
-              <LevelList>
-                <li id="beginner">
-                  Beginner
-                  <span>
-                    0 <IoCloudUploadOutline size={18} />
-                  </span>
-                </li>
+        <RecipesSection>
+          <SectionHeader>
+            <AppTitle>
+              <IoRestaurantOutline
+                size={20}
+                style={{ verticalAlign: 'middle', marginRight: '0.5rem' }}
+              />
+              My Recipes
+            </AppTitle>
+            {myRecipes.length > 0 && (
+              <span className="count">{myRecipes.length} recipes</span>
+            )}
+          </SectionHeader>
 
-                <li id="amateur">
-                  Amateur
-                  <span>
-                    25 <IoCloudUploadOutline size={18} />
-                  </span>
-                </li>
-                <li id="aspirant">
-                  Aspirant
-                  <span>
-                    50 <IoCloudUploadOutline size={18} />
-                  </span>
-                </li>
-                <li id="pro">
-                  Pro
-                  <span>
-                    75 <IoCloudUploadOutline size={18} />
-                  </span>
-                </li>
-                <li id="chef">
-                  Chef
-                  <span>
-                    100 <IoCloudUploadOutline size={18} />
-                  </span>
-                </li>
-              </LevelList>
-            </section>
-          </ProgressContainer>
+          {myRecipes.length === 0 && (
+            <EmptyState>
+              You haven't uploaded any recipes yet.
+              <Link to="/upload">
+                Upload your first recipe <IoArrowForwardOutline size={14} />
+              </Link>
+            </EmptyState>
+          )}
 
-          <SwipeDirection>
-            <span>
-              Swipe to see your journey <IoArrowForwardOutline size={16} />
-            </span>
-          </SwipeDirection>
-        </section>
-
-        <section>
-          <AppTitle>My recipes</AppTitle>
-          <MyRecipesList>
-            {userUploadedRecipes &&
-              userUploadedRecipes.map(recipe => {
+          {myRecipes.length > 0 && (
+            <RecipesGrid>
+              {myRecipes.map(recipe => {
+                const imgUrl = recipe.image?.url
+                  ? `${baseUrl}${recipe.image.url}`
+                  : null;
                 return (
-                  <AppRecipeCard
-                    key={recipe.id}
-                    title={recipe.title}
-                    imageSrc={recipe.image}
-                    handleRecipe={() => handleMyRecipe(recipe.id)}
-                  />
+                  <RecipeCard
+                    key={recipe.recipe_id}
+                    onClick={() => handleMyRecipe(recipe.recipe_id)}
+                  >
+                    <RecipeImage imageSrc={imgUrl} />
+                    <RecipeCardInfo>
+                      <h4>{recipe.title}</h4>
+                      {recipe.ready_in_minutes && (
+                        <span>
+                          <IoTimerOutline size={12} /> {recipe.ready_in_minutes}{' '}
+                          min
+                        </span>
+                      )}
+                    </RecipeCardInfo>
+                  </RecipeCard>
                 );
               })}
-            {!userUploadedRecipes && (
-              <NoRecipeCard message="You haven't uploaded any recipe yet" />
-            )}
-          </MyRecipesList>
-
-          {userUploadedRecipes && (
-            <SwipeDirection>
-              <span>
-                Swipe to see your recipes <IoArrowForwardOutline size={16} />
-              </span>
-            </SwipeDirection>
+            </RecipesGrid>
           )}
-        </section>
+        </RecipesSection>
 
-        <section>
-          <AppTitle>My favorite recipes</AppTitle>
-          <MyRecipesList>
-            {userFavoriteRecipes &&
-              userFavoriteRecipes.map(recipe => {
-                return (
-                  <AppRecipeCard
-                    key={recipe.id}
-                    title={recipe.title}
-                    imageSrc={recipe.image}
-                    handleRecipe={() => handleFavoriteRecipe(recipe.id)}
-                  />
-                );
-              })}
-            {!userFavoriteRecipes && (
-              <NoRecipeCard message="You haven't favorited any recipe yet" />
-            )}
-          </MyRecipesList>
+        {favorites.length > 0 && (
+          <RecipesSection>
+            <SectionHeader>
+              <AppTitle>
+                <IoHeartOutline
+                  size={20}
+                  style={{ verticalAlign: 'middle', marginRight: '0.5rem' }}
+                />
+                Favorites
+              </AppTitle>
+            </SectionHeader>
 
-          {userFavoriteRecipes && (
-            <SwipeDirection>
-              <span>
-                Swipe to see your favorite recipes{' '}
-                <IoArrowForwardOutline size={16} />
-              </span>
-            </SwipeDirection>
-          )}
-        </section>
+            <RecipesGrid>
+              {favorites.map(recipe => (
+                <RecipeCard
+                  key={recipe.id}
+                  onClick={() => handleFavoriteRecipe(recipe.id)}
+                >
+                  <RecipeImage imageSrc={recipe.image} />
+                  <RecipeCardInfo>
+                    <h4>{recipe.title}</h4>
+                  </RecipeCardInfo>
+                </RecipeCard>
+              ))}
+            </RecipesGrid>
+          </RecipesSection>
+        )}
 
         <InstructionsContainer>
           <Link to="/avatars">
@@ -321,10 +288,7 @@ export default function Profile() {
             />
           </Link>
 
-          <SpeechBubble
-            active={speechBubble}
-            handleClick={() => handleSpeechBubble()}
-          >
+          <SpeechBubble active={speechBubble} handleClick={handleSpeechBubble}>
             {speechTexts[currentText]}
           </SpeechBubble>
         </InstructionsContainer>

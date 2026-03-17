@@ -111,8 +111,6 @@ export default function SignUpForm({ handleGetData }) {
         </label>
       </GenderContainer>
 
-      <Warning>Data are stored in the local storage</Warning>
-
       <SubmitButton>Sign up</SubmitButton>
     </Form>
   );

@@ -8,5 +8,8 @@ export const ERROR_WRONG_ACCOUNT_DATA = 'ERROR_WRONG_ACCOUNT_DATA';
 export const LOG_OUT_USER = 'LOG_OUT_USER';
 
 export const RE_SIGN_IN = 'RE_SIGN_IN';
+export const RE_SIGN_IN_FAILED = 'RE_SIGN_IN_FAILED';
 
 export const AVATAR_CHANGED = 'AVATAR_CHANGED';
+
+export const USER_LOADING = 'USER_LOADING';

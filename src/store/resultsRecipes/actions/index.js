@@ -1,4 +1,4 @@
-import { apiComplexSearch } from '../../../services/spoonacular/api';
+import { apiSearchRecipes } from '../../../services/foodie/api';
 import {
   FOUND_RESULTS,
   RESULTS_NOT_FOUND,
@@ -8,70 +8,39 @@ import {
 export function clearResultsRecipesAction() {
   return {
     type: CLEAR_RESULTS_RECIPES,
-    payload: {
-      recipes: null,
-    },
+    payload: { recipes: null },
   };
 }
 
-export async function resultsRecipesAction(search) {
-  try {
-    const response = await apiComplexSearch.get(`complexSearch${search}`);
-    const { data, status } = response;
+export function resultsRecipesAction(search) {
+  return async dispatch => {
+    try {
+      // Extract query from search string like "?query=pizza" or "?type=dessert"
+      const params = new URLSearchParams(search);
+      const query = params.get('query') || params.get('type') || params.get('cuisine') || params.get('maxReadyTime') || '';
 
-    if (status !== 200) throw new Error(status);
+      const { data } = await apiSearchRecipes(query);
 
-    const recipes = data.results;
-
-    const newRecipes = recipes.map(rec => {
-      const instructions = rec.analyzedInstructions.map(ins => {
-        return {
-          steps: ins.steps.map(stp => {
-            return {
-              number: stp.number,
-              step: stp.step,
-            };
-          }),
-        };
-      });
-
-      const ingredients = rec.extendedIngredients.map(ing => {
-        return {
-          name: ing.originalName,
-          amount: ing.amount,
-          unit: ing.unit,
-        };
-      });
-
-      return {
-        id: rec.id,
+      const recipes = (Array.isArray(data) ? data : []).map(rec => ({
+        id: rec.recipe_id,
         title: rec.title,
-        image: rec.image,
+        image: rec.image?.url || null,
         servings: rec.servings,
-        readyInMinutes: rec.readyInMinutes,
-        instructions: instructions,
-        ingredients: ingredients,
-        likes: rec.aggregateLikes,
-        dairyFree: rec.dairyFree,
-        glutenFree: rec.glutenFree,
-        healthScore: rec.healthScore,
-      };
-    });
+        readyInMinutes: rec.ready_in_minutes,
+        ingredients: rec.ingredients || [],
+        instructions: rec.instructions || [],
+        likes: 0,
+      }));
 
-    return {
-      type: FOUND_RESULTS,
-      payload: {
-        status: status,
-        recipes: newRecipes,
-      },
-    };
-  } catch (err) {
-    return {
-      type: RESULTS_NOT_FOUND,
-      payload: {
-        status: err,
-        recipes: null,
-      },
-    };
-  }
+      return dispatch({
+        type: FOUND_RESULTS,
+        payload: { status: 200, recipes },
+      });
+    } catch (err) {
+      return dispatch({
+        type: RESULTS_NOT_FOUND,
+        payload: { status: err, recipes: null },
+      });
+    }
+  };
 }

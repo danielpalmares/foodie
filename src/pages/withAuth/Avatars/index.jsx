@@ -6,16 +6,14 @@ import RecipesGrid from '../../../components/RecipesGrid';
 
 import { Container } from './styles';
 
-import { getItemFromLS, setItemFromLS } from '../../../utils';
-
 import { changeAvatarAction } from '../../../store/user/actions';
 
 export default function Avatars() {
   const dispatch = useDispatch();
   const avatarsCount = Array.from(Array(7).keys());
 
-  const { gender, avatar, username } = useSelector(state => state.user.user);
-  const avatarGender = gender === 'male' ? 'man' : 'woman';
+  const { gender, avatar, user_id } = useSelector(state => state.user.user);
+  const avatarGender = (gender === 'male' || gender === 1) ? 'man' : 'woman';
   const [activeAvatar, setActiveAvatar] = useState();
 
   useEffect(() => window.scrollTo(0, 0), []);
@@ -24,14 +22,7 @@ export default function Avatars() {
 
   function handleAvatar(id) {
     setActiveAvatar(id);
-
-    const usersList = getItemFromLS('users');
-    usersList.map(user => {
-      return user.username === username ? (user.avatar = id) : user;
-    });
-    setItemFromLS('users', usersList);
-
-    return dispatch(changeAvatarAction(id));
+    return dispatch(changeAvatarAction(id, user_id));
   }
 
   return (

@@ -12,6 +12,9 @@ import Profile from '../pages/withAuth/Profile';
 import Results from '../pages/withAuth/Results';
 import Recipe from '../pages/withAuth/Recipe';
 import Avatars from '../pages/withAuth/Avatars';
+import Friends from '../pages/withAuth/Friends';
+import Community from '../pages/withAuth/Community';
+import UserProfile from '../pages/withAuth/UserProfile';
 import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
@@ -44,6 +47,9 @@ export default function AppRoutes() {
             <Route path="/results">{authenticatedUser && <Results />}</Route>
             <Route path="/recipe">{authenticatedUser && <Recipe />}</Route>
             <Route path="/avatars">{authenticatedUser && <Avatars />}</Route>
+            <Route path="/friends">{authenticatedUser && <Friends />}</Route>
+            <Route path="/community">{authenticatedUser && <Community />}</Route>
+            <Route path="/user/:username">{authenticatedUser && <UserProfile />}</Route>
           </Switch>
         )}
 

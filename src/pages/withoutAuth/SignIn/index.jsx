@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,26 +15,15 @@ import BlockLoadingScreen from '../../../components/BlockLoadingScreen';
 export default function SignIn() {
   const dispatch = useDispatch();
 
-  const { signInErrorStatus } = useSelector(state => state.user);
-
-  const [isBlockScreen, setIsBlockScreen] = useState(false);
+  const { signInErrorStatus, loading } = useSelector(state => state.user);
 
   function handleForm(data) {
-    setIsBlockScreen(true);
-    setTimeout(() => {
-      return dispatch(signInAction(data));
-    }, 1 * 1000);
+    dispatch(signInAction(data));
   }
-
-  useEffect(() => {
-    if (!signInErrorStatus) return;
-
-    setIsBlockScreen(false);
-  }, [signInErrorStatus]);
 
   return (
     <SignInContainer>
-      {isBlockScreen && <BlockLoadingScreen />}
+      {loading && <BlockLoadingScreen />}
       <LandingHeader />
 
       <Directions>

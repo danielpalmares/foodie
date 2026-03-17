@@ -6,6 +6,10 @@ export const Header = styled.header`
   justify-content: space-between;
   padding: 1rem 0;
 
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
+
   button {
     display: flex;
     justify-content: center;

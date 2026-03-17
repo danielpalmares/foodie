@@ -1,71 +1,52 @@
 import {
   USER_SUCCESSFULLY_SIGNED_IN,
-  ERROR_NO_USERS_FOUND,
   ERROR_WRONG_ACCOUNT_DATA,
+  USER_LOADING,
 } from '../types';
-import { getItemFromLS, setItemFromLS } from '../../../utils';
+import { apiSignIn, apiGetUser } from '../../../services/foodie/api';
 
 export function signInAction(account) {
-  const usersArr = getItemFromLS('users');
+  return async dispatch => {
+    dispatch({ type: USER_LOADING });
 
-  // if there is no user in the LS then return payload error
-  if (usersArr.length === 0) {
-    return {
-      type: ERROR_NO_USERS_FOUND,
-      payload: {
-        status: '',
-        errorStatus: 'No users found, please create an account.',
-        authenticatedUser: false,
-        user: null,
-      },
-    };
-  }
+    try {
+      const { data: tokenData } = await apiSignIn({
+        username: account.username,
+        password: account.password,
+      });
 
-  // if there is one user or more in the LS then check the data and do authentication
-  if (usersArr.length !== 0) {
-    // check if the data exists
-    const username = usersArr.some(user => user.username === account.username);
-    const password = usersArr.some(user => user.password === account.password);
+      const { token } = tokenData;
+      localStorage.setItem('foodie_token', token);
 
-    // find the account index
-    const userAccountIndex =
-      password &&
-      usersArr.findIndex(accInLS => accInLS.password === account.password);
+      const { data: userData } = await apiGetUser(account.username);
 
-    // error messages
-    const usernameErrorMessage =
-      !username && 'Wrong username, please try again.';
-    const passwordErrorMessage =
-      !password && 'Wrong password, please try again.';
+      const avatarKey = `foodie_avatar_${userData.user_id}`;
+      const avatar = parseInt(localStorage.getItem(avatarKey) || '1', 10);
 
-    // if the account data is wrong then return payload error
-    if (!username || !password) {
-      return {
-        type: ERROR_WRONG_ACCOUNT_DATA,
-        payload: {
-          status: '',
-          errorStatus: !username ? usernameErrorMessage : passwordErrorMessage,
-          authenticatedUser: false,
-          user: null,
-        },
-      };
-    }
+      const user = { ...userData, avatar, token };
 
-    // set remember account to true
-    usersArr[userAccountIndex].remember = true;
-    setItemFromLS('users', usersArr);
-
-    // if the account data is ok then return payload success
-    if (username && password) {
-      return {
+      return dispatch({
         type: USER_SUCCESSFULLY_SIGNED_IN,
         payload: {
           status: 'User signed in successfully!',
           errorStatus: '',
           authenticatedUser: true,
-          user: usersArr[userAccountIndex],
+          user,
         },
-      };
+      });
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || 'Wrong credentials, please try again.';
+
+      return dispatch({
+        type: ERROR_WRONG_ACCOUNT_DATA,
+        payload: {
+          status: '',
+          errorStatus: message,
+          authenticatedUser: false,
+          user: null,
+        },
+      });
     }
-  }
+  };
 }
