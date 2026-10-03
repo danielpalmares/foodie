@@ -250,17 +250,19 @@ export const ProgressLabel = styled.div`
 export const ProgressBarTrack = styled.div`
   width: 100%;
   height: 0.6rem;
-  background: ${props => props.theme.border.color};
   border-radius: 10rem;
   overflow: hidden;
+  background: ${props => props.theme.border.color};
 `;
 
 export const ProgressBarFill = styled.div`
   height: 100%;
   width: ${props => props.progress}%;
-  background: ${props => props.theme.colors.primary};
   border-radius: 10rem;
   transition: width 0.6s ease;
+  background-image: url(${process.env.PUBLIC_URL + 'images/timelineBar.png'});
+  background-size: cover;
+  background-position: left center;
 `;
 
 export const InstructionsContainer = styled.div`

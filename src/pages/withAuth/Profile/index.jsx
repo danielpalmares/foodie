@@ -68,12 +68,21 @@ const STATUS_THRESHOLDS = [
 ];
 
 function getProgress(uploadCount) {
-  const idx = STATUS_THRESHOLDS.findIndex(s => s.label === getStatus(uploadCount));
+  const idx = STATUS_THRESHOLDS.findIndex(
+    s => s.label === getStatus(uploadCount),
+  );
   const current = STATUS_THRESHOLDS[idx];
   const next = STATUS_THRESHOLDS[idx + 1];
-  if (!next) return { progress: 100, label: `${uploadCount} uploads`, nextLabel: null };
-  const progress = Math.round(((uploadCount - current.min) / (next.min - current.min)) * 100);
-  return { progress, label: `${uploadCount} / ${next.min} uploads`, nextLabel: next.label };
+  if (!next)
+    return { progress: 100, label: `${uploadCount} uploads`, nextLabel: null };
+  const progress = Math.round(
+    ((uploadCount - current.min) / (next.min - current.min)) * 100,
+  );
+  return {
+    progress,
+    label: `${uploadCount} / ${next.min} uploads`,
+    nextLabel: next.label,
+  };
 }
 
 export default function Profile() {
@@ -190,7 +199,11 @@ export default function Profile() {
           return (
             <ProgressSection>
               <ProgressLabel>
-                <span>{nextLabel ? `Progress to ${nextLabel}` : 'Max level reached 🏆'}</span>
+                <span>
+                  {nextLabel
+                    ? `Progress to ${nextLabel}`
+                    : 'Max level reached 🏆'}
+                </span>
                 <strong>{label}</strong>
               </ProgressLabel>
               <ProgressBarTrack>
